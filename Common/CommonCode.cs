@@ -1,12 +1,14 @@
 ﻿using BepInEx.Logging;
 using Harmony;
 using System;
+using UnityEngine;
 using Logger = BepInEx.Logger;
 
 namespace Common
 {
     internal class CC
     {
+        internal static bool InsideStudio => Application.productName == "CharaStudio";
         internal static void Log(string text) => Logger.Log(LogLevel.Info, text);
         internal static void Log(LogLevel level, string text) => Logger.Log(level, text);
         internal static void Log(object text) => Logger.Log(LogLevel.Info, text?.ToString());

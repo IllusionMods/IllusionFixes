@@ -15,12 +15,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ListFix", "KK_Fix_Li
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_PersonalityCorrector", "KK_Fix_PersonalityCorrector\KK_Fix_PersonalityCorrector.csproj", "{A714B46D-95A3-4EB0-A635-C253BBAD0CBA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_SettingsFix", "KK_Fix_SettingsFix\KK_Fix_SettingsFix.csproj", "{6CA88723-CA91-49C9-9FD1-C6E58EFA5529}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Common\Common.projitems*{1c3ad6a8-0e6a-443b-9229-0dd4528d73a6}*SharedItemsImports = 4
 		Common\Common.projitems*{340a3d13-dee0-43c0-8410-ec84c2873f95}*SharedItemsImports = 13
 		Common\Common.projitems*{3e1acc1f-fdcc-49a9-9711-c344ab550fc0}*SharedItemsImports = 4
 		Common\Common.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
+		Common\Common.projitems*{6ca88723-ca91-49c9-9fd1-c6e58efa5529}*SharedItemsImports = 4
 		Common\Common.projitems*{a714b46d-95a3-4eb0-a635-c253bbad0cba}*SharedItemsImports = 4
 		Common\Common.projitems*{e0eebf3e-cbf1-4929-a6c8-403767faaa8d}*SharedItemsImports = 4
 	EndGlobalSection
@@ -49,6 +52,10 @@ Global
 		{A714B46D-95A3-4EB0-A635-C253BBAD0CBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A714B46D-95A3-4EB0-A635-C253BBAD0CBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A714B46D-95A3-4EB0-A635-C253BBAD0CBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CA88723-CA91-49C9-9FD1-C6E58EFA5529}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CA88723-CA91-49C9-9FD1-C6E58EFA5529}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CA88723-CA91-49C9-9FD1-C6E58EFA5529}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CA88723-CA91-49C9-9FD1-C6E58EFA5529}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
