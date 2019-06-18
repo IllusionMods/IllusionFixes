@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PersonalityCorrector.cs" />
+    <Compile Include="PersonalityCorrector.Hooks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
