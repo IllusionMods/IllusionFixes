@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29009.5
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common", "Common\Common.shproj", "{340A3D13-DEE0-43C0-8410-EC84C2873F95}"
 EndProject
@@ -21,9 +21,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_MakerOptimization", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ShowerAccessories", "KK_Fix_ShowerAccessories\KK_Fix_ShowerAccessories.csproj", "{ABB91777-7231-47F7-BF4D-9144CC7B1764}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ResourceUnloadOptimizations", "KK_Fix_ResourceUnloadOptimizations\KK_Fix_ResourceUnloadOptimizations.csproj", "{2C6D522C-2830-4CCF-8F49-3E0AA36A273E}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Common\Common.projitems*{1c3ad6a8-0e6a-443b-9229-0dd4528d73a6}*SharedItemsImports = 4
+		Common\Common.projitems*{2c6d522c-2830-4ccf-8f49-3e0aa36a273e}*SharedItemsImports = 4
 		Common\Common.projitems*{340a3d13-dee0-43c0-8410-ec84c2873f95}*SharedItemsImports = 13
 		Common\Common.projitems*{3e1acc1f-fdcc-49a9-9711-c344ab550fc0}*SharedItemsImports = 4
 		Common\Common.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
@@ -70,6 +73,10 @@ Global
 		{ABB91777-7231-47F7-BF4D-9144CC7B1764}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABB91777-7231-47F7-BF4D-9144CC7B1764}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABB91777-7231-47F7-BF4D-9144CC7B1764}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C6D522C-2830-4CCF-8F49-3E0AA36A273E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C6D522C-2830-4CCF-8F49-3E0AA36A273E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C6D522C-2830-4CCF-8F49-3E0AA36A273E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C6D522C-2830-4CCF-8F49-3E0AA36A273E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
