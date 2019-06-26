@@ -13,9 +13,20 @@ namespace KK_Fix_ResourceUnloadOptimizations
         public const string GUID = "KK_Fix_ResourceUnloadOptimizations";
         public const string PluginName = "Resource Unload Optimizations";
 
+        private static ResourceUnloadOptimizations _instance;
+
         private void Awake()
         {
+            _instance = this;
+
             Hooks.InstallHooks();
+        }
+
+        // Needs to be an instance method for Invoke to work
+        private void RunGarbageCollect()
+        {
+            // Use different overload since we disable the parameterless one
+            GC.Collect(GC.MaxGeneration);
         }
 
         private static class Hooks
@@ -32,6 +43,19 @@ namespace KK_Fix_ResourceUnloadOptimizations
                 detour.Apply();
 
                 _originalUnload = detour.GenerateTrampoline<Func<AsyncOperation>>();
+
+                HarmonyInstance.Create(GUID).PatchAll(typeof(Hooks));
+            }
+
+            [HarmonyPrefix]
+            [HarmonyPatch(typeof(GC), nameof(GC.Collect), new Type[0])]
+            public static bool GCCollectHook()
+            {
+                // Throttle down the calls
+                _instance.CancelInvoke(nameof(RunGarbageCollect));
+                _instance.Invoke(nameof(RunGarbageCollect), 3f);
+                // Disable the original method, Invoke will call it later
+                return false;
             }
 
             // Replacement methods needs to be inside a static class to be used in NativeDetour
