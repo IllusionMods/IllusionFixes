@@ -1,44 +1,47 @@
 ﻿using System;
 using BepInEx;
-using BepInEx.Logging;
 using Common;
+using Harmony;
 using MonoMod.RuntimeDetour;
 using UnityEngine;
-using Logger = BepInEx.Logger;
 
 namespace KK_Fix_ResourceUnloadOptimizations
 {
-    /// <summary>
-    /// Changes any invalid personalities to the "Pure" personality to prevent the game from breaking when adding them to the class
-    /// </summary>
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class ResourceUnloadOptimizations : BaseUnityPlugin
     {
         public const string GUID = "KK_Fix_ResourceUnloadOptimizations";
         public const string PluginName = "Resource Unload Optimizations";
 
-		private static Func<AsyncOperation> originalUnload;
-		private static DateTime LastUnload = DateTime.Now;
-
         private void Awake()
         {
-			var detour = new NativeDetour(typeof(Resources).GetMethod(nameof(Resources.UnloadUnusedAssets)),
-				typeof(ResourceUnloadOptimizations).GetMethod(nameof(RunUnloadUnusedAssets)));
-
-			detour.Apply();
-			originalUnload = detour.GenerateTrampoline<Func<AsyncOperation>>();
+            Hooks.InstallHooks();
         }
 
-        private static AsyncOperation RunUnloadUnusedAssets()
+        private static class Hooks
         {
-			if ((DateTime.Now - LastUnload).TotalSeconds >= 5)
-			{
-				LastUnload = DateTime.Now;
-				Logger.Log(LogLevel.Info, "RunUnloadUnusedAssets");
-				return originalUnload();
-			}
+            private static AsyncOperation _currentOperation;
+            private static Func<AsyncOperation> _originalUnload;
 
-			return null;
-		}
+            public static void InstallHooks()
+            {
+                var target = AccessTools.Method(typeof(Resources), nameof(Resources.UnloadUnusedAssets));
+                var replacement = AccessTools.Method(typeof(Hooks), nameof(UnloadUnusedAssetsHook));
+
+                var detour = new NativeDetour(target, replacement);
+                detour.Apply();
+
+                _originalUnload = detour.GenerateTrampoline<Func<AsyncOperation>>();
+            }
+
+            // Replacement methods needs to be inside a static class to be used in NativeDetour
+            private static AsyncOperation UnloadUnusedAssetsHook()
+            {
+                if (_currentOperation == null || _currentOperation.isDone)
+                    _currentOperation = _originalUnload();
+
+                return _currentOperation;
+            }
+        }
     }
 }
