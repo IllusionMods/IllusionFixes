@@ -1,6 +1,7 @@
 ﻿using BepInEx.Logging;
 using Harmony;
 using System;
+using System.Collections;
 using UnityEngine;
 using Logger = BepInEx.Logger;
 
@@ -14,6 +15,30 @@ namespace Common
         internal static void Log(LogLevel level, string text) => Logger.Log(level, text);
         internal static void Log(object text) => Logger.Log(LogLevel.Info, text?.ToString());
         internal static void Log(LogLevel level, object text) => Logger.Log(level, text?.ToString());
+    }
+
+    internal static class Utils
+    {
+        /// <summary>
+        /// Create a coroutine that calls each of the action delegates on consecutive frames
+        /// (yield return null is returned after each one of the actions)
+        /// </summary>
+        public static IEnumerator CreateCoroutine(params Action[] actions)
+        {
+            foreach (var action in actions)
+            {
+                action();
+                yield return null;
+            }
+        }
+
+        /// <summary>
+        /// Create a coroutine that calls each of the supplied coroutines in order
+        /// </summary>
+        public static IEnumerator ComposeCoroutine(params IEnumerator[] coroutine)
+        {
+            return coroutine.GetEnumerator();
+        }
     }
 
     internal static partial class AccessoriesApi
