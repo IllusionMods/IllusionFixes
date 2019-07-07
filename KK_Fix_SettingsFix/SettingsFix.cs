@@ -36,7 +36,7 @@ namespace KK_Fix_SettingsFix
         [HarmonyPostfix, HarmonyPatch(typeof(Manager.Config), "Start")]
         public static void ManagerConfigStart()
         {
-            if (CC.InsideStudio)
+            if (CommonCode.InsideStudio)
             {
                 var xmlr = typeof(InitScene).GetMethod("xmlRead", BindingFlags.NonPublic | BindingFlags.Instance);
                 var initScene = instance.gameObject.AddComponent<InitScene>();

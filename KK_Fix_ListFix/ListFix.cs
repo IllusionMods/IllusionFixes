@@ -12,7 +12,7 @@ namespace KK_Fix_ListFix
 
         private void Main()
         {
-            if (!CC.InsideKoikatsuParty)
+            if (!CommonCode.InsideKoikatsuParty)
                 HarmonyInstance.Create(GUID).PatchAll(typeof(Hooks));
         }
     }

@@ -15,7 +15,7 @@ namespace KK_Fix_PersonalityCorrector
 
         private void Main()
         {
-            if (!CC.InsideKoikatsuParty)
+            if (!CommonCode.InsideKoikatsuParty)
                 HarmonyInstance.Create(GUID).PatchAll(typeof(Hooks));
         }
     }

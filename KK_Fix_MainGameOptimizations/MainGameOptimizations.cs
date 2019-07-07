@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reflection.Emit;
 using ActionGame.Chara;
 using BepInEx;
 using Common;
 using Harmony;
 using Manager;
+using UnityEngine;
 
 namespace KK_Fix_MainGameOptimizations
 {
@@ -15,22 +17,33 @@ namespace KK_Fix_MainGameOptimizations
         public const string GUID = "KK_Fix_MainGameOptimizations";
         public const string PluginName = "Main Game Optimizations";
 
+        [DisplayName("Async clothes loading")]
+        [Description("Spread loading of clothes in school roam mode over multiple frames. Greatly reduces " +
+                     "seemingly random stutters when characters change clothes somewhere in the world.\n\n" +
+                     "Warning: In rare cases can cause some visual glitches like 2 coordinates loaded at once.")]
+        public static ConfigWrapper<bool> AsyncClothesLoading { get; private set; }
+
+        [DisplayName("Preload characters on initial load")]
+        [Description("Forces all characters to load during initial load into school mode. Slightly longer loading" +
+                     "time but eliminates large stutters when unseen characters enter current map.")]
+        public static ConfigWrapper<bool> PreloadCharacters { get; private set; }
+
         private void Awake()
         {
+            AsyncClothesLoading = new ConfigWrapper<bool>(nameof(AsyncClothesLoading), this, true);
+            PreloadCharacters = new ConfigWrapper<bool>(nameof(PreloadCharacters), this, true);
+
             HarmonyInstance.Create(GUID).PatchAll(typeof(MainGameOptimizations));
         }
 
         /// <summary>
-        /// If characters change clothes anywhere, new clothes get loaded synchronously 
-        /// by default, causing seemingly random stutter.
-        /// Use async loading instead if characters are not visible to mitigate this 
-        /// (can't use async load if character is visible because of visual bugs)
+        /// If characters change clothes anywhere, new clothes get loaded synchronously by default, causing 
+        /// seemingly random stutter. Use async loading instead to mitigate this
         /// </summary>
         [HarmonyPrefix, HarmonyPatch(typeof(NPC), nameof(NPC.SynchroCoordinate))]
         public static bool SynchroCoordinateOverride(NPC __instance, bool isRemove)
         {
-            // Fall back to original loading mode when character is visible to avoid visual bugs
-            if (__instance.isActive)
+            if (!AsyncClothesLoading.Value)
                 return true;
 
             // If not visible, do async loading of the clothes instead, replaces the original method
@@ -42,17 +55,38 @@ namespace KK_Fix_MainGameOptimizations
 
             if (!__instance.chaCtrl.ChangeCoordinateType((ChaFileDefine.CoordinateType)nowCoordinate)) return false;
 
-            __instance.chaCtrl.StartCoroutine(
-                Utils.ComposeCoroutine(
-                    Utils.CreateCoroutine(() => Singleton<Character>.Instance.enableCharaLoadGCClear = false),
-                    __instance.chaCtrl.ReloadAsync(false, true, true, true, true),
-                    Utils.CreateCoroutine(() =>
+            Singleton<Character>.Instance.enableCharaLoadGCClear = false;
+
+            // Do this before starting to reload clothes in case player is nearby to make it look less weird
+            if (isRemove)
+                __instance.chaCtrl.RandomChangeOfClothesLowPoly(__instance.heroine.lewdness);
+
+            var isActive = __instance.chaCtrl.GetActiveTop();
+
+            // Prevent the character from doing anything while clothes load
+            __instance.Pause(true);
+
+            var reloadCoroutine =
+                // Async version of the reload that's implemented but is never actually used ¯\_(ツ)_/¯
+                __instance.chaCtrl.ReloadAsync(false, true, true, true, true)
+                // Let the game settle down, running next reload so fast can possibly make 2 sets of clothes spawn?
+                .AppendCo(new WaitForEndOfFrame())
+                .AppendCo(new WaitForEndOfFrame())
+                .AppendCo(
+                    () =>
                     {
-                        if (isRemove)
-                            __instance.chaCtrl.RandomChangeOfClothesLowPoly(__instance.heroine.lewdness);
+                        // Second normal reload needed to fix clothes randomly not loading fully, goes 
+                        // very fast since assets are loaded by the async version by now
+                        __instance.chaCtrl.Reload(false, true, true, true);
                         Singleton<Character>.Instance.enableCharaLoadGCClear = true;
-                    })
-                ));
+                        __instance.Pause(false);
+                    });
+
+            __instance.chaCtrl.StartCoroutine(reloadCoroutine);
+
+            // Needed to counter SetActiveTop(false) at the start of ReloadAsync. That code is before 1st yield so 
+            // it is executed in the current "thread" before returning to this call after 1st yield is encountered
+            __instance.chaCtrl.SetActiveTop(isActive);
 
             return false;
         }
@@ -81,14 +115,19 @@ namespace KK_Fix_MainGameOptimizations
             }
         }
 
-        /// <summary>
-        /// SetActive that will always load the character, even if it's initially disabled
-        /// </summary>
         public static void ForcedSetActive(Base instance, bool isPop)
         {
-            instance.SetActive(true);
-            if (!isPop)
-                instance.SetActive(false);
+            if (PreloadCharacters.Value)
+            {
+                // SetActive(true) that will always load the character, even if it's not on current map. Need to hide it after.
+                instance.SetActive(true);
+                if (!isPop)
+                    instance.SetActive(false);
+            }
+            else
+            {
+                instance.SetActive(isPop);
+            }
         }
     }
 }
