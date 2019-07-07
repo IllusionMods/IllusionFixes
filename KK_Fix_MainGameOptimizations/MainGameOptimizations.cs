@@ -24,12 +24,14 @@ namespace KK_Fix_MainGameOptimizations
         public static ConfigWrapper<bool> AsyncClothesLoading { get; private set; }
 
         [DisplayName("Preload characters on initial load")]
-        [Description("Forces all characters to load during initial load into school mode. Slightly longer loading" +
+        [Description("Forces all characters to load during initial load into school mode. Slightly longer loading " +
                      "time but eliminates large stutters when unseen characters enter current map.")]
         public static ConfigWrapper<bool> PreloadCharacters { get; private set; }
 
         private void Awake()
         {
+            if (CommonCode.InsideStudio) return;
+
             AsyncClothesLoading = new ConfigWrapper<bool>(nameof(AsyncClothesLoading), this, true);
             PreloadCharacters = new ConfigWrapper<bool>(nameof(PreloadCharacters), this, true);
 
