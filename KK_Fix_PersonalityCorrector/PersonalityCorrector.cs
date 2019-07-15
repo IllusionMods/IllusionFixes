@@ -13,10 +13,9 @@ namespace KK_Fix_PersonalityCorrector
         public const string GUID = "com.deathweasel.bepinex.personalitycorrector";
         public const string PluginName = "Personality Corrector";
 
-        private void Main()
+        private void Awake()
         {
-            if (!CommonCode.InsideKoikatsuParty)
-                HarmonyInstance.Create(GUID).PatchAll(typeof(Hooks));
+            HarmonyInstance.Create(GUID).PatchAll(typeof(Hooks));
         }
     }
 }
