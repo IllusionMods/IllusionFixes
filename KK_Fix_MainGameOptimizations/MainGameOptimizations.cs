@@ -8,6 +8,7 @@ using Common;
 using Harmony;
 using Manager;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace KK_Fix_MainGameOptimizations
 {
@@ -36,7 +37,11 @@ namespace KK_Fix_MainGameOptimizations
             PreloadCharacters = new ConfigWrapper<bool>(nameof(PreloadCharacters), this, true);
 
             HarmonyInstance.Create(GUID).PatchAll(typeof(MainGameOptimizations));
+
+            SceneManager.sceneLoaded += (arg0, mode) => _runningReloadCoroutines.Clear();
         }
+
+        private static readonly List<ChaControl> _runningReloadCoroutines = new List<ChaControl>();
 
         /// <summary>
         /// If characters change clothes anywhere, new clothes get loaded synchronously by default, causing 
@@ -58,6 +63,7 @@ namespace KK_Fix_MainGameOptimizations
             if (!__instance.chaCtrl.ChangeCoordinateType((ChaFileDefine.CoordinateType)nowCoordinate)) return false;
 
             Singleton<Character>.Instance.enableCharaLoadGCClear = false;
+            _runningReloadCoroutines.Add(__instance.chaCtrl);
 
             // Do this before starting to reload clothes in case player is nearby to make it look less weird
             if (isRemove)
@@ -80,7 +86,12 @@ namespace KK_Fix_MainGameOptimizations
                         // Second normal reload needed to fix clothes randomly not loading fully, goes 
                         // very fast since assets are loaded by the async version by now
                         __instance.chaCtrl.Reload(false, true, true, true);
-                        Singleton<Character>.Instance.enableCharaLoadGCClear = true;
+
+                        _runningReloadCoroutines.Remove(__instance.chaCtrl);
+                        _runningReloadCoroutines.RemoveAll(c => c == null);
+                        if (_runningReloadCoroutines.Count == 0)
+                            Singleton<Character>.Instance.enableCharaLoadGCClear = true;
+
                         __instance.Pause(false);
                     });
 
