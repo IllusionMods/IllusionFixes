@@ -1,9 +1,11 @@
 ﻿using System;
 using BepInEx;
+using BepInEx.Logging;
 using Common;
 using Harmony;
 using MonoMod.RuntimeDetour;
 using UnityEngine;
+using Logger = BepInEx.Logger;
 
 namespace KK_Fix_ResourceUnloadOptimizations
 {
@@ -25,6 +27,7 @@ namespace KK_Fix_ResourceUnloadOptimizations
         // Needs to be an instance method for Invoke to work
         private void RunGarbageCollect()
         {
+            Logger.Log(LogLevel.Debug, "[ResourceUnloadOptimizations] Running full garbage collection");
             // Use different overload since we disable the parameterless one
             GC.Collect(GC.MaxGeneration);
         }
@@ -62,7 +65,10 @@ namespace KK_Fix_ResourceUnloadOptimizations
             private static AsyncOperation UnloadUnusedAssetsHook()
             {
                 if (_currentOperation == null || _currentOperation.isDone)
+                {
+                    Logger.Log(LogLevel.Debug, "[ResourceUnloadOptimizations] Starting unused resource cleanup");
                     _currentOperation = _originalUnload();
+                }
 
                 return _currentOperation;
             }
