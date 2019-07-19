@@ -8,10 +8,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Logger = BepInEx.Logger;
 
-namespace KK_Fix_MakerOptimization
+namespace KK_Fix_MakerOptimizations
 {
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public class MakerOptimization : BaseUnityPlugin
+    public partial class MakerOptimizations : BaseUnityPlugin
     {
         public const string GUID = "keelhauled.fixcompilation";
         public const string PluginName = "Maker Optimization";
@@ -52,14 +52,14 @@ namespace KK_Fix_MakerOptimization
         [Description("Lock and hide the cursor when moving the camera in maker.")]
         public static ConfigWrapper<bool> ManageCursor { get; private set; }
 
-        public MakerOptimization()
+        public MakerOptimizations()
         {
             DisableNewAnimation = new ConfigWrapper<bool>("DisableNewAnimation", this, true);
             DisableNewIndicator = new ConfigWrapper<bool>("DisableNewIndicator", this, true);
             DisableIKCalc = new ConfigWrapper<bool>("DisableIKCalc", this, true);
             DisableCameraTarget = new ConfigWrapper<bool>("DisableCameraTarget", this, false);
             DisableCharaName = new ConfigWrapper<bool>("DisableCharaName", this, true);
-            DisableHiddenTabs = new ConfigWrapper<bool>("DisableHiddenTabs", this, true);
+            DisableHiddenTabs = new ConfigWrapper<bool>("DisableHiddenTabs", this, SystemInfo.processorFrequency < 2700);
             EnableYamadamodFix = new ConfigWrapper<bool>("EnableYamadamodFix", this, true);
             ManageCursor = new ConfigWrapper<bool>("ManageCursor", this, true);
         }
@@ -70,8 +70,7 @@ namespace KK_Fix_MakerOptimization
             DisableCameraTarget.SettingChanged += (sender, args) => ApplyPatches();
             DisableCharaName.SettingChanged += (sender, args) => ApplyPatches();
 
-            var harmony = HarmonyInstance.Create($"{GUID}.harmony");
-            Hooks.Patch(harmony);
+            Hooks.Patch(HarmonyInstance.Create(GUID));
         }
 
         private void Start()
@@ -79,7 +78,7 @@ namespace KK_Fix_MakerOptimization
             if (DisableIKCalc.Value && BepInEx.Bootstrap.Chainloader.Plugins.Select(MetadataHelper.GetMetadata).Any(x => x.GUID == "com.essu.stiletto"))
             {
                 DisableIKCalc.Value = false;
-                Logger.Log(LogLevel.Warning, "Stiletto detected, disabling the DisableIKCalc optimization");
+                Logger.Log(LogLevel.Warning | LogLevel.Message, "Stiletto detected, disabling the DisableIKCalc optimization for compatibility");
             }
         }
 
@@ -98,7 +97,7 @@ namespace KK_Fix_MakerOptimization
             }
         }
 
-        private void ApplyPatches()
+        private static void ApplyPatches()
         {
             if (FindObjectOfType<StudioScene>())
             {

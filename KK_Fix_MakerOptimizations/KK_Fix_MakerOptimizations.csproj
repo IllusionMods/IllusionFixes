@@ -7,8 +7,8 @@
     <ProjectGuid>{65CB1A38-C90D-42D3-B157-5FB6F844ED11}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KK_Fix_MakerOptimization</RootNamespace>
-    <AssemblyName>KK_Fix_MakerOptimization</AssemblyName>
+    <RootNamespace>KK_Fix_MakerOptimizations</RootNamespace>
+    <AssemblyName>KK_Fix_MakerOptimizations</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -46,10 +46,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
       <HintPath>..\lib\UnityEngine.dll</HintPath>
       <Private>False</Private>
@@ -61,8 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CursorManager.cs" />
-    <Compile Include="MakerOptimization.cs" />
-    <Compile Include="MakerOptimization.Hooks.cs" />
+    <Compile Include="MakerOptimizations.Hooks.cs" />
+    <Compile Include="MakerOptimizations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />

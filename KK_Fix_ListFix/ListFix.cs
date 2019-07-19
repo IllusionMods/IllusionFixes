@@ -10,7 +10,7 @@ namespace KK_Fix_ListFix
         public const string GUID = "com.deathweasel.bepinex.miscfixes";
         public const string PluginName = "List Fix";
 
-        private void Main()
+        private void Awake()
         {
             if (!CommonCode.InsideKoikatsuParty)
                 HarmonyInstance.Create(GUID).PatchAll(typeof(Hooks));

@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_PersonalityCorrector
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_SettingsFix", "KK_Fix_SettingsFix\KK_Fix_SettingsFix.csproj", "{6CA88723-CA91-49C9-9FD1-C6E58EFA5529}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_MakerOptimization", "KK_Fix_MakerOptimization\KK_Fix_MakerOptimization.csproj", "{65CB1A38-C90D-42D3-B157-5FB6F844ED11}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_MakerOptimizations", "KK_Fix_MakerOptimizations\KK_Fix_MakerOptimizations.csproj", "{65CB1A38-C90D-42D3-B157-5FB6F844ED11}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ShowerAccessories", "KK_Fix_ShowerAccessories\KK_Fix_ShowerAccessories.csproj", "{ABB91777-7231-47F7-BF4D-9144CC7B1764}"
 EndProject

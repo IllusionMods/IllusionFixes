@@ -14,19 +14,19 @@ namespace KK_Fix_SettingsFix
         public const string GUID = "com.deathweasel.bepinex.settingsfix";
         public const string PluginName = "Settings Fix";
 
-        private static SettingsFix instance;
+        private static SettingsFix _instance;
 
         private void Awake()
         {
             //Test setup.xml for validity, delete if it has junk data
             if (File.Exists("UserData/setup.xml"))
-                TestSetupXML();
+                TestSetupXml();
 
             //Create a setup.xml if there isn't one
             if (!File.Exists("UserData/setup.xml"))
-                CreateSetupXML();
+                CreateSetupXml();
 
-            instance = this;
+            _instance = this;
 
             HarmonyInstance.Create(GUID).PatchAll(typeof(SettingsFix));
         }
@@ -39,7 +39,7 @@ namespace KK_Fix_SettingsFix
             if (CommonCode.InsideStudio)
             {
                 var xmlr = typeof(InitScene).GetMethod("xmlRead", BindingFlags.NonPublic | BindingFlags.Instance);
-                var initScene = instance.gameObject.AddComponent<InitScene>();
+                var initScene = _instance.gameObject.AddComponent<InitScene>();
                 xmlr.Invoke(initScene, null);
                 DestroyImmediate(initScene);
             }
@@ -47,7 +47,7 @@ namespace KK_Fix_SettingsFix
         /// <summary>
         /// Read a copy of the setup.xml from the plugin's Resources folder and write it to disk
         /// </summary>
-        private void CreateSetupXML()
+        private void CreateSetupXml()
         {
             using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{nameof(KK_Fix_SettingsFix)}.Resources.setup.xml"))
             {
@@ -62,7 +62,7 @@ namespace KK_Fix_SettingsFix
         /// <summary>
         /// Try reading the xml, catch exceptions, delete if any invalid data
         /// </summary>
-        private void TestSetupXML()
+        private static void TestSetupXml()
         {
             try
             {

@@ -2,20 +2,20 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace KK_Fix_MakerOptimization
+namespace KK_Fix_MakerOptimizations
 {
     public class CursorManager : MonoBehaviour
     {
-        private bool mouseButtonDown0 = false;
-        private bool mouseButtonDown1 = false;
-        private WinCursor.Point lockPos;
-        private bool cursorLocked = false;
+        private bool _mouseButtonDown0;
+        private bool _mouseButtonDown1;
+        private WinCursor.Point _lockPos;
+        private bool _cursorLocked;
 
         private void Update()
         {
-            if (MakerOptimization.ManageCursor.Value && Application.isFocused)
+            if (MakerOptimizations.ManageCursor.Value && Application.isFocused)
             {
-                if (!cursorLocked)
+                if (!_cursorLocked)
                 {
                     if (GUIUtility.hotControl == 0 && !EventSystem.current.IsPointerOverGameObject())
                     {
@@ -24,51 +24,51 @@ namespace KK_Fix_MakerOptimization
 
                         if (mouseDown0 || mouseDown1)
                         {
-                            if (mouseDown0) mouseButtonDown0 = true;
-                            if (mouseDown1) mouseButtonDown1 = true;
+                            if (mouseDown0) _mouseButtonDown0 = true;
+                            if (mouseDown1) _mouseButtonDown1 = true;
 
                             Cursor.visible = false;
                             Cursor.lockState = CursorLockMode.Confined;
-                            cursorLocked = true;
-                            WinCursor.GetCursorPos(out lockPos);
+                            _cursorLocked = true;
+                            WinCursor.GetCursorPos(out _lockPos);
                         }
                     }
                 }
 
-                if (cursorLocked)
+                if (_cursorLocked)
                 {
                     bool mouseUp0 = Input.GetMouseButtonUp(0);
                     bool mouseUp1 = Input.GetMouseButtonUp(1);
 
-                    if ((mouseButtonDown0 || mouseButtonDown1) && (mouseUp0 || mouseUp1))
+                    if ((_mouseButtonDown0 || _mouseButtonDown1) && (mouseUp0 || mouseUp1))
                     {
-                        if (mouseUp0) mouseButtonDown0 = false;
-                        if (mouseUp1) mouseButtonDown1 = false;
+                        if (mouseUp0) _mouseButtonDown0 = false;
+                        if (mouseUp1) _mouseButtonDown1 = false;
 
-                        if (!mouseButtonDown0 && !mouseButtonDown1)
+                        if (!_mouseButtonDown0 && !_mouseButtonDown1)
                         {
                             Cursor.lockState = CursorLockMode.None;
                             Cursor.visible = true;
-                            cursorLocked = false;
+                            _cursorLocked = false;
                         }
                     }
 
-                    if (cursorLocked)
-                        WinCursor.SetCursorPos(lockPos.x, lockPos.y);
+                    if (_cursorLocked)
+                        WinCursor.SetCursorPos(_lockPos.x, _lockPos.y);
                 }
             }
-            else if (cursorLocked)
+            else if (_cursorLocked)
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                cursorLocked = false;
+                _cursorLocked = false;
             }
         }
 
         private static class WinCursor
         {
             [DllImport("user32.dll")]
-            public static extern bool SetCursorPos(int X, int Y);
+            public static extern bool SetCursorPos(int x, int y);
 
             [DllImport("user32.dll")]
             public static extern bool GetCursorPos(out Point pos);
