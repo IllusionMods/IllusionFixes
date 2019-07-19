@@ -43,6 +43,7 @@ namespace KK_Fix_ListFix
                 chaFileControl.LoadCharaFile(fullPath, info.Value.parameter.sex, false, true);
 
                 onEnter(chaFileControl);
+                Utils.Sound.Play(SystemSE.sel);
             });
         }
         #endregion
