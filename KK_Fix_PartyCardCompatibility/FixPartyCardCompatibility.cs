@@ -16,45 +16,43 @@ namespace KK_Fix_PartyCardCompatibility
 
         private void Awake()
         {
-            HarmonyInstance.Create(Guid).PatchAll(typeof(Hooks));
+            HarmonyInstance.Create(Guid).PatchAll(typeof(FixPartyCardCompatibility));
         }
 
-        private static class Hooks
+        /// <summary>
+        /// Needs to return false if the condition passes, true if it fails (this replaces the string != operand)
+        /// </summary>
+        private static bool CustomCardTokenCompare(string read, string expected)
         {
-            /// <summary>
-            /// Needs to return false if the condition passes, true if it fails (this replaces the string != operand)
-            /// </summary>
-            private static bool CustomCardTokenCompare(string read, string expected)
-            {
-                if (read == null) return true;
+            if (read == null) return true;
 
-                // Other card types add letters to the end of the string before closing bracket
-                var trimmedExpected = expected.Substring(0, expected.Length - 1);
-                return !read.StartsWith(trimmedExpected, StringComparison.OrdinalIgnoreCase);
-            }
+            // Other card types add letters to the end of the string before closing bracket
+            var trimmedExpected = expected.Substring(0, expected.Length - 1);
+            return !read.StartsWith(trimmedExpected, StringComparison.OrdinalIgnoreCase);
+        }
 
-            [HarmonyTranspiler, HarmonyPatch(typeof(ChaFile), "LoadFile", new[] { typeof(BinaryReader), typeof(bool), typeof(bool) })]
-            public static IEnumerable<CodeInstruction> ChaFileLoadFileTranspiler(IEnumerable<CodeInstruction> instructions)
+        // Trying to extract this into a Hooks subclass breaks it
+        [HarmonyTranspiler, HarmonyPatch(typeof(ChaFile), "LoadFile", new[] { typeof(BinaryReader), typeof(bool), typeof(bool) })]
+        public static IEnumerable<CodeInstruction> ChaFileLoadFileTranspiler(IEnumerable<CodeInstruction> instructions)
+        {
+            var patchNext = false;
+            foreach (var instruction in instructions)
             {
-                var patchNext = false;
-                foreach (var instruction in instructions)
+                if (patchNext)
                 {
-                    if (patchNext)
-                    {
-                        if (instruction.opcode == OpCodes.Call)
-                            instruction.operand = AccessTools.Method(typeof(FixPartyCardCompatibility), nameof(CustomCardTokenCompare));
-                        else
-                            Logger.Log(LogLevel.Error, $"[{Guid}] Failed to hook ChaFile.LoadFile, unexpected IL opcode");
+                    if (instruction.opcode == OpCodes.Call)
+                        instruction.operand = AccessTools.Method(typeof(FixPartyCardCompatibility), nameof(CustomCardTokenCompare));
+                    else
+                        Logger.Log(LogLevel.Error, $"[{Guid}] Failed to hook ChaFile.LoadFile, unexpected IL opcode");
 
-                        patchNext = false;
-                    }
-                    else if (instruction.operand is string s && s == "【KoiKatuChara】")
-                    {
-                        patchNext = true;
-                    }
-
-                    yield return instruction;
+                    patchNext = false;
                 }
+                else if (instruction.operand is string s && s == "【KoiKatuChara】")
+                {
+                    patchNext = true;
+                }
+
+                yield return instruction;
             }
         }
     }
