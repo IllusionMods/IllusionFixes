@@ -13,6 +13,7 @@ namespace Common
         private static readonly string[] _pluginBlacklist =
         {
             "FixCompilation.dll",
+            "FixShaderDropdown.dll",
             "KK_CutsceneLockupFix.dll",
             "KK_Fix_HeadFix.dll",
             "KK_Fix_ListFix.dll",
