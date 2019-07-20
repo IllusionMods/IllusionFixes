@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using BepInEx;
 using ChaCustom;
 using Common;
@@ -22,11 +23,14 @@ namespace KK_Fix_ExpandShaderDropdown
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
             if (CommonCode.InsideStudio) return;
 
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneLoaded += (s, m) => StartCoroutine(DelayedStart());
         }
 
-        private static void OnSceneLoaded(Scene s, LoadSceneMode l)
+        private static IEnumerator DelayedStart()
         {
+            // Needed because party localization makes UI load late
+            yield return null;
+
             if (Singleton<Manager.Scene>.Instance.NowSceneNames.Any(sName => sName == "Config"))
             {
                 var tmpDropdown = Traverse.Create(Singleton<GraphicSetting>.Instance).Field("rampIDDropdown").GetValue<TMP_Dropdown>();
