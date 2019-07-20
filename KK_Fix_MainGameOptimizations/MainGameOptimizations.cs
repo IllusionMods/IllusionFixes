@@ -31,6 +31,8 @@ namespace KK_Fix_MainGameOptimizations
 
         private void Awake()
         {
+            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
+
             if (CommonCode.InsideStudio) return;
 
             AsyncClothesLoading = new ConfigWrapper<bool>(nameof(AsyncClothesLoading), this, true);

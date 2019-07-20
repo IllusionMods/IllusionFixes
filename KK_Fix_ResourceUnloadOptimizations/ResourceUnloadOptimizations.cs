@@ -19,6 +19,8 @@ namespace KK_Fix_ResourceUnloadOptimizations
 
         private void Awake()
         {
+            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
+
             _instance = this;
 
             Hooks.InstallHooks();

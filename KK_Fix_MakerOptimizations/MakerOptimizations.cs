@@ -54,6 +54,8 @@ namespace KK_Fix_MakerOptimizations
 
         public MakerOptimizations()
         {
+            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
+
             DisableNewAnimation = new ConfigWrapper<bool>("DisableNewAnimation", this, true);
             DisableNewIndicator = new ConfigWrapper<bool>("DisableNewIndicator", this, true);
             DisableIKCalc = new ConfigWrapper<bool>("DisableIKCalc", this, true);
@@ -66,6 +68,8 @@ namespace KK_Fix_MakerOptimizations
 
         protected void Awake()
         {
+            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
+
             SceneManager.sceneLoaded += SceneLoaded;
             DisableCameraTarget.SettingChanged += (sender, args) => ApplyPatches();
             DisableCharaName.SettingChanged += (sender, args) => ApplyPatches();
@@ -75,6 +79,8 @@ namespace KK_Fix_MakerOptimizations
 
         private void Start()
         {
+            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
+
             if (DisableIKCalc.Value && BepInEx.Bootstrap.Chainloader.Plugins.Select(MetadataHelper.GetMetadata).Any(x => x.GUID == "com.essu.stiletto"))
             {
                 DisableIKCalc.Value = false;

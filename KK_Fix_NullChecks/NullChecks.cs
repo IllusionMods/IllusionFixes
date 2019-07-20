@@ -12,6 +12,8 @@ namespace KK_Fix_NullChecks
 
         public void Awake()
         {
+            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
+
             HarmonyInstance.Create(GUID).PatchAll(typeof(Hooks));
         }
 

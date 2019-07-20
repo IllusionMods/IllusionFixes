@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)CommonCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CoroutineUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IncompatiblePluginDetector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Metadata.cs" />
   </ItemGroup>
 </Project>

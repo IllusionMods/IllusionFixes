@@ -18,6 +18,8 @@ namespace KK_Fix_PersonalityCorrector
 
         private void Awake()
         {
+            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
+
             HarmonyInstance.Create(GUID).PatchAll(typeof(Hooks));
         }
 

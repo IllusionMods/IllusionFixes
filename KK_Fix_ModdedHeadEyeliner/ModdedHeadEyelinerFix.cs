@@ -14,6 +14,8 @@ namespace KK_Fix_ModdedHeadEyeliner
 
         private void Awake()
         {
+            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
+
             var harmony = HarmonyInstance.Create(GUID);
             var getTextureMethod = typeof(ChaControl).GetMethod("GetTexture", AccessTools.all);
             if (getTextureMethod.GetParameters().Any(x => x.Name == "addStr"))

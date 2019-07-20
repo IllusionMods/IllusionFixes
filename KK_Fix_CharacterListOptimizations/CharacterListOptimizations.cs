@@ -12,6 +12,8 @@ namespace KK_Fix_ListFix
 
         private void Awake()
         {
+            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
+
             if (!CommonCode.InsideKoikatsuParty)
                 HarmonyInstance.Create(GUID).PatchAll(typeof(Hooks));
         }
