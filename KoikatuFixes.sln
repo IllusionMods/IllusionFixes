@@ -7,15 +7,15 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common", "Common\Common.shp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_PartyCardCompatibility", "KK_Fix_PartyCardCompatibility\KK_Fix_PartyCardCompatibility.csproj", "{E0EEBF3E-CBF1-4929-A6C8-403767FAAA8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_HeadFix", "KK_Fix_HeadFix\KK_Fix_HeadFix.csproj", "{3E1ACC1F-FDCC-49A9-9711-C344AB550FC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ModdedHeadEyeliner", "KK_Fix_ModdedHeadEyeliner\KK_Fix_ModdedHeadEyeliner.csproj", "{3E1ACC1F-FDCC-49A9-9711-C344AB550FC0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_NullChecks", "KK_Fix_NullChecks\KK_Fix_NullChecks.csproj", "{40967983-DF5C-411A-BFA4-96C6CFEBC63E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ListFix", "KK_Fix_ListFix\KK_Fix_ListFix.csproj", "{1C3AD6A8-0E6A-443B-9229-0DD4528D73A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_CharacterListOptimizations", "KK_Fix_CharacterListOptimizations\KK_Fix_CharacterListOptimizations.csproj", "{1C3AD6A8-0E6A-443B-9229-0DD4528D73A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_PersonalityCorrector", "KK_Fix_PersonalityCorrector\KK_Fix_PersonalityCorrector.csproj", "{A714B46D-95A3-4EB0-A635-C253BBAD0CBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_SettingsFix", "KK_Fix_SettingsFix\KK_Fix_SettingsFix.csproj", "{6CA88723-CA91-49C9-9FD1-C6E58EFA5529}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_SettingsVerifier", "KK_Fix_SettingsVerifier\KK_Fix_SettingsVerifier.csproj", "{6CA88723-CA91-49C9-9FD1-C6E58EFA5529}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_MakerOptimizations", "KK_Fix_MakerOptimizations\KK_Fix_MakerOptimizations.csproj", "{65CB1A38-C90D-42D3-B157-5FB6F844ED11}"
 EndProject

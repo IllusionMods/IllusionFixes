@@ -7,8 +7,8 @@
     <ProjectGuid>{1C3AD6A8-0E6A-443B-9229-0DD4528D73A6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KK_Fix_ListFix</RootNamespace>
-    <AssemblyName>KK_Fix_ListFix</AssemblyName>
+    <RootNamespace>KK_Fix_CharacterListOptimizations</RootNamespace>
+    <AssemblyName>KK_Fix_CharacterListOptimizations</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -64,8 +64,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ListFix.cs" />
-    <Compile Include="ListFix.Hooks.cs" />
+    <Compile Include="CharacterListOptimizations.cs" />
+    <Compile Include="CharacterListOptimizations.Hooks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />

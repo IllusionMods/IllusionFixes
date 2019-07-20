@@ -5,10 +5,10 @@ using Harmony;
 namespace KK_Fix_ListFix
 {
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public class ListFix : BaseUnityPlugin
+    public partial class CharacterListOptimizations : BaseUnityPlugin
     {
         public const string GUID = "com.deathweasel.bepinex.miscfixes";
-        public const string PluginName = "List Fix";
+        public const string PluginName = "Character List Optimizations";
 
         private void Awake()
         {

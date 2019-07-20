@@ -1,20 +1,20 @@
-﻿using BepInEx;
+﻿using System;
+using BepInEx;
 using Common;
 using Harmony;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
 
-namespace KK_Fix_SettingsFix
+namespace KK_Fix_SettingsVerifier
 {
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public class SettingsFix : BaseUnityPlugin
+    public class SettingsVerifier : BaseUnityPlugin
     {
         public const string GUID = "com.deathweasel.bepinex.settingsfix";
         public const string PluginName = "Settings Fix";
 
-        private static SettingsFix _instance;
+        private static SettingsVerifier _instance;
 
         private void Awake()
         {
@@ -28,7 +28,7 @@ namespace KK_Fix_SettingsFix
 
             _instance = this;
 
-            HarmonyInstance.Create(GUID).PatchAll(typeof(SettingsFix));
+            HarmonyInstance.Create(GUID).PatchAll(typeof(SettingsVerifier));
         }
         /// <summary>
         /// Run the code for reading setup.xml when inside studio. Done in a Manager.Config.Start hook because the xmlRead method needs stuff to be initialized first.
@@ -49,7 +49,7 @@ namespace KK_Fix_SettingsFix
         /// </summary>
         private void CreateSetupXml()
         {
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{nameof(KK_Fix_SettingsFix)}.Resources.setup.xml"))
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{nameof(KK_Fix_SettingsVerifier)}.Resources.setup.xml"))
             {
                 using (FileStream fileStream = File.Create("UserData/setup.xml", (int)stream.Length))
                 {
@@ -67,35 +67,23 @@ namespace KK_Fix_SettingsFix
             try
             {
                 var dataXml = XElement.Load("UserData/setup.xml");
+                if(!dataXml.HasElements) throw new IOException();
 
-                if (dataXml != null)
+                foreach (XElement xelement in dataXml.Elements())
                 {
-                    IEnumerable<XElement> enumerable = dataXml.Elements();
-                    foreach (XElement xelement in enumerable)
+                    string text = xelement.Name.ToString();
+                    switch (text)
                     {
-                        string text = xelement.Name.ToString();
-                        switch (text)
-                        {
-                            case null:
-                                break;
-                            case "Width":
-                                var width = int.Parse(xelement.Value);
-                                break;
-                            case "Height":
-                                var height = int.Parse(xelement.Value);
-                                break;
-                            case "FullScreen":
-                                var full = bool.Parse(xelement.Value);
-                                break;
-                            case "Quality":
-                                var quality = int.Parse(xelement.Value);
-                                break;
-                            case "Language":
-                                var language = int.Parse(xelement.Value);
-                                break;
-                            default:
-                                break;
-                        }
+                        case "Width":
+                        case "Height":
+                        case "Quality":
+                        case "Language":
+                            var val = int.Parse(xelement.Value);
+                            if (val < 0) throw new ArgumentOutOfRangeException();
+                            break;
+                        case "FullScreen":
+                            var unused = bool.Parse(xelement.Value);
+                            break;
                     }
                 }
             }

@@ -1,13 +1,13 @@
-﻿using BepInEx;
+﻿using System.Linq;
+using BepInEx;
 using Common;
 using Harmony;
-using System.Linq;
 using UnityEngine;
 
-namespace KK_Fix_HeadFix
+namespace KK_Fix_ModdedHeadEyeliner
 {
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public class HeadFix : BaseUnityPlugin
+    public class ModdedHeadEyelinerFix : BaseUnityPlugin
     {
         public const string GUID = "com.deathweasel.bepinex.headfix";
         public const string PluginName = "Head Fix";
@@ -17,7 +17,7 @@ namespace KK_Fix_HeadFix
             var harmony = HarmonyInstance.Create(GUID);
             var getTextureMethod = typeof(ChaControl).GetMethod("GetTexture", AccessTools.all);
             if (getTextureMethod.GetParameters().Any(x => x.Name == "addStr"))
-                harmony.Patch(typeof(ChaControl).GetMethod("GetTexture", AccessTools.all), null, new HarmonyMethod(typeof(HeadFix).GetMethod(nameof(GetTexture), AccessTools.all)));
+                harmony.Patch(typeof(ChaControl).GetMethod("GetTexture", AccessTools.all), null, new HarmonyMethod(typeof(ModdedHeadEyelinerFix).GetMethod(nameof(GetTexture), AccessTools.all)));
         }
 
         /// <summary>

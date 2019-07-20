@@ -7,8 +7,8 @@
     <ProjectGuid>{6CA88723-CA91-49C9-9FD1-C6E58EFA5529}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KK_Fix_SettingsFix</RootNamespace>
-    <AssemblyName>KK_Fix_SettingsFix</AssemblyName>
+    <RootNamespace>KK_Fix_SettingsVerifier</RootNamespace>
+    <AssemblyName>KK_Fix_SettingsVerifier</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -54,11 +54,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SettingsFix.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsVerifier.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\setup.xml" />
+    <EmbeddedResource Include="Resources\setup.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

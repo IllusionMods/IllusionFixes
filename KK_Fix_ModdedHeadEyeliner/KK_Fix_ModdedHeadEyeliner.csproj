@@ -7,8 +7,8 @@
     <ProjectGuid>{3E1ACC1F-FDCC-49A9-9711-C344AB550FC0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KK_Fix_HeadFix</RootNamespace>
-    <AssemblyName>KK_Fix_HeadFix</AssemblyName>
+    <RootNamespace>KK_Fix_ModdedHeadEyeliner</RootNamespace>
+    <AssemblyName>KK_Fix_ModdedHeadEyeliner</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -52,7 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HeadFix.cs" />
+    <Compile Include="ModdedHeadEyelinerFix.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
