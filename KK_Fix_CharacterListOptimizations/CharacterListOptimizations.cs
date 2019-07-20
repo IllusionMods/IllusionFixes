@@ -2,7 +2,7 @@
 using Common;
 using Harmony;
 
-namespace KK_Fix_ListFix
+namespace KK_Fix_CharacterListOptimizations
 {
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class CharacterListOptimizations : BaseUnityPlugin

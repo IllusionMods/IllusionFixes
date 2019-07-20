@@ -29,7 +29,7 @@ namespace KK_Fix_NullChecks
             public static void ChangeSettingHairAcsColor(int parts, ChaControl __instance) => RemoveNullParts(__instance.GetCustomHairComponent(parts));
 
             [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.UpdateAccessoryMoveFromInfo))]
-            public static void UpdateAccessoryMoveFromInfo(int slotNo, ChaControl __instance) => RemoveNullParts(AccessoriesApi.GetAccessory(__instance, slotNo)?.gameObject?.GetComponent<ChaCustomHairComponent>());
+            public static void UpdateAccessoryMoveFromInfo(int slotNo, ChaControl __instance) => RemoveNullParts(__instance.GetAccessory(slotNo)?.gameObject.GetComponent<ChaCustomHairComponent>());
 
             private static void RemoveNullParts(ChaCustomHairComponent hairComponent)
             {

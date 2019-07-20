@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using BepInEx;
 using Common;
 using Harmony;
@@ -18,6 +19,7 @@ namespace KK_Fix_ModdedHeadEyeliner
 
             var harmony = HarmonyInstance.Create(GUID);
             var getTextureMethod = typeof(ChaControl).GetMethod("GetTexture", AccessTools.all);
+            if (getTextureMethod == null) throw new ArgumentException("Could not find ChaControl.GetTexture");
             if (getTextureMethod.GetParameters().Any(x => x.Name == "addStr"))
                 harmony.Patch(typeof(ChaControl).GetMethod("GetTexture", AccessTools.all), null, new HarmonyMethod(typeof(ModdedHeadEyelinerFix).GetMethod(nameof(GetTexture), AccessTools.all)));
         }

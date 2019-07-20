@@ -89,7 +89,7 @@ namespace KK_Fix_MakerOptimizations
 
                     foreach (Transform mainTab in treeTop.transform)
                     {
-                        var topMenuToggle = CanvasObjectLinks.TryGetValue(mainTab.name, out var topTabName)
+                        var topMenuToggle = _canvasObjectLinks.TryGetValue(mainTab.name, out var topTabName)
                             ? GameObject.Find(topTabName)?.GetComponent<Toggle>()
                             : null;
 
@@ -130,7 +130,7 @@ namespace KK_Fix_MakerOptimizations
             /// <summary>
             /// Because Illusion can't make consistent names. There's probably a better way.
             /// </summary>
-            private static readonly Dictionary<string, string> CanvasObjectLinks = new Dictionary<string, string>
+            private static readonly Dictionary<string, string> _canvasObjectLinks = new Dictionary<string, string>
             {
                 {"00_FaceTop"      , "tglFace"       },
                 {"01_BodyTop"      , "tglBody"       },

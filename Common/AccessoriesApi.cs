@@ -11,11 +11,11 @@ namespace Common
         private static Func<ChaControl, int, ChaAccessoryComponent> _getChaAccessoryCmp;
 
         private static bool MoreAccessoriesInstalled => _moreAccessoriesType != null;
-        private static bool init = false;
+        private static bool _initialized;
 
         internal static ChaAccessoryComponent GetAccessory(this ChaControl character, int accessoryIndex)
         {
-            if (!init)
+            if (!_initialized)
                 Init();
 
             return _getChaAccessoryCmp(character, accessoryIndex);
@@ -34,7 +34,7 @@ namespace Common
             {
                 _getChaAccessoryCmp = (control, i) => control.cusAcsCmp[i];
             }
-            init = true;
+            _initialized = true;
         }
 
         private static void DetectMoreAccessories()

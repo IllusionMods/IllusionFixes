@@ -1,16 +1,16 @@
-﻿using ActionGame;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ActionGame;
 using ChaCustom;
 using ExtensibleSaveFormat;
 using FreeH;
 using Harmony;
 using Illusion.Game;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UniRx;
 using UnityEngine.UI;
 
-namespace KK_Fix_ListFix
+namespace KK_Fix_CharacterListOptimizations
 {
     public partial class CharacterListOptimizations
     {

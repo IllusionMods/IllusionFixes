@@ -43,11 +43,6 @@ namespace KK_Fix_MakerOptimizations
         [Description("Major performance improvement at the cost of slower switching between tabs in maker.\n\nChanges take effect after maker restart.")]
         public static ConfigWrapper<bool> DisableHiddenTabs { get; private set; }
 
-        [DisplayName("Avoid yamadamod exceptions")]
-        [Description("Increases fps in certain situations where exceptions are being spammed. This fix may be unnecessary if you don't have sideloader.\n\n" +
-                     "Changes take effect after game restart.")]
-        public static ConfigWrapper<bool> EnableYamadamodFix { get; private set; }
-
         [DisplayName("Manage cursor in maker")]
         [Description("Lock and hide the cursor when moving the camera in maker.")]
         public static ConfigWrapper<bool> ManageCursor { get; private set; }
@@ -62,7 +57,6 @@ namespace KK_Fix_MakerOptimizations
             DisableCameraTarget = new ConfigWrapper<bool>("DisableCameraTarget", this, false);
             DisableCharaName = new ConfigWrapper<bool>("DisableCharaName", this, true);
             DisableHiddenTabs = new ConfigWrapper<bool>("DisableHiddenTabs", this, SystemInfo.processorFrequency < 2700);
-            EnableYamadamodFix = new ConfigWrapper<bool>("EnableYamadamodFix", this, true);
             ManageCursor = new ConfigWrapper<bool>("ManageCursor", this, true);
         }
 

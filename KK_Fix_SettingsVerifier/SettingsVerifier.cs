@@ -41,6 +41,7 @@ namespace KK_Fix_SettingsVerifier
             if (CommonCode.InsideStudio)
             {
                 var xmlr = typeof(InitScene).GetMethod("xmlRead", BindingFlags.NonPublic | BindingFlags.Instance);
+                if (xmlr == null) throw new ArgumentException("Could not find InitScene.xmlRead");
                 var initScene = _instance.gameObject.AddComponent<InitScene>();
                 xmlr.Invoke(initScene, null);
                 DestroyImmediate(initScene);
@@ -51,8 +52,12 @@ namespace KK_Fix_SettingsVerifier
         /// </summary>
         private void CreateSetupXml()
         {
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{nameof(KK_Fix_SettingsVerifier)}.Resources.setup.xml"))
+            var resourceName = $"{nameof(KK_Fix_SettingsVerifier)}.Resources.setup.xml";
+
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
             {
+                if (stream == null) throw new ArgumentException("Failed to load resource " + resourceName);
+
                 using (FileStream fileStream = File.Create("UserData/setup.xml", (int)stream.Length))
                 {
                     byte[] bytesInStream = new byte[stream.Length];
@@ -69,7 +74,7 @@ namespace KK_Fix_SettingsVerifier
             try
             {
                 var dataXml = XElement.Load("UserData/setup.xml");
-                if(!dataXml.HasElements) throw new IOException();
+                if (!dataXml.HasElements) throw new IOException();
 
                 foreach (XElement xelement in dataXml.Elements())
                 {

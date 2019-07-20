@@ -4,7 +4,7 @@ using Logger = BepInEx.Logger;
 
 namespace Common
 {
-    internal class CommonCode
+    internal static class CommonCode
     {
         internal static bool InsideStudio => Application.productName == "CharaStudio";
         internal static bool InsideKoikatsuParty => Application.productName == "Koikatsu Party";
