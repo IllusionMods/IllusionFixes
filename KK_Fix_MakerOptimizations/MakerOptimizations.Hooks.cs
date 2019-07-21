@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 namespace KK_Fix_MakerOptimizations
 {
@@ -18,6 +19,8 @@ namespace KK_Fix_MakerOptimizations
         {
             public static void Patch(HarmonyInstance harmony)
             {
+                harmony.PatchAll(typeof(Hooks));
+
                 SetupSetting(harmony,
                     typeof(CustomSelectInfoComponent).GetMethod("Disvisible", AccessTools.all),
                     typeof(Hooks).GetMethod(nameof(HarmonyPatch_CustomSelectInfoComponent_Disvisible), AccessTools.all),
@@ -140,6 +143,39 @@ namespace KK_Fix_MakerOptimizations
                 {"05_ParameterTop" , "tglParameter"  },
                 {"06_SystemTop"    , "tglSystem"     },
             };
+
+            [HarmonyPostfix, HarmonyPatch(typeof(CustomControl), "Start")]
+            public static void MakerUIHideLagFix(CustomControl __instance)
+            {
+                var t = typeof(CustomControl);
+                var bf = BindingFlags.Instance | BindingFlags.NonPublic;
+
+                var fi_HideFrontUI = t.GetField("_hideFrontUI", bf);
+                var oldHideFrontUI = (BoolReactiveProperty)fi_HideFrontUI.GetValue(__instance);
+
+                var newHideFrontUI = new BoolReactiveProperty(false);   //In today's episode of how the fuck do I unsubscribe from UniRx
+                fi_HideFrontUI.SetValue(__instance, newHideFrontUI); //By replacing it of course!
+                oldHideFrontUI.Dispose(); //Tune in next time!
+
+                var cvsSpace = (Canvas)t.GetField("cvsSpace", bf).GetValue(__instance);
+                var objFrontUIGroup = (GameObject)t.GetField("objFrontUIGroup", bf).GetValue(__instance);
+                var cg = objFrontUIGroup.GetComponent<CanvasGroup>();
+
+                //Modified code from CustomControl.Start -> _hideFrontUI.Subscribe anonymous method
+                newHideFrontUI.Subscribe((hideFrontUI) =>
+                {
+                    if(__instance.saveMode) return;
+
+                    //Instead of enabling/disabling the CanvasGroup Gameobject, just hide it and make it non-interactive
+                    //This way we get the same effect but for no cost for load/unload
+                    cg.alpha = hideFrontUI ? 0f : 1f;
+                    cg.interactable = !hideFrontUI;
+                    cg.blocksRaycasts = !hideFrontUI;
+
+                    if(cvsSpace) cvsSpace.enabled = !hideFrontUI;
+                    __instance.ChangeMainCameraRect(!hideFrontUI ? CustomControl.MainCameraMode.Custom : CustomControl.MainCameraMode.View);
+                });
+            }
         }
     }
 }
