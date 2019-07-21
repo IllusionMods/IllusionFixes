@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_MainGameOptimization
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ExpandShaderDropdown", "KK_Fix_ExpandShaderDropdown\KK_Fix_ExpandShaderDropdown.csproj", "{D8AC8107-11F4-4BC0-855E-4D0330AF5D46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_CenteredHSceneCursor", "KK_Fix_CenteredHSceneCursor\KK_Fix_CenteredHSceneCursor.csproj", "{EC9E7C9B-10FA-41C7-8B30-F91E33D97F7D}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Common\Common.projitems*{08a43f46-904c-4add-86cf-7170f1b1f087}*SharedItemsImports = 4
@@ -41,6 +43,7 @@ Global
 		Common\Common.projitems*{abb91777-7231-47f7-bf4d-9144cc7b1764}*SharedItemsImports = 4
 		Common\Common.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
 		Common\Common.projitems*{e0eebf3e-cbf1-4929-a6c8-403767faaa8d}*SharedItemsImports = 4
+		Common\Common.projitems*{ec9e7c9b-10fa-41c7-8b30-f91e33d97f7d}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +94,10 @@ Global
 		{D8AC8107-11F4-4BC0-855E-4D0330AF5D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8AC8107-11F4-4BC0-855E-4D0330AF5D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8AC8107-11F4-4BC0-855E-4D0330AF5D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC9E7C9B-10FA-41C7-8B30-F91E33D97F7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC9E7C9B-10FA-41C7-8B30-F91E33D97F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC9E7C9B-10FA-41C7-8B30-F91E33D97F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC9E7C9B-10FA-41C7-8B30-F91E33D97F7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
