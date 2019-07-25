@@ -3,14 +3,15 @@ using Harmony;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using Common;
 
 namespace KK_Fix_UnlimitedMapLights
 {
     [BepInProcess("CharaStudio")]
-    [BepInPlugin("keelhauled.unlimitedmaplights", "UnlimitedMapLights", "1.0.0")]
+    [BepInPlugin("keelhauled.unlimitedmaplights", "UnlimitedMapLights", Metadata.PluginsVersion)]
     public class UnlimitedMapLights : BaseUnityPlugin
     {
-        void Start()
+        private void Start()
         {
             var harmony = HarmonyInstance.Create("keelhauled.unlimitedmaplights.harmony");
             harmony.PatchAll(GetType());
