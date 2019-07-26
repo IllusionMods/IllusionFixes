@@ -29,5 +29,22 @@ namespace KK_Fix_UnlimitedMapLights
 
             return codes;
         }
+
+        [HarmonyTranspiler, HarmonyPatch(typeof(Studio.LightLine), "CreateMaterial")]
+        public static IEnumerable<CodeInstruction> LightLineFix(IEnumerable<CodeInstruction> instructions)
+        {
+            var codes = instructions.ToList();
+
+            for(int i = 0; i < codes.Count; i++)
+            {
+                if(codes[i].opcode == OpCodes.Ldstr && codes[i].operand.ToString() == "Custom/LightLine")
+                {
+                    codes[i].operand = "Custom/LineShader";
+                    break;
+                }
+            }
+
+            return codes;
+        }
     }
 }
