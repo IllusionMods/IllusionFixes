@@ -1,7 +1,6 @@
 ﻿using BepInEx;
 using Harmony;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection.Emit;
 using Common;
 
@@ -17,34 +16,24 @@ namespace KK_Fix_UnlimitedMapLights
             harmony.PatchAll(GetType());
         }
 
-        [HarmonyTranspiler, HarmonyPatch(typeof(Studio.Studio), nameof(Studio.Studio.AddLight), new[] { typeof(int) })]
-        public static IEnumerable<CodeInstruction> UnlimitedLights(IEnumerable<CodeInstruction> instructions)
+        [HarmonyPrefix, HarmonyPatch(typeof(Studio.SceneInfo))]
+        [HarmonyPatch(nameof(Studio.SceneInfo.isLightCheck), PropertyMethod.Getter)]
+        public static bool UnlimitedLights(ref bool __result)
         {
-            var codes = instructions.ToList();
-
-            codes[0].opcode = OpCodes.Nop;
-            codes[1].opcode = OpCodes.Nop;
-            codes[2].opcode = OpCodes.Nop;
-            codes[3].opcode = OpCodes.Br;
-
-            return codes;
+            __result = true;
+            return false;
         }
 
         [HarmonyTranspiler, HarmonyPatch(typeof(Studio.LightLine), "CreateMaterial")]
         public static IEnumerable<CodeInstruction> LightLineFix(IEnumerable<CodeInstruction> instructions)
         {
-            var codes = instructions.ToList();
-
-            for(int i = 0; i < codes.Count; i++)
+            foreach(var code in instructions)
             {
-                if(codes[i].opcode == OpCodes.Ldstr && codes[i].operand.ToString() == "Custom/LightLine")
-                {
-                    codes[i].operand = "Custom/LineShader";
-                    break;
-                }
-            }
+                if(code.opcode == OpCodes.Ldstr && (string)code.operand == "Custom/LightLine")
+                    code.operand = "Custom/LineShader";
 
-            return codes;
+                yield return code;
+            }
         }
     }
 }
