@@ -24,7 +24,8 @@ namespace Common
             "KK_HeadFix.dll",
             "KK_MiscFixes.dll",
             "KK_PersonalityCorrector.dll",
-            "KK_SettingsFix.dll"
+            "KK_SettingsFix.dll",
+            "MakerLag.dll"
         };
 
         private static bool? _incompatiblePlugsFound;
