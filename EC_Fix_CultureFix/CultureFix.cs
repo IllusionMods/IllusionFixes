@@ -7,7 +7,7 @@ namespace IllusionFixes
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class CultureFix : BaseUnityPlugin
     {
-        public const string GUID = "EC.Core.Fixes.CultureFix";
+        public const string GUID = "EC_Fix_CultureFix";
         public const string PluginName = "Culture Fix";
 
         private void Awake()
