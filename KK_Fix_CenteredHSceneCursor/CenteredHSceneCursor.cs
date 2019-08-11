@@ -1,6 +1,7 @@
 ﻿using BepInEx;
+using BepInEx.Harmony;
 using Common;
-using Harmony;
+using HarmonyLib;
 using UnityEngine;
 
 namespace KK_Fix_CenteredHSceneCursor
@@ -11,17 +12,14 @@ namespace KK_Fix_CenteredHSceneCursor
         public const string GUID = "keelhauled.centerhscenecursor";
         public const string PluginName = "Centered HScene Cursor";
 
-        public void Awake()
-        {
-            HarmonyInstance.Create(GUID).PatchAll(typeof(Hooks));
-        }
+        public void Awake() => HarmonyWrapper.PatchAll(typeof(Hooks));
 
-        static class Hooks
+        private static class Hooks
         {
             [HarmonyPostfix, HarmonyPatch(typeof(GameCursor), "SetCursorTexture")]
             public static void CenterCursor(GameCursor __instance, ref int _kind)
             {
-                if(_kind == -2)
+                if (_kind == -2)
                 {
                     var sizeWindow = Traverse.Create(__instance).Field("sizeWindow").GetValue<int>();
                     var tex = __instance.iconDefalutTextures[sizeWindow];

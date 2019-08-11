@@ -1,7 +1,7 @@
 ﻿using BepInEx;
+using BepInEx.Harmony;
 using BepInEx.Logging;
 using Common;
-using Harmony;
 
 namespace KK_Fix_PersonalityCorrector
 {
@@ -13,6 +13,7 @@ namespace KK_Fix_PersonalityCorrector
     {
         public const string GUID = "com.deathweasel.bepinex.personalitycorrector";
         public const string PluginName = "Personality Corrector";
+        internal static new ManualLogSource Logger;
 
         public static int DefaultPersonality = 8; // 8 - Pure
 
@@ -20,7 +21,8 @@ namespace KK_Fix_PersonalityCorrector
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
-            HarmonyInstance.Create(GUID).PatchAll(typeof(Hooks));
+            Logger = base.Logger;
+            HarmonyWrapper.PatchAll(typeof(Hooks));
         }
 
         public static void CheckPersonalityAndOverride(ChaFileControl chaFileControl)

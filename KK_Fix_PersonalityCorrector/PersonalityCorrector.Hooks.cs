@@ -1,5 +1,5 @@
 ﻿using ActionGame;
-using Harmony;
+using HarmonyLib;
 
 namespace KK_Fix_PersonalityCorrector
 {
@@ -17,10 +17,7 @@ namespace KK_Fix_PersonalityCorrector
 
             [HarmonyPrefix]
             [HarmonyPatch(typeof(PreviewClassData), nameof(PreviewClassData.Set), new[] { typeof(SaveData.CharaData) })]
-            public static void SetClassChara(SaveData.CharaData charaData)
-            {
-                CheckPersonalityAndOverride(charaData.charFile);
-            }
+            public static void SetClassChara(SaveData.CharaData charaData) => CheckPersonalityAndOverride(charaData.charFile);
         }
     }
 }

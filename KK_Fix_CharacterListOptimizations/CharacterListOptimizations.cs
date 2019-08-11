@@ -1,6 +1,6 @@
 ﻿using BepInEx;
+using BepInEx.Harmony;
 using Common;
-using Harmony;
 
 namespace KK_Fix_CharacterListOptimizations
 {
@@ -15,7 +15,7 @@ namespace KK_Fix_CharacterListOptimizations
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
             if (!CommonCode.InsideKoikatsuParty)
-                HarmonyInstance.Create(GUID).PatchAll(typeof(Hooks));
+                HarmonyWrapper.PatchAll(typeof(Hooks));
         }
     }
 }

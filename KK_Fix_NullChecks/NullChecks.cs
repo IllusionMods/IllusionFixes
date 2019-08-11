@@ -1,6 +1,7 @@
 ﻿using BepInEx;
+using BepInEx.Harmony;
 using Common;
-using Harmony;
+using HarmonyLib;
 
 namespace KK_Fix_NullChecks
 {
@@ -14,7 +15,7 @@ namespace KK_Fix_NullChecks
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
-            HarmonyInstance.Create(GUID).PatchAll(typeof(Hooks));
+            HarmonyWrapper.PatchAll(typeof(Hooks));
         }
 
         private static class Hooks

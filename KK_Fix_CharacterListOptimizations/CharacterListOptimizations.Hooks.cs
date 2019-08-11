@@ -5,7 +5,7 @@ using ActionGame;
 using ChaCustom;
 using ExtensibleSaveFormat;
 using FreeH;
-using Harmony;
+using HarmonyLib;
 using Illusion.Game;
 using UniRx;
 using UnityEngine.UI;

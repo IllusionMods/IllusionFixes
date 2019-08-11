@@ -1,22 +1,25 @@
-﻿using System;
+﻿using BepInEx;
+using BepInEx.Harmony;
+using BepInEx.Logging;
+using Common;
+using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection.Emit;
-using BepInEx;
-using BepInEx.Logging;
-using Common;
-using Harmony;
 
 namespace KK_Fix_PartyCardCompatibility
 {
     [BepInPlugin(Guid, Guid, Metadata.PluginsVersion)]
-    public class FixPartyCardCompatibility : BaseUnityPlugin
+    public partial class FixPartyCardCompatibility : BaseUnityPlugin
     {
         public const string Guid = "KK_Fix_PartyCardCompatibility";
+        internal static new ManualLogSource Logger;
 
         private void Awake()
         {
-            HarmonyInstance.Create(Guid).PatchAll(typeof(FixPartyCardCompatibility));
+            Logger = base.Logger;
+            HarmonyWrapper.PatchAll(typeof(FixPartyCardCompatibility));
         }
 
         /// <summary>

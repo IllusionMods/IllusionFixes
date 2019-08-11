@@ -1,7 +1,7 @@
-﻿using System;
-using BepInEx;
+﻿using BepInEx;
+using BepInEx.Harmony;
 using Common;
-using Harmony;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
@@ -9,7 +9,7 @@ using System.Xml.Linq;
 namespace KK_Fix_SettingsVerifier
 {
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public class SettingsVerifier : BaseUnityPlugin
+    public partial class SettingsVerifier : BaseUnityPlugin
     {
         public const string GUID = "com.deathweasel.bepinex.settingsfix";
         public const string PluginName = "Settings Fix";
@@ -30,22 +30,7 @@ namespace KK_Fix_SettingsVerifier
 
             _instance = this;
 
-            HarmonyInstance.Create(GUID).PatchAll(typeof(SettingsVerifier));
-        }
-        /// <summary>
-        /// Run the code for reading setup.xml when inside studio. Done in a Manager.Config.Start hook because the xmlRead method needs stuff to be initialized first.
-        /// </summary>
-        [HarmonyPostfix, HarmonyPatch(typeof(Manager.Config), "Start")]
-        public static void ManagerConfigStart()
-        {
-            if (CommonCode.InsideStudio)
-            {
-                var xmlr = typeof(InitScene).GetMethod("xmlRead", BindingFlags.NonPublic | BindingFlags.Instance);
-                if (xmlr == null) throw new ArgumentException("Could not find InitScene.xmlRead");
-                var initScene = _instance.gameObject.AddComponent<InitScene>();
-                xmlr.Invoke(initScene, null);
-                DestroyImmediate(initScene);
-            }
+            HarmonyWrapper.PatchAll(typeof(Hooks));
         }
         /// <summary>
         /// Read a copy of the setup.xml from the plugin's Resources folder and write it to disk

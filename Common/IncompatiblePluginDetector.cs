@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using BepInEx;
+using BepInEx.Logging;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using BepInEx;
-using BepInEx.Logging;
 using UnityEngine;
-using Logger = BepInEx.Logger;
 
 namespace Common
 {
     internal class IncompatiblePluginDetector : MonoBehaviour
     {
+        public static ManualLogSource Logger { get; } = BepInEx.Logging.Logger.CreateLogSource(nameof(IncompatiblePluginDetector));
+
         private static readonly string[] _pluginBlacklist =
         {
             "FixCompilation.dll",

@@ -1,15 +1,16 @@
-﻿using BepInEx;
+﻿using BepInEx.Configuration;
+using BepInEx.Harmony;
 using ChaCustom;
-using Harmony;
+using HarmonyLib;
 using Illusion.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
-using UniRx;
 
 namespace KK_Fix_MakerOptimizations
 {
@@ -17,9 +18,9 @@ namespace KK_Fix_MakerOptimizations
     {
         private static class Hooks
         {
-            public static void Patch(HarmonyInstance harmony)
+            public static void InstallHooks()
             {
-                harmony.PatchAll(typeof(Hooks));
+                var harmony = HarmonyWrapper.PatchAll(typeof(Hooks));
 
                 SetupSetting(harmony,
                     typeof(CustomSelectInfoComponent).GetMethod("Disvisible", AccessTools.all),
@@ -45,7 +46,7 @@ namespace KK_Fix_MakerOptimizations
                 }
             }
 
-            private static void SetupSetting(HarmonyInstance harmony, MethodInfo targetMethod, MethodInfo patchMethod, ConfigWrapper<bool> targetSetting)
+            private static void SetupSetting(Harmony harmony, MethodInfo targetMethod, MethodInfo patchMethod, ConfigWrapper<bool> targetSetting)
             {
                 if (targetSetting.Value)
                     harmony.Patch(targetMethod, new HarmonyMethod(patchMethod), null);
@@ -55,7 +56,7 @@ namespace KK_Fix_MakerOptimizations
                     if (targetSetting.Value)
                         harmony.Patch(targetMethod, new HarmonyMethod(patchMethod), null);
                     else
-                        harmony.RemovePatch(targetMethod, patchMethod);
+                        harmony.Unpatch(targetMethod, patchMethod);
                 };
             }
 

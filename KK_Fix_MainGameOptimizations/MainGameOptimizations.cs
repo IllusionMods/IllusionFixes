@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Reflection.Emit;
-using ActionGame.Chara;
+﻿using ActionGame.Chara;
 using BepInEx;
+using BepInEx.Configuration;
+using BepInEx.Harmony;
 using Common;
-using Harmony;
+using HarmonyLib;
 using Manager;
+using System;
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,15 +19,7 @@ namespace KK_Fix_MainGameOptimizations
         public const string GUID = "KK_Fix_MainGameOptimizations";
         public const string PluginName = "Main Game Optimizations";
 
-        [DisplayName("Async clothes loading")]
-        [Description("Spread loading of clothes in school roam mode over multiple frames. Greatly reduces " +
-                     "seemingly random stutters when characters change clothes somewhere in the world.\n\n" +
-                     "Warning: In rare cases can cause some visual glitches like 2 coordinates loaded at once.")]
         public static ConfigWrapper<bool> AsyncClothesLoading { get; private set; }
-
-        [DisplayName("Preload characters on initial load")]
-        [Description("Forces all characters to load during initial load into school mode. Slightly longer loading " +
-                     "time but eliminates large stutters when unseen characters enter current map.")]
         public static ConfigWrapper<bool> PreloadCharacters { get; private set; }
 
         private void Awake()
@@ -35,10 +28,10 @@ namespace KK_Fix_MainGameOptimizations
 
             if (CommonCode.InsideStudio) return;
 
-            AsyncClothesLoading = new ConfigWrapper<bool>(nameof(AsyncClothesLoading), this, true);
-            PreloadCharacters = new ConfigWrapper<bool>(nameof(PreloadCharacters), this, true);
+            AsyncClothesLoading = Config.Wrap("Config", "Async clothes loading", "Spread loading of clothes in school roam mode over multiple frames. Greatly reduces seemingly random stutters when characters change clothes somewhere in the world.\n\nWarning: In rare cases can cause some visual glitches like 2 coordinates loaded at once.", true);
+            PreloadCharacters = Config.Wrap("Config", "Preload characters on initial load", "Forces all characters to load during initial load into school mode. Slightly longer loading time but eliminates large stutters when unseen characters enter current map.", true);
 
-            HarmonyInstance.Create(GUID).PatchAll(typeof(MainGameOptimizations));
+            HarmonyWrapper.PatchAll(typeof(MainGameOptimizations));
 
             SceneManager.sceneLoaded += (arg0, mode) => _runningReloadCoroutines.Clear();
         }

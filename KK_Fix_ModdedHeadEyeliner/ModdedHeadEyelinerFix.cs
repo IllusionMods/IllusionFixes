@@ -1,8 +1,9 @@
-﻿using System;
-using System.Linq;
-using BepInEx;
+﻿using BepInEx;
+using BepInEx.Harmony;
 using Common;
-using Harmony;
+using HarmonyLib;
+using System;
+using System.Linq;
 using UnityEngine;
 
 namespace KK_Fix_ModdedHeadEyeliner
@@ -17,7 +18,7 @@ namespace KK_Fix_ModdedHeadEyeliner
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
-            var harmony = HarmonyInstance.Create(GUID);
+            var harmony = HarmonyWrapper.PatchAll(typeof(ModdedHeadEyelinerFix));
             var getTextureMethod = typeof(ChaControl).GetMethod("GetTexture", AccessTools.all);
             if (getTextureMethod == null) throw new ArgumentException("Could not find ChaControl.GetTexture");
             if (getTextureMethod.GetParameters().Any(x => x.Name == "addStr"))
