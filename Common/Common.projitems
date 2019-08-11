@@ -9,9 +9,9 @@
     <Import_RootNamespace>Common</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)AccessoriesApi.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CommonCode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CoroutineUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IncompatiblePluginDetector.cs" />

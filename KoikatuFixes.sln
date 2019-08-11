@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2016
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common", "Common\Common.shproj", "{340A3D13-DEE0-43C0-8410-EC84C2873F95}"
 EndProject
@@ -31,9 +31,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_CenteredHSceneCursor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_UnlimitedMapLights", "KK_Fix_UnlimitedMapLights\KK_Fix_UnlimitedMapLights.csproj", "{51F20404-6A48-4578-B994-FF0A867EF2C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_CultureFix", "EC_Fix_CultureFix\EC_Fix_CultureFix.csproj", "{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common.AccessoriesAPI", "Common.AccessoriesAPI\Common.AccessoriesAPI.shproj", "{94E708E4-7B1C-4DA8-83BB-7699753825D1}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Common\Common.projitems*{08a43f46-904c-4add-86cf-7170f1b1f087}*SharedItemsImports = 4
+		Common\Common.projitems*{1a9a2704-d5f1-466d-af8c-18ce3a64e110}*SharedItemsImports = 4
 		Common\Common.projitems*{1c3ad6a8-0e6a-443b-9229-0dd4528d73a6}*SharedItemsImports = 4
 		Common\Common.projitems*{2c6d522c-2830-4ccf-8f49-3e0aa36a273e}*SharedItemsImports = 4
 		Common\Common.projitems*{340a3d13-dee0-43c0-8410-ec84c2873f95}*SharedItemsImports = 13
@@ -42,6 +47,7 @@ Global
 		Common\Common.projitems*{51f20404-6a48-4578-b994-ff0a867ef2c0}*SharedItemsImports = 4
 		Common\Common.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
 		Common\Common.projitems*{6ca88723-ca91-49c9-9fd1-c6e58efa5529}*SharedItemsImports = 4
+		Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{94e708e4-7b1c-4da8-83bb-7699753825d1}*SharedItemsImports = 13
 		Common\Common.projitems*{a714b46d-95a3-4eb0-a635-c253bbad0cba}*SharedItemsImports = 4
 		Common\Common.projitems*{abb91777-7231-47f7-bf4d-9144cc7b1764}*SharedItemsImports = 4
 		Common\Common.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
@@ -105,6 +111,10 @@ Global
 		{51F20404-6A48-4578-B994-FF0A867EF2C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51F20404-6A48-4578-B994-FF0A867EF2C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51F20404-6A48-4578-B994-FF0A867EF2C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
