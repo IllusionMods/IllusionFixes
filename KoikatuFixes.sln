@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_CultureFix", "EC_Fix
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common.AccessoriesAPI", "Common.AccessoriesAPI\Common.AccessoriesAPI.shproj", "{94E708E4-7B1C-4DA8-83BB-7699753825D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_DownloadRenamer", "EC_Fix_DownloadRenamer\EC_Fix_DownloadRenamer.csproj", "{9216D4D0-B421-4D3B-B038-49D76DC12573}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Common\Common.projitems*{08a43f46-904c-4add-86cf-7170f1b1f087}*SharedItemsImports = 4
@@ -48,6 +50,7 @@ Global
 		Common\Common.projitems*{51f20404-6a48-4578-b994-ff0a867ef2c0}*SharedItemsImports = 4
 		Common\Common.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
 		Common\Common.projitems*{6ca88723-ca91-49c9-9fd1-c6e58efa5529}*SharedItemsImports = 4
+		Common\Common.projitems*{9216d4d0-b421-4d3b-b038-49d76dc12573}*SharedItemsImports = 4
 		Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{94e708e4-7b1c-4da8-83bb-7699753825d1}*SharedItemsImports = 13
 		Common\Common.projitems*{a714b46d-95a3-4eb0-a635-c253bbad0cba}*SharedItemsImports = 4
 		Common\Common.projitems*{abb91777-7231-47f7-bf4d-9144cc7b1764}*SharedItemsImports = 4
@@ -116,6 +119,10 @@ Global
 		{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9216D4D0-B421-4D3B-B038-49D76DC12573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9216D4D0-B421-4D3B-B038-49D76DC12573}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9216D4D0-B421-4D3B-B038-49D76DC12573}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9216D4D0-B421-4D3B-B038-49D76DC12573}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
