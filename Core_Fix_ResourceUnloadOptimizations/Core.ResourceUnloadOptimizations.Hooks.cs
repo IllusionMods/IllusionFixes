@@ -1,5 +1,6 @@
 ﻿using BepInEx.Harmony;
 using BepInEx.Logging;
+using Common;
 using HarmonyLib;
 using MonoMod.RuntimeDetour;
 using System;
@@ -43,7 +44,7 @@ namespace IllusionFixes
             {
                 if (_currentOperation == null || _currentOperation.isDone)
                 {
-                    Logger.Log(LogLevel.Debug, "[ResourceUnloadOptimizations] Starting unused resource cleanup");
+                    Utilities.Logger.Log(LogLevel.Debug, "Starting unused resource cleanup");
                     _currentOperation = _originalUnload();
                 }
 

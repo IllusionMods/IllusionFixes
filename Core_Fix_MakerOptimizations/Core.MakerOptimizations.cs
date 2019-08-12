@@ -51,7 +51,7 @@ namespace IllusionFixes
             if (DisableIKCalc.Value && BepInEx.Bootstrap.Chainloader.Plugins.Select(MetadataHelper.GetMetadata).Any(x => x.GUID == "com.essu.stiletto"))
             {
                 DisableIKCalc.Value = false;
-                Logger.Log(LogLevel.Warning | LogLevel.Message, "Stiletto detected, disabling the DisableIKCalc optimization for compatibility");
+                Utilities.Logger.Log(LogLevel.Warning | LogLevel.Message, "Stiletto detected, disabling the DisableIKCalc optimization for compatibility");
             }
         }
 
@@ -81,7 +81,7 @@ namespace IllusionFixes
             else if (FindObjectOfType<StudioScene>())
             {
                 GameObject.Find("StudioScene/Camera/Main Camera/CameraTarget")?.SetActive(!DisableCameraTarget.Value);
-            }             
+            }
             else if (FindObjectOfType<HSceneProc>())
             {
                 GameObject.Find("HScene/CameraBase/Camera/CameraTarget")?.SetActive(!DisableCameraTarget.Value);

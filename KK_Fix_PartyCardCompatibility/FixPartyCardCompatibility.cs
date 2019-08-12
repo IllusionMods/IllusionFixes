@@ -1,6 +1,5 @@
 ﻿using BepInEx;
 using BepInEx.Harmony;
-using BepInEx.Logging;
 using Common;
 using HarmonyLib;
 using System;
@@ -15,13 +14,8 @@ namespace IllusionFixes
     {
         public const string GUID = "KK_Fix_PartyCardCompatibility";
         public const string PluginName = "Party Card Compatibility";
-        internal static new ManualLogSource Logger;
 
-        private void Awake()
-        {
-            Logger = base.Logger;
-            HarmonyWrapper.PatchAll(typeof(FixPartyCardCompatibility));
-        }
+        private void Awake() => HarmonyWrapper.PatchAll(typeof(FixPartyCardCompatibility));
 
         /// <summary>
         /// Needs to return false if the condition passes, true if it fails (this replaces the string != operand)
@@ -47,7 +41,7 @@ namespace IllusionFixes
                     if (instruction.opcode == OpCodes.Call)
                         instruction.operand = AccessTools.Method(typeof(FixPartyCardCompatibility), nameof(CustomCardTokenCompare));
                     else
-                        Logger.Log(LogLevel.Error, $"[{GUID}] Failed to hook ChaFile.LoadFile, unexpected IL opcode");
+                        Utilities.Logger.LogError($"[{GUID}] Failed to hook ChaFile.LoadFile, unexpected IL opcode");
 
                     patchNext = false;
                 }

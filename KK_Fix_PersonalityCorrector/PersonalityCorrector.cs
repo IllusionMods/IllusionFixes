@@ -13,7 +13,6 @@ namespace IllusionFixes
     {
         public const string GUID = "KK_Fix_PersonalityCorrector";
         public const string PluginName = "Personality Corrector";
-        internal static new ManualLogSource Logger;
 
         public static int DefaultPersonality = 8; // 8 - Pure
 
@@ -21,7 +20,6 @@ namespace IllusionFixes
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
-            Logger = base.Logger;
             HarmonyWrapper.PatchAll(typeof(Hooks));
         }
 
@@ -89,13 +87,13 @@ namespace IllusionFixes
 
         private static void ShowInvalidModdedPersonality(ChaFileControl chaFileControl)
         {
-            Logger.Log(LogLevel.Message, chaFileControl.parameter.fullname + " - Modded personality " +
+            Utilities.Logger.Log(LogLevel.Message, chaFileControl.parameter.fullname + " - Modded personality " +
                 chaFileControl.parameter.personality + " is not compatible with story mode, resetting to default");
         }
 
         private static void ShowPersonalityMissingMessage(ChaFileControl chaFile, string dlcName)
         {
-            Logger.Log(LogLevel.Message, chaFile.parameter.fullname + " - Personality " +
+            Utilities.Logger.Log(LogLevel.Message, chaFile.parameter.fullname + " - Personality " +
                 chaFile.parameter.personality + " from " + dlcName + " is missing, resetting to default");
         }
     }

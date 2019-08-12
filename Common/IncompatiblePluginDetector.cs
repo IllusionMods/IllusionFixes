@@ -9,8 +9,6 @@ namespace Common
 {
     internal class IncompatiblePluginDetector : MonoBehaviour
     {
-        public static ManualLogSource Logger { get; } = BepInEx.Logging.Logger.CreateLogSource(nameof(IncompatiblePluginDetector));
-
         private static readonly string[] _pluginBlacklist =
         {
             "FixCompilation.dll",
@@ -69,9 +67,9 @@ namespace Common
             if (_badPlugins.Any())
             {
                 foreach (var pluginName in _badPlugins)
-                    Logger.Log(LogLevel.Error | LogLevel.Message, "ERROR - Outdated plugin detected, please remove it: " + pluginName);
+                    Utilities.Logger.Log(LogLevel.Error | LogLevel.Message, "ERROR - Outdated plugin detected, please remove it: " + pluginName);
 
-                Logger.Log(LogLevel.Message, "After removing these plugins update to the latest version of KoikatuFixes");
+                Utilities.Logger.Log(LogLevel.Message, "After removing these plugins update to the latest version of KoikatuFixes");
             }
 
             Destroy(gameObject);
