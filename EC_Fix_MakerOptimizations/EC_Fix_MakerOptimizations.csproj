@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{65CB1A38-C90D-42D3-B157-5FB6F844ED11}</ProjectGuid>
+    <ProjectGuid>{541ED181-1370-47F1-9D95-6187EE59686C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KK_Fix_MakerOptimizations</RootNamespace>
-    <AssemblyName>KK_Fix_MakerOptimizations</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <RootNamespace>EC_Fix_MakerOptimizations</RootNamespace>
+    <AssemblyName>EC_Fix_MakerOptimizations</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -18,7 +18,7 @@
     <DebugType>embedded</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\bin\BepInEx\plugins\IllusionFixes\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;KK</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;EC</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -26,7 +26,7 @@
     <DebugType>embedded</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\bin\BepInEx\plugins\IllusionFixes\</OutputPath>
-    <DefineConstants>TRACE;KK</DefineConstants>
+    <DefineConstants>TRACE;EC</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
@@ -37,11 +37,11 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\lib\Koikatsu\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\lib\EmotionCreators\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\lib\Koikatsu\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\lib\EmotionCreators\Assembly-CSharp-firstpass.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="BepInEx">
@@ -52,25 +52,52 @@
       <HintPath>..\lib\BepInEx.Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="IL">
+      <HintPath>..\lib\EmotionCreators\IL.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UniRx">
+      <HintPath>..\lib\EmotionCreators\UniRx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\lib\Koikatsu\UnityEngine.dll</HintPath>
+      <HintPath>..\lib\EmotionCreators\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\lib\EmotionCreators\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\lib\EmotionCreators\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\lib\Koikatsu\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\lib\EmotionCreators\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>..\lib\EmotionCreators\UnityEngine.UIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="KK.MakerOptimizations.cs" />
+    <Compile Include="EC.MakerOptimizations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="..\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>IF EXIST $(SolutionDir)PostBuild.bat CALL "$(SolutionDir)PostBuild.bat" $(TargetPath) KK</PostBuildEvent>
+    <PostBuildEvent>IF EXIST $(SolutionDir)PostBuild.bat CALL "$(SolutionDir)PostBuild.bat" $(TargetPath) EC</PostBuildEvent>
   </PropertyGroup>
 </Project>

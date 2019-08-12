@@ -6,10 +6,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace KK_Fix_MakerOptimizations
+namespace IllusionFixes
 {
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public partial class MakerOptimizations : BaseUnityPlugin
+    public partial class MakerOptimizations
     {
         public const string GUID = "keelhauled.fixcompilation";
         public const string PluginName = "Maker Optimization";
@@ -74,19 +73,21 @@ namespace KK_Fix_MakerOptimizations
 
         private static void ApplyPatches()
         {
-            if (FindObjectOfType<StudioScene>())
-            {
-                GameObject.Find("StudioScene/Camera/Main Camera/CameraTarget")?.SetActive(!DisableCameraTarget.Value);
-            }
-            else if (FindObjectOfType<CustomScene>())
+            if (FindObjectOfType<CustomScene>())
             {
                 GameObject.Find("CustomScene/CamBase/Camera/CameraTarget")?.SetActive(!DisableCameraTarget.Value);
                 GameObject.Find("CustomScene/CustomRoot/FrontUIGroup/CustomUIGroup/CvsCharaName")?.SetActive(!DisableCharaName.Value);
             }
+#if KK
+            else if (FindObjectOfType<StudioScene>())
+            {
+                GameObject.Find("StudioScene/Camera/Main Camera/CameraTarget")?.SetActive(!DisableCameraTarget.Value);
+            }             
             else if (FindObjectOfType<HSceneProc>())
             {
                 GameObject.Find("HScene/CameraBase/Camera/CameraTarget")?.SetActive(!DisableCameraTarget.Value);
             }
+#endif
         }
     }
 }

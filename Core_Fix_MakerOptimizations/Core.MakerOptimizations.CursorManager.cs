@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace KK_Fix_MakerOptimizations
+namespace IllusionFixes
 {
     public class CursorManager : MonoBehaviour
     {

@@ -12,7 +12,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace KK_Fix_MakerOptimizations
+namespace IllusionFixes
 {
     public partial class MakerOptimizations
     {

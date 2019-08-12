@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>e613fea3-a78c-4f26-878a-b7a874961819</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Core_Fix_MakerOptimizations</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Core.MakerOptimizations.CursorManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core.MakerOptimizations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core.MakerOptimizations.Hooks.cs" />
+  </ItemGroup>
+</Project>
