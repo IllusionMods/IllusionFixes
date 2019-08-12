@@ -5,7 +5,7 @@ using MonoMod.RuntimeDetour;
 using System;
 using UnityEngine;
 
-namespace KK_Fix_ResourceUnloadOptimizations
+namespace IllusionFixes
 {
     public partial class ResourceUnloadOptimizations
     {

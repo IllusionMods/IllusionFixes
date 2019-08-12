@@ -1,12 +1,10 @@
-﻿using BepInEx;
-using BepInEx.Logging;
+﻿using BepInEx.Logging;
 using Common;
 using System;
 
-namespace KK_Fix_ResourceUnloadOptimizations
+namespace IllusionFixes
 {
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public partial class ResourceUnloadOptimizations : BaseUnityPlugin
+    public partial class ResourceUnloadOptimizations
     {
         public const string GUID = "KK_Fix_ResourceUnloadOptimizations";
         public const string PluginName = "Resource Unload Optimizations";
