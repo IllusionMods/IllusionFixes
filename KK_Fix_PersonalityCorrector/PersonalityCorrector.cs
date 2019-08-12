@@ -3,7 +3,7 @@ using BepInEx.Harmony;
 using BepInEx.Logging;
 using Common;
 
-namespace KK_Fix_PersonalityCorrector
+namespace IllusionFixes
 {
     /// <summary>
     /// Changes any invalid personalities to the "Pure" personality to prevent the game from breaking when adding them to the class
@@ -11,7 +11,7 @@ namespace KK_Fix_PersonalityCorrector
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class PersonalityCorrector : BaseUnityPlugin
     {
-        public const string GUID = "com.deathweasel.bepinex.personalitycorrector";
+        public const string GUID = "KK_Fix_PersonalityCorrector";
         public const string PluginName = "Personality Corrector";
         internal static new ManualLogSource Logger;
 

@@ -7,7 +7,7 @@
     <ProjectGuid>{51F20404-6A48-4578-B994-FF0A867EF2C0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KK_Fix_UnlimitedMapLights</RootNamespace>
+    <RootNamespace>IllusionFixes</RootNamespace>
     <AssemblyName>KK_Fix_UnlimitedMapLights</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -4,5 +4,8 @@ using Common;
 namespace IllusionFixes
 {
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public partial class NullChecks : BaseUnityPlugin { }
+    public partial class NullChecks : BaseUnityPlugin
+    {
+        public const string GUID = "KK_Fix_NullChecks";
+    }
 }

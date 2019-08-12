@@ -7,7 +7,7 @@
     <ProjectGuid>{40967983-DF5C-411A-BFA4-96C6CFEBC63E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KK_Fix_NullChecks</RootNamespace>
+    <RootNamespace>IllusionFixes</RootNamespace>
     <AssemblyName>KK_Fix_NullChecks</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -57,7 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KK.NullChecks.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="..\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems" Label="Shared" />

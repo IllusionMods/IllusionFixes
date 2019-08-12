@@ -7,7 +7,7 @@
     <ProjectGuid>{541ED181-1370-47F1-9D95-6187EE59686C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EC_Fix_MakerOptimizations</RootNamespace>
+    <RootNamespace>IllusionFixes</RootNamespace>
     <AssemblyName>EC_Fix_MakerOptimizations</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -92,7 +92,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EC.MakerOptimizations.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="..\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems" Label="Shared" />

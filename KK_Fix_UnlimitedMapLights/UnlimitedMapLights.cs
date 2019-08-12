@@ -2,12 +2,15 @@
 using BepInEx.Harmony;
 using Common;
 
-namespace KK_Fix_UnlimitedMapLights
+namespace IllusionFixes
 {
     [BepInProcess("CharaStudio")]
-    [BepInPlugin("keelhauled.unlimitedmaplights", "UnlimitedMapLights", Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class UnlimitedMapLights : BaseUnityPlugin
     {
+        public const string GUID = "KK_Fix_UnlimitedMapLights";
+        public const string PluginName = "Unlimited Map Lights";
+
         private void Start() => HarmonyWrapper.PatchAll(typeof(UnlimitedMapLights));
     }
 }

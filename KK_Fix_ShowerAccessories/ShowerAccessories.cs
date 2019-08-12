@@ -2,7 +2,7 @@
 using BepInEx.Harmony;
 using Common;
 
-namespace KK_Fix_ShowerAccessories
+namespace IllusionFixes
 {
     /// <summary>
     /// Prevents accessories from being disabled in the shower peeping mode

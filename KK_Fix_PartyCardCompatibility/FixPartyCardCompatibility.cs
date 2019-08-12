@@ -8,12 +8,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection.Emit;
 
-namespace KK_Fix_PartyCardCompatibility
+namespace IllusionFixes
 {
-    [BepInPlugin(Guid, Guid, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class FixPartyCardCompatibility : BaseUnityPlugin
     {
-        public const string Guid = "KK_Fix_PartyCardCompatibility";
+        public const string GUID = "KK_Fix_PartyCardCompatibility";
+        public const string PluginName = "Party Card Compatibility";
         internal static new ManualLogSource Logger;
 
         private void Awake()
@@ -46,7 +47,7 @@ namespace KK_Fix_PartyCardCompatibility
                     if (instruction.opcode == OpCodes.Call)
                         instruction.operand = AccessTools.Method(typeof(FixPartyCardCompatibility), nameof(CustomCardTokenCompare));
                     else
-                        Logger.Log(LogLevel.Error, $"[{Guid}] Failed to hook ChaFile.LoadFile, unexpected IL opcode");
+                        Logger.Log(LogLevel.Error, $"[{GUID}] Failed to hook ChaFile.LoadFile, unexpected IL opcode");
 
                     patchNext = false;
                 }

@@ -13,8 +13,7 @@ namespace IllusionFixes
     // Based on koikoi.happy.nu.fix_shader_dropdown
     public partial class ExpandShaderDropdown
     {
-        public const string GUID = "KK_Fix_ExpandShaderDropdown";
-        public const string Version = Metadata.PluginsVersion;
+        public const string PluginName = "Fix Shader Dropdown Menu";
 
         private void Awake()
         {

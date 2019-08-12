@@ -6,7 +6,6 @@ namespace IllusionFixes
 {
     public partial class ResourceUnloadOptimizations
     {
-        public const string GUID = "KK_Fix_ResourceUnloadOptimizations";
         public const string PluginName = "Resource Unload Optimizations";
         internal static new ManualLogSource Logger;
 

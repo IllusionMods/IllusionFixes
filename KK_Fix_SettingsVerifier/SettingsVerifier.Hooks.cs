@@ -2,8 +2,7 @@
 using HarmonyLib;
 using System;
 
-
-namespace KK_Fix_SettingsVerifier
+namespace IllusionFixes
 {
     public partial class SettingsVerifier
     {

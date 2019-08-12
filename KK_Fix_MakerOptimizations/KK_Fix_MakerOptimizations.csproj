@@ -7,7 +7,7 @@
     <ProjectGuid>{65CB1A38-C90D-42D3-B157-5FB6F844ED11}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KK_Fix_MakerOptimizations</RootNamespace>
+    <RootNamespace>IllusionFixes</RootNamespace>
     <AssemblyName>KK_Fix_MakerOptimizations</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -65,7 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KK.MakerOptimizations.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="..\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems" Label="Shared" />

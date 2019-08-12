@@ -7,7 +7,7 @@
     <ProjectGuid>{08A43F46-904C-4ADD-86CF-7170F1B1F087}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KK_Fix_MainGameOptimizations</RootNamespace>
+    <RootNamespace>IllusionFixes</RootNamespace>
     <AssemblyName>KK_Fix_MainGameOptimizations</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

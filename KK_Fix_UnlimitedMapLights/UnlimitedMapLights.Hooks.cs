@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection.Emit;
 
-namespace KK_Fix_UnlimitedMapLights
+namespace IllusionFixes
 {
     public partial class UnlimitedMapLights
     {

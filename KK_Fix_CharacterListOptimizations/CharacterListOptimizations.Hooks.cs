@@ -10,7 +10,7 @@ using Illusion.Game;
 using UniRx;
 using UnityEngine.UI;
 
-namespace KK_Fix_CharacterListOptimizations
+namespace IllusionFixes
 {
     public partial class CharacterListOptimizations
     {

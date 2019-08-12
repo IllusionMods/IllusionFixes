@@ -7,7 +7,7 @@
     <ProjectGuid>{4DEB7768-385E-43B8-84B2-E0ACF13C61C3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EC_Fix_CardImport</RootNamespace>
+    <RootNamespace>IllusionFixes</RootNamespace>
     <AssemblyName>EC_Fix_CardImport</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

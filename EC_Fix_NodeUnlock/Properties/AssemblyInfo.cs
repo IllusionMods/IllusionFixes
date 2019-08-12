@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
 
-[assembly: AssemblyTitle("EC_Fix_NodeUnlock")]
-[assembly: AssemblyProduct("EC_Fix_NodeUnlock")]
-[assembly: AssemblyDescription("Unlocks node limit in scenes")]
+[assembly: AssemblyTitle(IllusionFixes.NodeEditorUnlock.GUID)]
+[assembly: AssemblyProduct(IllusionFixes.NodeEditorUnlock.GUID)]
+[assembly: AssemblyDescription(IllusionFixes.NodeEditorUnlock.PluginName)]

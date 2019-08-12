@@ -2,7 +2,7 @@
 using HarmonyLib;
 using System.Collections.Generic;
 
-namespace KK_Fix_ShowerAccessories
+namespace IllusionFixes
 {
     public partial class ShowerAccessories
     {

@@ -10,8 +10,7 @@ namespace IllusionFixes
 {
     public partial class MakerOptimizations
     {
-        public const string GUID = "keelhauled.fixcompilation";
-        public const string PluginName = "Maker Optimization";
+        public const string PluginName = "Maker Optimizations";
 
         public static ConfigWrapper<bool> DisableNewAnimation { get; private set; }
         public static ConfigWrapper<bool> DisableNewIndicator { get; private set; }

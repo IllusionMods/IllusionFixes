@@ -7,7 +7,7 @@
     <ProjectGuid>{ABB91777-7231-47F7-BF4D-9144CC7B1764}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KK_Fix_ShowerAccessories</RootNamespace>
+    <RootNamespace>IllusionFixes</RootNamespace>
     <AssemblyName>KK_Fix_ShowerAccessories</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -1,7 +1,7 @@
 ﻿using ActionGame;
 using HarmonyLib;
 
-namespace KK_Fix_PersonalityCorrector
+namespace IllusionFixes
 {
     public partial class PersonalityCorrector
     {

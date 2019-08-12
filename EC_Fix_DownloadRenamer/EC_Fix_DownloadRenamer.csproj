@@ -7,7 +7,7 @@
     <ProjectGuid>{9216D4D0-B421-4D3B-B038-49D76DC12573}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EC_Fix_DownloadRenamer</RootNamespace>
+    <RootNamespace>IllusionFixes</RootNamespace>
     <AssemblyName>EC_Fix_DownloadRenamer</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -4,12 +4,11 @@ using Common;
 
 namespace IllusionFixes
 {
-    [BepInPlugin(GUID, PluginName, Version)]
+    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class CardImportFix : BaseUnityPlugin
     {
         public const string GUID = "EC_Fix_CardImport";
         public const string PluginName = "Card Import Fixes";
-        public const string Version = Metadata.PluginsVersion;
 
         private void Start()
         {

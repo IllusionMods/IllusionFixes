@@ -11,7 +11,7 @@ using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace KK_Fix_MainGameOptimizations
+namespace IllusionFixes
 {
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class MainGameOptimizations : BaseUnityPlugin

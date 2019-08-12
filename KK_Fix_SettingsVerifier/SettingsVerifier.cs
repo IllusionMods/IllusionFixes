@@ -6,12 +6,12 @@ using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
 
-namespace KK_Fix_SettingsVerifier
+namespace IllusionFixes
 {
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class SettingsVerifier : BaseUnityPlugin
     {
-        public const string GUID = "com.deathweasel.bepinex.settingsfix";
+        public const string GUID = "KK_Fix_SettingsVerifier";
         public const string PluginName = "Settings Fix";
 
         private static SettingsVerifier _instance;
@@ -37,7 +37,7 @@ namespace KK_Fix_SettingsVerifier
         /// </summary>
         private void CreateSetupXml()
         {
-            var resourceName = $"{nameof(KK_Fix_SettingsVerifier)}.Resources.setup.xml";
+            var resourceName = $"{nameof(IllusionFixes)}.Resources.setup.xml";
 
             using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
             {

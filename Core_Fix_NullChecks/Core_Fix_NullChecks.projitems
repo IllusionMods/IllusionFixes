@@ -9,6 +9,7 @@
     <Import_RootNamespace>Core_Fix_NullChecks</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core.NullChecks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core.NullChecks.Hooks.cs" />
   </ItemGroup>

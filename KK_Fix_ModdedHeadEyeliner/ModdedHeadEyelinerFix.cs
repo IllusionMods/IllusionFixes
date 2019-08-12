@@ -6,12 +6,12 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-namespace KK_Fix_ModdedHeadEyeliner
+namespace IllusionFixes
 {
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class ModdedHeadEyelinerFix : BaseUnityPlugin
     {
-        public const string GUID = "com.deathweasel.bepinex.headfix";
+        public const string GUID = "KK_Fix_ModdedHeadEyeliner";
         public const string PluginName = "Head Fix";
 
         private void Awake()

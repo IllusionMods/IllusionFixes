@@ -4,12 +4,11 @@ using Common;
 
 namespace IllusionFixes
 {
-    [BepInPlugin(GUID, PluginName, Version)]
+    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class NodeEditorUnlock : BaseUnityPlugin
     {
-        public const string GUID = "EC.Core.Fixes.NodeUnlock";
+        public const string GUID = "EC_Fix_NodeEditorUnlock";
         public const string PluginName = "Node Editor Unlock";
-        public const string Version = Metadata.PluginsVersion;
 
         private void Start()
         {

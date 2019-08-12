@@ -5,7 +5,6 @@ namespace IllusionFixes
 {
     public partial class NullChecks
     {
-        public const string GUID = "com.deathweasel.bepinex.cutscenelockupfix";
         public const string PluginName = "Null Checks";
 
         public void Awake()

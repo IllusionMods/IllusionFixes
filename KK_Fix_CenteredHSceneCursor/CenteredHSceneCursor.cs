@@ -4,12 +4,12 @@ using Common;
 using HarmonyLib;
 using UnityEngine;
 
-namespace KK_Fix_CenteredHSceneCursor
+namespace IllusionFixes
 {
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class CenteredHSceneCursor : BaseUnityPlugin
     {
-        public const string GUID = "keelhauled.centerhscenecursor";
+        public const string GUID = "KK_Fix_CenteredHSceneCursor";
         public const string PluginName = "Centered HScene Cursor";
 
         public void Awake() => HarmonyWrapper.PatchAll(typeof(Hooks));

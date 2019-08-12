@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
 
-[assembly: AssemblyTitle("EC_Fix_CultureFix")]
-[assembly: AssemblyProduct("EC_Fix_CultureFix")]
-[assembly: AssemblyDescription("Fixes game crashes and lockups on some system locales")]
+[assembly: AssemblyTitle(IllusionFixes.CultureFix.GUID)]
+[assembly: AssemblyProduct(IllusionFixes.CultureFix.GUID)]
+[assembly: AssemblyDescription(IllusionFixes.CultureFix.PluginName)]

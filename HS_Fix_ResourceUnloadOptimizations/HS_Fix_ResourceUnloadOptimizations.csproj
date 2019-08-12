@@ -7,7 +7,7 @@
     <ProjectGuid>{854F4E98-5468-47F4-B32F-A5BFBCEDE6F4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HS_Fix_ResourceUnloadOptimizations</RootNamespace>
+    <RootNamespace>IllusionFixes</RootNamespace>
     <AssemblyName>HS_Fix_ResourceUnloadOptimizations</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -69,10 +69,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HS.ResourceUnloadOptimizations.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="..\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems" Label="Shared" />
