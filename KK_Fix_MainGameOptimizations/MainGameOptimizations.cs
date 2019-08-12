@@ -28,8 +28,8 @@ namespace IllusionFixes
 
             if (CommonCode.InsideStudio) return;
 
-            AsyncClothesLoading = Config.Wrap("Config", "Async clothes loading", "Spread loading of clothes in school roam mode over multiple frames. Greatly reduces seemingly random stutters when characters change clothes somewhere in the world.\n\nWarning: In rare cases can cause some visual glitches like 2 coordinates loaded at once.", true);
-            PreloadCharacters = Config.Wrap("Config", "Preload characters on initial load", "Forces all characters to load during initial load into school mode. Slightly longer loading time but eliminates large stutters when unseen characters enter current map.", true);
+            AsyncClothesLoading = Utilities.FixesConfig.Wrap(Utilities.ConfigSectionTweaks, "Async clothes loading", "Spread loading of clothes in school roam mode over multiple frames. Greatly reduces seemingly random stutters when characters change clothes somewhere in the world.\nWarning: In rare cases can cause some visual glitches like 2 coordinates loaded at once.", true);
+            PreloadCharacters = Utilities.FixesConfig.Wrap(Utilities.ConfigSectionTweaks, "Preload characters on initial load", "Forces all characters to load during initial load into school mode. Slightly longer loading time but eliminates large stutters when unseen characters enter current map.", true);
 
             HarmonyWrapper.PatchAll(typeof(MainGameOptimizations));
 
