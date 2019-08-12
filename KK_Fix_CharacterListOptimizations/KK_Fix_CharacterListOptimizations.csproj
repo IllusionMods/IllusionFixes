@@ -52,8 +52,8 @@
       <HintPath>..\lib\BepInEx.Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="KK_ExtensibleSaveFormat">
-      <HintPath>..\lib\Koikatsu\KK_ExtensibleSaveFormat.dll</HintPath>
+    <Reference Include="ExtensibleSaveFormat">
+      <HintPath>..\lib\Koikatsu\ExtensibleSaveFormat.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
