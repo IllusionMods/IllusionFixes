@@ -51,6 +51,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_NullChecks", "Core
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_NullChecks", "EC_Fix_NullChecks\EC_Fix_NullChecks.csproj", "{F652B8D9-374A-44BD-8DED-578414A9FC89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_NodeUnlock", "EC_Fix_NodeUnlock\EC_Fix_NodeUnlock.csproj", "{517CB02C-CB77-4746-AC5A-14D1FECC0CB8}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Common\Common.projitems*{08a43f46-904c-4add-86cf-7170f1b1f087}*SharedItemsImports = 4
@@ -63,6 +65,7 @@ Global
 		Common\Common.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
 		Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
 		Common\Common.projitems*{4deb7768-385e-43b8-84b2-e0acf13c61c3}*SharedItemsImports = 4
+		Common\Common.projitems*{517cb02c-cb77-4746-ac5a-14d1fecc0cb8}*SharedItemsImports = 4
 		Common\Common.projitems*{51f20404-6a48-4578-b994-ff0a867ef2c0}*SharedItemsImports = 4
 		Common\Common.projitems*{541ed181-1370-47f1-9d95-6187ee59686c}*SharedItemsImports = 4
 		Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{541ed181-1370-47f1-9d95-6187ee59686c}*SharedItemsImports = 4
@@ -159,6 +162,10 @@ Global
 		{F652B8D9-374A-44BD-8DED-578414A9FC89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F652B8D9-374A-44BD-8DED-578414A9FC89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F652B8D9-374A-44BD-8DED-578414A9FC89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{517CB02C-CB77-4746-AC5A-14D1FECC0CB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{517CB02C-CB77-4746-AC5A-14D1FECC0CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{517CB02C-CB77-4746-AC5A-14D1FECC0CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{517CB02C-CB77-4746-AC5A-14D1FECC0CB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
