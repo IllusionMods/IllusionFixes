@@ -1,23 +1,10 @@
-﻿using BepInEx;
-using BepInEx.Harmony;
-using Common;
+﻿using Common;
 using HarmonyLib;
 
-namespace KK_Fix_NullChecks
+namespace IllusionFixes
 {
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public class NullChecks : BaseUnityPlugin
+    public partial class NullChecks
     {
-        public const string GUID = "com.deathweasel.bepinex.cutscenelockupfix";
-        public const string PluginName = "Null Checks";
-
-        public void Awake()
-        {
-            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
-
-            HarmonyWrapper.PatchAll(typeof(Hooks));
-        }
-
         private static class Hooks
         {
             [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.ChangeSettingHairColor))]
