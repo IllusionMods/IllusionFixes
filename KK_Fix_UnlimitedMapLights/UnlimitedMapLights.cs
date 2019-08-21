@@ -1,8 +1,9 @@
 ﻿using BepInEx;
+using Common;
 using Harmony;
+using Studio;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using Common;
 
 namespace KK_Fix_UnlimitedMapLights
 {
@@ -16,15 +17,15 @@ namespace KK_Fix_UnlimitedMapLights
             harmony.PatchAll(GetType());
         }
 
-        [HarmonyPrefix, HarmonyPatch(typeof(Studio.SceneInfo))]
-        [HarmonyPatch(nameof(Studio.SceneInfo.isLightCheck), PropertyMethod.Getter)]
+        [HarmonyPrefix, HarmonyPatch(typeof(SceneInfo))]
+        [HarmonyPatch(nameof(SceneInfo.isLightCheck), PropertyMethod.Getter)]
         public static bool UnlimitedLights(ref bool __result)
         {
             __result = true;
             return false;
         }
 
-        [HarmonyTranspiler, HarmonyPatch(typeof(Studio.LightLine), "CreateMaterial")]
+        [HarmonyTranspiler, HarmonyPatch(typeof(LightLine), "CreateMaterial")]
         public static IEnumerable<CodeInstruction> LightLineFix(IEnumerable<CodeInstruction> instructions)
         {
             foreach(var code in instructions)
@@ -34,6 +35,12 @@ namespace KK_Fix_UnlimitedMapLights
 
                 yield return code;
             }
+        }
+
+        [HarmonyPrefix, HarmonyPatch(typeof(DrawLightLine), nameof(DrawLightLine.OnPostRender))]
+        public static bool HideLightLines()
+        {
+            return Studio.Studio.Instance.workInfo.visibleAxis;
         }
     }
 }
