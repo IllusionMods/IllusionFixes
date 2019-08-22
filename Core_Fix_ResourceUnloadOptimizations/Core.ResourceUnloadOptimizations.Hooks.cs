@@ -32,11 +32,17 @@ namespace IllusionFixes
             [HarmonyPatch(typeof(GC), nameof(GC.Collect), new Type[0])]
             public static bool GCCollectHook()
             {
-                // Throttle down the calls
-                _instance.CancelInvoke(nameof(RunGarbageCollect));
-                _instance.Invoke(nameof(RunGarbageCollect), 3f);
-                // Disable the original method, Invoke will call it later
-                return false;
+                try
+                {
+                    // Throttle down the calls
+                    _instance.CancelInvoke(nameof(RunGarbageCollect));
+                    _instance.Invoke(nameof(RunGarbageCollect), 3f);
+                    // Disable the original method, Invoke will call it later
+                    return false;
+                }
+                // Sometimes there are errors in HoneySelect with IPA installed during scene transitions. Catching them and doing nothing seems harmless, uncaught errors break the game.
+                catch { }
+                return true;
             }
 
             // Replacement methods needs to be inside a static class to be used in NativeDetour
