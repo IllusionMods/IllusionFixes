@@ -1,9 +1,9 @@
 ﻿using BepInEx;
-using BepInEx.Logging;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using Logging = BepInEx.Logging;
 
 namespace Common
 {
@@ -67,9 +67,9 @@ namespace Common
             if (_badPlugins.Any())
             {
                 foreach (var pluginName in _badPlugins)
-                    Utilities.Logger.Log(LogLevel.Error | LogLevel.Message, "ERROR - Outdated plugin detected, please remove it: " + pluginName);
+                    Utilities.Logger.Log(Logging.LogLevel.Error | Logging.LogLevel.Message, "ERROR - Outdated plugin detected, please remove it: " + pluginName);
 
-                Utilities.Logger.Log(LogLevel.Message, "After removing these plugins update to the latest version of KoikatuFixes");
+                Utilities.Logger.LogMessage("After removing these plugins update to the latest version of KoikatuFixes");
             }
 
             Destroy(gameObject);

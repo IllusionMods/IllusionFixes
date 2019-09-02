@@ -6,7 +6,7 @@ namespace IllusionFixes
 {
     public partial class SettingsVerifier
     {
-        internal static class Hooks
+        internal static partial class Hooks
         {
             /// <summary>
             /// Run the code for reading setup.xml when inside studio. Done in a Manager.Config.Start hook because the xmlRead method needs stuff to be initialized first.

@@ -1,5 +1,4 @@
-﻿using BepInEx;
-using BepInEx.Harmony;
+﻿using BepInEx.Harmony;
 using Common;
 using System;
 using System.IO;
@@ -8,13 +7,9 @@ using System.Xml.Linq;
 
 namespace IllusionFixes
 {
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public partial class SettingsVerifier : BaseUnityPlugin
+    public partial class SettingsVerifier
     {
-        public const string GUID = "KK_Fix_SettingsVerifier";
         public const string PluginName = "Settings Fix";
-
-        private static SettingsVerifier _instance;
 
         private void Awake()
         {
@@ -27,8 +22,6 @@ namespace IllusionFixes
             //Create a setup.xml if there isn't one
             if (!File.Exists("UserData/setup.xml"))
                 CreateSetupXml();
-
-            _instance = this;
 
             HarmonyWrapper.PatchAll(typeof(Hooks));
         }
@@ -69,6 +62,7 @@ namespace IllusionFixes
                         case "Width":
                         case "Height":
                         case "Quality":
+                        case "Display":
                         case "Language":
                             var val = int.Parse(xelement.Value);
                             if (val < 0) throw new ArgumentOutOfRangeException();
