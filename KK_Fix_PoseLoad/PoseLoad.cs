@@ -10,7 +10,7 @@ using UnityEngine;
 namespace IllusionFixes
 {
     /// <summary>
-    /// Corrects Honey Select poses loaded in Koikatsu
+    /// Corrects Honey Select poses loaded in Koikatsu and prevents error spam
     /// </summary>
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class PoseLoad : BaseUnityPlugin
@@ -25,9 +25,11 @@ namespace IllusionFixes
             [HarmonyPrefix, HarmonyPatch(typeof(PauseCtrl.FileInfo), nameof(PauseCtrl.FileInfo.Apply))]
             internal static bool Apply(PauseCtrl.FileInfo __instance, OCIChar _char)
             {
+                //326 is a bone that exists in HS but not KK, check that to see if this is a loaded HS pose
                 bool HS = __instance.dicFK.Keys.Any(x => x == 326);
                 if (!HS) return true;
 
+                #region Vanilla Code
                 _char.LoadAnime(__instance.group, __instance.category, __instance.no, __instance.normalizedTime);
 
                 for (int i = 0; i < __instance.activeIK.Length; i++)
@@ -39,6 +41,7 @@ namespace IllusionFixes
                 for (int j = 0; j < __instance.activeFK.Length; j++)
                     _char.ActiveFK(FKCtrl.parts[j], __instance.activeFK[j]);
                 _char.ActiveKinematicMode(OICharInfo.KinematicMode.FK, __instance.enableFK, _force: true);
+                #endregion
 
                 foreach (KeyValuePair<int, ChangeAmount> item2 in __instance.dicFK)
                 {
@@ -73,8 +76,10 @@ namespace IllusionFixes
                     }
                 }
 
+                #region Vanilla Code
                 for (int k = 0; k < __instance.expression.Length; k++)
                     _char.EnableExpressionCategory(k, __instance.expression[k]);
+                #endregion
 
                 return false;
             }
