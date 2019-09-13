@@ -1,16 +1,13 @@
-﻿using System.Globalization;
-using BepInEx;
-using Common;
+﻿using Common;
+using System.Globalization;
 
 namespace IllusionFixes
 {
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public class CultureFix : BaseUnityPlugin
+    public partial class CultureFix
     {
-        public const string GUID = "EC_Fix_CultureFix";
         public const string PluginName = "Culture Fix";
 
-        private void Awake()
+        internal void Awake()
         {
             if (!Utilities.FixesConfig.Wrap(Utilities.ConfigSectionFixes, "Fix process culture",
                 "Set process culture to ja-JP, similarly to a locale emulator. Fixes game crashes and lockups on some system locales.", true).Value)
