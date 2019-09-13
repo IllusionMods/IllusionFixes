@@ -14,7 +14,7 @@ namespace IllusionFixes
         public const string PluginName = "Download Renamer";
         public static ConfigWrapper<bool> EnambleRenaming { get; private set; }
 
-        private void Start()
+        internal void Start()
         {
             BepInEx.Harmony.HarmonyWrapper.PatchAll(typeof(DownloadRenamer));
             EnambleRenaming = Utilities.FixesConfig.Wrap(Utilities.ConfigSectionTweaks, "Rename downloads",

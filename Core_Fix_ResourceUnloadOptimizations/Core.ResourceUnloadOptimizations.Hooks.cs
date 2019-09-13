@@ -10,12 +10,12 @@ namespace IllusionFixes
 {
     public partial class ResourceUnloadOptimizations
     {
-        private static class Hooks
+        internal static class Hooks
         {
             private static AsyncOperation _currentOperation;
             private static Func<AsyncOperation> _originalUnload;
 
-            public static void InstallHooks()
+            internal static void InstallHooks()
             {
                 var target = AccessTools.Method(typeof(Resources), nameof(Resources.UnloadUnusedAssets));
                 var replacement = AccessTools.Method(typeof(Hooks), nameof(UnloadUnusedAssetsHook));
@@ -30,7 +30,7 @@ namespace IllusionFixes
 
             [HarmonyPrefix]
             [HarmonyPatch(typeof(GC), nameof(GC.Collect), new Type[0])]
-            public static bool GCCollectHook()
+            internal static bool GCCollectHook()
             {
                 try
                 {

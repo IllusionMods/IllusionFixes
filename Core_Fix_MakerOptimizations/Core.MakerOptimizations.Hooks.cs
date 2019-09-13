@@ -16,9 +16,9 @@ namespace IllusionFixes
 {
     public partial class MakerOptimizations
     {
-        private static class Hooks
+        internal static class Hooks
         {
-            public static void InstallHooks()
+            internal static void InstallHooks()
             {
                 var harmony = HarmonyWrapper.PatchAll(typeof(Hooks));
 

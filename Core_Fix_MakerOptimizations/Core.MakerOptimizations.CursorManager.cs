@@ -11,7 +11,7 @@ namespace IllusionFixes
         private WinCursor.Point _lockPos;
         private bool _cursorLocked;
 
-        private void Update()
+        internal void Update()
         {
             if (MakerOptimizations.ManageCursor.Value && Application.isFocused)
             {

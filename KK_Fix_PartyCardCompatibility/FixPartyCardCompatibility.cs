@@ -15,7 +15,7 @@ namespace IllusionFixes
         public const string GUID = "KK_Fix_PartyCardCompatibility";
         public const string PluginName = "Party Card Compatibility";
 
-        private void Awake() => HarmonyWrapper.PatchAll(typeof(FixPartyCardCompatibility));
+        internal void Awake() => HarmonyWrapper.PatchAll(typeof(FixPartyCardCompatibility));
 
         /// <summary>
         /// Needs to return false if the condition passes, true if it fails (this replaces the string != operand)

@@ -9,7 +9,7 @@ namespace IllusionFixes
         internal static class Hooks
         {
             [HarmonyPrefix, HarmonyPatch(typeof(HSceneProc), "MapSameObjectDisable")]
-            public static void MapSameObjectDisable(HSceneProc __instance)
+            internal static void MapSameObjectDisable()
             {
                 var map = (ActionMap)AccessTools.Field(typeof(HSceneProc), "map").GetValue(Singleton<HSceneProc>.Instance);
                 if (map.no == 52) //shower

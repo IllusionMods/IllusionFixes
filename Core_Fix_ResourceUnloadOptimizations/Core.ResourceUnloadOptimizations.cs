@@ -10,7 +10,7 @@ namespace IllusionFixes
 
         private static ResourceUnloadOptimizations _instance;
 
-        private void Awake()
+        internal void Awake()
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 

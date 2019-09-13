@@ -15,7 +15,7 @@ namespace IllusionFixes
     {
         public const string PluginName = "Fix Shader Dropdown Menu";
 
-        private void Awake()
+        internal void Awake()
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
             if (CommonCode.InsideStudio) return;

@@ -16,7 +16,7 @@ namespace IllusionFixes
 
         public static int DefaultPersonality = 8; // 8 - Pure
 
-        private void Awake()
+        internal void Awake()
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 

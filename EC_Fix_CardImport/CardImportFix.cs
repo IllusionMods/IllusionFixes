@@ -10,7 +10,7 @@ namespace IllusionFixes
         public const string GUID = "EC_Fix_CardImport";
         public const string PluginName = "Card Import Fixes";
 
-        private void Start()
+        internal void Start()
         {
             if (!Utilities.FixesConfig.Wrap(Utilities.ConfigSectionFixes, "Disable card import checks",
                 "Prevents the game from crashing or stripping some modded data when importing KK cards.", true).Value)

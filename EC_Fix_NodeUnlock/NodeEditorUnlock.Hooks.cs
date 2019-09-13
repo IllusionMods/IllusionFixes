@@ -10,10 +10,10 @@ namespace IllusionFixes
         internal static class Hooks
         {
             [HarmonyPrefix, HarmonyPatch(typeof(NodeSettingCanvas), nameof(NodeSettingCanvas.NodeRestriction))]
-            public static bool NodeRestrictionPrefix() => false;
+            internal static bool NodeRestrictionPrefix() => false;
 
             [HarmonyPostfix, HarmonyPatch(typeof(NodeUI), "Start")]
-            public static void NodeUIStartPostfix(NodeUI __instance) => Traverse.Create(__instance).Field("limitOver").GetValue<BoolReactiveProperty>().Dispose();
+            internal static void NodeUIStartPostfix(NodeUI __instance) => Traverse.Create(__instance).Field("limitOver").GetValue<BoolReactiveProperty>().Dispose();
         }
     }
 }

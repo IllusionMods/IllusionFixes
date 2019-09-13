@@ -14,7 +14,7 @@ namespace IllusionFixes
         public const string GUID = "KK_Fix_ModdedHeadEyeliner";
         public const string PluginName = "Head Fix";
 
-        private void Awake()
+        internal void Awake()
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 

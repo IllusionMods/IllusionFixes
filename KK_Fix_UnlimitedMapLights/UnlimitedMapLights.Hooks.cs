@@ -10,14 +10,14 @@ namespace IllusionFixes
         {
             [HarmonyPrefix, HarmonyPatch(typeof(Studio.SceneInfo))]
             [HarmonyPatch(nameof(Studio.SceneInfo.isLightCheck), MethodType.Getter)]
-            public static bool UnlimitedLights(ref bool __result)
+            internal static bool UnlimitedLights(ref bool __result)
             {
                 __result = true;
                 return false;
             }
 
             [HarmonyTranspiler, HarmonyPatch(typeof(Studio.LightLine), "CreateMaterial")]
-            public static IEnumerable<CodeInstruction> LightLineFix(IEnumerable<CodeInstruction> instructions)
+            internal static IEnumerable<CodeInstruction> LightLineFix(IEnumerable<CodeInstruction> instructions)
             {
                 foreach (var code in instructions)
                 {

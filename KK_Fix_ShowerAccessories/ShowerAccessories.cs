@@ -13,6 +13,6 @@ namespace IllusionFixes
         public const string GUID = "KK_Fix_ShowerAccessories";
         public const string PluginName = "Shower Accessories Fix";
 
-        private void Awake() => HarmonyWrapper.PatchAll(typeof(Hooks));
+        internal void Awake() => HarmonyWrapper.PatchAll(typeof(Hooks));
     }
 }

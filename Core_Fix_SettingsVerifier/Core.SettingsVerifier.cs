@@ -11,7 +11,7 @@ namespace IllusionFixes
     {
         public const string PluginName = "Settings Fix";
 
-        private void Awake()
+        internal void Awake()
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 

@@ -22,7 +22,7 @@ namespace IllusionFixes
         public static ConfigWrapper<bool> AsyncClothesLoading { get; private set; }
         public static ConfigWrapper<bool> PreloadCharacters { get; private set; }
 
-        private void Awake()
+        internal void Awake()
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 

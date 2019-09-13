@@ -10,7 +10,7 @@ namespace IllusionFixes
         public const string GUID = "KK_Fix_CharacterListOptimizations";
         public const string PluginName = "Character List Optimizations";
 
-        private void Awake()
+        internal void Awake()
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 

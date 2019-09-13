@@ -62,7 +62,7 @@ namespace Common
             return _incompatiblePlugsFound.Value;
         }
 
-        private void Start()
+        internal void Start()
         {
             if (_badPlugins.Any())
             {

@@ -11,6 +11,6 @@ namespace IllusionFixes
         public const string GUID = "KK_Fix_UnlimitedMapLights";
         public const string PluginName = "Unlimited Map Lights";
 
-        private void Start() => HarmonyWrapper.PatchAll(typeof(UnlimitedMapLights));
+        internal void Start() => HarmonyWrapper.PatchAll(typeof(Hooks));
     }
 }

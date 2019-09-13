@@ -33,7 +33,7 @@ namespace IllusionFixes
             ManageCursor = Utilities.FixesConfig.Wrap(Utilities.ConfigSectionTweaks, "Manage cursor in maker", "Lock and hide the cursor when moving the camera in maker.", true);
         }
 
-        protected void Awake()
+        internal void Awake()
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
@@ -44,7 +44,7 @@ namespace IllusionFixes
             Hooks.InstallHooks();
         }
 
-        private void Start()
+        internal void Start()
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 

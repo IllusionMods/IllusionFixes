@@ -14,10 +14,10 @@ namespace IllusionFixes
 
         public void Awake() => HarmonyWrapper.PatchAll(typeof(Hooks));
 
-        private static class Hooks
+        internal static class Hooks
         {
             [HarmonyPostfix, HarmonyPatch(typeof(GameCursor), "SetCursorTexture")]
-            public static void CenterCursor(GameCursor __instance, ref int _kind)
+            internal static void CenterCursor(GameCursor __instance, ref int _kind)
             {
                 if (_kind == -2)
                 {

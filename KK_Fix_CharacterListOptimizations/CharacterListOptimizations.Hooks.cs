@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ActionGame;
+﻿using ActionGame;
 using ChaCustom;
 using ExtensibleSaveFormat;
 using FreeH;
 using HarmonyLib;
 using Illusion.Game;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using UnityEngine.UI;
 
@@ -14,19 +14,19 @@ namespace IllusionFixes
 {
     public partial class CharacterListOptimizations
     {
-        private class Hooks
+        internal class Hooks
         {
             #region Free H List
             /// <summary>
             /// Turn off ExtensibleSaveFormat events
             /// </summary>
             [HarmonyPrefix, HarmonyPatch(typeof(FreeHClassRoomCharaFile), "Start")]
-            public static void FreeHClassRoomCharaFileStartPrefix() => ExtendedSave.LoadEventsEnabled = false;
+            internal static void FreeHClassRoomCharaFileStartPrefix() => ExtendedSave.LoadEventsEnabled = false;
             /// <summary>
             /// Turn back on ExtensibleSaveFormat events, load a copy of the character with extended data on this time, and use that instead.
             /// </summary>
             [HarmonyPostfix, HarmonyPatch(typeof(FreeHClassRoomCharaFile), "Start")]
-            public static void FreeHClassRoomCharaFileStartPostfix(FreeHClassRoomCharaFile __instance)
+            internal static void FreeHClassRoomCharaFileStartPostfix(FreeHClassRoomCharaFile __instance)
             {
                 ExtendedSave.LoadEventsEnabled = true;
 
@@ -55,17 +55,17 @@ namespace IllusionFixes
             /// Turn off ExtensibleSaveFormat events
             /// </summary>
             [HarmonyPrefix, HarmonyPatch(typeof(ClassRoomCharaFile), "InitializeList")]
-            public static void ClassRoomCharaFileInitializeListPrefix() => ExtendedSave.LoadEventsEnabled = false;
+            internal static void ClassRoomCharaFileInitializeListPrefix() => ExtendedSave.LoadEventsEnabled = false;
             /// <summary>
             /// Turn back on ExtensibleSaveFormat events
             /// </summary>
             [HarmonyPostfix, HarmonyPatch(typeof(ClassRoomCharaFile), "InitializeList")]
-            public static void ClassRoomCharaFileInitializeListPostfix() => ExtendedSave.LoadEventsEnabled = true;
+            internal static void ClassRoomCharaFileInitializeListPostfix() => ExtendedSave.LoadEventsEnabled = true;
             /// <summary>
             /// Load a copy of the character with extended data on this time, and use that instead.
             /// </summary>
             [HarmonyPostfix, HarmonyPatch(typeof(ClassRoomCharaFile), "Start")]
-            public static void ClassRoomCharaFileStartPostfix(ClassRoomCharaFile __instance)
+            internal static void ClassRoomCharaFileStartPostfix(ClassRoomCharaFile __instance)
             {
                 ReactiveProperty<ChaFileControl> info = Traverse.Create(__instance).Field("info").GetValue<ReactiveProperty<ChaFileControl>>();
                 ClassRoomFileListCtrl listCtrl = Traverse.Create(__instance).Field("listCtrl").GetValue<ClassRoomFileListCtrl>();

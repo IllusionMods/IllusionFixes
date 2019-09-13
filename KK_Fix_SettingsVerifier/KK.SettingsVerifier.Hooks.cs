@@ -12,7 +12,7 @@ namespace IllusionFixes
             /// Run the code for reading setup.xml when inside studio. Done in a Manager.Config.Start hook because the xmlRead method needs stuff to be initialized first.
             /// </summary>
             [HarmonyPostfix, HarmonyPatch(typeof(Manager.Config), "Start")]
-            public static void ManagerConfigStart()
+            internal static void ManagerConfigStart()
             {
                 if (CommonCode.InsideStudio)
                 {
