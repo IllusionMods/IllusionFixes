@@ -2,10 +2,10 @@
 A collection of fixes for common issues found in Koikatu, Koikatsu Party and some other Illusion's games made in Unity.
 
 ## How to install
-0. Install latest BepInEx and BepisPlugins.
-1. Grab the latest release for your game from releases tab above (Koikatu and Koikatsu Party share the same release).
-2. Extract the BepInEx folder from the release into your game directory, overwrite when asked.
-3. Run the game and look for any errors on the screen, asking you to remove some old plugins. All of the listed plugins have been replaced by their updated versions in this fix pack, and need to be removed after closing the game. *Plugins from this pack will not work until all of the old versions are removed.*
+1. Install latest BepInEx and BepisPlugins.
+2. Grab the [latest release](https://github.com/IllusionMods/IllusionFixes/releases) for your game from releases tab above (Koikatu and Koikatsu Party share the same release).
+3. Extract the BepInEx folder from the release into your game directory, overwrite when asked.
+4. Run the game and look for any errors on the screen, asking you to remove some old plugins. All of the listed plugins have been replaced by their updated versions in this fix pack, and need to be removed after closing the game. *Plugins from this pack will not work until all of the old versions are removed.*
 
 *Note for Koikatsu Party users: You can skip KK_Fix_CharacterListOptimizations.dll as it will not work with party. It can produce an error during load in Koikatsu Party, but the error is harmless and can be safely ignored.*
 
