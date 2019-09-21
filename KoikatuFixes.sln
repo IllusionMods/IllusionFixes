@@ -81,6 +81,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_CultureFix", "Core
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_CultureFix", "AI_Fix_CultureFix\AI_Fix_CultureFix.csproj", "{52D92C5E-F220-473C-B683-BD17198EFD32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ManifestCorrector", "KK_Fix_ManifestCorrector\KK_Fix_ManifestCorrector.csproj", "{D853338D-EFBC-4C7E-A0D9-9B78610AE726}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Common\Common.projitems*{08a43f46-904c-4add-86cf-7170f1b1f087}*SharedItemsImports = 4
@@ -121,6 +123,7 @@ Global
 		Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{a68b1345-a4d5-4a10-ab5f-f3bbd638b189}*SharedItemsImports = 13
 		Common\Common.projitems*{a714b46d-95a3-4eb0-a635-c253bbad0cba}*SharedItemsImports = 4
 		Common\Common.projitems*{abb91777-7231-47f7-bf4d-9144cc7b1764}*SharedItemsImports = 4
+		Common\Common.projitems*{d853338d-efbc-4c7e-a0d9-9b78610ae726}*SharedItemsImports = 4
 		Common\Common.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
 		Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
 		Common\Common.projitems*{e0eebf3e-cbf1-4929-a6c8-403767faaa8d}*SharedItemsImports = 4
@@ -237,6 +240,10 @@ Global
 		{52D92C5E-F220-473C-B683-BD17198EFD32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52D92C5E-F220-473C-B683-BD17198EFD32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52D92C5E-F220-473C-B683-BD17198EFD32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D853338D-EFBC-4C7E-A0D9-9B78610AE726}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D853338D-EFBC-4C7E-A0D9-9B78610AE726}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D853338D-EFBC-4C7E-A0D9-9B78610AE726}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D853338D-EFBC-4C7E-A0D9-9B78610AE726}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
