@@ -19,8 +19,8 @@ namespace IllusionFixes
         public const string GUID = "KK_Fix_MainGameOptimizations";
         public const string PluginName = "Main Game Optimizations";
 
-        public static ConfigWrapper<bool> AsyncClothesLoading { get; private set; }
-        public static ConfigWrapper<bool> PreloadCharacters { get; private set; }
+        public static ConfigEntry<bool> AsyncClothesLoading { get; private set; }
+        public static ConfigEntry<bool> PreloadCharacters { get; private set; }
 
         internal void Awake()
         {
@@ -28,8 +28,8 @@ namespace IllusionFixes
 
             if (CommonCode.InsideStudio) return;
 
-            AsyncClothesLoading = Utilities.FixesConfig.Wrap(Utilities.ConfigSectionTweaks, "Async clothes loading", "Spread loading of clothes in school roam mode over multiple frames. Greatly reduces seemingly random stutters when characters change clothes somewhere in the world.\nWarning: In rare cases can cause some visual glitches like 2 coordinates loaded at once.", true);
-            PreloadCharacters = Utilities.FixesConfig.Wrap(Utilities.ConfigSectionTweaks, "Preload characters on initial load", "Forces all characters to load during initial load into school mode. Slightly longer loading time but eliminates large stutters when unseen characters enter current map.", true);
+            AsyncClothesLoading = Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionTweaks, "Async clothes loading", true, new ConfigDescription("Spread loading of clothes in school roam mode over multiple frames. Greatly reduces seemingly random stutters when characters change clothes somewhere in the world.\nWarning: In rare cases can cause some visual glitches like 2 coordinates loaded at once."));
+            PreloadCharacters = Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionTweaks, "Preload characters on initial load", true, new ConfigDescription("Forces all characters to load during initial load into school mode. Slightly longer loading time but eliminates large stutters when unseen characters enter current map."));
 
             HarmonyWrapper.PatchAll(typeof(MainGameOptimizations));
 

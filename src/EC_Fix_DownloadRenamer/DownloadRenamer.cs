@@ -12,13 +12,13 @@ namespace IllusionFixes
     {
         public const string GUID = "EC_Fix_DownloadRenamer";
         public const string PluginName = "Download Renamer";
-        public static ConfigWrapper<bool> EnambleRenaming { get; private set; }
+        public static ConfigEntry<bool> EnambleRenaming { get; private set; }
 
         internal void Start()
         {
             BepInEx.Harmony.HarmonyWrapper.PatchAll(typeof(DownloadRenamer));
-            EnambleRenaming = Utilities.FixesConfig.Wrap(Utilities.ConfigSectionTweaks, "Rename downloads",
-                "When enabled, maps, scenes, poses, and characters downloaded in game will have their file names changed to match the ones on the Illusion website.", true);
+            EnambleRenaming = Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionTweaks, "Rename downloads", true,
+                new ConfigDescription("When enabled, maps, scenes, poses, and characters downloaded in game will have their file names changed to match the ones on the Illusion website."));
         }
 
         [HarmonyPrefix, HarmonyPatch(typeof(NetUIControl), "SaveDownloadFile")]

@@ -1,4 +1,5 @@
-﻿using ChaCustom;
+﻿using BepInEx.Configuration;
+using ChaCustom;
 using Common;
 using Config;
 using HarmonyLib;
@@ -19,8 +20,8 @@ namespace IllusionFixes
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
             if (CommonCode.InsideStudio) return;
-            if (!Utilities.FixesConfig.Wrap(Utilities.ConfigSectionFixes, "Fix shader dropdown menu",
-                "Fixes the shader selection menu going off-screen when there are many modded shaders installed.", true).Value)
+            if (!Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionFixes, "Fix shader dropdown menu", true,
+                new ConfigDescription("Fixes the shader selection menu going off-screen when there are many modded shaders installed.")).Value)
                 return;
 
             SceneManager.sceneLoaded += (s, m) => StartCoroutine(DelayedStart());

@@ -46,7 +46,7 @@ namespace IllusionFixes
                 }
             }
 
-            private static void SetupSetting(Harmony harmony, MethodInfo targetMethod, MethodInfo patchMethod, ConfigWrapper<bool> targetSetting)
+            private static void SetupSetting(Harmony harmony, MethodInfo targetMethod, MethodInfo patchMethod, ConfigEntry<bool> targetSetting)
             {
                 if (targetSetting.Value)
                     harmony.Patch(targetMethod, new HarmonyMethod(patchMethod), null);

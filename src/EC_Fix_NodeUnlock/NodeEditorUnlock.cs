@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Harmony;
 using Common;
 
@@ -12,8 +13,8 @@ namespace IllusionFixes
 
         internal void Start()
         {
-            if (!Utilities.FixesConfig.Wrap(Utilities.ConfigSectionTweaks, "Unlock node limit in scenes",
-                "Unlock the limit of 50 nodes in a single scene file and allow unlimited amount nodes.", true).Value)
+            if (!Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionTweaks, "Unlock node limit in scenes", true,
+                new ConfigDescription("Unlock the limit of 50 nodes in a single scene file and allow unlimited amount nodes.")).Value)
                 return;
 
             HarmonyWrapper.PatchAll(typeof(Hooks));

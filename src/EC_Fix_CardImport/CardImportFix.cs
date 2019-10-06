@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Harmony;
 using Common;
 
@@ -12,8 +13,8 @@ namespace IllusionFixes
 
         internal void Start()
         {
-            if (!Utilities.FixesConfig.Wrap(Utilities.ConfigSectionFixes, "Disable card import checks",
-                "Prevents the game from crashing or stripping some modded data when importing KK cards.", true).Value)
+            if (!Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionFixes, "Disable card import checks", true,
+                new ConfigDescription("Prevents the game from crashing or stripping some modded data when importing KK cards.")).Value)
                 return;
 
             HarmonyWrapper.PatchAll(typeof(Hooks));
