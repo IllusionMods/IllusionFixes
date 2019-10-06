@@ -126,7 +126,7 @@ Global
 		src\Common\Common.projitems*{d853338d-efbc-4c7e-a0d9-9b78610ae726}*SharedItemsImports = 4
 		src\Common\Common.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
 		src\Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
-		Common\Common.projitems*{e0eebf3e-cbf1-4929-a6c8-403767faaa8d}*SharedItemsImports = 4
+		src\Common\Common.projitems*{e0eebf3e-cbf1-4929-a6c8-403767faaa8d}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{e613fea3-a78c-4f26-878a-b7a874961819}*SharedItemsImports = 13
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{e9642c67-3d6b-41f5-b42a-73c641b5068a}*SharedItemsImports = 13
 		src\Common\Common.projitems*{ec9e7c9b-10fa-41c7-8b30-f91e33d97f7d}*SharedItemsImports = 4
