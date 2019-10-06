@@ -1,139 +1,139 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29020.237
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common", "Common\Common.shproj", "{340A3D13-DEE0-43C0-8410-EC84C2873F95}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common", "src\Common\Common.shproj", "{340A3D13-DEE0-43C0-8410-EC84C2873F95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_PartyCardCompatibility", "KK_Fix_PartyCardCompatibility\KK_Fix_PartyCardCompatibility.csproj", "{E0EEBF3E-CBF1-4929-A6C8-403767FAAA8D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_PartyCardCompatibility", "src\KK_Fix_PartyCardCompatibility\KK_Fix_PartyCardCompatibility.csproj", "{E0EEBF3E-CBF1-4929-A6C8-403767FAAA8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ModdedHeadEyeliner", "KK_Fix_ModdedHeadEyeliner\KK_Fix_ModdedHeadEyeliner.csproj", "{3E1ACC1F-FDCC-49A9-9711-C344AB550FC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ModdedHeadEyeliner", "src\KK_Fix_ModdedHeadEyeliner\KK_Fix_ModdedHeadEyeliner.csproj", "{3E1ACC1F-FDCC-49A9-9711-C344AB550FC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_NullChecks", "KK_Fix_NullChecks\KK_Fix_NullChecks.csproj", "{40967983-DF5C-411A-BFA4-96C6CFEBC63E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_NullChecks", "src\KK_Fix_NullChecks\KK_Fix_NullChecks.csproj", "{40967983-DF5C-411A-BFA4-96C6CFEBC63E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_CharacterListOptimizations", "KK_Fix_CharacterListOptimizations\KK_Fix_CharacterListOptimizations.csproj", "{1C3AD6A8-0E6A-443B-9229-0DD4528D73A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_CharacterListOptimizations", "src\KK_Fix_CharacterListOptimizations\KK_Fix_CharacterListOptimizations.csproj", "{1C3AD6A8-0E6A-443B-9229-0DD4528D73A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_PersonalityCorrector", "KK_Fix_PersonalityCorrector\KK_Fix_PersonalityCorrector.csproj", "{A714B46D-95A3-4EB0-A635-C253BBAD0CBA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_PersonalityCorrector", "src\KK_Fix_PersonalityCorrector\KK_Fix_PersonalityCorrector.csproj", "{A714B46D-95A3-4EB0-A635-C253BBAD0CBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_SettingsVerifier", "KK_Fix_SettingsVerifier\KK_Fix_SettingsVerifier.csproj", "{6CA88723-CA91-49C9-9FD1-C6E58EFA5529}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_SettingsVerifier", "src\KK_Fix_SettingsVerifier\KK_Fix_SettingsVerifier.csproj", "{6CA88723-CA91-49C9-9FD1-C6E58EFA5529}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_MakerOptimizations", "KK_Fix_MakerOptimizations\KK_Fix_MakerOptimizations.csproj", "{65CB1A38-C90D-42D3-B157-5FB6F844ED11}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_MakerOptimizations", "src\KK_Fix_MakerOptimizations\KK_Fix_MakerOptimizations.csproj", "{65CB1A38-C90D-42D3-B157-5FB6F844ED11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ShowerAccessories", "KK_Fix_ShowerAccessories\KK_Fix_ShowerAccessories.csproj", "{ABB91777-7231-47F7-BF4D-9144CC7B1764}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ShowerAccessories", "src\KK_Fix_ShowerAccessories\KK_Fix_ShowerAccessories.csproj", "{ABB91777-7231-47F7-BF4D-9144CC7B1764}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ResourceUnloadOptimizations", "KK_Fix_ResourceUnloadOptimizations\KK_Fix_ResourceUnloadOptimizations.csproj", "{2C6D522C-2830-4CCF-8F49-3E0AA36A273E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ResourceUnloadOptimizations", "src\KK_Fix_ResourceUnloadOptimizations\KK_Fix_ResourceUnloadOptimizations.csproj", "{2C6D522C-2830-4CCF-8F49-3E0AA36A273E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_MainGameOptimizations", "KK_Fix_MainGameOptimizations\KK_Fix_MainGameOptimizations.csproj", "{08A43F46-904C-4ADD-86CF-7170F1B1F087}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_MainGameOptimizations", "src\KK_Fix_MainGameOptimizations\KK_Fix_MainGameOptimizations.csproj", "{08A43F46-904C-4ADD-86CF-7170F1B1F087}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ExpandShaderDropdown", "KK_Fix_ExpandShaderDropdown\KK_Fix_ExpandShaderDropdown.csproj", "{D8AC8107-11F4-4BC0-855E-4D0330AF5D46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ExpandShaderDropdown", "src\KK_Fix_ExpandShaderDropdown\KK_Fix_ExpandShaderDropdown.csproj", "{D8AC8107-11F4-4BC0-855E-4D0330AF5D46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_CenteredHSceneCursor", "KK_Fix_CenteredHSceneCursor\KK_Fix_CenteredHSceneCursor.csproj", "{EC9E7C9B-10FA-41C7-8B30-F91E33D97F7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_CenteredHSceneCursor", "src\KK_Fix_CenteredHSceneCursor\KK_Fix_CenteredHSceneCursor.csproj", "{EC9E7C9B-10FA-41C7-8B30-F91E33D97F7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_UnlimitedMapLights", "KK_Fix_UnlimitedMapLights\KK_Fix_UnlimitedMapLights.csproj", "{51F20404-6A48-4578-B994-FF0A867EF2C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_UnlimitedMapLights", "src\KK_Fix_UnlimitedMapLights\KK_Fix_UnlimitedMapLights.csproj", "{51F20404-6A48-4578-B994-FF0A867EF2C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_CultureFix", "EC_Fix_CultureFix\EC_Fix_CultureFix.csproj", "{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_CultureFix", "src\EC_Fix_CultureFix\EC_Fix_CultureFix.csproj", "{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common.AccessoriesAPI", "Common.AccessoriesAPI\Common.AccessoriesAPI.shproj", "{94E708E4-7B1C-4DA8-83BB-7699753825D1}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common.AccessoriesAPI", "src\Common.AccessoriesAPI\Common.AccessoriesAPI.shproj", "{94E708E4-7B1C-4DA8-83BB-7699753825D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_DownloadRenamer", "EC_Fix_DownloadRenamer\EC_Fix_DownloadRenamer.csproj", "{9216D4D0-B421-4D3B-B038-49D76DC12573}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_DownloadRenamer", "src\EC_Fix_DownloadRenamer\EC_Fix_DownloadRenamer.csproj", "{9216D4D0-B421-4D3B-B038-49D76DC12573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_CardImport", "EC_Fix_CardImport\EC_Fix_CardImport.csproj", "{4DEB7768-385E-43B8-84B2-E0ACF13C61C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_CardImport", "src\EC_Fix_CardImport\EC_Fix_CardImport.csproj", "{4DEB7768-385E-43B8-84B2-E0ACF13C61C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_MakerOptimizations", "Fix_MakerOptimizations", "{7EE89BA8-EF7C-414B-B9CE-341D51A2814A}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_MakerOptimizations", "Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.shproj", "{E613FEA3-A78C-4F26-878A-B7A874961819}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_MakerOptimizations", "src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.shproj", "{E613FEA3-A78C-4F26-878A-B7A874961819}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_MakerOptimizations", "EC_Fix_MakerOptimizations\EC_Fix_MakerOptimizations.csproj", "{541ED181-1370-47F1-9D95-6187EE59686C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_MakerOptimizations", "src\EC_Fix_MakerOptimizations\EC_Fix_MakerOptimizations.csproj", "{541ED181-1370-47F1-9D95-6187EE59686C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_NullChecks", "Fix_NullChecks", "{79E75B3B-B01C-4D21-8C4A-F4C94418A2C1}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_NullChecks", "Core_Fix_NullChecks\Core_Fix_NullChecks.shproj", "{A68B1345-A4D5-4A10-AB5F-F3BBD638B189}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_NullChecks", "src\Core_Fix_NullChecks\Core_Fix_NullChecks.shproj", "{A68B1345-A4D5-4A10-AB5F-F3BBD638B189}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_NullChecks", "EC_Fix_NullChecks\EC_Fix_NullChecks.csproj", "{F652B8D9-374A-44BD-8DED-578414A9FC89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_NullChecks", "src\EC_Fix_NullChecks\EC_Fix_NullChecks.csproj", "{F652B8D9-374A-44BD-8DED-578414A9FC89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_NodeUnlock", "EC_Fix_NodeUnlock\EC_Fix_NodeUnlock.csproj", "{517CB02C-CB77-4746-AC5A-14D1FECC0CB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_NodeUnlock", "src\EC_Fix_NodeUnlock\EC_Fix_NodeUnlock.csproj", "{517CB02C-CB77-4746-AC5A-14D1FECC0CB8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_ExpandShaderDropdown", "Fix_ExpandShaderDropdown", "{3270A750-76CD-41A9-B159-24220DCBE7D5}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_ExpandShaderDropdown", "Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.shproj", "{FB5485BC-7646-4614-AAF3-00BC2EA099BF}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_ExpandShaderDropdown", "src\Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.shproj", "{FB5485BC-7646-4614-AAF3-00BC2EA099BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_ExpandShaderDropdown", "EC_Fix_ExpandShaderDropdown\EC_Fix_ExpandShaderDropdown.csproj", "{5BA36E3D-7EC8-400E-A0F0-ABCEB3F644F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_ExpandShaderDropdown", "src\EC_Fix_ExpandShaderDropdown\EC_Fix_ExpandShaderDropdown.csproj", "{5BA36E3D-7EC8-400E-A0F0-ABCEB3F644F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_ResourceUnloadOptimizations", "Fix_ResourceUnloadOptimizations", "{47CA3E45-1672-4D71-ABD2-8621D4C74003}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_ResourceUnloadOptimizations", "Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.shproj", "{E9642C67-3D6B-41F5-B42A-73C641B5068A}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_ResourceUnloadOptimizations", "src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.shproj", "{E9642C67-3D6B-41F5-B42A-73C641B5068A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_ResourceUnloadOptimizations", "EC_Fix_ResourceUnloadOptimizations\EC_Fix_ResourceUnloadOptimizations.csproj", "{1C122B92-E1B9-47AF-A19A-97B5589E9931}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_ResourceUnloadOptimizations", "src\EC_Fix_ResourceUnloadOptimizations\EC_Fix_ResourceUnloadOptimizations.csproj", "{1C122B92-E1B9-47AF-A19A-97B5589E9931}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS_Fix_ResourceUnloadOptimizations", "HS_Fix_ResourceUnloadOptimizations\HS_Fix_ResourceUnloadOptimizations.csproj", "{854F4E98-5468-47F4-B32F-A5BFBCEDE6F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS_Fix_ResourceUnloadOptimizations", "src\HS_Fix_ResourceUnloadOptimizations\HS_Fix_ResourceUnloadOptimizations.csproj", "{854F4E98-5468-47F4-B32F-A5BFBCEDE6F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_SettingsVerifier", "Fix_SettingsVerifier", "{A1C7C084-38B0-48BD-90C6-572EB94001AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_SettingsVerifier", "AI_Fix_SettingsVerifier\AI_Fix_SettingsVerifier.csproj", "{3274241D-B51A-4042-8CEC-54D6AA166CA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_SettingsVerifier", "src\AI_Fix_SettingsVerifier\AI_Fix_SettingsVerifier.csproj", "{3274241D-B51A-4042-8CEC-54D6AA166CA0}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_SettingsVerifier", "Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.shproj", "{3189BE0A-2860-416A-9BBA-A70D9908FC50}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_SettingsVerifier", "src\Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.shproj", "{3189BE0A-2860-416A-9BBA-A70D9908FC50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_PoseLoad", "KK_Fix_PoseLoad\KK_Fix_PoseLoad.csproj", "{7051504A-575B-417C-BE33-55E7A58F71FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_PoseLoad", "src\KK_Fix_PoseLoad\KK_Fix_PoseLoad.csproj", "{7051504A-575B-417C-BE33-55E7A58F71FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_CultureFix", "Fix_CultureFix", "{CB81CFA3-5984-4E98-BB44-2D5CD150A7C8}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_CultureFix", "Core_Fix_CultureFix\Core_Fix_CultureFix.shproj", "{86357329-63E0-4C00-8F88-DB2857FCEB04}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_CultureFix", "src\Core_Fix_CultureFix\Core_Fix_CultureFix.shproj", "{86357329-63E0-4C00-8F88-DB2857FCEB04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_CultureFix", "AI_Fix_CultureFix\AI_Fix_CultureFix.csproj", "{52D92C5E-F220-473C-B683-BD17198EFD32}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_CultureFix", "src\AI_Fix_CultureFix\AI_Fix_CultureFix.csproj", "{52D92C5E-F220-473C-B683-BD17198EFD32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ManifestCorrector", "KK_Fix_ManifestCorrector\KK_Fix_ManifestCorrector.csproj", "{D853338D-EFBC-4C7E-A0D9-9B78610AE726}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ManifestCorrector", "src\KK_Fix_ManifestCorrector\KK_Fix_ManifestCorrector.csproj", "{D853338D-EFBC-4C7E-A0D9-9B78610AE726}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Common\Common.projitems*{08a43f46-904c-4add-86cf-7170f1b1f087}*SharedItemsImports = 4
-		Common\Common.projitems*{1a9a2704-d5f1-466d-af8c-18ce3a64e110}*SharedItemsImports = 4
-		Core_Fix_CultureFix\Core_Fix_CultureFix.projitems*{1a9a2704-d5f1-466d-af8c-18ce3a64e110}*SharedItemsImports = 4
-		Common\Common.projitems*{1c122b92-e1b9-47af-a19a-97b5589e9931}*SharedItemsImports = 4
-		Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{1c122b92-e1b9-47af-a19a-97b5589e9931}*SharedItemsImports = 4
-		Common\Common.projitems*{1c3ad6a8-0e6a-443b-9229-0dd4528d73a6}*SharedItemsImports = 4
-		Common\Common.projitems*{2c6d522c-2830-4ccf-8f49-3e0aa36a273e}*SharedItemsImports = 4
-		Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{2c6d522c-2830-4ccf-8f49-3e0aa36a273e}*SharedItemsImports = 4
-		Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems*{3189be0a-2860-416a-9bba-a70d9908fc50}*SharedItemsImports = 13
-		Common\Common.projitems*{3274241d-b51a-4042-8cec-54d6aa166ca0}*SharedItemsImports = 4
-		Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems*{3274241d-b51a-4042-8cec-54d6aa166ca0}*SharedItemsImports = 4
-		Common\Common.projitems*{340a3d13-dee0-43c0-8410-ec84c2873f95}*SharedItemsImports = 13
-		Common\Common.projitems*{3e1acc1f-fdcc-49a9-9711-c344ab550fc0}*SharedItemsImports = 4
-		Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
-		Common\Common.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
-		Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
-		Common\Common.projitems*{4deb7768-385e-43b8-84b2-e0acf13c61c3}*SharedItemsImports = 4
-		Common\Common.projitems*{517cb02c-cb77-4746-ac5a-14d1fecc0cb8}*SharedItemsImports = 4
-		Common\Common.projitems*{51f20404-6a48-4578-b994-ff0a867ef2c0}*SharedItemsImports = 4
-		Common\Common.projitems*{52d92c5e-f220-473c-b683-bd17198efd32}*SharedItemsImports = 4
-		Core_Fix_CultureFix\Core_Fix_CultureFix.projitems*{52d92c5e-f220-473c-b683-bd17198efd32}*SharedItemsImports = 4
-		Common\Common.projitems*{541ed181-1370-47f1-9d95-6187ee59686c}*SharedItemsImports = 4
-		Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{541ed181-1370-47f1-9d95-6187ee59686c}*SharedItemsImports = 4
-		Common\Common.projitems*{5ba36e3d-7ec8-400e-a0f0-abceb3f644f0}*SharedItemsImports = 4
-		Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.projitems*{5ba36e3d-7ec8-400e-a0f0-abceb3f644f0}*SharedItemsImports = 4
-		Common\Common.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
-		Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
-		Common\Common.projitems*{6ca88723-ca91-49c9-9fd1-c6e58efa5529}*SharedItemsImports = 4
-		Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems*{6ca88723-ca91-49c9-9fd1-c6e58efa5529}*SharedItemsImports = 4
-		Common\Common.projitems*{7051504a-575b-417c-be33-55e7a58f71ff}*SharedItemsImports = 4
-		Common\Common.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
-		Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
-		Core_Fix_CultureFix\Core_Fix_CultureFix.projitems*{86357329-63e0-4c00-8f88-db2857fceb04}*SharedItemsImports = 13
-		Common\Common.projitems*{9216d4d0-b421-4d3b-b038-49d76dc12573}*SharedItemsImports = 4
-		Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{94e708e4-7b1c-4da8-83bb-7699753825d1}*SharedItemsImports = 13
-		Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{a68b1345-a4d5-4a10-ab5f-f3bbd638b189}*SharedItemsImports = 13
-		Common\Common.projitems*{a714b46d-95a3-4eb0-a635-c253bbad0cba}*SharedItemsImports = 4
-		Common\Common.projitems*{abb91777-7231-47f7-bf4d-9144cc7b1764}*SharedItemsImports = 4
-		Common\Common.projitems*{d853338d-efbc-4c7e-a0d9-9b78610ae726}*SharedItemsImports = 4
-		Common\Common.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
-		Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
+		src\Common\Common.projitems*{08a43f46-904c-4add-86cf-7170f1b1f087}*SharedItemsImports = 4
+		src\Common\Common.projitems*{1a9a2704-d5f1-466d-af8c-18ce3a64e110}*SharedItemsImports = 4
+		src\Core_Fix_CultureFix\Core_Fix_CultureFix.projitems*{1a9a2704-d5f1-466d-af8c-18ce3a64e110}*SharedItemsImports = 4
+		src\Common\Common.projitems*{1c122b92-e1b9-47af-a19a-97b5589e9931}*SharedItemsImports = 4
+		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{1c122b92-e1b9-47af-a19a-97b5589e9931}*SharedItemsImports = 4
+		src\Common\Common.projitems*{1c3ad6a8-0e6a-443b-9229-0dd4528d73a6}*SharedItemsImports = 4
+		src\Common\Common.projitems*{2c6d522c-2830-4ccf-8f49-3e0aa36a273e}*SharedItemsImports = 4
+		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{2c6d522c-2830-4ccf-8f49-3e0aa36a273e}*SharedItemsImports = 4
+		src\Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems*{3189be0a-2860-416a-9bba-a70d9908fc50}*SharedItemsImports = 13
+		src\Common\Common.projitems*{3274241d-b51a-4042-8cec-54d6aa166ca0}*SharedItemsImports = 4
+		src\Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems*{3274241d-b51a-4042-8cec-54d6aa166ca0}*SharedItemsImports = 4
+		src\Common\Common.projitems*{340a3d13-dee0-43c0-8410-ec84c2873f95}*SharedItemsImports = 13
+		src\Common\Common.projitems*{3e1acc1f-fdcc-49a9-9711-c344ab550fc0}*SharedItemsImports = 4
+		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
+		src\Common\Common.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
+		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
+		src\Common\Common.projitems*{4deb7768-385e-43b8-84b2-e0acf13c61c3}*SharedItemsImports = 4
+		src\Common\Common.projitems*{517cb02c-cb77-4746-ac5a-14d1fecc0cb8}*SharedItemsImports = 4
+		src\Common\Common.projitems*{51f20404-6a48-4578-b994-ff0a867ef2c0}*SharedItemsImports = 4
+		src\Common\Common.projitems*{52d92c5e-f220-473c-b683-bd17198efd32}*SharedItemsImports = 4
+		src\Core_Fix_CultureFix\Core_Fix_CultureFix.projitems*{52d92c5e-f220-473c-b683-bd17198efd32}*SharedItemsImports = 4
+		src\Common\Common.projitems*{541ed181-1370-47f1-9d95-6187ee59686c}*SharedItemsImports = 4
+		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{541ed181-1370-47f1-9d95-6187ee59686c}*SharedItemsImports = 4
+		src\Common\Common.projitems*{5ba36e3d-7ec8-400e-a0f0-abceb3f644f0}*SharedItemsImports = 4
+		src\Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.projitems*{5ba36e3d-7ec8-400e-a0f0-abceb3f644f0}*SharedItemsImports = 4
+		src\Common\Common.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
+		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
+		src\Common\Common.projitems*{6ca88723-ca91-49c9-9fd1-c6e58efa5529}*SharedItemsImports = 4
+		src\Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems*{6ca88723-ca91-49c9-9fd1-c6e58efa5529}*SharedItemsImports = 4
+		src\Common\Common.projitems*{7051504a-575b-417c-be33-55e7a58f71ff}*SharedItemsImports = 4
+		src\Common\Common.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
+		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
+		src\Core_Fix_CultureFix\Core_Fix_CultureFix.projitems*{86357329-63e0-4c00-8f88-db2857fceb04}*SharedItemsImports = 13
+		src\Common\Common.projitems*{9216d4d0-b421-4d3b-b038-49d76dc12573}*SharedItemsImports = 4
+		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{94e708e4-7b1c-4da8-83bb-7699753825d1}*SharedItemsImports = 13
+		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{a68b1345-a4d5-4a10-ab5f-f3bbd638b189}*SharedItemsImports = 13
+		src\Common\Common.projitems*{a714b46d-95a3-4eb0-a635-c253bbad0cba}*SharedItemsImports = 4
+		src\Common\Common.projitems*{abb91777-7231-47f7-bf4d-9144cc7b1764}*SharedItemsImports = 4
+		src\Common\Common.projitems*{d853338d-efbc-4c7e-a0d9-9b78610ae726}*SharedItemsImports = 4
+		src\Common\Common.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
+		src\Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
 		Common\Common.projitems*{e0eebf3e-cbf1-4929-a6c8-403767faaa8d}*SharedItemsImports = 4
-		Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{e613fea3-a78c-4f26-878a-b7a874961819}*SharedItemsImports = 13
-		Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{e9642c67-3d6b-41f5-b42a-73c641b5068a}*SharedItemsImports = 13
-		Common\Common.projitems*{ec9e7c9b-10fa-41c7-8b30-f91e33d97f7d}*SharedItemsImports = 4
-		Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{f652b8d9-374a-44bd-8ded-578414a9fc89}*SharedItemsImports = 4
-		Common\Common.projitems*{f652b8d9-374a-44bd-8ded-578414a9fc89}*SharedItemsImports = 4
-		Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{f652b8d9-374a-44bd-8ded-578414a9fc89}*SharedItemsImports = 4
-		Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.projitems*{fb5485bc-7646-4614-aaf3-00bc2ea099bf}*SharedItemsImports = 13
+		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{e613fea3-a78c-4f26-878a-b7a874961819}*SharedItemsImports = 13
+		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{e9642c67-3d6b-41f5-b42a-73c641b5068a}*SharedItemsImports = 13
+		src\Common\Common.projitems*{ec9e7c9b-10fa-41c7-8b30-f91e33d97f7d}*SharedItemsImports = 4
+		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{f652b8d9-374a-44bd-8ded-578414a9fc89}*SharedItemsImports = 4
+		src\Common\Common.projitems*{f652b8d9-374a-44bd-8ded-578414a9fc89}*SharedItemsImports = 4
+		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{f652b8d9-374a-44bd-8ded-578414a9fc89}*SharedItemsImports = 4
+		src\Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.projitems*{fb5485bc-7646-4614-aaf3-00bc2ea099bf}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
