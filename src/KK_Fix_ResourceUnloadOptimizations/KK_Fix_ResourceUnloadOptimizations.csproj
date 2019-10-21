@@ -50,16 +50,8 @@
       <HintPath>..\..\lib\BepInEx\BepInEx.Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Mono.Cecil, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Mono.Cecil.0.10.4\lib\net35\Mono.Cecil.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MonoMod.RuntimeDetour, Version=19.8.2.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MonoMod.RuntimeDetour.19.8.2.3\lib\net35\MonoMod.RuntimeDetour.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MonoMod.Utils, Version=19.8.2.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MonoMod.Utils.19.8.2.3\lib\net35\MonoMod.Utils.dll</HintPath>
+    <Reference Include="MonoMod.RuntimeDetour">
+      <HintPath>..\..\lib\BepInEx\MonoMod.RuntimeDetour.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
