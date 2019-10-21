@@ -50,6 +50,11 @@ Multiple performance optimizations for the story mode. Aimed to reduce stutter a
 
 Multiple performance optimizations for the character maker. Can greatly increase FPSMultiple performance optimizations for the character maker. Can greatly increase FPS, makes turning on/off the interface in maker by pressing space much faster (after the 1st press), and more.
 
+### ManifestCorrector
+(Koikatsu)
+
+Prevents mods that use incorrect data in the MainManifest column of item lists from locking up the game in story mode.
+
 ### ModdedHeadEyeliner 
 (Koikatsu)
 
