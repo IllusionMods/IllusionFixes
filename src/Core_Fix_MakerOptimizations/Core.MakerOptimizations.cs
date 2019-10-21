@@ -48,7 +48,7 @@ namespace IllusionFixes
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
-            if (DisableIKCalc.Value && BepInEx.Bootstrap.Chainloader.Plugins.Select(MetadataHelper.GetMetadata).Any(x => x.GUID == "com.essu.stiletto"))
+            if (DisableIKCalc.Value && BepInEx.Bootstrap.Chainloader.Plugins.Where(x => x != null).Select(MetadataHelper.GetMetadata).Any(x => x.GUID == "com.essu.stiletto"))
             {
                 DisableIKCalc.Value = false;
                 Utilities.Logger.Log(LogLevel.Warning | LogLevel.Message, "Stiletto detected, disabling the DisableIKCalc optimization for compatibility");
