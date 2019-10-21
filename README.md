@@ -1,5 +1,5 @@
-# KoikatuFixes
-A collection of fixes for common issues found in Koikatu, Koikatsu Party and some other Illusion's games made in Unity.
+# Illusion Fixes
+A collection of fixes for common issues found in Koikatu, Koikatsu Party, EmotionCreators, and AI Girl
 
 ## How to install
 1. Install latest BepInEx and BepisPlugins.
