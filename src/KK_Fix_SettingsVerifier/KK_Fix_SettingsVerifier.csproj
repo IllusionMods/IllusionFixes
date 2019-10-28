@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="KK.SettingsVerifier.cs" />
-    <Compile Include="KK.SettingsVerifier.Hooks.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\setup.xml">

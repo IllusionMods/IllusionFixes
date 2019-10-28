@@ -1,9 +1,11 @@
 ﻿using BepInEx.Harmony;
 using Common;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
+using UnityEngine;
 
 namespace IllusionFixes
 {
@@ -76,6 +78,62 @@ namespace IllusionFixes
             catch
             {
                 File.Delete("UserData/setup.xml");
+            }
+        }
+
+        internal static void ReadSetupXml()
+        {
+            XElement _xml;
+            int _width = 1280;
+            int _height = 720;
+            int _quality = 2;
+            bool _full = true;
+
+            if (File.Exists("UserData/setup.xml"))
+            {
+                try
+                {
+                    _xml = XElement.Load("UserData/setup.xml");
+                    if (_xml != null)
+                    {
+                        IEnumerable<XElement> enumerable = _xml.Elements();
+                        foreach (XElement item in enumerable)
+                        {
+                            switch (item.Name.ToString())
+                            {
+                                case "Width":
+                                    _width = int.Parse(item.Value);
+                                    break;
+                                case "Height":
+                                    _height = int.Parse(item.Value);
+                                    break;
+                                case "FullScreen":
+                                    _full = bool.Parse(item.Value);
+                                    break;
+                                case "Quality":
+                                    _quality = int.Parse(item.Value);
+                                    break;
+                            }
+                        }
+                        Screen.SetResolution(_width, _height, _full);
+                        switch (_quality)
+                        {
+                            case 0:
+                                QualitySettings.SetQualityLevel(0);
+                                break;
+                            case 1:
+                                QualitySettings.SetQualityLevel(2);
+                                break;
+                            case 2:
+                                QualitySettings.SetQualityLevel(4);
+                                break;
+                        }
+                    }
+                }
+                catch
+                {
+                    File.Delete("UserData/setup.xml");
+                }
             }
         }
     }
