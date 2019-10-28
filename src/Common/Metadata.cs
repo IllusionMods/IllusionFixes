@@ -6,6 +6,6 @@
         /// Version number used by all plugins. Must be convertible to <see cref="System.Version"/>
         /// Uses ReleaseVersion.HotfixVersion format.
         /// </summary>
-        public const string PluginsVersion = "1.3";
+        public const string PluginsVersion = "1.3.0.1";
     }
 }
