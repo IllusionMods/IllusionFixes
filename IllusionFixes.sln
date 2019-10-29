@@ -99,6 +99,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_ManifestCorrector", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_ManifestCorrector", "src\EC_Fix_ManifestCorrector\EC_Fix_ManifestCorrector.csproj", "{0218B7FF-4CC3-4C9A-8A91-F8DB31084499}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicCarrot", "src\MagicCarrot\MagicCarrot.csproj", "{AAA57B7A-9D2C-4840-94E2-F1FA43C53BC7}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{0218b7ff-4cc3-4c9a-8a91-f8db31084499}*SharedItemsImports = 4
@@ -288,6 +290,10 @@ Global
 		{0218B7FF-4CC3-4C9A-8A91-F8DB31084499}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0218B7FF-4CC3-4C9A-8A91-F8DB31084499}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0218B7FF-4CC3-4C9A-8A91-F8DB31084499}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAA57B7A-9D2C-4840-94E2-F1FA43C53BC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAA57B7A-9D2C-4840-94E2-F1FA43C53BC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAA57B7A-9D2C-4840-94E2-F1FA43C53BC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAA57B7A-9D2C-4840-94E2-F1FA43C53BC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
