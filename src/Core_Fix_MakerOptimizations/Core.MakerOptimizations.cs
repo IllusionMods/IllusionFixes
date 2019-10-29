@@ -24,13 +24,13 @@ namespace IllusionFixes
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
-            DisableNewAnimation = Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionTweaks, "Disable NEW indicator animation", true, new ConfigDescription("Good performance improvement in maker if there are many new items.\nChanges take effect after maker restart."));
-            DisableNewIndicator = Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionTweaks, "Disable NEW indicator for new items", true, new ConfigDescription("visual glitches like 2 coordinates loaded at once."));
-            DisableIKCalc = Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionTweaks, "Disable maker IK", true, new ConfigDescription("Improves performance and reduces stuttering at the cost of not recalculating positions of some body parts.\nMost noticeable on characters with wide hips where the hands are not moving with the hip line.\nWarning: This setting will get reset to false if Stiletto is installed to avoid issues!\nChanges take effect after game restart."));
-            DisableCameraTarget = Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionTweaks, "Disable camera target (white focus ring)", false, new ConfigDescription("Warning: This setting overrides any game setting that enables the ring."));
-            DisableCharaName = Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionTweaks, "Disable character name box in maker", true, new ConfigDescription("Hides the name box in the bottom right part of the maker, giving you a clearer look at the character."));
-            DisableHiddenTabs = Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionTweaks, "Deactivate hidden tabs in maker", SystemInfo.processorFrequency < 2700, new ConfigDescription("Major performance improvement at the cost of slower switching between tabs in maker.\nChanges take effect after maker restart."));
-            ManageCursor = Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionTweaks, "Manage cursor in maker", true, new ConfigDescription("Lock and hide the cursor when moving the camera in maker."));
+            DisableNewAnimation = Config.AddSetting(Utilities.ConfigSectionTweaks, "Disable NEW indicator animation", true, new ConfigDescription("Good performance improvement in maker if there are many new items.\nChanges take effect after maker restart."));
+            DisableNewIndicator = Config.AddSetting(Utilities.ConfigSectionTweaks, "Disable NEW indicator for new items", true, new ConfigDescription("visual glitches like 2 coordinates loaded at once."));
+            DisableIKCalc = Config.AddSetting(Utilities.ConfigSectionTweaks, "Disable maker IK", true, new ConfigDescription("Improves performance and reduces stuttering at the cost of not recalculating positions of some body parts.\nMost noticeable on characters with wide hips where the hands are not moving with the hip line.\nWarning: This setting will get reset to false if Stiletto is installed to avoid issues!\nChanges take effect after game restart."));
+            DisableCameraTarget = Config.AddSetting(Utilities.ConfigSectionTweaks, "Disable camera target (white focus ring)", false, new ConfigDescription("Warning: This setting overrides any game setting that enables the ring."));
+            DisableCharaName = Config.AddSetting(Utilities.ConfigSectionTweaks, "Disable character name box in maker", true, new ConfigDescription("Hides the name box in the bottom right part of the maker, giving you a clearer look at the character."));
+            DisableHiddenTabs = Config.AddSetting(Utilities.ConfigSectionTweaks, "Deactivate hidden tabs in maker", SystemInfo.processorFrequency < 2700, new ConfigDescription("Major performance improvement at the cost of slower switching between tabs in maker.\nChanges take effect after maker restart."));
+            ManageCursor = Config.AddSetting(Utilities.ConfigSectionTweaks, "Manage cursor in maker", true, new ConfigDescription("Lock and hide the cursor when moving the camera in maker."));
         }
 
         internal void Awake()

@@ -13,7 +13,7 @@ namespace IllusionFixes
 
         internal void Start()
         {
-            if (!Utilities.FixesConfig.AddSetting(Utilities.ConfigSectionFixes, "Disable card import checks", true,
+            if (!Config.AddSetting(Utilities.ConfigSectionFixes, "Disable card import checks", true,
                 new ConfigDescription("Prevents the game from crashing or stripping some modded data when importing KK cards.")).Value)
                 return;
 
