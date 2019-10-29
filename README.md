@@ -51,7 +51,7 @@ Multiple performance optimizations for the story mode. Aimed to reduce stutter a
 Multiple performance optimizations for the character maker. Can greatly increase FPSMultiple performance optimizations for the character maker. Can greatly increase FPS, makes turning on/off the interface in maker by pressing space much faster (after the 1st press), and more.
 
 ### ManifestCorrector
-(Koikatsu)
+(Koikatsu, EmotionCreators, AI Girl)
 
 Prevents mods that use incorrect data in the MainManifest column of item lists from locking up the game in story mode.
 
@@ -84,7 +84,7 @@ Prevents cards with invalid or missing personalities from crashing the game. A d
 Corrects Honey Select poses loaded in Koikatsu and prevents errors.
 
 ### ResourceUnloadOptimizations 
-(Koikatsu, EmotionCreators, HoneySelect)
+(Koikatsu, EmotionCreators, HoneySelect, AI Girl)
 
 Improves loading times and eliminates stutter after loading was "finished".
 
@@ -102,3 +102,7 @@ Prevents accessories from being removed in shower peeping mode. No more gaping h
 (Koikatsu)
 
 Allows using an unlimited amount of map lights in studio. Not all items support more than 3 lights.
+
+## Patcher descriptions
+### MagicCarrot
+Prevents the game from locking up when starting
