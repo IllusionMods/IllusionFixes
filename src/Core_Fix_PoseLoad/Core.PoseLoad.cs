@@ -1,6 +1,4 @@
-﻿using BepInEx;
-using BepInEx.Harmony;
-using Common;
+﻿using BepInEx.Harmony;
 using HarmonyLib;
 using Studio;
 using System.Collections.Generic;
@@ -9,13 +7,8 @@ using UnityEngine;
 
 namespace IllusionFixes
 {
-    /// <summary>
-    /// Corrects Honey Select poses loaded in Koikatsu and prevents error spam
-    /// </summary>
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public partial class PoseLoad : BaseUnityPlugin
+    public partial class PoseLoad
     {
-        public const string GUID = "KK_Fix_PoseLoad";
         public const string PluginName = "Pose Load Fix";
 
         internal void Start() => HarmonyWrapper.PatchAll(typeof(Hooks));
@@ -62,6 +55,7 @@ namespace IllusionFixes
 
                     if (_char.oiCharInfo.bones.TryGetValue(key, out var oIBoneInfo))
                     {
+#if KK
                         //Correct the right hand
                         if (key == 22 || key == 25 || key == 28 || key == 31 || key == 34)
                             item2.Value.rot = new Vector3(-item2.Value.rot.x, 180 + item2.Value.rot.y, 180 - item2.Value.rot.z);
@@ -71,15 +65,16 @@ namespace IllusionFixes
 
                         if (key == 24 || key == 27 || key == 30 || key == 33 || key == 36)
                             item2.Value.rot = new Vector3(item2.Value.rot.x, -item2.Value.rot.y, -item2.Value.rot.z);
+#endif
 
                         oIBoneInfo.changeAmount.Copy(item2.Value);
                     }
                 }
 
-                #region Vanilla Code
+#region Vanilla Code
                 for (int k = 0; k < __instance.expression.Length; k++)
                     _char.EnableExpressionCategory(k, __instance.expression[k]);
-                #endregion
+#endregion
 
                 return false;
             }
