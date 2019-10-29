@@ -2,7 +2,7 @@
 A collection of fixes for common issues found in Koikatu, Koikatsu Party, EmotionCreators, and AI Girl
 
 ## How to install
-1. Install latest BepInEx and BepisPlugins.
+1. Install the latest build of [BepInEx](https://builds.bepis.io/projects/bepinex_be) and latest release of [BepisPlugins](https://github.com/IllusionMods/BepisPlugins/releases).
 2. Grab the [latest release](https://github.com/IllusionMods/IllusionFixes/releases) for your game from releases tab above (Koikatu and Koikatsu Party share the same release).
 3. Extract the BepInEx folder from the release into your game directory, overwrite when asked.
 4. Run the game and look for any errors on the screen, asking you to remove some old plugins. All of the listed plugins have been replaced by their updated versions in this fix pack, and need to be removed after closing the game. *Plugins from this pack will not work until all of the old versions are removed.*
