@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{541ED181-1370-47F1-9D95-6187EE59686C}</ProjectGuid>
+    <ProjectGuid>{4B0D3C72-F7C0-4673-B857-2DE2B3970C52}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IllusionFixes</RootNamespace>
-    <AssemblyName>EC_Fix_MakerOptimizations</AssemblyName>
+    <AssemblyName>AI_Fix_MakerOptimizations</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -18,7 +18,7 @@
     <DebugType>embedded</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\BepInEx\plugins\IllusionFixes\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;EC</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;AI</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -26,7 +26,7 @@
     <DebugType>embedded</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\bin\BepInEx\plugins\IllusionFixes\</OutputPath>
-    <DefineConstants>TRACE;EC</DefineConstants>
+    <DefineConstants>TRACE;AI</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
@@ -37,11 +37,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\lib\EmotionCreators\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\lib\EmotionCreators\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>..\..\lib\AIGirl\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="BepInEx">
@@ -52,12 +48,7 @@
       <HintPath>..\..\lib\BepInEx\BepInEx.Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="IL">
-      <HintPath>..\..\lib\EmotionCreators\IL.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -66,41 +57,35 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="UniRx">
-      <HintPath>..\..\lib\EmotionCreators\UniRx.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\lib\AIGirl\UniRx.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\lib\EmotionCreators\UnityEngine.dll</HintPath>
+      <HintPath>..\..\lib\AIGirl\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\lib\EmotionCreators\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\lib\AIGirl\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\..\lib\EmotionCreators\UnityEngine.IMGUIModule.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\lib\AIGirl\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\lib\EmotionCreators\UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\lib\AIGirl\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIModule">
-      <HintPath>..\..\lib\EmotionCreators\UnityEngine.UIModule.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\lib\AIGirl\UnityEngine.UIModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EC.MakerOptimizations.cs" />
+    <Compile Include="AI.MakerOptimizations.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="..\Common\Common.projitems" Label="Shared" />
-  <Import Project="..\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems" Label="Shared" />
   <Import Project="..\Core_Fix_MakerOptimizations_CursorManager\Core_Fix_MakerOptimizations_CursorManager.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>IF EXIST $(SolutionDir)PostBuild.bat CALL "$(SolutionDir)PostBuild.bat" $(TargetPath) EC</PostBuildEvent>
+    <PostBuildEvent>IF EXIST $(SolutionDir)PostBuild.bat CALL "$(SolutionDir)PostBuild.bat" $(TargetPath) AI</PostBuildEvent>
   </PropertyGroup>
 </Project>

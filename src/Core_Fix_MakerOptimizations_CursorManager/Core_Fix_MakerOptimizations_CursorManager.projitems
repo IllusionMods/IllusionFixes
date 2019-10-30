@@ -3,14 +3,12 @@
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>e613fea3-a78c-4f26-878a-b7a874961819</SharedGUID>
+    <SharedGUID>31c44aae-509e-428a-9ece-4d4f18a0c15a</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Core_Fix_MakerOptimizations</Import_RootNamespace>
+    <Import_RootNamespace>Core_Fix_MakerOptimizations_CursorManager</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core.MakerOptimizations.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core.MakerOptimizations.Hooks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core.MakerOptimizations.CursorManager.cs" />
   </ItemGroup>
 </Project>
