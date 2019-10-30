@@ -19,17 +19,22 @@ namespace IllusionFixes
             internal static bool Apply(PauseCtrl.FileInfo __instance, OCIChar _char)
             {
                 //AI and KK pose files are apparently indistinguishable from each other
-                //If the user is holding ctrl while loading the pose treat it as a KK pose for the purposes of correcting the right hand
-                bool KKPose = false;
+                //If the user is holding ctrl while loading the pose correct the right hand FK
+                bool correctHand = false;
                 if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
-                    KKPose = true;
+                    correctHand = true;
 
                 //326 is a bone that exists in HS but not KK, check that to see if this is a loaded HS pose
                 bool HSPose = __instance.dicFK.Keys.Any(x => x == 326);
+#if KK
+                //Honey Select poses always need the right hand corrected in KK
+                if (HSPose)
+                    correctHand = true;
+#endif
 
-                if (!HSPose && !KKPose) return true;
+                if (!HSPose && !correctHand) return true;
 
-                #region Vanilla Code
+#region Vanilla Code
                 _char.LoadAnime(__instance.group, __instance.category, __instance.no, __instance.normalizedTime);
 
                 for (int i = 0; i < __instance.activeIK.Length; i++)
@@ -41,7 +46,7 @@ namespace IllusionFixes
                 for (int j = 0; j < __instance.activeFK.Length; j++)
                     _char.ActiveFK(FKCtrl.parts[j], __instance.activeFK[j]);
                 _char.ActiveKinematicMode(OICharInfo.KinematicMode.FK, __instance.enableFK, _force: true);
-                #endregion
+#endregion
 
                 foreach (KeyValuePair<int, ChangeAmount> item2 in __instance.dicFK)
                 {
@@ -49,7 +54,7 @@ namespace IllusionFixes
 
                     if (HSPose)
                     {
-                        //Breasts translated from HS to KK
+                        //Breasts translated from HS to KK/AI
                         if (key == 326) key = 53;
                         if (key == 327) key = 54;
                         if (key == 328) key = 55;
@@ -65,18 +70,7 @@ namespace IllusionFixes
 
                     if (_char.oiCharInfo.bones.TryGetValue(key, out var oIBoneInfo))
                     {
-#if KK
-                        //Correct the right hand
-                        if (key == 22 || key == 25 || key == 28 || key == 31 || key == 34)
-                            item2.Value.rot = new Vector3(-item2.Value.rot.x, 180 + item2.Value.rot.y, 180 - item2.Value.rot.z);
-
-                        if (key == 23 || key == 26 || key == 29 || key == 32 || key == 35)
-                            item2.Value.rot = new Vector3(item2.Value.rot.x, -item2.Value.rot.y, -item2.Value.rot.z);
-
-                        if (key == 24 || key == 27 || key == 30 || key == 33 || key == 36)
-                            item2.Value.rot = new Vector3(item2.Value.rot.x, -item2.Value.rot.y, -item2.Value.rot.z);
-#elif AI
-                        if (KKPose && !HSPose)
+                        if (correctHand)
                         {
                             //Correct the right hand
                             if (key == 22 || key == 25 || key == 28 || key == 31 || key == 34)
@@ -88,16 +82,15 @@ namespace IllusionFixes
                             if (key == 24 || key == 27 || key == 30 || key == 33 || key == 36)
                                 item2.Value.rot = new Vector3(item2.Value.rot.x, -item2.Value.rot.y, -item2.Value.rot.z);
                         }
-#endif
 
                         oIBoneInfo.changeAmount.Copy(item2.Value);
                     }
                 }
 
-                #region Vanilla Code
+#region Vanilla Code
                 for (int k = 0; k < __instance.expression.Length; k++)
                     _char.EnableExpressionCategory(k, __instance.expression[k]);
-                #endregion
+#endregion
 
                 return false;
             }
