@@ -72,6 +72,7 @@
     <ProjectReference Include="..\..\paket-files\IllusionMods\BepisPlugins\src\KK_ExtensibleSaveFormat\KK_ExtensibleSaveFormat.csproj">
       <Project>{8ebe81b9-9ed9-466d-864a-4c644bfd8827}</Project>
       <Name>KK_ExtensibleSaveFormat</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
