@@ -16,11 +16,14 @@ namespace IllusionFixes
             HarmonyWrapper.PatchAll(typeof(NewGameShowAllCardsFix));
         }
 
+        /// <summary>
+        /// Fixes downloaded cards not being visible in new game start chara lists
+        /// </summary>
         [HarmonyPrefix]
         [HarmonyPatch(typeof(GameLoadCharaFileSystem.GameLoadCharaWindow), "Start")]
         private static void StartPrefix(GameLoadCharaFileSystem.GameLoadCharaWindow __instance)
         {
-            // Only run at first startup
+            // Only run at first startup, probably not necessary
             if (__instance.IsStartUp) return;
 
             __instance.useDownload = true;
