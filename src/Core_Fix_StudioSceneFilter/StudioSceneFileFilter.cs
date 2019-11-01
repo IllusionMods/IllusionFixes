@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using BepInEx.Harmony;
 using BepInEx.Logging;
@@ -13,7 +15,6 @@ namespace IllusionFixes
     {
         public const string PluginName = "Invalid Studio Scene Filter";
 
-        // todo detect if its a kk or ai scene
         private const string StudioToken = "【KStudio】";
         private static readonly byte[] StudioTokenBytes = Encoding.UTF8.GetBytes(StudioToken);
 
@@ -22,7 +23,11 @@ namespace IllusionFixes
         private void Awake()
         {
             Logger = base.Logger;
-            HarmonyWrapper.PatchAll(typeof(StudioSceneFileFilter));
+
+            var hi = HarmonyWrapper.PatchAll(typeof(StudioSceneFileFilter));
+            var tpl = new HarmonyMethod(typeof(StudioSceneFileFilter), nameof(AddExceptionHandler));
+            hi.Patch(AccessTools.Method(typeof(SceneInfo), nameof(SceneInfo.Load), new[] { typeof(string), typeof(Version).MakeByRefType() }), null, null, tpl);
+            hi.Patch(AccessTools.Method(typeof(SceneInfo), nameof(SceneInfo.Import), new[] { typeof(string) }), null, null, tpl);
         }
 
         [HarmonyPrefix]
@@ -49,9 +54,9 @@ namespace IllusionFixes
             {
                 PngFile.SkipPng(f);
 
-                if (!TryReadUntilSequence(f, StudioTokenBytes))
+                if (!Util.TryReadUntilSequence(f, StudioTokenBytes))
                 {
-                    Logger.Log(BepInEx.Logging.LogLevel.Message | BepInEx.Logging.LogLevel.Warning, "This is not a valid studio scene file - " + Path.GetFileName(path));
+                    LogInvalid();
                     return false;
                 }
             }
@@ -59,27 +64,38 @@ namespace IllusionFixes
             return true;
         }
 
-        private static bool TryReadUntilSequence(Stream stream, byte[] sequence)
+        /// <summary>
+        /// Converts the using block into a try catch finally that eats the exception instead of letting it crash upwards
+        /// </summary>
+        private static IEnumerable<CodeInstruction> AddExceptionHandler(IEnumerable<CodeInstruction> inst)
         {
-            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
-            if (sequence.Length == 0)
-                return false;
+            var instructions = inst.ToList();
 
-            while (true)
-            {
-                var matched = false;
-                for (var i = 0; i < sequence.Length; i++)
-                {
-                    var value = stream.ReadByte();
-                    if (value == -1) return false;
-                    matched = value == sequence[i];
-                    if (matched) continue;
-                    stream.Position -= i;
-                    break;
-                }
-                if (matched)
-                    return true;
-            }
+            var finallyBlockIndex = instructions.FindLastIndex(c => c.blocks.Count == 1 && c.blocks[0].blockType == ExceptionBlockType.BeginFinallyBlock);
+
+            var catchBlock = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(StudioSceneFileFilter), nameof(LogCrash)));
+            catchBlock.blocks.Add(new ExceptionBlock(ExceptionBlockType.BeginCatchBlock, typeof(SystemException)));
+            instructions.Insert(finallyBlockIndex, catchBlock);
+            var endLabel = new Label();
+            instructions.Insert(finallyBlockIndex + 1, new CodeInstruction(OpCodes.Leave, endLabel));
+
+            var loadFalse = new CodeInstruction(OpCodes.Ldc_I4_0);
+            loadFalse.labels.Add(endLabel);
+            instructions.Add(loadFalse);
+            instructions.Add(new CodeInstruction(OpCodes.Ret));
+
+            return instructions;
+        }
+
+        private static void LogCrash(Exception ex)
+        {
+            Logger.Log(BepInEx.Logging.LogLevel.Message | BepInEx.Logging.LogLevel.Warning, "Failed to load the file - This scene is from a different game or the file is corrupted");
+            Logger.LogDebug(ex);
+        }
+
+        private static void LogInvalid()
+        {
+            Logger.Log(BepInEx.Logging.LogLevel.Message | BepInEx.Logging.LogLevel.Warning, "Cannot load the file - This is not a studio scene or the file is corrupted");
         }
     }
 }

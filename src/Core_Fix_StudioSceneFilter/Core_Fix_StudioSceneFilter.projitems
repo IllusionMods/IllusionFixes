@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)StudioSceneFileFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Util.cs" />
   </ItemGroup>
 </Project>
