@@ -11,9 +11,9 @@ using Studio;
 
 namespace IllusionFixes
 {
-    public partial class StudioSceneFileFilter
+    public partial class InvalidSceneFileProtection
     {
-        public const string PluginName = "Invalid Studio Scene Filter";
+        public const string PluginName = "Invalid Scene Protection";
 
         private const string StudioToken = "【KStudio】";
         private static readonly byte[] StudioTokenBytes = Encoding.UTF8.GetBytes(StudioToken);
@@ -24,8 +24,8 @@ namespace IllusionFixes
         {
             Logger = base.Logger;
 
-            var hi = HarmonyWrapper.PatchAll(typeof(StudioSceneFileFilter));
-            var tpl = new HarmonyMethod(typeof(StudioSceneFileFilter), nameof(AddExceptionHandler));
+            var hi = HarmonyWrapper.PatchAll(typeof(InvalidSceneFileProtection));
+            var tpl = new HarmonyMethod(typeof(InvalidSceneFileProtection), nameof(AddExceptionHandler));
             hi.Patch(AccessTools.Method(typeof(SceneInfo), nameof(SceneInfo.Load), new[] { typeof(string), typeof(Version).MakeByRefType() }), null, null, tpl);
             hi.Patch(AccessTools.Method(typeof(SceneInfo), nameof(SceneInfo.Import), new[] { typeof(string) }), null, null, tpl);
         }
@@ -73,7 +73,7 @@ namespace IllusionFixes
 
             var finallyBlockIndex = instructions.FindLastIndex(c => c.blocks.Count == 1 && c.blocks[0].blockType == ExceptionBlockType.BeginFinallyBlock);
 
-            var catchBlock = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(StudioSceneFileFilter), nameof(LogCrash)));
+            var catchBlock = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(InvalidSceneFileProtection), nameof(LogCrash)));
             catchBlock.blocks.Add(new ExceptionBlock(ExceptionBlockType.BeginCatchBlock, typeof(SystemException)));
             instructions.Insert(finallyBlockIndex, catchBlock);
             var endLabel = new Label();

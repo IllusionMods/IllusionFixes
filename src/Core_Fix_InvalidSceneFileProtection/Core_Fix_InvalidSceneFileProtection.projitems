@@ -9,7 +9,7 @@
     <Import_RootNamespace>Core_Fix_StudioSceneFilter</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)StudioSceneFileFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InvalidSceneFileProtection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Util.cs" />
   </ItemGroup>
 </Project>

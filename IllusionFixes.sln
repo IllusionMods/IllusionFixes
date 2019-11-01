@@ -115,18 +115,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_NewGameShowAllCards"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_LoadingFixes", "src\AI_Fix_LoadingFixes\AI_Fix_LoadingFixes.csproj", "{3B5F9FA8-191B-48E7-9CA1-1025584D49CD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_StudioSceneFileFilter", "Fix_StudioSceneFileFilter", "{EDAEC0A0-85C7-4D3F-9DAC-E74BDB1B55D8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_InvalidSceneFileProtection", "Fix_InvalidSceneFileProtection", "{EDAEC0A0-85C7-4D3F-9DAC-E74BDB1B55D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_StudioSceneFileFilter", "src\AI_Fix_StudioSceneFilter\AI_Fix_StudioSceneFileFilter.csproj", "{386AE527-1B53-4AD6-AAA3-F90D610C6080}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_InvalidSceneFileProtection", "src\AI_Fix_InvalidSceneFileProtection\AI_Fix_InvalidSceneFileProtection.csproj", "{386AE527-1B53-4AD6-AAA3-F90D610C6080}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_StudioSceneFileFilter", "src\KK_Fix_StudioSceneFilter\KK_Fix_StudioSceneFileFilter.csproj", "{020992E5-0E49-4B83-A3CE-C5EB990EDDA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_InvalidSceneFileProtection", "src\KK_Fix_InvalidSceneFileProtection\KK_Fix_InvalidSceneFileProtection.csproj", "{020992E5-0E49-4B83-A3CE-C5EB990EDDA7}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_StudioSceneFileFilter", "src\Core_Fix_StudioSceneFilter\Core_Fix_StudioSceneFileFilter.shproj", "{DE110DE4-C432-4F89-BD1E-23915527EF9B}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_InvalidSceneFileProtection", "src\Core_Fix_InvalidSceneFileProtection\Core_Fix_InvalidSceneFileProtection.shproj", "{DE110DE4-C432-4F89-BD1E-23915527EF9B}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
-		src\Core_Fix_StudioSceneFilter\Core_Fix_StudioSceneFilter.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
+		src\Core_Fix_InvalidSceneFileProtection\Core_Fix_InvalidSceneFileProtection.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
 		src\Common\Common.projitems*{0218b7ff-4cc3-4c9a-8a91-f8db31084499}*SharedItemsImports = 4
 		src\Core_Fix_ManifestCorrector\Core_Fix_ManifestCorrector.projitems*{0218b7ff-4cc3-4c9a-8a91-f8db31084499}*SharedItemsImports = 4
 		src\Common\Common.projitems*{08a43f46-904c-4add-86cf-7170f1b1f087}*SharedItemsImports = 4
@@ -143,7 +143,7 @@ Global
 		src\Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems*{3274241d-b51a-4042-8cec-54d6aa166ca0}*SharedItemsImports = 4
 		src\Common\Common.projitems*{340a3d13-dee0-43c0-8410-ec84c2873f95}*SharedItemsImports = 13
 		src\Common\Common.projitems*{386ae527-1b53-4ad6-aaa3-f90d610c6080}*SharedItemsImports = 4
-		src\Core_Fix_StudioSceneFilter\Core_Fix_StudioSceneFilter.projitems*{386ae527-1b53-4ad6-aaa3-f90d610c6080}*SharedItemsImports = 4
+		src\Core_Fix_InvalidSceneFileProtection\Core_Fix_InvalidSceneFileProtection.projitems*{386ae527-1b53-4ad6-aaa3-f90d610c6080}*SharedItemsImports = 4
 		src\Common\Common.projitems*{3b5f9fa8-191b-48e7-9ca1-1025584d49cd}*SharedItemsImports = 4
 		src\Common\Common.projitems*{3e1acc1f-fdcc-49a9-9711-c344ab550fc0}*SharedItemsImports = 4
 		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
@@ -190,7 +190,7 @@ Global
 		src\Core_Fix_ManifestCorrector\Core_Fix_ManifestCorrector.projitems*{d853338d-efbc-4c7e-a0d9-9b78610ae726}*SharedItemsImports = 4
 		src\Common\Common.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
 		src\Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
-		src\Core_Fix_StudioSceneFilter\Core_Fix_StudioSceneFilter.projitems*{de110de4-c432-4f89-bd1e-23915527ef9b}*SharedItemsImports = 13
+		src\Core_Fix_InvalidSceneFileProtection\Core_Fix_InvalidSceneFileProtection.projitems*{de110de4-c432-4f89-bd1e-23915527ef9b}*SharedItemsImports = 13
 		src\Common\Common.projitems*{e0eebf3e-cbf1-4929-a6c8-403767faaa8d}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{e613fea3-a78c-4f26-878a-b7a874961819}*SharedItemsImports = 13
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{e9642c67-3d6b-41f5-b42a-73c641b5068a}*SharedItemsImports = 13
