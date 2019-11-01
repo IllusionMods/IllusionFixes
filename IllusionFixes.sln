@@ -111,6 +111,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_ExtensibleSaveFormat", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{73014464-CE65-4624-B4A4-BD3A9A45A027}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_NewGameShowAllCards", "src\AI_Fix_NewGameShowAllCards\AI_Fix_NewGameShowAllCards.csproj", "{5EA29D16-DED0-4E88-A755-1753F14888C3}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{0218b7ff-4cc3-4c9a-8a91-f8db31084499}*SharedItemsImports = 4
@@ -147,6 +149,7 @@ Global
 		src\Core_Fix_PoseLoad\Core_Fix_PoseLoad.projitems*{5a28a5f5-71f4-4519-a869-ae676230f332}*SharedItemsImports = 4
 		src\Common\Common.projitems*{5ba36e3d-7ec8-400e-a0f0-abceb3f644f0}*SharedItemsImports = 4
 		src\Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.projitems*{5ba36e3d-7ec8-400e-a0f0-abceb3f644f0}*SharedItemsImports = 4
+		src\Common\Common.projitems*{5ea29d16-ded0-4e88-a755-1753f14888c3}*SharedItemsImports = 4
 		src\Common\Common.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations_CursorManager\Core_Fix_MakerOptimizations_CursorManager.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
@@ -320,6 +323,10 @@ Global
 		{8EBE81B9-9ED9-466D-864A-4C644BFD8827}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EBE81B9-9ED9-466D-864A-4C644BFD8827}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EBE81B9-9ED9-466D-864A-4C644BFD8827}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EA29D16-DED0-4E88-A755-1753F14888C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EA29D16-DED0-4E88-A755-1753F14888C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EA29D16-DED0-4E88-A755-1753F14888C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EA29D16-DED0-4E88-A755-1753F14888C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -377,6 +384,7 @@ Global
 		{4B0D3C72-F7C0-4673-B857-2DE2B3970C52} = {7EE89BA8-EF7C-414B-B9CE-341D51A2814A}
 		{31C44AAE-509E-428A-9ECE-4D4F18A0C15A} = {7EE89BA8-EF7C-414B-B9CE-341D51A2814A}
 		{8EBE81B9-9ED9-466D-864A-4C644BFD8827} = {685F4F8E-0FC1-4274-B09B-CC818F236EBF}
+		{5EA29D16-DED0-4E88-A755-1753F14888C3} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
