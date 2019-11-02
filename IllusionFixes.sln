@@ -31,8 +31,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_CenteredHSceneCursor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_UnlimitedMapLights", "src\KK_Fix_UnlimitedMapLights\KK_Fix_UnlimitedMapLights.csproj", "{51F20404-6A48-4578-B994-FF0A867EF2C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_CultureFix", "src\EC_Fix_CultureFix\EC_Fix_CultureFix.csproj", "{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common.AccessoriesAPI", "src\Common.AccessoriesAPI\Common.AccessoriesAPI.shproj", "{94E708E4-7B1C-4DA8-83BB-7699753825D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_DownloadRenamer", "src\EC_Fix_DownloadRenamer\EC_Fix_DownloadRenamer.csproj", "{9216D4D0-B421-4D3B-B038-49D76DC12573}"
@@ -75,11 +73,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_SettingsVerifier",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_PoseLoad", "src\KK_Fix_PoseLoad\KK_Fix_PoseLoad.csproj", "{7051504A-575B-417C-BE33-55E7A58F71FF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_CultureFix", "Fix_CultureFix", "{CB81CFA3-5984-4E98-BB44-2D5CD150A7C8}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_CultureFix", "src\Core_Fix_CultureFix\Core_Fix_CultureFix.shproj", "{86357329-63E0-4C00-8F88-DB2857FCEB04}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_CultureFix", "src\AI_Fix_CultureFix\AI_Fix_CultureFix.csproj", "{52D92C5E-F220-473C-B683-BD17198EFD32}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patch_CultureFix", "src\Patch_CultureFix\Patch_CultureFix.csproj", "{52D92C5E-F220-473C-B683-BD17198EFD32}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ManifestCorrector", "src\KK_Fix_ManifestCorrector\KK_Fix_ManifestCorrector.csproj", "{D853338D-EFBC-4C7E-A0D9-9B78610AE726}"
 EndProject
@@ -99,7 +93,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_ManifestCorrector", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_ManifestCorrector", "src\EC_Fix_ManifestCorrector\EC_Fix_ManifestCorrector.csproj", "{0218B7FF-4CC3-4C9A-8A91-F8DB31084499}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicCarrot", "src\MagicCarrot\MagicCarrot.csproj", "{AAA57B7A-9D2C-4840-94E2-F1FA43C53BC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patch_MagicCarrot", "src\Patch_MagicCarrot\Patch_MagicCarrot.csproj", "{AAA57B7A-9D2C-4840-94E2-F1FA43C53BC7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_MakerOptimizations", "src\AI_Fix_MakerOptimizations\AI_Fix_MakerOptimizations.csproj", "{4B0D3C72-F7C0-4673-B857-2DE2B3970C52}"
 EndProject
@@ -130,8 +124,6 @@ Global
 		src\Common\Common.projitems*{0218b7ff-4cc3-4c9a-8a91-f8db31084499}*SharedItemsImports = 4
 		src\Core_Fix_ManifestCorrector\Core_Fix_ManifestCorrector.projitems*{0218b7ff-4cc3-4c9a-8a91-f8db31084499}*SharedItemsImports = 4
 		src\Common\Common.projitems*{08a43f46-904c-4add-86cf-7170f1b1f087}*SharedItemsImports = 4
-		src\Common\Common.projitems*{1a9a2704-d5f1-466d-af8c-18ce3a64e110}*SharedItemsImports = 4
-		src\Core_Fix_CultureFix\Core_Fix_CultureFix.projitems*{1a9a2704-d5f1-466d-af8c-18ce3a64e110}*SharedItemsImports = 4
 		src\Common\Common.projitems*{1c122b92-e1b9-47af-a19a-97b5589e9931}*SharedItemsImports = 4
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{1c122b92-e1b9-47af-a19a-97b5589e9931}*SharedItemsImports = 4
 		src\Common\Common.projitems*{1c3ad6a8-0e6a-443b-9229-0dd4528d73a6}*SharedItemsImports = 4
@@ -156,7 +148,6 @@ Global
 		src\Common\Common.projitems*{517cb02c-cb77-4746-ac5a-14d1fecc0cb8}*SharedItemsImports = 4
 		src\Common\Common.projitems*{51f20404-6a48-4578-b994-ff0a867ef2c0}*SharedItemsImports = 4
 		src\Common\Common.projitems*{52d92c5e-f220-473c-b683-bd17198efd32}*SharedItemsImports = 4
-		src\Core_Fix_CultureFix\Core_Fix_CultureFix.projitems*{52d92c5e-f220-473c-b683-bd17198efd32}*SharedItemsImports = 4
 		src\Common\Common.projitems*{541ed181-1370-47f1-9d95-6187ee59686c}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{541ed181-1370-47f1-9d95-6187ee59686c}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations_CursorManager\Core_Fix_MakerOptimizations_CursorManager.projitems*{541ed181-1370-47f1-9d95-6187ee59686c}*SharedItemsImports = 4
@@ -176,7 +167,6 @@ Global
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{74439246-77dc-4818-8632-f45cc82dcd7c}*SharedItemsImports = 4
 		src\Common\Common.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
-		src\Core_Fix_CultureFix\Core_Fix_CultureFix.projitems*{86357329-63e0-4c00-8f88-db2857fceb04}*SharedItemsImports = 13
 		paket-files\IllusionMods\BepisPlugins\src\Core_ExtensibleSaveFormat\Core_ExtensibleSaveFormat.projitems*{8ebe81b9-9ed9-466d-864a-4c644bfd8827}*SharedItemsImports = 4
 		paket-files\IllusionMods\BepisPlugins\src\Core_ExtensibleSaveFormat_CharaStudio\Core_ExtensibleSaveFormat_CharaStudio.projitems*{8ebe81b9-9ed9-466d-864a-4c644bfd8827}*SharedItemsImports = 4
 		paket-files\IllusionMods\BepisPlugins\src\Shared\Shared.projitems*{8ebe81b9-9ed9-466d-864a-4c644bfd8827}*SharedItemsImports = 4
@@ -259,10 +249,6 @@ Global
 		{51F20404-6A48-4578-B994-FF0A867EF2C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51F20404-6A48-4578-B994-FF0A867EF2C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51F20404-6A48-4578-B994-FF0A867EF2C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A9A2704-D5F1-466D-AF8C-18CE3A64E110}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9216D4D0-B421-4D3B-B038-49D76DC12573}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9216D4D0-B421-4D3B-B038-49D76DC12573}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9216D4D0-B421-4D3B-B038-49D76DC12573}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -374,7 +360,6 @@ Global
 		{D8AC8107-11F4-4BC0-855E-4D0330AF5D46} = {3270A750-76CD-41A9-B159-24220DCBE7D5}
 		{EC9E7C9B-10FA-41C7-8B30-F91E33D97F7D} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
 		{51F20404-6A48-4578-B994-FF0A867EF2C0} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
-		{1A9A2704-D5F1-466D-AF8C-18CE3A64E110} = {CB81CFA3-5984-4E98-BB44-2D5CD150A7C8}
 		{94E708E4-7B1C-4DA8-83BB-7699753825D1} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
 		{9216D4D0-B421-4D3B-B038-49D76DC12573} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
 		{4DEB7768-385E-43B8-84B2-E0ACF13C61C3} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
@@ -396,9 +381,7 @@ Global
 		{3274241D-B51A-4042-8CEC-54D6AA166CA0} = {A1C7C084-38B0-48BD-90C6-572EB94001AB}
 		{3189BE0A-2860-416A-9BBA-A70D9908FC50} = {A1C7C084-38B0-48BD-90C6-572EB94001AB}
 		{7051504A-575B-417C-BE33-55E7A58F71FF} = {D3136A19-617D-4426-827A-00A51D84925F}
-		{CB81CFA3-5984-4E98-BB44-2D5CD150A7C8} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
-		{86357329-63E0-4C00-8F88-DB2857FCEB04} = {CB81CFA3-5984-4E98-BB44-2D5CD150A7C8}
-		{52D92C5E-F220-473C-B683-BD17198EFD32} = {CB81CFA3-5984-4E98-BB44-2D5CD150A7C8}
+		{52D92C5E-F220-473C-B683-BD17198EFD32} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
 		{D853338D-EFBC-4C7E-A0D9-9B78610AE726} = {3E501D49-3E6E-4C9C-8575-52F719A1A5CC}
 		{D3136A19-617D-4426-827A-00A51D84925F} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
 		{5A28A5F5-71F4-4519-A869-AE676230F332} = {D3136A19-617D-4426-827A-00A51D84925F}
