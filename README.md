@@ -9,6 +9,12 @@ A collection of fixes for common issues found in Koikatu, Koikatsu Party, Emotio
 
 *Note for Koikatsu Party users: You can skip KK_Fix_CharacterListOptimizations.dll as it will not work with party. It can produce an error during load in Koikatsu Party, but the error is harmless and can be safely ignored.*
 
+## How to compile
+1. Clone/download the repo
+2. Run `Paket-Restore.bat` to restore dependencies
+   * On linux you need to [add paket to bash](https://fsprojects.github.io/Paket/installation.html#Installation-on-Linux) and use the [restore command](https://fsprojects.github.io/Paket/paket-restore.html)
+3. Compile using your preferred IDE
+
 ## Plugin descriptions
 ### CardImport
 (EmotionCreators)
