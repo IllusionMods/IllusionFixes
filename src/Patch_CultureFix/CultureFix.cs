@@ -6,7 +6,7 @@ using BepInEx.Configuration;
 using Common;
 using Mono.Cecil;
 
-namespace IllusionFixes
+namespace IllusionFixes.Patchers
 {
     public static class CultureFix
     {

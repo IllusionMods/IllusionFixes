@@ -7,7 +7,7 @@
     <ProjectGuid>{52D92C5E-F220-473C-B683-BD17198EFD32}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IllusionFixes</RootNamespace>
+    <RootNamespace>IllusionFixes.Patchers</RootNamespace>
     <AssemblyName>CultureFix</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

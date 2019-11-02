@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MagicCarrot
+namespace IllusionFixes.Patchers
 {
     // Fixes random hangups in Illusion's new game
     // Why? I dunno lol
