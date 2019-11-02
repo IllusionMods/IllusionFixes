@@ -21,11 +21,6 @@ A collection of fixes for common issues found in Koikatu, Koikatsu Party, Emotio
 
 Prevents the game from crashing or stripping some modded data when importing KK cards.
 
-### CultureFix
-(EmotionCreators)
-
-Set process culture to ja-JP, similarly to a locale emulator. Fixes game crashes and lockups on some system locales.
-
 ### CharacterListOptimizations 
 (Koikatsu)
 
@@ -46,6 +41,16 @@ Maps, scenes, poses, and characters downloaded in game will have their file name
 
 Makes the shader drop down menu extend down instaed of up and expands it. Necessary to select modded shaders since they run off the screen by default.
 
+### InvalidSceneFileProtection
+(Koikatsu, AI Girl)
+
+Adds error handling to scene loading and importing. If a scene is invalid or from the wrong game version then a message is shown and the studio doesn't crash.
+
+### LoadingFixes
+(AI Girl)
+
+Fixes some studio scenes failing to load (sometimes you can't load the scene you've just saved with the stock game, many scenes on uploader are like this). Also fixes color picker breaking in maker because of a similar issue.
+
 ### MainGameOptimizations 
 (Koikatsu)
 
@@ -65,6 +70,11 @@ Prevents mods that use incorrect data in the MainManifest column of item lists f
 (Koikatsu)
 
 Fixes modded head eyeliners not working on other head types than default.
+
+### NewGameShowAllCards
+(AI Girl)
+
+Fixes downloaded character cards not appearing in the New Game character selection (so you don't have to go to maker and re-save them).
 
 ### NodeEditorUnlock
 (EmotionCreators)
@@ -110,5 +120,9 @@ Prevents accessories from being removed in shower peeping mode. No more gaping h
 Allows using an unlimited amount of map lights in studio. Not all items support more than 3 lights.
 
 ## Patcher descriptions
+### CultureFix
+(EmotionCreators, AI Girl)
+
+Set process culture to ja-JP, similarly to a locale emulator. Fixes game crashes and lockups on some system locales.
 ### MagicCarrot
 Prevents the game from locking up when starting
