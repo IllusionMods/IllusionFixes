@@ -4,8 +4,10 @@ using System.Linq;
 
 namespace IllusionFixes.Patchers
 {
-    // Fixes random hangups in Illusion's new game
-    // Why? I dunno lol
+    /// <summary>
+    /// Created by Horse.
+    /// > Fixes random hangups in Illusion's new game (AI-Shoujo). Why? I dunno lol
+    /// </summary>
     public static class MagicCarrotPatch
     {
         public static IEnumerable<string> TargetDLLs { get; } = new[] { "Sirenix.Utilities.dll", "Sirenix.Serialization.dll" };
