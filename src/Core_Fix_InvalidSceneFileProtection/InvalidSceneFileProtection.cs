@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
-using System.Text;
 using BepInEx.Harmony;
 using BepInEx.Logging;
 using HarmonyLib;
@@ -14,9 +13,6 @@ namespace IllusionFixes
     public partial class InvalidSceneFileProtection
     {
         public const string PluginName = "Invalid Scene Protection";
-
-        private const string StudioToken = "【KStudio】";
-        private static readonly byte[] StudioTokenBytes = Encoding.UTF8.GetBytes(StudioToken);
 
         private static new ManualLogSource Logger;
 
@@ -54,14 +50,18 @@ namespace IllusionFixes
             {
                 PngFile.SkipPng(f);
 
-                if (!Util.TryReadUntilSequence(f, StudioTokenBytes))
+                var pos = f.Position;
+                foreach (var tokenSequence in ValidStudioTokens)
                 {
-                    LogInvalid();
-                    return false;
+                    if (Util.TryReadUntilSequence(f, tokenSequence))
+                        return true;
+
+                    f.Seek(pos, SeekOrigin.Begin);
                 }
             }
 
-            return true;
+            LogInvalid();
+            return false;
         }
 
         /// <summary>
