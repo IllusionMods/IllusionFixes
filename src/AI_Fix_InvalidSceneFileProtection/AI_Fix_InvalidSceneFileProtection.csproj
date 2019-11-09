@@ -64,6 +64,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="..\..\src\Common\Common.projitems" Label="Shared" />
-    <Import Project="..\Core_Fix_InvalidSceneFileProtection\Core_Fix_InvalidSceneFileProtection.projitems" Label="Shared" />
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\Core_Fix_InvalidSceneFileProtection\Core_Fix_InvalidSceneFileProtection.projitems" Label="Shared" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>IF EXIST $(SolutionDir)PostBuild.bat CALL "$(SolutionDir)PostBuild.bat" $(TargetPath) AI</PostBuildEvent>
+  </PropertyGroup>
 </Project>
