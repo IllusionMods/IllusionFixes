@@ -99,10 +99,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_MakerOptimizations",
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_MakerOptimizations_CursorManager", "src\Core_Fix_MakerOptimizations_CursorManager\Core_Fix_MakerOptimizations_CursorManager.shproj", "{31C44AAE-509E-428A-9ECE-4D4F18A0C15A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "reference", "reference", "{685F4F8E-0FC1-4274-B09B-CC818F236EBF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_ExtensibleSaveFormat", "paket-files\IllusionMods\BepisPlugins\src\KK_ExtensibleSaveFormat\KK_ExtensibleSaveFormat.csproj", "{8EBE81B9-9ED9-466D-864A-4C644BFD8827}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{73014464-CE65-4624-B4A4-BD3A9A45A027}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_NewGameShowAllCards", "src\AI_Fix_NewGameShowAllCards\AI_Fix_NewGameShowAllCards.csproj", "{5EA29D16-DED0-4E88-A755-1753F14888C3}"
@@ -167,9 +163,6 @@ Global
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{74439246-77dc-4818-8632-f45cc82dcd7c}*SharedItemsImports = 4
 		src\Common\Common.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
-		paket-files\IllusionMods\BepisPlugins\src\Core_ExtensibleSaveFormat\Core_ExtensibleSaveFormat.projitems*{8ebe81b9-9ed9-466d-864a-4c644bfd8827}*SharedItemsImports = 4
-		paket-files\IllusionMods\BepisPlugins\src\Core_ExtensibleSaveFormat_CharaStudio\Core_ExtensibleSaveFormat_CharaStudio.projitems*{8ebe81b9-9ed9-466d-864a-4c644bfd8827}*SharedItemsImports = 4
-		paket-files\IllusionMods\BepisPlugins\src\Shared\Shared.projitems*{8ebe81b9-9ed9-466d-864a-4c644bfd8827}*SharedItemsImports = 4
 		src\Common\Common.projitems*{9216d4d0-b421-4d3b-b038-49d76dc12573}*SharedItemsImports = 4
 		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{94e708e4-7b1c-4da8-83bb-7699753825d1}*SharedItemsImports = 13
 		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{a68b1345-a4d5-4a10-ab5f-f3bbd638b189}*SharedItemsImports = 13
@@ -322,10 +315,6 @@ Global
 		{4B0D3C72-F7C0-4673-B857-2DE2B3970C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B0D3C72-F7C0-4673-B857-2DE2B3970C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B0D3C72-F7C0-4673-B857-2DE2B3970C52}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8EBE81B9-9ED9-466D-864A-4C644BFD8827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EBE81B9-9ED9-466D-864A-4C644BFD8827}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8EBE81B9-9ED9-466D-864A-4C644BFD8827}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8EBE81B9-9ED9-466D-864A-4C644BFD8827}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5EA29D16-DED0-4E88-A755-1753F14888C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5EA29D16-DED0-4E88-A755-1753F14888C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EA29D16-DED0-4E88-A755-1753F14888C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -395,7 +384,6 @@ Global
 		{AAA57B7A-9D2C-4840-94E2-F1FA43C53BC7} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
 		{4B0D3C72-F7C0-4673-B857-2DE2B3970C52} = {7EE89BA8-EF7C-414B-B9CE-341D51A2814A}
 		{31C44AAE-509E-428A-9ECE-4D4F18A0C15A} = {7EE89BA8-EF7C-414B-B9CE-341D51A2814A}
-		{8EBE81B9-9ED9-466D-864A-4C644BFD8827} = {685F4F8E-0FC1-4274-B09B-CC818F236EBF}
 		{5EA29D16-DED0-4E88-A755-1753F14888C3} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
 		{3B5F9FA8-191B-48E7-9CA1-1025584D49CD} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
 		{EDAEC0A0-85C7-4D3F-9DAC-E74BDB1B55D8} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
