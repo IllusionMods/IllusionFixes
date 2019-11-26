@@ -4,6 +4,7 @@ using Common;
 
 namespace IllusionFixes
 {
+    [BepInProcess("StudioNEOV2")]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class InvalidSceneFileProtection : BaseUnityPlugin
     {
