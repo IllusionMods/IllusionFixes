@@ -117,6 +117,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_InvalidSceneFileProt
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_InvalidSceneFileProtection", "src\Core_Fix_InvalidSceneFileProtection\Core_Fix_InvalidSceneFileProtection.shproj", "{DE110DE4-C432-4F89-BD1E-23915527EF9B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_StudioOptimizations", "Fix_StudioOptimizations", "{A660D1F4-37EC-4355-9C61-5F83183716A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_StudioOptimizations", "src\AI_Fix_StudioOptimizations\AI_Fix_StudioOptimizations.csproj", "{90F116FE-9FCF-473F-A7D5-B9D1FDBFE52F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_StudioOptimizations", "src\KK_Fix_StudioOptimizations\KK_Fix_StudioOptimizations.csproj", "{5EAA5078-AC8E-482B-98EB-E7CE8A12D0CA}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
@@ -156,6 +162,7 @@ Global
 		src\Common\Common.projitems*{5ba36e3d-7ec8-400e-a0f0-abceb3f644f0}*SharedItemsImports = 4
 		src\Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.projitems*{5ba36e3d-7ec8-400e-a0f0-abceb3f644f0}*SharedItemsImports = 4
 		src\Common\Common.projitems*{5ea29d16-ded0-4e88-a755-1753f14888c3}*SharedItemsImports = 4
+		src\Common\Common.projitems*{5eaa5078-ac8e-482b-98eb-e7ce8a12d0ca}*SharedItemsImports = 4
 		src\Common\Common.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations_CursorManager\Core_Fix_MakerOptimizations_CursorManager.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
@@ -170,6 +177,7 @@ Global
 		paket-files\IllusionMods\BepisPlugins\src\Core_ExtensibleSaveFormat\Core_ExtensibleSaveFormat.projitems*{8ebe81b9-9ed9-466d-864a-4c644bfd8827}*SharedItemsImports = 4
 		paket-files\IllusionMods\BepisPlugins\src\Core_ExtensibleSaveFormat_CharaStudio\Core_ExtensibleSaveFormat_CharaStudio.projitems*{8ebe81b9-9ed9-466d-864a-4c644bfd8827}*SharedItemsImports = 4
 		paket-files\IllusionMods\BepisPlugins\src\Shared\Shared.projitems*{8ebe81b9-9ed9-466d-864a-4c644bfd8827}*SharedItemsImports = 4
+		src\Common\Common.projitems*{90f116fe-9fcf-473f-a7d5-b9d1fdbfe52f}*SharedItemsImports = 4
 		src\Common\Common.projitems*{9216d4d0-b421-4d3b-b038-49d76dc12573}*SharedItemsImports = 4
 		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{94e708e4-7b1c-4da8-83bb-7699753825d1}*SharedItemsImports = 13
 		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{a68b1345-a4d5-4a10-ab5f-f3bbd638b189}*SharedItemsImports = 13
@@ -342,6 +350,14 @@ Global
 		{020992E5-0E49-4B83-A3CE-C5EB990EDDA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{020992E5-0E49-4B83-A3CE-C5EB990EDDA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{020992E5-0E49-4B83-A3CE-C5EB990EDDA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90F116FE-9FCF-473F-A7D5-B9D1FDBFE52F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90F116FE-9FCF-473F-A7D5-B9D1FDBFE52F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90F116FE-9FCF-473F-A7D5-B9D1FDBFE52F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90F116FE-9FCF-473F-A7D5-B9D1FDBFE52F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EAA5078-AC8E-482B-98EB-E7CE8A12D0CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EAA5078-AC8E-482B-98EB-E7CE8A12D0CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EAA5078-AC8E-482B-98EB-E7CE8A12D0CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EAA5078-AC8E-482B-98EB-E7CE8A12D0CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -402,6 +418,9 @@ Global
 		{386AE527-1B53-4AD6-AAA3-F90D610C6080} = {EDAEC0A0-85C7-4D3F-9DAC-E74BDB1B55D8}
 		{020992E5-0E49-4B83-A3CE-C5EB990EDDA7} = {EDAEC0A0-85C7-4D3F-9DAC-E74BDB1B55D8}
 		{DE110DE4-C432-4F89-BD1E-23915527EF9B} = {EDAEC0A0-85C7-4D3F-9DAC-E74BDB1B55D8}
+		{A660D1F4-37EC-4355-9C61-5F83183716A9} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
+		{90F116FE-9FCF-473F-A7D5-B9D1FDBFE52F} = {A660D1F4-37EC-4355-9C61-5F83183716A9}
+		{5EAA5078-AC8E-482B-98EB-E7CE8A12D0CA} = {A660D1F4-37EC-4355-9C61-5F83183716A9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
