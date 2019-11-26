@@ -119,6 +119,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_StudioOptimizations"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_StudioOptimizations", "src\KK_Fix_StudioOptimizations\KK_Fix_StudioOptimizations.csproj", "{5EAA5078-AC8E-482B-98EB-E7CE8A12D0CA}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_StudioOptimizations", "src\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.shproj", "{58305F00-9372-43A0-B155-E602252839DE}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
@@ -153,12 +155,14 @@ Global
 		src\Common\Common.projitems*{541ed181-1370-47f1-9d95-6187ee59686c}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{541ed181-1370-47f1-9d95-6187ee59686c}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations_CursorManager\Core_Fix_MakerOptimizations_CursorManager.projitems*{541ed181-1370-47f1-9d95-6187ee59686c}*SharedItemsImports = 4
+		src\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.projitems*{58305f00-9372-43a0-b155-e602252839de}*SharedItemsImports = 13
 		src\Common\Common.projitems*{5a28a5f5-71f4-4519-a869-ae676230f332}*SharedItemsImports = 4
 		src\Core_Fix_PoseLoad\Core_Fix_PoseLoad.projitems*{5a28a5f5-71f4-4519-a869-ae676230f332}*SharedItemsImports = 4
 		src\Common\Common.projitems*{5ba36e3d-7ec8-400e-a0f0-abceb3f644f0}*SharedItemsImports = 4
 		src\Core_Fix_ExpandShaderDropdown\Core_Fix_ExpandShaderDropdown.projitems*{5ba36e3d-7ec8-400e-a0f0-abceb3f644f0}*SharedItemsImports = 4
 		src\Common\Common.projitems*{5ea29d16-ded0-4e88-a755-1753f14888c3}*SharedItemsImports = 4
 		src\Common\Common.projitems*{5eaa5078-ac8e-482b-98eb-e7ce8a12d0ca}*SharedItemsImports = 4
+		src\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.projitems*{5eaa5078-ac8e-482b-98eb-e7ce8a12d0ca}*SharedItemsImports = 4
 		src\Common\Common.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations_CursorManager\Core_Fix_MakerOptimizations_CursorManager.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
@@ -171,6 +175,7 @@ Global
 		src\Common\Common.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
 		src\Common\Common.projitems*{90f116fe-9fcf-473f-a7d5-b9d1fdbfe52f}*SharedItemsImports = 4
+		src\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.projitems*{90f116fe-9fcf-473f-a7d5-b9d1fdbfe52f}*SharedItemsImports = 4
 		src\Common\Common.projitems*{9216d4d0-b421-4d3b-b038-49d76dc12573}*SharedItemsImports = 4
 		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{94e708e4-7b1c-4da8-83bb-7699753825d1}*SharedItemsImports = 13
 		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{a68b1345-a4d5-4a10-ab5f-f3bbd638b189}*SharedItemsImports = 13
@@ -409,6 +414,7 @@ Global
 		{A660D1F4-37EC-4355-9C61-5F83183716A9} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
 		{90F116FE-9FCF-473F-A7D5-B9D1FDBFE52F} = {A660D1F4-37EC-4355-9C61-5F83183716A9}
 		{5EAA5078-AC8E-482B-98EB-E7CE8A12D0CA} = {A660D1F4-37EC-4355-9C61-5F83183716A9}
+		{58305F00-9372-43A0-B155-E602252839DE} = {A660D1F4-37EC-4355-9C61-5F83183716A9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}

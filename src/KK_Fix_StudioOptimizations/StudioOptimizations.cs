@@ -1,8 +1,10 @@
-﻿namespace IllusionFixes
+﻿using BepInEx;
+
+namespace IllusionFixes
 {
-    public class StudioOptimizations 
+    [BepInPlugin(GUID, PluginName, Common.Metadata.PluginsVersion)]
+    [BepInProcess("CharaStudio")]
+    public partial class StudioOptimizations : BaseUnityPlugin
     {
-        public const string GUID = "KK_Fix_StudioOptimizations";
-        public const string PluginName = "Studio Optimizations";
     }
 }
