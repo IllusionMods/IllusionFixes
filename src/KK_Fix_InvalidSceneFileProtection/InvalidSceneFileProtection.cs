@@ -4,6 +4,7 @@ using Common;
 
 namespace IllusionFixes
 {
+    [BepInProcess("CharaStudio")]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class InvalidSceneFileProtection : BaseUnityPlugin
     {
