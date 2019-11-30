@@ -18,6 +18,7 @@ namespace IllusionFixes
 
         private static int _unloadAssets;
         private static int _garbageCollect;
+        private float _waitTime;
 
         internal void Awake()
         {
@@ -45,7 +46,10 @@ namespace IllusionFixes
         {
             while (true)
             {
-                yield return new WaitForSecondsRealtime(1);
+                while (Time.realtimeSinceStartup < _waitTime)
+                    yield return null;
+
+                _waitTime = Time.realtimeSinceStartup + 1;
 
                 if (_unloadAssets > 0)
                 {
