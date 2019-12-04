@@ -33,5 +33,11 @@ namespace IllusionFixes
             if (__result == null && !addStr.IsNullOrEmpty())
                 __result = Traverse.Create(__instance).Method("GetTexture", type, id, assetBundleKey, assetKey, "").GetValue() as Texture2D;
         }
+
+        /// <summary>
+        /// Disable asyncFlags so heads load properly in ADV scenes
+        /// </summary>
+        [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), "ChangeHeadAsync", typeof(int), typeof(bool), typeof(bool))]
+        internal static void ChangeHeadAsync(ref bool asyncFlags) => asyncFlags = false;
     }
 }
