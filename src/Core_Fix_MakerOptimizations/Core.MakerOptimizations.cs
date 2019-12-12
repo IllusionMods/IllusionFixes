@@ -15,7 +15,6 @@ namespace IllusionFixes
         public static ConfigEntry<bool> DisableNewAnimation { get; private set; }
         public static ConfigEntry<bool> DisableNewIndicator { get; private set; }
         public static ConfigEntry<bool> DisableIKCalc { get; private set; }
-        public static ConfigEntry<bool> DisableCameraTarget { get; private set; }
         public static ConfigEntry<bool> DisableCharaName { get; private set; }
         public static ConfigEntry<bool> DisableHiddenTabs { get; private set; }
         public static ConfigEntry<bool> ManageCursor { get; private set; }
@@ -24,13 +23,12 @@ namespace IllusionFixes
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
-            DisableNewAnimation = Config.AddSetting(Utilities.ConfigSectionTweaks, "Disable NEW indicator animation", true, new ConfigDescription("Good performance improvement in maker if there are many new items.\nChanges take effect after maker restart."));
-            DisableNewIndicator = Config.AddSetting(Utilities.ConfigSectionTweaks, "Disable NEW indicator for new items", true, new ConfigDescription("visual glitches like 2 coordinates loaded at once."));
-            DisableIKCalc = Config.AddSetting(Utilities.ConfigSectionTweaks, "Disable maker IK", true, new ConfigDescription("Improves performance and reduces stuttering at the cost of not recalculating positions of some body parts.\nMost noticeable on characters with wide hips where the hands are not moving with the hip line.\nWarning: This setting will get reset to false if Stiletto is installed to avoid issues!\nChanges take effect after game restart."));
-            DisableCameraTarget = Config.AddSetting(Utilities.ConfigSectionTweaks, "Disable camera target (white focus ring)", false, new ConfigDescription("Warning: This setting overrides any game setting that enables the ring."));
-            DisableCharaName = Config.AddSetting(Utilities.ConfigSectionTweaks, "Disable character name box in maker", true, new ConfigDescription("Hides the name box in the bottom right part of the maker, giving you a clearer look at the character."));
-            DisableHiddenTabs = Config.AddSetting(Utilities.ConfigSectionTweaks, "Deactivate hidden tabs in maker", SystemInfo.processorFrequency < 2700, new ConfigDescription("Major performance improvement at the cost of slower switching between tabs in maker.\nChanges take effect after maker restart."));
-            ManageCursor = Config.AddSetting(Utilities.ConfigSectionTweaks, "Manage cursor in maker", true, new ConfigDescription("Lock and hide the cursor when moving the camera in maker."));
+            DisableNewAnimation = Config.Bind(Utilities.ConfigSectionTweaks, "Disable NEW indicator animation", true, new ConfigDescription("Good performance improvement in maker if there are many new items.\nChanges take effect after maker restart."));
+            DisableNewIndicator = Config.Bind(Utilities.ConfigSectionTweaks, "Disable NEW indicator for new items", true, new ConfigDescription("visual glitches like 2 coordinates loaded at once."));
+            DisableIKCalc = Config.Bind(Utilities.ConfigSectionTweaks, "Disable maker IK", true, new ConfigDescription("Improves performance and reduces stuttering at the cost of not recalculating positions of some body parts.\nMost noticeable on characters with wide hips where the hands are not moving with the hip line.\nWarning: This setting will get reset to false if Stiletto is installed to avoid issues!\nChanges take effect after game restart."));
+            DisableCharaName = Config.Bind(Utilities.ConfigSectionTweaks, "Disable character name box in maker", true, new ConfigDescription("Hides the name box in the bottom right part of the maker, giving you a clearer look at the character."));
+            DisableHiddenTabs = Config.Bind(Utilities.ConfigSectionTweaks, "Deactivate hidden tabs in maker", SystemInfo.processorFrequency < 2700, new ConfigDescription("Major performance improvement at the cost of slower switching between tabs in maker.\nChanges take effect after maker restart."));
+            ManageCursor = Config.Bind(Utilities.ConfigSectionTweaks, "Manage cursor in maker", true, new ConfigDescription("Lock and hide the cursor when moving the camera in maker."));
         }
 
         internal void Awake()
@@ -38,7 +36,6 @@ namespace IllusionFixes
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
             SceneManager.sceneLoaded += SceneLoaded;
-            DisableCameraTarget.SettingChanged += (sender, args) => ApplyPatches();
             DisableCharaName.SettingChanged += (sender, args) => ApplyPatches();
 
             Hooks.InstallHooks();
@@ -72,21 +69,8 @@ namespace IllusionFixes
 
         private static void ApplyPatches()
         {
-            if (FindObjectOfType<CustomScene>())
-            {
-                GameObject.Find("CustomScene/CamBase/Camera/CameraTarget")?.SetActive(!DisableCameraTarget.Value);
+            if(FindObjectOfType<CustomScene>())
                 GameObject.Find("CustomScene/CustomRoot/FrontUIGroup/CustomUIGroup/CvsCharaName")?.SetActive(!DisableCharaName.Value);
-            }
-#if KK
-            else if (FindObjectOfType<StudioScene>())
-            {
-                GameObject.Find("StudioScene/Camera/Main Camera/CameraTarget")?.SetActive(!DisableCameraTarget.Value);
-            }
-            else if (FindObjectOfType<HSceneProc>())
-            {
-                GameObject.Find("HScene/CameraBase/Camera/CameraTarget")?.SetActive(!DisableCameraTarget.Value);
-            }
-#endif
         }
     }
 }
