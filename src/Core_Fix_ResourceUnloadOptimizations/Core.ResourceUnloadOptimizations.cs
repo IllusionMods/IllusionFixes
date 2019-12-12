@@ -16,7 +16,6 @@ namespace IllusionFixes
         private static AsyncOperation _currentOperation;
         private static Func<AsyncOperation> _originalUnload;
 
-        private static int _unloadAssets;
         private static int _garbageCollect;
         private float _waitTime;
 
@@ -51,12 +50,6 @@ namespace IllusionFixes
 
                 _waitTime = Time.realtimeSinceStartup + 1;
 
-                if (_unloadAssets > 0)
-                {
-                    if (--_unloadAssets == 0)
-                        RunUnloadAssets();
-                }
-
                 if (_garbageCollect > 0)
                 {
                     if (--_garbageCollect == 0)
@@ -65,12 +58,15 @@ namespace IllusionFixes
             }
         }
 
-        private static void RunUnloadAssets()
+        private static AsyncOperation RunUnloadAssets()
         {
-            if (_currentOperation?.isDone == false) return;
-
-            Utilities.Logger.Log(LogLevel.Debug, "Starting unused asset cleanup");
-            _currentOperation = _originalUnload();
+            // Only allow a single unload operation to run at one time
+            if (_currentOperation?.isDone != false)
+            {
+                Utilities.Logger.Log(LogLevel.Debug, "Starting unused asset cleanup");
+                _currentOperation = _originalUnload();
+            }
+            return _currentOperation;
         }
 
         private static void RunGarbageCollect()
@@ -95,13 +91,7 @@ namespace IllusionFixes
             // Replacement methods needs to be inside a static class to be used in NativeDetour
             public static AsyncOperation UnloadUnusedAssetsHook()
             {
-                if (_currentOperation == null)
-                    RunUnloadAssets();
-                // Throttle down the calls but make sure we run at least every x seconds to avoid temporary memory overruns
-                else if (_currentOperation.isDone && _unloadAssets <= 0)
-                    _unloadAssets = 3;
-
-                return _currentOperation;
+                return RunUnloadAssets();
             }
         }
     }
