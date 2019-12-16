@@ -21,8 +21,8 @@ namespace IllusionFixes
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins())
                 return;
 
-            DisableCameraTarget = Config.AddSetting(Utilities.ConfigSectionTweaks, "Disable camera target (white focus ring)", false, new ConfigDescription("Warning: This setting overrides any game setting that enables the ring."));
-            ManageCursor = Config.AddSetting(Utilities.ConfigSectionTweaks, "Manage cursor in maker", true, new ConfigDescription("Lock and hide the cursor when moving the camera in maker."));
+            DisableCameraTarget = Config.Bind(Utilities.ConfigSectionTweaks, "Disable camera target (white focus ring)", false, new ConfigDescription("Warning: This setting overrides any game setting that enables the ring."));
+            ManageCursor = Config.Bind(Utilities.ConfigSectionTweaks, "Manage cursor in maker", true, new ConfigDescription("Lock and hide the cursor when moving the camera in maker."));
 
             SceneManager.sceneLoaded += SceneLoaded;
             DisableCameraTarget.SettingChanged += (sender, args) => ApplyPatches();
