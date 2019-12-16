@@ -36,7 +36,12 @@ namespace IllusionFixes
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
             SceneManager.sceneLoaded += SceneLoaded;
-            DisableCharaName.SettingChanged += (sender, args) => ApplyPatches();
+
+            DisableCharaName.SettingChanged += (sender, args) =>
+            {
+                if(FindObjectOfType<CustomScene>())
+                    ToggleCharaName();
+            };
 
             Hooks.InstallHooks();
         }
@@ -54,11 +59,10 @@ namespace IllusionFixes
 
         private void SceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            ApplyPatches();
-
             var cursorManager = gameObject.GetComponent<CursorManager>();
             if (FindObjectOfType<CustomScene>())
             {
+                ToggleCharaName();
                 if (!cursorManager) gameObject.AddComponent<CursorManager>();
             }
             else if (cursorManager)
@@ -67,10 +71,9 @@ namespace IllusionFixes
             }
         }
 
-        private static void ApplyPatches()
+        private void ToggleCharaName()
         {
-            if(FindObjectOfType<CustomScene>())
-                GameObject.Find("CustomScene/CustomRoot/FrontUIGroup/CustomUIGroup/CvsCharaName")?.SetActive(!DisableCharaName.Value);
+            GameObject.Find("CustomScene/CustomRoot/FrontUIGroup/CustomUIGroup/CvsCharaName")?.SetActive(!DisableCharaName.Value);
         }
     }
 }
