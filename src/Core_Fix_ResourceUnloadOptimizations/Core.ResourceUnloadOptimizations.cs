@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using BepInEx.Configuration;
 using BepInEx.Harmony;
 using BepInEx.Logging;
 using Common;
 using HarmonyLib;
 using MonoMod.RuntimeDetour;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace IllusionFixes
@@ -19,9 +20,12 @@ namespace IllusionFixes
         private static int _garbageCollect;
         private float _waitTime;
 
+        public static ConfigEntry<bool> DisableUnload { get; private set; }
+
         internal void Awake()
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
+            DisableUnload = Config.Bind(Utilities.ConfigSectionTweaks, "Disable Resource Unload", false, new ConfigDescription("Disables all resource unloading. Requires large amounts of RAM or will likely crash your game.", null, new ConfigurationManagerAttributes { IsAdvanced = true }));
 
             StartCoroutine(CleanupCo());
 
@@ -91,7 +95,10 @@ namespace IllusionFixes
             // Replacement methods needs to be inside a static class to be used in NativeDetour
             public static AsyncOperation UnloadUnusedAssetsHook()
             {
-                return RunUnloadAssets();
+                if (DisableUnload.Value)
+                    return null;
+                else
+                    return RunUnloadAssets();
             }
         }
     }
