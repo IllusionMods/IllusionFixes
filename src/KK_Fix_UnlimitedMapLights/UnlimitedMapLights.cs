@@ -7,7 +7,7 @@ using System.Reflection.Emit;
 
 namespace IllusionFixes
 {
-    [BepInProcess("CharaStudio")]
+    [BepInProcess(Constants.StudioProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class UnlimitedMapLights : BaseUnityPlugin
     {
@@ -22,9 +22,9 @@ namespace IllusionFixes
         [HarmonyTranspiler, HarmonyPatch(typeof(Studio.LightLine), "CreateMaterial")]
         private static IEnumerable<CodeInstruction> LightLineFix(IEnumerable<CodeInstruction> instructions)
         {
-            foreach(var code in instructions)
+            foreach (var code in instructions)
             {
-                if(code.opcode == OpCodes.Ldstr && (string)code.operand == "Custom/LightLine")
+                if (code.opcode == OpCodes.Ldstr && (string)code.operand == "Custom/LightLine")
                 {
                     code.operand = "Custom/LineShader";
                     break;

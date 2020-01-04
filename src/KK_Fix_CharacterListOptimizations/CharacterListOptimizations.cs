@@ -4,6 +4,8 @@ using Common;
 
 namespace IllusionFixes
 {
+    [BepInProcess(Constants.GameProcessName)] //Not currently compatible with Koikatsu Party
+    [BepInProcess(Constants.VRProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class CharacterListOptimizations : BaseUnityPlugin
     {
@@ -14,8 +16,7 @@ namespace IllusionFixes
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
-            if (!CommonCode.InsideKoikatsuParty) //Not currently compatible with Koikatsu Party
-                HarmonyWrapper.PatchAll(typeof(Hooks));
+            HarmonyWrapper.PatchAll(typeof(Hooks));
         }
     }
 }

@@ -8,6 +8,8 @@ namespace IllusionFixes
     /// <summary>
     /// Changes any invalid personalities to the "Pure" personality to prevent the game from breaking when adding them to the class
     /// </summary>
+    [BepInProcess(Constants.GameProcessName)]
+    [BepInProcess(Constants.GameProcessNameSteam)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class PersonalityCorrector : BaseUnityPlugin
     {
@@ -85,16 +87,10 @@ namespace IllusionFixes
             }
         }
 
-        private static void ShowInvalidModdedPersonality(ChaFileControl chaFileControl)
-        {
-            Utilities.Logger.Log(LogLevel.Message, chaFileControl.parameter.fullname + " - Modded personality " +
+        private static void ShowInvalidModdedPersonality(ChaFileControl chaFileControl) => Utilities.Logger.Log(LogLevel.Message, chaFileControl.parameter.fullname + " - Modded personality " +
                 chaFileControl.parameter.personality + " is not compatible with story mode, resetting to default");
-        }
 
-        private static void ShowPersonalityMissingMessage(ChaFileControl chaFile, string dlcName)
-        {
-            Utilities.Logger.Log(LogLevel.Message, chaFile.parameter.fullname + " - Personality " +
+        private static void ShowPersonalityMissingMessage(ChaFileControl chaFile, string dlcName) => Utilities.Logger.Log(LogLevel.Message, chaFile.parameter.fullname + " - Personality " +
                 chaFile.parameter.personality + " from " + dlcName + " is missing, resetting to default");
-        }
     }
 }

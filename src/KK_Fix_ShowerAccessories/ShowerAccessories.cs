@@ -7,6 +7,8 @@ namespace IllusionFixes
     /// <summary>
     /// Prevents accessories from being disabled in the shower peeping mode
     /// </summary>
+    [BepInProcess(Constants.GameProcessName)]
+    [BepInProcess(Constants.GameProcessNameSteam)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class ShowerAccessories : BaseUnityPlugin
     {

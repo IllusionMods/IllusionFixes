@@ -1,15 +1,17 @@
-﻿using System;
-using System.IO;
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Harmony;
 using BepInEx.Logging;
 using Common;
 using HarmonyLib;
 using Studio;
+using System;
+using System.IO;
 using UnityEngine;
 
 namespace IllusionFixes
 {
+    [BepInProcess(Constants.GameProcessName)]
+    [BepInProcess(Constants.StudioProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class LoadingFixes : BaseUnityPlugin
     {

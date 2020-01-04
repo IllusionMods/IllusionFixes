@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace IllusionFixes
 {
+    [BepInProcess(Constants.GameProcessName)]
+    [BepInProcess(Constants.GameProcessNameSteam)]
+    [BepInProcess(Constants.VRProcessName)]
+    [BepInProcess(Constants.VRProcessNameSteam)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class CenteredHSceneCursor : BaseUnityPlugin
     {

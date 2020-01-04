@@ -1,12 +1,13 @@
-﻿using System.IO;
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Configuration;
 using Common;
 using HarmonyLib;
+using System.IO;
 using UploaderSystem;
 
 namespace IllusionFixes
 {
+    [BepInProcess(Constants.GameProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class DownloadRenamer : BaseUnityPlugin
     {
@@ -63,9 +64,6 @@ namespace IllusionFixes
             }
         }
 
-        private static string GetFileName(string dir, string prefix, int index)
-        {
-            return UserData.Create(dir) + prefix + index.ToString("D7") + ".png";
-        }
+        private static string GetFileName(string dir, string prefix, int index) => UserData.Create(dir) + prefix + index.ToString("D7") + ".png";
     }
 }

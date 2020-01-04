@@ -3,6 +3,8 @@ using Common;
 
 namespace IllusionFixes
 {
+    [BepInProcess(Constants.GameProcessName)]
+    [BepInProcess(Constants.GameProcessNameSteam)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class MakerOptimizations : BaseUnityPlugin
     {

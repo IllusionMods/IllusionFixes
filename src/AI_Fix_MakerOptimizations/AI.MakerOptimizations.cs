@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace IllusionFixes
 {
+    [BepInProcess(Constants.GameProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class MakerOptimizations : BaseUnityPlugin
     {

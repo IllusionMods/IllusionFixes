@@ -3,9 +3,11 @@ using Common;
 
 namespace IllusionFixes
 {
+    [BepInProcess(Constants.GameProcessName)]
+    [BepInProcess(Constants.StudioProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class ManifestCorrector : BaseUnityPlugin
     {
-        public const string GUID = "KK_Fix_ManifestCorrector";
+        public const string GUID = "AI_Fix_ManifestCorrector";
     }
 }

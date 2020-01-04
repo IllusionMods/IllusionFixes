@@ -3,6 +3,7 @@ using Common;
 
 namespace IllusionFixes
 {
+    [BepInProcess(Constants.GameProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class ManifestCorrector : BaseUnityPlugin
     {

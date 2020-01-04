@@ -13,6 +13,8 @@ using UnityEngine.SceneManagement;
 
 namespace IllusionFixes
 {
+    [BepInProcess(Constants.GameProcessName)]
+    [BepInProcess(Constants.VRProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class MainGameOptimizations : BaseUnityPlugin
     {
