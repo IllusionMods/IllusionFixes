@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.852
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common", "src\Common\Common.shproj", "{340A3D13-DEE0-43C0-8410-EC84C2873F95}"
 EndProject
@@ -121,6 +121,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_StudioOptimizations"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_StudioOptimizations", "src\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.shproj", "{58305F00-9372-43A0-B155-E602252839DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_Heterochromia", "src\KK_Fix_Heterochromia\KK_Fix_Heterochromia.csproj", "{647579B1-ABB7-4180-AC3F-DA12B092ED22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_Heterochromia", "Fix_Heterochromia", "{CB52D092-E8AE-4598-8C79-56241C82DA19}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_Heterochromia", "src\Core_Fix_Heterochromia\Core_Fix_Heterochromia.shproj", "{89D95D84-BC6A-44CD-9376-6866207B96AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_Heterochromia", "src\EC_Fix_Heterochromia\EC_Fix_Heterochromia.csproj", "{81CCBAA9-EC68-4558-BBDB-54D59B55B8A7}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
@@ -163,6 +171,8 @@ Global
 		src\Common\Common.projitems*{5ea29d16-ded0-4e88-a755-1753f14888c3}*SharedItemsImports = 4
 		src\Common\Common.projitems*{5eaa5078-ac8e-482b-98eb-e7ce8a12d0ca}*SharedItemsImports = 4
 		src\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.projitems*{5eaa5078-ac8e-482b-98eb-e7ce8a12d0ca}*SharedItemsImports = 4
+		src\Common\Common.projitems*{647579b1-abb7-4180-ac3f-da12b092ed22}*SharedItemsImports = 4
+		src\Core_Fix_Heterochromia\Core_Fix_Heterochromia.projitems*{647579b1-abb7-4180-ac3f-da12b092ed22}*SharedItemsImports = 4
 		src\Common\Common.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations_CursorManager\Core_Fix_MakerOptimizations_CursorManager.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
@@ -172,8 +182,11 @@ Global
 		src\Core_Fix_PoseLoad\Core_Fix_PoseLoad.projitems*{7051504a-575b-417c-be33-55e7a58f71ff}*SharedItemsImports = 4
 		src\Common\Common.projitems*{74439246-77dc-4818-8632-f45cc82dcd7c}*SharedItemsImports = 4
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{74439246-77dc-4818-8632-f45cc82dcd7c}*SharedItemsImports = 4
+		src\Common\Common.projitems*{81ccbaa9-ec68-4558-bbdb-54d59b55b8a7}*SharedItemsImports = 4
+		src\Core_Fix_Heterochromia\Core_Fix_Heterochromia.projitems*{81ccbaa9-ec68-4558-bbdb-54d59b55b8a7}*SharedItemsImports = 4
 		src\Common\Common.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
+		src\Core_Fix_Heterochromia\Core_Fix_Heterochromia.projitems*{89d95d84-bc6a-44cd-9376-6866207b96ae}*SharedItemsImports = 13
 		src\Common\Common.projitems*{90f116fe-9fcf-473f-a7d5-b9d1fdbfe52f}*SharedItemsImports = 4
 		src\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.projitems*{90f116fe-9fcf-473f-a7d5-b9d1fdbfe52f}*SharedItemsImports = 4
 		src\Common\Common.projitems*{9216d4d0-b421-4d3b-b038-49d76dc12573}*SharedItemsImports = 4
@@ -352,6 +365,14 @@ Global
 		{5EAA5078-AC8E-482B-98EB-E7CE8A12D0CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EAA5078-AC8E-482B-98EB-E7CE8A12D0CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EAA5078-AC8E-482B-98EB-E7CE8A12D0CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{647579B1-ABB7-4180-AC3F-DA12B092ED22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{647579B1-ABB7-4180-AC3F-DA12B092ED22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{647579B1-ABB7-4180-AC3F-DA12B092ED22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{647579B1-ABB7-4180-AC3F-DA12B092ED22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81CCBAA9-EC68-4558-BBDB-54D59B55B8A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81CCBAA9-EC68-4558-BBDB-54D59B55B8A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81CCBAA9-EC68-4558-BBDB-54D59B55B8A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81CCBAA9-EC68-4558-BBDB-54D59B55B8A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -415,6 +436,10 @@ Global
 		{90F116FE-9FCF-473F-A7D5-B9D1FDBFE52F} = {A660D1F4-37EC-4355-9C61-5F83183716A9}
 		{5EAA5078-AC8E-482B-98EB-E7CE8A12D0CA} = {A660D1F4-37EC-4355-9C61-5F83183716A9}
 		{58305F00-9372-43A0-B155-E602252839DE} = {A660D1F4-37EC-4355-9C61-5F83183716A9}
+		{647579B1-ABB7-4180-AC3F-DA12B092ED22} = {CB52D092-E8AE-4598-8C79-56241C82DA19}
+		{CB52D092-E8AE-4598-8C79-56241C82DA19} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
+		{89D95D84-BC6A-44CD-9376-6866207B96AE} = {CB52D092-E8AE-4598-8C79-56241C82DA19}
+		{81CCBAA9-EC68-4558-BBDB-54D59B55B8A7} = {CB52D092-E8AE-4598-8C79-56241C82DA19}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
