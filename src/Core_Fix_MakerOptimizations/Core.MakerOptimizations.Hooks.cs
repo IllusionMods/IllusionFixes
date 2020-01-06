@@ -178,6 +178,27 @@ namespace IllusionFixes
                     __instance.ChangeMainCameraRect(!hideFront ? CustomControl.MainCameraMode.Custom : CustomControl.MainCameraMode.View);
                 });
             }
+
+            //Fix adapted from Patchwork
+            /// <summary>
+            /// Setting the parent to null will prevent the code from setting the transform's parent. The code sets the parent too early which causes extemely slow load times in the character maker.
+            /// The parent is passed to the postfix in the __state where it will be set after the code is finished
+            /// </summary>
+            [HarmonyPrefix, HarmonyPatch(typeof(SaveFrameAssist), nameof(SaveFrameAssist.CreateSaveFrameToHierarchy))]
+            public static void CreateSaveFrameToHierarchyPrefix(ref Transform parent, ref Transform __state)
+            {
+                __state = parent;
+                parent = null;
+            }
+            /// <summary>
+            /// Set the parent after the code, prefix prevents it from being set in the code
+            /// </summary>
+            [HarmonyPostfix, HarmonyPatch(typeof(SaveFrameAssist), nameof(SaveFrameAssist.CreateSaveFrameToHierarchy))]
+            public static void CreateSaveFrameToHierarchyPostfix(ref Transform __state, GameObject ___objSaveFrameTop)
+            {
+                if ((bool)__state)
+                    ___objSaveFrameTop.transform.parent = __state;
+            }
         }
     }
 }
