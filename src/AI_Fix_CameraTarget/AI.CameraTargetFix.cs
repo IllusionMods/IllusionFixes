@@ -5,6 +5,7 @@ using HarmonyLib;
 
 namespace IllusionFixes
 {
+    [BepInIncompatibility("keelhauled.cameratargetfix")]
     [BepInProcess(Constants.GameProcessName)]
     [BepInProcess(Constants.StudioProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]

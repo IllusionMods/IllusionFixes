@@ -4,6 +4,7 @@ using HarmonyLib;
 
 namespace IllusionFixes
 {
+    [BepInIncompatibility("keelhauled.cameratargetfix")]
     [BepInProcess(Constants.StudioProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class CameraTargetFix : CameraTargetFixCore
