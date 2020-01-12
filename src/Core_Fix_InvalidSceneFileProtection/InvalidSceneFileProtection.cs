@@ -67,7 +67,7 @@ namespace IllusionFixes
         /// <summary>
         /// Converts the using block into a try catch finally that eats the exception instead of letting it crash upwards
         /// </summary>
-        private static IEnumerable<CodeInstruction> AddExceptionHandler(IEnumerable<CodeInstruction> inst)
+        private static IEnumerable<CodeInstruction> AddExceptionHandler(IEnumerable<CodeInstruction> inst, ILGenerator ilGenerator)
         {
             var instructions = inst.ToList();
 
@@ -76,7 +76,7 @@ namespace IllusionFixes
             var catchBlock = new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(InvalidSceneFileProtection), nameof(LogCrash)));
             catchBlock.blocks.Add(new ExceptionBlock(ExceptionBlockType.BeginCatchBlock, typeof(SystemException)));
             instructions.Insert(finallyBlockIndex, catchBlock);
-            var endLabel = new Label();
+            var endLabel = ilGenerator.DefineLabel();
             instructions.Insert(finallyBlockIndex + 1, new CodeInstruction(OpCodes.Leave, endLabel));
 
             var loadFalse = new CodeInstruction(OpCodes.Ldc_I4_0);
