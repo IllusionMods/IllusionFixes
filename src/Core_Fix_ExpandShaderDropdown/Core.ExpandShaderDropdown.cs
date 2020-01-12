@@ -20,7 +20,7 @@ namespace IllusionFixes
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
             if (CommonCode.InsideStudio) return;
-            if (!Config.AddSetting(Utilities.ConfigSectionFixes, "Fix shader dropdown menu", true,
+            if (!Config.Bind(Utilities.ConfigSectionFixes, "Fix shader dropdown menu", true,
                 new ConfigDescription("Fixes the shader selection menu going off-screen when there are many modded shaders installed.")).Value)
                 return;
 

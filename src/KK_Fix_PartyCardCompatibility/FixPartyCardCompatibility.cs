@@ -9,6 +9,9 @@ using System.Reflection.Emit;
 
 namespace IllusionFixes
 {
+    [BepInProcess(Constants.GameProcessName)]
+    [BepInProcess(Constants.VRProcessName)]
+    [BepInProcess(Constants.StudioProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class FixPartyCardCompatibility : BaseUnityPlugin
     {

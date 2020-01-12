@@ -10,6 +10,10 @@ A collection of fixes for common issues found in Koikatu, Koikatsu Party, Emotio
 *Note for Koikatsu Party users: You can skip KK_Fix_CharacterListOptimizations.dll as it will not work with party. It can produce an error during load in Koikatsu Party, but the error is harmless and can be safely ignored.*
 
 ## Plugin descriptions
+### CameraTargetFix
+(Koikatsu, PlayHome, AI Girl)
+Hides the cursor when the camera target is disabled in Studio. In AI Girl, also makes the camera target option in the game settings work properly for the character maker.
+
 ### CardImport
 (EmotionCreators)
 
@@ -34,6 +38,11 @@ Maps, scenes, poses, and characters downloaded in game will have their file name
 (Koikatsu, EmotionCreators)
 
 Makes the shader drop down menu extend down instaed of up and expands it. Necessary to select modded shaders since they run off the screen by default.
+
+### HeterochromiaFix
+(Koikatsu, EmotionCreators)
+
+Allows you to load characters with different iris types without them being reset
 
 ### InvalidSceneFileProtection
 (Koikatsu, AI Girl)
@@ -94,7 +103,7 @@ Prevents cards with invalid or missing personalities from crashing the game. A d
 Corrects Honey Select poses loaded in Koikatsu and prevents errors.
 
 ### ResourceUnloadOptimizations 
-(Koikatsu, EmotionCreators, HoneySelect, AI Girl)
+(Koikatsu, EmotionCreators, HoneySelect, AI Girl, PlayHome)
 
 Improves loading times and eliminates stutter after loading was "finished".
 

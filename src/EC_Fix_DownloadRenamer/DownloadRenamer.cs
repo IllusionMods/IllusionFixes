@@ -1,12 +1,13 @@
-﻿using System.IO;
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Configuration;
 using Common;
 using HarmonyLib;
+using System.IO;
 using UploaderSystem;
 
 namespace IllusionFixes
 {
+    [BepInProcess(Constants.GameProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class DownloadRenamer : BaseUnityPlugin
     {
@@ -17,7 +18,7 @@ namespace IllusionFixes
         internal void Start()
         {
             BepInEx.Harmony.HarmonyWrapper.PatchAll(typeof(DownloadRenamer));
-            EnambleRenaming = Config.AddSetting(Utilities.ConfigSectionTweaks, "Rename downloads", true,
+            EnambleRenaming = Config.Bind(Utilities.ConfigSectionTweaks, "Rename downloads", true,
                 new ConfigDescription("When enabled, maps, scenes, poses, and characters downloaded in game will have their file names changed to match the ones on the Illusion website."));
         }
 
@@ -63,9 +64,6 @@ namespace IllusionFixes
             }
         }
 
-        private static string GetFileName(string dir, string prefix, int index)
-        {
-            return UserData.Create(dir) + prefix + index.ToString("D7") + ".png";
-        }
+        private static string GetFileName(string dir, string prefix, int index) => UserData.Create(dir) + prefix + index.ToString("D7") + ".png";
     }
 }

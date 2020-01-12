@@ -1,10 +1,10 @@
-﻿using System.Text;
-using BepInEx;
+﻿using BepInEx;
 using Common;
+using System.Text;
 
 namespace IllusionFixes
 {
-    [BepInProcess("StudioNEOV2")]
+    [BepInProcess(Constants.StudioProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class InvalidSceneFileProtection : BaseUnityPlugin
     {

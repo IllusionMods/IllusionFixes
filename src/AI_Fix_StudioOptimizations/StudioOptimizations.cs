@@ -1,10 +1,9 @@
 ﻿using BepInEx;
+using Common;
 
 namespace IllusionFixes
 {
-    [BepInPlugin(GUID, PluginName, Common.Metadata.PluginsVersion)]
-    [BepInProcess("StudioNEOV2")]
-    public partial class StudioOptimizations : BaseUnityPlugin
-    {
-    }
+    [BepInProcess(Constants.StudioProcessName)]
+    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    public partial class StudioOptimizations : BaseUnityPlugin { }
 }

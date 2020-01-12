@@ -16,7 +16,7 @@ namespace IllusionFixes.Patchers
         {
             var cf = new ConfigFile(Utility.CombinePaths(Paths.ConfigPath, "CultureFix.cfg"), true);
 
-            var cultureCode = cf.AddSetting(Utilities.ConfigSectionFixes, "Override culture", "ja-JP", "If not empty, set the process culture to this. Works similarly to a locale emulator. Fixes game crashes and lockups on some system locales.\nThe value has to be in the language-region format (e.g. en-US).").Value;
+            var cultureCode = cf.Bind(Utilities.ConfigSectionFixes, "Override culture", "ja-JP", "If not empty, set the process culture to this. Works similarly to a locale emulator. Fixes game crashes and lockups on some system locales.\nThe value has to be in the language-region format (e.g. en-US).").Value;
 
             if (string.IsNullOrEmpty(cultureCode))
             {
