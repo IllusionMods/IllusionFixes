@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
 namespace IllusionFixes
 {
     [BepInProcess(Constants.GameProcessName)]
-    [BepInProcess(Constants.VRProcessName)]
+    [BepInProcess(Constants.GameProcessNameSteam)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class MainGameOptimizations : BaseUnityPlugin
     {
