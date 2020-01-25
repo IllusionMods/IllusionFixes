@@ -44,6 +44,15 @@ namespace IllusionFixes
         }
         
         /// <summary>
+        /// Run the code for reading setup.xml when inside main game.
+        /// </summary>
+        [HarmonyPostfix, HarmonyPatch(typeof(CautionScene), "Start")]
+        internal static void CautionSceneStart()
+        { 
+            ReadSetupXml();
+        }
+        
+        /// <summary>
         /// Read a copy of the setup.xml from the plugin's Resources folder and write it to disk
         /// </summary>
         private static void CreateSetupXml()
