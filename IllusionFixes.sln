@@ -141,6 +141,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PH_Fix_CameraTarget", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PH_Fix_ResourceUnloadOptimizations", "src\PH_Fix_ResourceUnloadOptimizations\PH_Fix_ResourceUnloadOptimizations.csproj", "{C990BCA0-E95F-4853-B80F-BF2AB7023EB7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PH_Fix_SettingsVerifier", "src\PH_Fix_SettingsVerifier\PH_Fix_SettingsVerifier.csproj", "{562AF895-6472-4215-BE57-C34501D59EDF}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
@@ -410,6 +412,10 @@ Global
 		{C990BCA0-E95F-4853-B80F-BF2AB7023EB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C990BCA0-E95F-4853-B80F-BF2AB7023EB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C990BCA0-E95F-4853-B80F-BF2AB7023EB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{562AF895-6472-4215-BE57-C34501D59EDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{562AF895-6472-4215-BE57-C34501D59EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{562AF895-6472-4215-BE57-C34501D59EDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{562AF895-6472-4215-BE57-C34501D59EDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -483,6 +489,7 @@ Global
 		{F31470C2-8C31-400B-B010-525A76C57BB8} = {B39C50F4-3E59-43C4-981B-0ECC3B4B2D51}
 		{BF58115B-8249-4F38-9F73-96CDDDA819E1} = {B39C50F4-3E59-43C4-981B-0ECC3B4B2D51}
 		{C990BCA0-E95F-4853-B80F-BF2AB7023EB7} = {47CA3E45-1672-4D71-ABD2-8621D4C74003}
+		{562AF895-6472-4215-BE57-C34501D59EDF} = {A1C7C084-38B0-48BD-90C6-572EB94001AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
