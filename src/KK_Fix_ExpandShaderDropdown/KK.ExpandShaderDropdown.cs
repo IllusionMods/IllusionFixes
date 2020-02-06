@@ -41,6 +41,12 @@ namespace IllusionFixes
                 tmpDropdown.template.pivot = new Vector2(0.5f, 0f);
                 tmpDropdown.template.anchorMin = new Vector2(0f, 0.86f);
             }
+            else if (sceneMan.NowSceneNames.Any(sName => sName == "CustomScene"))
+            {
+                var tmpDropdown = Traverse.Create(Singleton<ChaCustom.CustomConfig>.Instance).Field("ddRamp").GetValue<TMP_Dropdown>();
+                tmpDropdown.template.pivot = new Vector2(0.5f, 0f);
+                tmpDropdown.template.anchorMin = new Vector2(0f, 0.86f);
+            }
             else if (sceneMan.LoadSceneName == "Studio")
             {
                 if (Studio.Studio.IsInstance())

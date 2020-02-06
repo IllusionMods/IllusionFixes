@@ -29,9 +29,16 @@ namespace IllusionFixes
             // Needed to let UI load
             yield return null;
 
-            if (Singleton<Manager.Scene>.Instance.NowSceneNames.Any(sName => sName == "CustomScene"))
+            var sceneMan = Singleton<Manager.Scene>.Instance;
+            if (sceneMan.NowSceneNames.Any(sName => sName == "CustomScene"))
             {
                 var tmpDropdown = Traverse.Create(Singleton<CustomConfig>.Instance).Field("ddRamp").GetValue<TMP_Dropdown>();
+                tmpDropdown.template.pivot = new Vector2(0.5f, 0f);
+                tmpDropdown.template.anchorMin = new Vector2(0f, 0.86f);
+            }
+            else if (sceneMan.NowSceneNames.Any(sName => sName == "Config"))
+            {
+                var tmpDropdown = Traverse.Create(Singleton<Config.GraphicSetting>.Instance).Field("rampIDDropdown").GetValue<TMP_Dropdown>();
                 tmpDropdown.template.pivot = new Vector2(0.5f, 0f);
                 tmpDropdown.template.anchorMin = new Vector2(0f, 0.86f);
             }
