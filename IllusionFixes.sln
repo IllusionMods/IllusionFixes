@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.902
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common", "src\Common\Common.shproj", "{340A3D13-DEE0-43C0-8410-EC84C2873F95}"
 EndProject
@@ -143,6 +143,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PH_Fix_SettingsVerifier", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_ExpandShaderDropdown", "src\AI_Fix_ExpandShaderDropdown\AI_Fix_ExpandShaderDropdown.csproj", "{BE04B9FB-6862-49DF-A8D1-26E185F0D9B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_NullChecks", "src\AI_Fix_NullChecks\AI_Fix_NullChecks.csproj", "{18C09038-0189-4505-B49B-3EC8CB465D55}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
@@ -150,6 +152,8 @@ Global
 		src\Common\Common.projitems*{0218b7ff-4cc3-4c9a-8a91-f8db31084499}*SharedItemsImports = 4
 		src\Core_Fix_ManifestCorrector\Core_Fix_ManifestCorrector.projitems*{0218b7ff-4cc3-4c9a-8a91-f8db31084499}*SharedItemsImports = 4
 		src\Common\Common.projitems*{08a43f46-904c-4add-86cf-7170f1b1f087}*SharedItemsImports = 4
+		src\Common\Common.projitems*{18c09038-0189-4505-b49b-3ec8cb465d55}*SharedItemsImports = 4
+		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{18c09038-0189-4505-b49b-3ec8cb465d55}*SharedItemsImports = 4
 		src\Common\Common.projitems*{1c122b92-e1b9-47af-a19a-97b5589e9931}*SharedItemsImports = 4
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{1c122b92-e1b9-47af-a19a-97b5589e9931}*SharedItemsImports = 4
 		src\Common\Common.projitems*{1c3ad6a8-0e6a-443b-9229-0dd4528d73a6}*SharedItemsImports = 4
@@ -419,6 +423,10 @@ Global
 		{BE04B9FB-6862-49DF-A8D1-26E185F0D9B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE04B9FB-6862-49DF-A8D1-26E185F0D9B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE04B9FB-6862-49DF-A8D1-26E185F0D9B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18C09038-0189-4505-B49B-3EC8CB465D55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18C09038-0189-4505-B49B-3EC8CB465D55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18C09038-0189-4505-B49B-3EC8CB465D55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18C09038-0189-4505-B49B-3EC8CB465D55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -493,6 +501,7 @@ Global
 		{C990BCA0-E95F-4853-B80F-BF2AB7023EB7} = {47CA3E45-1672-4D71-ABD2-8621D4C74003}
 		{562AF895-6472-4215-BE57-C34501D59EDF} = {A1C7C084-38B0-48BD-90C6-572EB94001AB}
 		{BE04B9FB-6862-49DF-A8D1-26E185F0D9B8} = {3270A750-76CD-41A9-B159-24220DCBE7D5}
+		{18C09038-0189-4505-B49B-3EC8CB465D55} = {79E75B3B-B01C-4D21-8C4A-F4C94418A2C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}

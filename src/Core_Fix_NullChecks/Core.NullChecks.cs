@@ -6,6 +6,10 @@ using BepInEx.Logging;
 using Common;
 using HarmonyLib;
 
+#if AI
+using AIChara;
+#endif
+
 namespace IllusionFixes
 {
     public partial class NullChecks
@@ -71,6 +75,7 @@ namespace IllusionFixes
 
         private static class Hooks
         {
+#if !AI
             [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.ChangeSettingHairColor))]
             internal static void ChangeSettingHairColor(int parts, ChaControl __instance) => RemoveNullParts(__instance.GetCustomHairComponent(parts));
 
@@ -92,6 +97,7 @@ namespace IllusionFixes
                 hairComponent.rendHair = hairComponent.rendHair.RemoveNulls();
                 hairComponent.trfLength = hairComponent.trfLength.RemoveNulls();
             }
+#endif
         }
     }
 }
