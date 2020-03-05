@@ -38,6 +38,8 @@ namespace IllusionFixes
             SceneManager.sceneLoaded += (arg0, mode) => _runningReloadCoroutines.Clear();
         }
 
+        #region Async clothes load
+
         private static readonly List<ChaControl> _runningReloadCoroutines = new List<ChaControl>();
 
         /// <summary>
@@ -74,23 +76,23 @@ namespace IllusionFixes
             var reloadCoroutine =
                 // Async version of the reload that's implemented but is never actually used ¯\_(ツ)_/¯
                 __instance.chaCtrl.ReloadAsync(false, true, true, true, true)
-                // Let the game settle down, running next reload so fast can possibly make 2 sets of clothes spawn?
-                .AppendCo(new WaitForEndOfFrame())
-                .AppendCo(new WaitForEndOfFrame())
-                .AppendCo(
-                    () =>
-                    {
-                        // Second normal reload needed to fix clothes randomly not loading fully, goes 
-                        // very fast since assets are loaded by the async version by now
-                        __instance.chaCtrl.Reload(false, true, true, true);
+                    // Let the game settle down, running next reload so fast can possibly make 2 sets of clothes spawn?
+                    .AppendCo(new WaitForEndOfFrame())
+                    .AppendCo(new WaitForEndOfFrame())
+                    .AppendCo(
+                        () =>
+                        {
+                            // Second normal reload needed to fix clothes randomly not loading fully, goes 
+                            // very fast since assets are loaded by the async version by now
+                            __instance.chaCtrl.Reload(false, true, true, true);
 
-                        _runningReloadCoroutines.Remove(__instance.chaCtrl);
-                        _runningReloadCoroutines.RemoveAll(c => c == null);
-                        if (_runningReloadCoroutines.Count == 0)
-                            Singleton<Character>.Instance.enableCharaLoadGCClear = true;
+                            _runningReloadCoroutines.Remove(__instance.chaCtrl);
+                            _runningReloadCoroutines.RemoveAll(c => c == null);
+                            if (_runningReloadCoroutines.Count == 0)
+                                Singleton<Character>.Instance.enableCharaLoadGCClear = true;
 
-                        __instance.Pause(false);
-                    });
+                            __instance.Pause(false);
+                        });
 
             __instance.chaCtrl.StartCoroutine(reloadCoroutine);
 
@@ -100,6 +102,10 @@ namespace IllusionFixes
 
             return false;
         }
+
+        #endregion
+
+        #region Preload characters
 
         /// <summary>
         /// Force all characters to load during the initial game loading period to reduce stutter.
@@ -130,7 +136,7 @@ namespace IllusionFixes
             if (PreloadCharacters.Value)
             {
                 var origPos = instance.position;
-                if (Game.Instance != null && Game.Instance.Player != null && Game.Instance.Player.transform != null) 
+                if (Game.Instance != null && Game.Instance.Player != null && Game.Instance.Player.transform != null)
                     instance.position = Game.Instance.Player.transform.position;
 
                 // SetActive(true) that will always load the character, even if it's not on current map. Need to hide it after.
@@ -145,5 +151,7 @@ namespace IllusionFixes
                 instance.SetActive(isPop);
             }
         }
+
+        #endregion
     }
 }
