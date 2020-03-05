@@ -24,6 +24,7 @@ namespace IllusionFixes
 
         public static ConfigEntry<bool> AsyncClothesLoading { get; private set; }
         public static ConfigEntry<bool> PreloadCharacters { get; private set; }
+        public static ConfigEntry<bool> ThrottleCharaUpdates { get; private set; }
 
         internal void Awake()
         {
@@ -33,11 +34,13 @@ namespace IllusionFixes
 
             AsyncClothesLoading = Config.Bind(Utilities.ConfigSectionTweaks, "Async clothes loading", true, new ConfigDescription("Spread loading of clothes in school roam mode over multiple frames. Greatly reduces seemingly random stutters when characters change clothes somewhere in the world.\nWarning: In rare cases can cause some visual glitches like 2 coordinates loaded at once."));
             PreloadCharacters = Config.Bind(Utilities.ConfigSectionTweaks, "Preload characters on initial load", true, new ConfigDescription("Forces all characters to load during initial load into school mode. Slightly longer loading time but eliminates large stutters when unseen characters enter current map."));
+            ThrottleCharaUpdates = Config.Bind(Utilities.ConfigSectionTweaks, "Throttle chara blend shape updates", true, new ConfigDescription("Reduces the amount of unnecessary blend shape updates. Performance improvement in main game, especially with over 20 characters in one room. Can cause slight graphical issues when beginning a scene."));
 
             HarmonyWrapper.PatchAll(typeof(MainGameOptimizations));
 
             SceneManager.sceneLoaded += (arg0, mode) => _runningReloadCoroutines.Clear();
         }
+
 
         #region Async clothes load
 
@@ -166,6 +169,8 @@ namespace IllusionFixes
             _playerPos = null;
             _throttledDict.Clear();
 
+            if (!ThrottleCharaUpdates.Value) return;
+
             // Needs the In check to allow updates during the fade back into the game (else characters look broken during the fade)
             if (Manager.Scene.IsInstance() && Manager.Scene.Instance.IsNowLoadingFade &&
                 Manager.Scene.Instance.sceneFade._Fade == SimpleFade.Fade.In)
@@ -192,9 +197,9 @@ namespace IllusionFixes
             }
         }
 
-        private static SortedDictionary<int, ChaControl> GetThrottledChaDict(Character _)
+        private static SortedDictionary<int, ChaControl> GetThrottledChaDict(Character instance)
         {
-            return _throttledDict;
+            return ThrottleCharaUpdates.Value ? _throttledDict : instance.dictEntryChara;
         }
 
         private static IEnumerable<CodeInstruction> PatchCharaDic(IEnumerable<CodeInstruction> instructions)
@@ -237,8 +242,8 @@ namespace IllusionFixes
             // Don't update during loading screens
             if (_throttledDict.Count == 0)
                 return false;
-            // Update when player is close
-            if (Vector3.Distance(__instance.transform.position, _playerPos.Value) < 4)
+            // Update when player is close (4 units away)
+            if ((__instance.transform.position - _playerPos.Value).sqrMagnitude < 4 * 4)
                 return true;
             return false;
         }
