@@ -17,6 +17,7 @@ namespace IllusionFixes
     [BepInProcess(Constants.GameProcessName)]
     [BepInProcess(Constants.GameProcessNameSteam)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [DefaultExecutionOrder(-1000)]
     public class MainGameOptimizations : BaseUnityPlugin
     {
         public const string GUID = "KK_Fix_MainGameOptimizations";
@@ -34,7 +35,7 @@ namespace IllusionFixes
 
             AsyncClothesLoading = Config.Bind(Utilities.ConfigSectionTweaks, "Async clothes loading", true, new ConfigDescription("Spread loading of clothes in school roam mode over multiple frames. Greatly reduces seemingly random stutters when characters change clothes somewhere in the world.\nWarning: In rare cases can cause some visual glitches like 2 coordinates loaded at once."));
             PreloadCharacters = Config.Bind(Utilities.ConfigSectionTweaks, "Preload characters on initial load", true, new ConfigDescription("Forces all characters to load during initial load into school mode. Slightly longer loading time but eliminates large stutters when unseen characters enter current map."));
-            ThrottleCharaUpdates = Config.Bind(Utilities.ConfigSectionTweaks, "Throttle chara blend shape updates", true, new ConfigDescription("Reduces the amount of unnecessary blend shape updates. Performance improvement in main game, especially with over 20 characters in one room. Can cause slight graphical issues when beginning a scene."));
+            ThrottleCharaUpdates = Config.Bind(Utilities.ConfigSectionTweaks, "Throttle chara blend shape updates", true, new ConfigDescription("Reduces the amount of unnecessary blend shape updates. Performance improvement in main game, especially with over 20 characters in one room."));
 
             HarmonyWrapper.PatchAll(typeof(MainGameOptimizations));
 
@@ -160,11 +161,11 @@ namespace IllusionFixes
 
         #region Reduce blend shape update spam
 
-        private static readonly Queue<ChaControl> _chaUpdateStatusQueue = new Queue<ChaControl>();
+        private static readonly Queue<KeyValuePair<int, ChaControl>> _chaUpdateStatusQueue = new Queue<KeyValuePair<int, ChaControl>>();
         private static readonly SortedDictionary<int, ChaControl> _throttledDict = new SortedDictionary<int, ChaControl>();
         private static Vector3? _playerPos;
 
-        private void LateUpdate()
+        private void Update()
         {
             _playerPos = null;
             _throttledDict.Clear();
@@ -183,15 +184,18 @@ namespace IllusionFixes
             // Throttle down character updates to max 4 per frame (and turn them off during loading, above)
             if (Character.IsInstance())
             {
+                var allCharaEntries = Character.Instance.dictEntryChara;
                 for (int i = 0; i < 4 && _chaUpdateStatusQueue.Count > 0; i++)
                 {
                     var value = _chaUpdateStatusQueue.Dequeue();
-                    _throttledDict[i] = value;
+                    // Make sure the character didn't get removed before we got to it
+                    if (allCharaEntries.ContainsKey(value.Key))
+                        _throttledDict[value.Key] = value.Value;
                 }
 
                 if (_chaUpdateStatusQueue.Count == 0)
                 {
-                    foreach (var value in Character.Instance.dictEntryChara.Values)
+                    foreach (var value in allCharaEntries)
                         _chaUpdateStatusQueue.Enqueue(value);
                 }
             }
