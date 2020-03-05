@@ -145,6 +145,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_ExpandShaderDropdown
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_NullChecks", "src\AI_Fix_NullChecks\AI_Fix_NullChecks.csproj", "{18C09038-0189-4505-B49B-3EC8CB465D55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_SettingsVerifier", "src\EC_Fix_SettingsVerifier\EC_Fix_SettingsVerifier.csproj", "{65B49352-65B3-4994-832F-83A868987E22}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
@@ -191,6 +193,8 @@ Global
 		src\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.projitems*{5eaa5078-ac8e-482b-98eb-e7ce8a12d0ca}*SharedItemsImports = 4
 		src\Common\Common.projitems*{647579b1-abb7-4180-ac3f-da12b092ed22}*SharedItemsImports = 4
 		src\Core_Fix_Heterochromia\Core_Fix_Heterochromia.projitems*{647579b1-abb7-4180-ac3f-da12b092ed22}*SharedItemsImports = 4
+		src\Common\Common.projitems*{65b49352-65b3-4994-832f-83a868987e22}*SharedItemsImports = 4
+		src\Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems*{65b49352-65b3-4994-832f-83a868987e22}*SharedItemsImports = 4
 		src\Common\Common.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations_CursorManager\Core_Fix_MakerOptimizations_CursorManager.projitems*{65cb1a38-c90d-42d3-b157-5fb6f844ed11}*SharedItemsImports = 4
@@ -427,6 +431,10 @@ Global
 		{18C09038-0189-4505-B49B-3EC8CB465D55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18C09038-0189-4505-B49B-3EC8CB465D55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18C09038-0189-4505-B49B-3EC8CB465D55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65B49352-65B3-4994-832F-83A868987E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65B49352-65B3-4994-832F-83A868987E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65B49352-65B3-4994-832F-83A868987E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65B49352-65B3-4994-832F-83A868987E22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -502,6 +510,7 @@ Global
 		{562AF895-6472-4215-BE57-C34501D59EDF} = {A1C7C084-38B0-48BD-90C6-572EB94001AB}
 		{BE04B9FB-6862-49DF-A8D1-26E185F0D9B8} = {3270A750-76CD-41A9-B159-24220DCBE7D5}
 		{18C09038-0189-4505-B49B-3EC8CB465D55} = {79E75B3B-B01C-4D21-8C4A-F4C94418A2C1}
+		{65B49352-65B3-4994-832F-83A868987E22} = {A1C7C084-38B0-48BD-90C6-572EB94001AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
