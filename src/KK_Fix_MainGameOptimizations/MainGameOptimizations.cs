@@ -129,10 +129,16 @@ namespace IllusionFixes
         {
             if (PreloadCharacters.Value)
             {
+                var origPos = instance.position;
+                if (Game.Instance != null && Game.Instance.Player != null && Game.Instance.Player.transform != null) 
+                    instance.position = Game.Instance.Player.transform.position;
+
                 // SetActive(true) that will always load the character, even if it's not on current map. Need to hide it after.
                 instance.SetActive(true);
                 if (!isPop)
                     instance.SetActive(false);
+
+                instance.position = origPos;
             }
             else
             {
