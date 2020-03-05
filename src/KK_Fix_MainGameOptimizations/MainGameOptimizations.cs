@@ -7,6 +7,7 @@ using HarmonyLib;
 using Manager;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -150,6 +151,96 @@ namespace IllusionFixes
             {
                 instance.SetActive(isPop);
             }
+        }
+
+        #endregion
+
+        #region Reduce blend shape update spam
+
+        private static readonly Queue<ChaControl> _chaUpdateStatusQueue = new Queue<ChaControl>();
+        private static readonly SortedDictionary<int, ChaControl> _throttledDict = new SortedDictionary<int, ChaControl>();
+        private static Vector3? _playerPos;
+
+        private void LateUpdate()
+        {
+            _playerPos = null;
+            _throttledDict.Clear();
+
+            // Needs the In check to allow updates during the fade back into the game (else characters look broken during the fade)
+            if (Manager.Scene.IsInstance() && Manager.Scene.Instance.IsNowLoadingFade &&
+                Manager.Scene.Instance.sceneFade._Fade == SimpleFade.Fade.In)
+                return;
+
+            // Cache player position for the face updates since they get triggered many many more times every frame
+            if (Game.IsInstance() && Game.Instance.Player != null && Game.Instance.Player.transform != null)
+                _playerPos = Game.Instance.Player.transform.position;
+
+            // Throttle down character updates to max 4 per frame (and turn them off during loading, above)
+            if (Character.IsInstance())
+            {
+                for (int i = 0; i < 4 && _chaUpdateStatusQueue.Count > 0; i++)
+                {
+                    var value = _chaUpdateStatusQueue.Dequeue();
+                    _throttledDict[i] = value;
+                }
+
+                if (_chaUpdateStatusQueue.Count == 0)
+                {
+                    foreach (var value in Character.Instance.dictEntryChara.Values)
+                        _chaUpdateStatusQueue.Enqueue(value);
+                }
+            }
+        }
+
+        private static SortedDictionary<int, ChaControl> GetThrottledChaDict(Character _)
+        {
+            return _throttledDict;
+        }
+
+        private static IEnumerable<CodeInstruction> PatchCharaDic(IEnumerable<CodeInstruction> instructions)
+        {
+            foreach (var instruction in instructions)
+            {
+                if (instruction.opcode == OpCodes.Call &&
+                    instruction.operand is MethodInfo mi &&
+                    mi.Name == "get_dictEntryChara")
+                {
+                    instruction.operand = AccessTools.Method(typeof(MainGameOptimizations),
+                        nameof(MainGameOptimizations.GetThrottledChaDict));
+                }
+
+                yield return instruction;
+            }
+        }
+
+        [HarmonyTranspiler, HarmonyPatch(typeof(Character), "Update")]
+        public static IEnumerable<CodeInstruction> CharacterUpdate(IEnumerable<CodeInstruction> instructions)
+        {
+            return PatchCharaDic(instructions);
+        }
+
+        [HarmonyTranspiler, HarmonyPatch(typeof(Character), "LateUpdate")]
+        public static IEnumerable<CodeInstruction> CharacterLateUpdate(IEnumerable<CodeInstruction> instructions)
+        {
+            return PatchCharaDic(instructions);
+        }
+
+        /// <summary>
+        /// Only update faces of characters near the player
+        /// </summary>
+        [HarmonyPrefix, HarmonyPatch(typeof(FaceBlendShape), "LateUpdate")]
+        public static bool FaceBlendShapeLateUpdate(FaceBlendShape __instance)
+        {
+            // If player is not found fall back to always updating
+            if (!_playerPos.HasValue)
+                return true;
+            // Don't update during loading screens
+            if (_throttledDict.Count == 0)
+                return false;
+            // Update when player is close
+            if (Vector3.Distance(__instance.transform.position, _playerPos.Value) < 4)
+                return true;
+            return false;
         }
 
         #endregion
