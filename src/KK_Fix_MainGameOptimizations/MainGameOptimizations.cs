@@ -164,18 +164,30 @@ namespace IllusionFixes
         private static readonly Queue<KeyValuePair<int, ChaControl>> _chaUpdateStatusQueue = new Queue<KeyValuePair<int, ChaControl>>();
         private static readonly SortedDictionary<int, ChaControl> _throttledDict = new SortedDictionary<int, ChaControl>();
         private static Vector3? _playerPos;
+        private static SimpleFade.Fade _lastFade = SimpleFade.Fade.Out;
+        private static bool _needsFullCharaUpdate;
 
         private void Update()
         {
             _playerPos = null;
             _throttledDict.Clear();
+            _needsFullCharaUpdate = false;
 
             if (!ThrottleCharaUpdates.Value) return;
 
             // Needs the In check to allow updates during the fade back into the game (else characters look broken during the fade)
-            if (Manager.Scene.IsInstance() && Manager.Scene.Instance.IsNowLoadingFade &&
-                Manager.Scene.Instance.sceneFade._Fade == SimpleFade.Fade.In)
-                return;
+            if (Manager.Scene.IsInstance() && Manager.Scene.Instance.IsNowLoadingFade)
+            {
+                // The loading screen stops at In, when it ends then it changes to Out
+                if (Manager.Scene.Instance.sceneFade._Fade == SimpleFade.Fade.In)
+                    return;
+
+                // Force full update on transition into the fade Out into the game to avoid characters appearing wrong for a couple of frames
+                if (_lastFade == SimpleFade.Fade.In)
+                    _needsFullCharaUpdate = true;
+
+                _lastFade = Manager.Scene.Instance.sceneFade._Fade;
+            }
 
             // Cache player position for the face updates since they get triggered many many more times every frame
             if (Game.IsInstance() && Game.Instance.Player != null && Game.Instance.Player.transform != null)
@@ -203,7 +215,7 @@ namespace IllusionFixes
 
         private static SortedDictionary<int, ChaControl> GetThrottledChaDict(Character instance)
         {
-            return ThrottleCharaUpdates.Value ? _throttledDict : instance.dictEntryChara;
+            return ThrottleCharaUpdates.Value && !_needsFullCharaUpdate ? _throttledDict : instance.dictEntryChara;
         }
 
         private static IEnumerable<CodeInstruction> PatchCharaDic(IEnumerable<CodeInstruction> instructions)
@@ -240,6 +252,8 @@ namespace IllusionFixes
         [HarmonyPrefix, HarmonyPatch(typeof(FaceBlendShape), "LateUpdate")]
         public static bool FaceBlendShapeLateUpdate(FaceBlendShape __instance)
         {
+            if (_needsFullCharaUpdate)
+                return true;
             // If player is not found fall back to always updating
             if (!_playerPos.HasValue)
                 return true;
