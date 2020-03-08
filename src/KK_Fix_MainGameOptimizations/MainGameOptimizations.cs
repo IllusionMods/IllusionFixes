@@ -169,28 +169,44 @@ namespace IllusionFixes
 
         private void Update()
         {
+            // Turn off if can't determine the current game state or if turning it on will not bring any improvement (less than 5 characters will degrade perf)
+            if (!ThrottleCharaUpdates.Value || !Game.IsInstance() || Game.Instance.HeroineList.Count < 6 || !Manager.Scene.IsInstance())
+            {
+                _needsFullCharaUpdate = true;
+                return;
+            }
+
+            _needsFullCharaUpdate = false;
             _playerPos = null;
             _throttledDict.Clear();
-            _needsFullCharaUpdate = false;
 
-            if (!ThrottleCharaUpdates.Value) return;
+            var scene = Manager.Scene.Instance;
 
-            // Needs the In check to allow updates during the fade back into the game (else characters look broken during the fade)
-            if (Manager.Scene.IsInstance() && Manager.Scene.Instance.IsNowLoadingFade)
+            // Stop updates during loading screens
+            if (scene.IsNowLoadingFade)
             {
+                // Needs the In check to allow updates during the fade back into the game (else characters look broken during the fade)
                 // The loading screen stops at In, when it ends then it changes to Out
-                if (Manager.Scene.Instance.sceneFade._Fade == SimpleFade.Fade.In)
+                if (scene.sceneFade._Fade == SimpleFade.Fade.In)
                     return;
 
                 // Force full update on transition into the fade Out into the game to avoid characters appearing wrong for a couple of frames
                 if (_lastFade == SimpleFade.Fade.In)
                     _needsFullCharaUpdate = true;
 
-                _lastFade = Manager.Scene.Instance.sceneFade._Fade;
+                _lastFade = scene.sceneFade._Fade;
+            }
+
+            // Always run all updates in talk / h scenes since the number of characters is limited
+            // Action == roaming mode, talk scene is loaded into AddSceneName
+            if (scene.LoadSceneName != "Action" || !string.IsNullOrEmpty(scene.AddSceneName))
+            {
+                _needsFullCharaUpdate = true;
+                return;
             }
 
             // Cache player position for the face updates since they get triggered many many more times every frame
-            if (Game.IsInstance() && Game.Instance.Player != null && Game.Instance.Player.transform != null)
+            if (Game.Instance.Player != null && Game.Instance.Player.transform != null)
                 _playerPos = Game.Instance.Player.transform.position;
 
             // Throttle down character updates to max 4 per frame (and turn them off during loading, above)
@@ -215,7 +231,7 @@ namespace IllusionFixes
 
         private static SortedDictionary<int, ChaControl> GetThrottledChaDict(Character instance)
         {
-            return ThrottleCharaUpdates.Value && !_needsFullCharaUpdate ? _throttledDict : instance.dictEntryChara;
+            return _needsFullCharaUpdate ? instance.dictEntryChara : _throttledDict;
         }
 
         private static IEnumerable<CodeInstruction> PatchCharaDic(IEnumerable<CodeInstruction> instructions)
@@ -254,12 +270,12 @@ namespace IllusionFixes
         {
             if (_needsFullCharaUpdate)
                 return true;
-            // If player is not found fall back to always updating
-            if (!_playerPos.HasValue)
-                return true;
             // Don't update during loading screens
             if (_throttledDict.Count == 0)
                 return false;
+            // If player is not found fall back to always updating
+            if (!_playerPos.HasValue)
+                return true;
             // Update when player is close (4 units away)
             if ((__instance.transform.position - _playerPos.Value).sqrMagnitude < 4 * 4)
                 return true;
