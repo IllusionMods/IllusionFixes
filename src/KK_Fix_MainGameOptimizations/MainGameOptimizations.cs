@@ -164,13 +164,27 @@ namespace IllusionFixes
         private static readonly Queue<KeyValuePair<int, ChaControl>> _chaUpdateStatusQueue = new Queue<KeyValuePair<int, ChaControl>>();
         private static readonly SortedDictionary<int, ChaControl> _throttledDict = new SortedDictionary<int, ChaControl>();
         private static Vector3? _playerPos;
-        private static SimpleFade.Fade _lastFade = SimpleFade.Fade.Out;
         private static bool _needsFullCharaUpdate;
 
         private void Update()
         {
-            // Turn off if can't determine the current game state or if turning it on will not bring any improvement (less than 5 characters will degrade perf)
-            if (!ThrottleCharaUpdates.Value || !Game.IsInstance() || Game.Instance.HeroineList.Count < 6 || !Manager.Scene.IsInstance())
+            // Turn off if can't determine the current game state or if turning it on will not bring any improvement
+            if (!ThrottleCharaUpdates.Value ||
+                // Only run in main game
+                !Manager.Scene.IsInstance() || !Game.IsInstance() || Game.Instance.actScene == null ||
+                // less than 5 characters will degrade perf
+                Game.Instance.HeroineList.Count < 6 ||
+                // Fixes breaking mouths in invite events
+                Game.Instance.actScene.isEventNow || Manager.Scene.Instance.IsNowLoadingFade)
+            {
+                _needsFullCharaUpdate = true;
+                return;
+            }
+
+            // Always run all updates in talk / h scenes since the number of characters is limited
+            // Action == roaming mode, talk scene is loaded into AddSceneName
+            var scene = Manager.Scene.Instance;
+            if (scene.LoadSceneName != "Action" || !string.IsNullOrEmpty(scene.AddSceneName))
             {
                 _needsFullCharaUpdate = true;
                 return;
@@ -179,31 +193,6 @@ namespace IllusionFixes
             _needsFullCharaUpdate = false;
             _playerPos = null;
             _throttledDict.Clear();
-
-            var scene = Manager.Scene.Instance;
-
-            // Stop updates during loading screens
-            if (scene.IsNowLoadingFade)
-            {
-                // Needs the In check to allow updates during the fade back into the game (else characters look broken during the fade)
-                // The loading screen stops at In, when it ends then it changes to Out
-                if (scene.sceneFade._Fade == SimpleFade.Fade.In)
-                    return;
-
-                // Force full update on transition into the fade Out into the game to avoid characters appearing wrong for a couple of frames
-                if (_lastFade == SimpleFade.Fade.In)
-                    _needsFullCharaUpdate = true;
-
-                _lastFade = scene.sceneFade._Fade;
-            }
-
-            // Always run all updates in talk / h scenes since the number of characters is limited
-            // Action == roaming mode, talk scene is loaded into AddSceneName
-            if (scene.LoadSceneName != "Action" || !string.IsNullOrEmpty(scene.AddSceneName))
-            {
-                _needsFullCharaUpdate = true;
-                return;
-            }
 
             // Cache player position for the face updates since they get triggered many many more times every frame
             if (Game.Instance.Player != null && Game.Instance.Player.transform != null)
