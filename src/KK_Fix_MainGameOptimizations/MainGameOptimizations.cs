@@ -175,7 +175,7 @@ namespace IllusionFixes
                 // less than 5 characters will degrade perf
                 Game.Instance.HeroineList.Count < 6 ||
                 // Fixes breaking mouths in invite events
-                Game.Instance.actScene.isEventNow || Manager.Scene.Instance.IsNowLoadingFade)
+                Game.Instance.actScene.isEventNow || Manager.Scene.Instance.IsNowLoadingFade || ADV.Program.isADVProcessing)
             {
                 _needsFullCharaUpdate = true;
                 return;
