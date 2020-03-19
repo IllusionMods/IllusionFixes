@@ -140,11 +140,28 @@ namespace AI_Fixes
                 // Needed to make the method signature match with what the plugins expect
                 foreach (var studioMethod in studioType.Methods)
                 {
-                    foreach (var methodParameter in studioMethod.Parameters)
-                        methodParameter.ParameterType = ResolveReference(methodParameter.ParameterType, studioAss, mainAss);
-
-                    studioMethod.ReturnType = ResolveReference(studioMethod.ReturnType, studioAss, mainAss);
+                    studioMethod.CustomAttributes.Clear();
+                    ResolveMethod(studioMethod, studioAss, mainAss);
                 }
+                foreach (var studioProp in studioType.Properties)
+                {
+                    studioProp.CustomAttributes.Clear();
+                    if (studioProp.GetMethod != null)
+                        ResolveMethod(studioProp.GetMethod, studioAss, mainAss);
+                    if (studioProp.SetMethod != null)
+                        ResolveMethod(studioProp.SetMethod, studioAss, mainAss);
+                    studioProp.PropertyType = ResolveReference(studioProp.PropertyType, studioAss, mainAss);
+                }
+                foreach (var studioField in studioType.Fields.ToList())
+                {
+                    studioField.CustomAttributes.Clear();
+                    studioField.FieldType = ResolveReference(studioField.FieldType, studioAss, mainAss);
+                }
+
+                studioType.CustomAttributes.Clear();
+
+                if (studioType.BaseType != null)
+                    studioType.BaseType = ResolveReference(studioType.BaseType, studioAss, mainAss);
 
                 //todo are nested classes handled properly? Do they get resolved by looking up the owning type?
                 if (!studioType.IsNested)
@@ -164,7 +181,7 @@ namespace AI_Fixes
                 studioAss.Write(ms, new WriterParameters() { WriteSymbols = false });
                 outputAss = ms.ToArray();
             }
-            Assembly.Load(outputAss);
+            //Assembly.Load(outputAss);
 
             // If assembly dumping is turned on, dump the generated studio assembly
             var s = (ConfigFile)typeof(ConfigFile).GetProperty("CoreConfig", BindingFlags.Static | BindingFlags.NonPublic)?.GetValue(null, null);
@@ -177,37 +194,105 @@ namespace AI_Fixes
             Logger.LogDebug($"Finished patching main game assembly with missing classes in {sw.ElapsedMilliseconds}ms");
         }
 
+        static void ResolveMethod(MethodDefinition mdef, AssemblyDefinition targetAssembly, AssemblyDefinition otherAssembly)
+        {
+            foreach (var methodParameter in mdef.Parameters)
+                methodParameter.ParameterType = ResolveReference(methodParameter.ParameterType, targetAssembly, otherAssembly);
+
+            mdef.ReturnType = ResolveReference(mdef.ReturnType, targetAssembly, otherAssembly);
+
+            if (mdef.Body != null)
+            {
+                //mdef.Body.Instructions.Clear();
+                //mdef.Body.Instructions.Add(Instruction.Create(OpCodes.Ret));
+                //mdef.Body.Variables.Clear();
+                //mdef.Body.ExceptionHandlers.Clear();
+
+                //foreach (var gp in studioMethod.GenericParameters)
+                //{
+                //    gp.Constraints.Clear();
+                //}
+
+                foreach (var i in mdef.Body.Instructions)
+                {
+                    if (i.Operand is TypeReference r)
+                        i.Operand = ResolveReference(r, targetAssembly, otherAssembly);
+                    if (i.Operand is MethodReference m)
+                    {
+                        var declaring = ResolveReference(m.DeclaringType, targetAssembly, otherAssembly);
+                        if (declaring != m.DeclaringType)
+                        {
+                            var otherMet = declaring.Resolve().Methods.FirstOrDefault(x => x.FullName == m.FullName);
+                            if (otherMet != null)
+                            {
+                                i.Operand = targetAssembly.MainModule.ImportReference(otherMet);
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         // Thanks to Horse for this code
         private static TypeReference ResolveReference(TypeReference tr, AssemblyDefinition targetAssembly, AssemblyDefinition otherAssembly)
         {
-            // Lookup the type by its full name in the other assembly
-            var td = otherAssembly.MainModule.GetType(tr.FullName);
-            if (td == null)
-                return tr;
+            var result = ResolveReference2(tr, targetAssembly, otherAssembly);
 
-            var result = targetAssembly.MainModule.ImportReference(td);
+            if (result == tr)
+            {
+            }
+            return result;
+        }
+        private static TypeReference ResolveReference2(TypeReference tr, AssemblyDefinition targetAssembly, AssemblyDefinition otherAssembly)
+        {
+            // Lookup the type by its full name in the other assembly
+            TypeReference TryResolve(TypeReference r)
+            {
+                var td = otherAssembly.MainModule.GetType(r.FullName);
+                if (td == null)
+                {
+                    return null;
+                }
+
+                return targetAssembly.MainModule.ImportReference(td);
+            }
+
+            var result = (TypeReference)null;
 
             // Check if it's byref, array or generic and import appropriately
             // Might need to add pointer types if needed
             switch (tr)
             {
-                case ArrayType _:
-                    result = new ArrayType(td);
+                case ArrayType ar:
+                    result = TryResolve(ar.ElementType);
+                    if (result != null)
+                        result = new ArrayType(result);
                     break;
 
-                case ByReferenceType _:
-                    result = new ByReferenceType(td);
+                case ByReferenceType rr:
+                    result = TryResolve(rr.ElementType);
+                    if (result != null)
+                        result = new ByReferenceType(result);
                     break;
 
                 case GenericInstanceType git:
-                    var git2 = new GenericInstanceType(td);
-                    foreach (var gitGenericArgument in git.GenericArguments)
-                        git2.GenericArguments.Add(ResolveReference(gitGenericArgument, targetAssembly, otherAssembly));
-                    result = git2;
+
+                    result = TryResolve(git.ElementType);
+                    if (result != null)
+                    {
+                        var git2 = new GenericInstanceType(result);
+                        foreach (var gitGenericArgument in git.GenericArguments)
+                            git2.GenericArguments.Add(ResolveReference(gitGenericArgument, targetAssembly, otherAssembly));
+                        result = git2;
+                    }
                     break;
             }
 
-            return result;
+            if (result != null) return result;
+            result = TryResolve(tr);
+            if (result != null) return result;
+            return tr;
         }
     }
 }
