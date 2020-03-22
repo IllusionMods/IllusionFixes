@@ -27,6 +27,7 @@ New-Item -ItemType Directory -Force -Path ($copy + "\patchers")
 
 & robocopy ($dir + "\BepInEx\plugins\IllusionFixes\") ($copy + "\plugins\IllusionFixes") "EC_*.*" /R:5 /W:5     
 & robocopy ($dir + "\BepInEx\patchers\") ($copy + "\patchers") /R:5 /W:5     
+Remove-Item -Force -Path ($copy + "\patchers\AI_*")
 
 Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_EmotionCreators_" + $ver + ".zip")
 
