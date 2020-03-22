@@ -153,7 +153,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_ModdedHeadEyeliner
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_ModdedHeadEyeliner", "src\EC_Fix_ModdedHeadEyeliner\EC_Fix_ModdedHeadEyeliner.csproj", "{3975CDBE-60D3-4E94-BE64-21C5D1D0030B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Patch_SteamReleaseCompatibility", "AI_Fix_SteamVerNormalizer\AI_Patch_SteamReleaseCompatibility.csproj", "{90AC93CB-9EFE-46E4-944F-C236AEC0FC21}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Patch_SteamReleaseCompatibility", "src\AI_Patch_SteamReleaseCompatibility\AI_Patch_SteamReleaseCompatibility.csproj", "{90AC93CB-9EFE-46E4-944F-C236AEC0FC21}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
