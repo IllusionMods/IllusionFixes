@@ -8,7 +8,8 @@ A collection of fixes for common issues found in Koikatu, Koikatsu Party, Emotio
 4. Run the game and look for any errors on the screen, asking you to remove some old plugins. All of the listed plugins have been replaced by their updated versions in this fix pack, and need to be removed after closing the game. *Plugins from this pack will not work until all of the old versions are removed.*
 
 *Note for Koikatsu Party users: You can skip KK_Fix_CharacterListOptimizations.dll as it will not work with party. It can produce an error during load in Koikatsu Party, but the error is harmless and can be safely ignored.*
-*Note for AI-Shoujo Steam users: If you are installing this manually for the first time, follow instructions below in the AI_Patch_SteamReleaseCompatibility section or you will have a bad time.
+
+*Note for AI-Shoujo Steam users: If you are installing this manually for the first time, follow instructions below in the AI_Patch_SteamReleaseCompatibility section or you will have a bad time.*
 
 ## Plugin descriptions
 ### CameraTargetFix
