@@ -75,6 +75,21 @@ namespace IllusionFixes
 
         private static class Hooks
         {
+#if !EC
+            //Fix for errors resulting from Studio objects with no ItemComponent
+            [HarmonyPrefix, HarmonyPatch(typeof(Studio.OCIItem), nameof(Studio.OCIItem.SetPatternTex), typeof(int), typeof(int))]
+            internal static bool OCIItemSetPatternTex(int _key, Studio.OCIItem __instance)
+            {
+                if (__instance.itemComponent == null && _key > 0)
+                {
+                    Logger.LogError($"ItemComponent is null itemInfo.no:{__instance.itemInfo?.no}");
+                    return false;
+                }
+
+                return true;
+            }
+#endif
+
 #if !AI
             [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.ChangeSettingHairColor))]
             internal static void ChangeSettingHairColor(int parts, ChaControl __instance) => RemoveNullParts(__instance.GetCustomHairComponent(parts));
