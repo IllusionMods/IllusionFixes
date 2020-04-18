@@ -155,7 +155,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_ModdedHeadEyeliner",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Patch_SteamReleaseCompatibility", "src\AI_Patch_SteamReleaseCompatibility\AI_Patch_SteamReleaseCompatibility.csproj", "{90AC93CB-9EFE-46E4-944F-C236AEC0FC21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_SteamMissingFunctions", "src\KK_Fix_SteamMissingFunctions\KK_Fix_SteamMissingFunctions.csproj", "{09EBE942-19BB-445A-A1D4-06F185D7F518}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_RestoreMissingFunctions", "src\KK_Fix_RestoreMissingFunctions\KK_Fix_RestoreMissingFunctions.csproj", "{09EBE942-19BB-445A-A1D4-06F185D7F518}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

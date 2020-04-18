@@ -7,8 +7,8 @@
     <ProjectGuid>{09EBE942-19BB-445A-A1D4-06F185D7F518}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KK_Fix_SteamMissingFunctions</RootNamespace>
-    <AssemblyName>KK_Fix_SteamMissingFunctions</AssemblyName>
+    <RootNamespace>IllusionFixes</RootNamespace>
+    <AssemblyName>KK_Fix_RestoreMissingFunctions</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -55,7 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SteamMissingFunctions.cs" />
+    <Compile Include="RestoreMissingFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,33 +1,42 @@
 ﻿using System.Linq;
+using System.Reflection;
 using BepInEx;
 using Common;
-using IllusionFixes;
 using KKAPI;
 using KKAPI.Maker;
 using KKAPI.Maker.UI;
 using Manager;
 using UniRx;
 
-namespace KK_Fix_SteamMissingFunctions
+namespace IllusionFixes
 {
     /// <summary>
     /// Adds missing head type toggle in KK Party maker. Not needed in KK.
     /// </summary>
+    [BepInProcess(Constants.GameProcessName)]
     [BepInProcess(Constants.GameProcessNameSteam)]
     [BepInDependency(KoikatuAPI.GUID, "1.7")]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public class SteamMissingFunctions : BaseUnityPlugin
+    public class RestoreMissingFunctions : BaseUnityPlugin
     {
-        public const string GUID = "KK_Fix_SteamMissingFunctions";
-        public const string PluginName = "Koikatsu Party missing function restore";
+        public const string GUID = "KK_Fix_RestoreMissingFunctions";
+        public const string PluginName = "Restore missing functions";
 
         private void Awake()
         {
-            MakerAPI.RegisterCustomSubCategories += MakerAPI_RegisterCustomSubCategories;
+            var missingDarkness = typeof(ChaInfo).GetProperty("exType", BindingFlags.Public | BindingFlags.Instance) == null;
+
+            if (missingDarkness)
+            {
+                Logger.LogInfo("Darkness/Yoyaku expansion is missing!");
+                MakerAPI.RegisterCustomSubCategories += MakerAPI_RegisterCustomSubCategories;
+            }
         }
 
         private void MakerAPI_RegisterCustomSubCategories(object sender, RegisterSubCategoriesEvent e)
         {
+            Logger.LogInfo("Adding a head type dropdown to maker");
+
             var chaListCtrl = Singleton<Character>.Instance.chaListCtrl;
             var categoryInfo = chaListCtrl.GetCategoryInfo(ChaListDefine.CategoryNo.bo_head);
             var headValues = categoryInfo.Values.ToList();
