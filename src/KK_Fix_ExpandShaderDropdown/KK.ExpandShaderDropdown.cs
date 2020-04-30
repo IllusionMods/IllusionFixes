@@ -40,6 +40,14 @@ namespace IllusionFixes
                 var tmpDropdown = Traverse.Create(Singleton<GraphicSetting>.Instance).Field("rampIDDropdown").GetValue<TMP_Dropdown>();
                 tmpDropdown.template.pivot = new Vector2(0.5f, 0f);
                 tmpDropdown.template.anchorMin = new Vector2(0f, 0.86f);
+
+                // Fix for broken list when opening config from charamaker
+                yield return new WaitWhile(() => tmpDropdown && !tmpDropdown.IsExpanded);
+                if (tmpDropdown)
+                {
+                    foreach (var canvas in tmpDropdown.GetComponentsInChildren<Canvas>(true))
+                        canvas.sortingOrder = 32030;
+                }
             }
             else if (sceneMan.NowSceneNames.Any(sName => sName == "CustomScene"))
             {
