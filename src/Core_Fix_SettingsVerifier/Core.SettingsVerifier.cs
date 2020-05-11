@@ -1,5 +1,4 @@
-﻿using BepInEx.Harmony;
-using Common;
+﻿using Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +24,7 @@ namespace IllusionFixes
             if (!File.Exists("UserData/setup.xml"))
                 CreateSetupXml();
 
-            HarmonyWrapper.PatchAll(typeof(Hooks));
+            Hooks.Apply();
         }
         /// <summary>
         /// Read a copy of the setup.xml from the plugin's Resources folder and write it to disk
