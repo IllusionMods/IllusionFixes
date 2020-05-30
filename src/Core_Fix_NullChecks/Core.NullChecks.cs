@@ -6,7 +6,7 @@ using BepInEx.Logging;
 using Common;
 using HarmonyLib;
 
-#if AI
+#if AI || HS2
 using AIChara;
 #endif
 
@@ -90,7 +90,7 @@ namespace IllusionFixes
             }
 #endif
 
-#if !AI
+#if !AI && !HS2
             [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.ChangeSettingHairColor))]
             internal static void ChangeSettingHairColor(int parts, ChaControl __instance) => RemoveNullParts(__instance.GetCustomHairComponent(parts));
 
