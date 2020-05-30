@@ -25,6 +25,9 @@
         internal const string GameProcessName32bit = "PlayHome32bit";
         internal const string StudioProcessName = "PlayHomeStudio64bit";
         internal const string StudioProcessName32bit = "PlayHomeStudio32bit";
+#elif HS2
+        internal const string StudioProcessName = "StudioNEOV2";
+        internal const string GameProcessName = "HoneySelect2";
 #endif
     }
 }

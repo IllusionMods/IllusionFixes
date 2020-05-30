@@ -157,6 +157,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Patch_SteamReleaseCompat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_RestoreMissingFunctions", "src\KK_Fix_RestoreMissingFunctions\KK_Fix_RestoreMissingFunctions.csproj", "{09EBE942-19BB-445A-A1D4-06F185D7F518}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Fix_SettingsVerifier", "src\HS2_Fix_SettingsVerifier\HS2_Fix_SettingsVerifier.csproj", "{92A43761-B0AD-46FE-B1B6-28ADA6F09BBB}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
@@ -230,6 +232,8 @@ Global
 		src\Common\Common.projitems*{90f116fe-9fcf-473f-a7d5-b9d1fdbfe52f}*SharedItemsImports = 4
 		src\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.projitems*{90f116fe-9fcf-473f-a7d5-b9d1fdbfe52f}*SharedItemsImports = 4
 		src\Common\Common.projitems*{9216d4d0-b421-4d3b-b038-49d76dc12573}*SharedItemsImports = 4
+		src\Common\Common.projitems*{92a43761-b0ad-46fe-b1b6-28ada6f09bbb}*SharedItemsImports = 4
+		src\Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems*{92a43761-b0ad-46fe-b1b6-28ada6f09bbb}*SharedItemsImports = 4
 		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{94e708e4-7b1c-4da8-83bb-7699753825d1}*SharedItemsImports = 13
 		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{a68b1345-a4d5-4a10-ab5f-f3bbd638b189}*SharedItemsImports = 13
 		src\Common\Common.projitems*{a714b46d-95a3-4eb0-a635-c253bbad0cba}*SharedItemsImports = 4
@@ -463,6 +467,10 @@ Global
 		{09EBE942-19BB-445A-A1D4-06F185D7F518}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09EBE942-19BB-445A-A1D4-06F185D7F518}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09EBE942-19BB-445A-A1D4-06F185D7F518}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92A43761-B0AD-46FE-B1B6-28ADA6F09BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92A43761-B0AD-46FE-B1B6-28ADA6F09BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92A43761-B0AD-46FE-B1B6-28ADA6F09BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92A43761-B0AD-46FE-B1B6-28ADA6F09BBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -544,6 +552,7 @@ Global
 		{3975CDBE-60D3-4E94-BE64-21C5D1D0030B} = {7EF0A7E0-5591-4A57-902F-1574EE6E3E08}
 		{90AC93CB-9EFE-46E4-944F-C236AEC0FC21} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
 		{09EBE942-19BB-445A-A1D4-06F185D7F518} = {73014464-CE65-4624-B4A4-BD3A9A45A027}
+		{92A43761-B0AD-46FE-B1B6-28ADA6F09BBB} = {A1C7C084-38B0-48BD-90C6-572EB94001AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
