@@ -7,7 +7,7 @@
     <ProjectGuid>{92A43761-B0AD-46FE-B1B6-28ADA6F09BBB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HS2_Fix_SettingsVerifier</RootNamespace>
+    <RootNamespace>IllusionFixes</RootNamespace>
     <AssemblyName>HS2_Fix_SettingsVerifier</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
