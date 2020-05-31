@@ -5,9 +5,13 @@ using System.Linq;
 using BepInEx;
 using BepInEx.Harmony;
 using HarmonyLib;
-using Manager;
 using Studio;
 using UnityEngine;
+using Common;
+
+#if AI || HS2
+using AIChara;
+#endif
 
 namespace IllusionFixes
 {
@@ -39,16 +43,35 @@ namespace IllusionFixes
         [HarmonyPrefix]
         //private void FindAll(Transform trf)
         [HarmonyPatch(typeof(FindAssist), "FindAll", typeof(Transform))]
-        private static void FindAllPatch(FindAssist __instance, Transform trf)
+        private static bool FindAllPatch(FindAssist __instance, Transform trf)
         {
-            if (!__instance.dictObjName.ContainsKey(trf.name))
-                __instance.dictObjName[trf.name] = trf.gameObject;
+            if (!CommonCode.InsideStudio) return true;
 
-            if (AccessoryAttachPoints.Contains(trf.name) && trf.parent.gameObject.name != "ct_hairB")
-                return;
+            __instance.dictObjName[trf.name] = trf.gameObject;
 
+#if AI || HS2
+            if (trf.tag != string.Empty)
+            {
+                __instance.dictTagName.TryGetValue(trf.tag, out var tagged);
+                if (tagged == null)
+                    __instance.dictTagName.Add(trf.tag, tagged = new List<GameObject>());
+                if (!tagged.Contains(trf.gameObject))
+                    tagged.Add(trf.gameObject);
+            }
+#endif
+
+            var isAccAttachPoint = AccessoryAttachPoints.Contains(trf.name);
             for (var i = 0; i < trf.childCount; i++)
-                FindAllPatch(__instance, trf.GetChild(i));
+            {
+                var child = trf.GetChild(i);
+                
+                if (isAccAttachPoint && child.GetComponent<ChaControl>())
+                    continue;
+
+                FindAllPatch(__instance, child);
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -117,14 +140,14 @@ namespace IllusionFixes
             RunCoroutineImmediately(Singleton<Info>.Instance.LoadExcelDataCoroutine());
 
 #if HS2
-            Scene.LoadReserve(new Scene.Data
+            Manager.Scene.LoadReserve(new Manager.Scene.Data
             {
                 levelName = "Studio",
                 // Turn off fading in to save more startup time
                 isFade = false
             }, false);
 #else
-            Scene.Instance.LoadReserve(new Scene.Data
+            Manager.Scene.Instance.LoadReserve(new Manager.Scene.Data
             {
                 levelName = "Studio",
                 // Turn off fading in to save more startup time
@@ -142,6 +165,6 @@ namespace IllusionFixes
             }
         }
 
-#endregion
+        #endregion
     }
 }
