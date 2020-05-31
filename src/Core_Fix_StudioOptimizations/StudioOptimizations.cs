@@ -116,12 +116,21 @@ namespace IllusionFixes
             // Run the whole load process immediately without wasting time rendering frames
             RunCoroutineImmediately(Singleton<Info>.Instance.LoadExcelDataCoroutine());
 
+#if HS2
             Scene.LoadReserve(new Scene.Data
             {
                 levelName = "Studio",
                 // Turn off fading in to save more startup time
                 isFade = false
             }, false);
+#else
+            Scene.Instance.LoadReserve(new Scene.Data
+            {
+                levelName = "Studio",
+                // Turn off fading in to save more startup time
+                isFade = false
+            }, false);
+#endif
         }
 
         private static void RunCoroutineImmediately(IEnumerator enumerator)
@@ -133,6 +142,6 @@ namespace IllusionFixes
             }
         }
 
-        #endregion
+#endregion
     }
 }
