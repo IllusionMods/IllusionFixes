@@ -171,6 +171,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Fix_ExpandShaderDropdow
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Fix_CameraTarget", "src\HS2_Fix_CameraTarget\HS2_Fix_CameraTarget.csproj", "{B211581C-80F2-422D-8180-46B0228AAE2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Fix_MakerOptimizations", "src\HS2_Fix_MakerOptimizations\HS2_Fix_MakerOptimizations.csproj", "{F07F3AF2-CADC-4C0D-B9CC-4D08ABD0A520}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
@@ -277,6 +279,8 @@ Global
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{e9642c67-3d6b-41f5-b42a-73c641b5068a}*SharedItemsImports = 13
 		src\Common\Common.projitems*{ec9e7c9b-10fa-41c7-8b30-f91e33d97f7d}*SharedItemsImports = 4
 		src\Core_Fix_CameraTarget\Core_Fix_CameraTarget.projitems*{ecefe48a-9ce2-4c53-874b-1fe11c1c4447}*SharedItemsImports = 13
+		src\Common\Common.projitems*{f07f3af2-cadc-4c0d-b9cc-4d08abd0a520}*SharedItemsImports = 4
+		src\Core_Fix_MakerOptimizations_CursorManager\Core_Fix_MakerOptimizations_CursorManager.projitems*{f07f3af2-cadc-4c0d-b9cc-4d08abd0a520}*SharedItemsImports = 4
 		src\Common\Common.projitems*{f31470c2-8c31-400b-b010-525a76c57bb8}*SharedItemsImports = 4
 		src\Core_Fix_CameraTarget\Core_Fix_CameraTarget.projitems*{f31470c2-8c31-400b-b010-525a76c57bb8}*SharedItemsImports = 4
 		src\Common\Common.projitems*{f4b42914-1d55-4791-9a82-bd330502ffb8}*SharedItemsImports = 4
@@ -518,6 +522,10 @@ Global
 		{B211581C-80F2-422D-8180-46B0228AAE2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B211581C-80F2-422D-8180-46B0228AAE2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B211581C-80F2-422D-8180-46B0228AAE2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F07F3AF2-CADC-4C0D-B9CC-4D08ABD0A520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F07F3AF2-CADC-4C0D-B9CC-4D08ABD0A520}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F07F3AF2-CADC-4C0D-B9CC-4D08ABD0A520}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F07F3AF2-CADC-4C0D-B9CC-4D08ABD0A520}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -606,6 +614,7 @@ Global
 		{765D725F-05AD-4B34-8799-90BE65754513} = {EDAEC0A0-85C7-4D3F-9DAC-E74BDB1B55D8}
 		{18DCA0F9-3BF4-48E2-BABA-23E6A1D1C774} = {3270A750-76CD-41A9-B159-24220DCBE7D5}
 		{B211581C-80F2-422D-8180-46B0228AAE2C} = {B39C50F4-3E59-43C4-981B-0ECC3B4B2D51}
+		{F07F3AF2-CADC-4C0D-B9CC-4D08ABD0A520} = {7EE89BA8-EF7C-414B-B9CE-341D51A2814A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
