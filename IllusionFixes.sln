@@ -173,6 +173,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Fix_CameraTarget", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Fix_MakerOptimizations", "src\HS2_Fix_MakerOptimizations\HS2_Fix_MakerOptimizations.csproj", "{F07F3AF2-CADC-4C0D-B9CC-4D08ABD0A520}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Fix_StudioOptimizations", "src\HS2_Fix_StudioOptimizations\HS2_Fix_StudioOptimizations.csproj", "{B3A37BDB-238F-47A7-9A73-1C15EA1A05AB}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
@@ -265,6 +267,8 @@ Global
 		src\Common\Common.projitems*{abb91777-7231-47f7-bf4d-9144cc7b1764}*SharedItemsImports = 4
 		src\Common\Common.projitems*{b211581c-80f2-422d-8180-46b0228aae2c}*SharedItemsImports = 4
 		src\Core_Fix_CameraTarget\Core_Fix_CameraTarget.projitems*{b211581c-80f2-422d-8180-46b0228aae2c}*SharedItemsImports = 4
+		src\Common\Common.projitems*{b3a37bdb-238f-47a7-9a73-1c15ea1a05ab}*SharedItemsImports = 4
+		src\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.projitems*{b3a37bdb-238f-47a7-9a73-1c15ea1a05ab}*SharedItemsImports = 4
 		src\Common\Common.projitems*{be04b9fb-6862-49df-a8d1-26e185f0d9b8}*SharedItemsImports = 4
 		src\Common\Common.projitems*{bf58115b-8249-4f38-9f73-96cddda819e1}*SharedItemsImports = 4
 		src\Core_Fix_CameraTarget\Core_Fix_CameraTarget.projitems*{bf58115b-8249-4f38-9f73-96cddda819e1}*SharedItemsImports = 4
@@ -526,6 +530,10 @@ Global
 		{F07F3AF2-CADC-4C0D-B9CC-4D08ABD0A520}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F07F3AF2-CADC-4C0D-B9CC-4D08ABD0A520}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F07F3AF2-CADC-4C0D-B9CC-4D08ABD0A520}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3A37BDB-238F-47A7-9A73-1C15EA1A05AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3A37BDB-238F-47A7-9A73-1C15EA1A05AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3A37BDB-238F-47A7-9A73-1C15EA1A05AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3A37BDB-238F-47A7-9A73-1C15EA1A05AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -615,6 +623,7 @@ Global
 		{18DCA0F9-3BF4-48E2-BABA-23E6A1D1C774} = {3270A750-76CD-41A9-B159-24220DCBE7D5}
 		{B211581C-80F2-422D-8180-46B0228AAE2C} = {B39C50F4-3E59-43C4-981B-0ECC3B4B2D51}
 		{F07F3AF2-CADC-4C0D-B9CC-4D08ABD0A520} = {7EE89BA8-EF7C-414B-B9CE-341D51A2814A}
+		{B3A37BDB-238F-47A7-9A73-1C15EA1A05AB} = {A660D1F4-37EC-4355-9C61-5F83183716A9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
