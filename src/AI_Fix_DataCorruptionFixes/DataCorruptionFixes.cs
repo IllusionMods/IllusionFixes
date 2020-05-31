@@ -13,17 +13,17 @@ namespace IllusionFixes
     [BepInProcess(Constants.GameProcessName)]
     [BepInProcess(Constants.StudioProcessName)]
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
-    public class LoadingFixes : BaseUnityPlugin
+    public class DataCorruptionFixes : BaseUnityPlugin
     {
         public const string GUID = "AI_Fix_LoadingFixes";
-        public const string PluginName = "Studio and Maker Loading Fixes";
+        public const string PluginName = "Studio and Maker Data Corruption Fixes";
 
         private static new ManualLogSource Logger;
 
         private void Awake()
         {
             Logger = base.Logger;
-            HarmonyWrapper.PatchAll(typeof(LoadingFixes));
+            HarmonyWrapper.PatchAll(typeof(DataCorruptionFixes));
         }
 
         /// <summary>
