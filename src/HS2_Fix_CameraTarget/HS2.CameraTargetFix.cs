@@ -11,7 +11,7 @@ namespace IllusionFixes
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class CameraTargetFix : CameraTargetFixCore
     {
-        public const string GUID = "AI_Fix_CameraTarget";
+        public const string GUID = "HS2_Fix_CameraTarget";
 
         protected override void Awake()
         {
