@@ -8,6 +8,6 @@ namespace IllusionFixes
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public partial class NullChecks : BaseUnityPlugin
     {
-        public const string GUID = "AI_Fix_NullChecks";
+        public const string GUID = "HS2_Fix_NullChecks";
     }
 }
