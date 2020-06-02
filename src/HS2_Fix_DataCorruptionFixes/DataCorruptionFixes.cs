@@ -15,7 +15,7 @@ namespace IllusionFixes
     [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
     public class DataCorruptionFixes : BaseUnityPlugin
     {
-        public const string GUID = "AI_Fix_LoadingFixes";
+        public const string GUID = "HS2_Fix_LoadingFixes";
         public const string PluginName = "Studio and Maker Data Corruption Fixes";
 
         private static new ManualLogSource Logger;
