@@ -1,5 +1,5 @@
 # Illusion Fixes
-A collection of fixes for common issues found in Koikatu, Koikatsu Party, EmotionCreators, and AI Girl
+A collection of fixes for common issues found in Koikatu, Koikatsu Party, EmotionCreators, AI Girl and HoneySelect2
 
 ## How to install
 1. Install the latest build of [BepInEx](https://builds.bepis.io/projects/bepinex_be) and latest release of [BepisPlugins](https://github.com/IllusionMods/BepisPlugins/releases).
@@ -13,7 +13,7 @@ A collection of fixes for common issues found in Koikatu, Koikatsu Party, Emotio
 
 ## Plugin descriptions
 ### CameraTargetFix
-(Koikatsu, PlayHome, AI Girl)
+(Koikatsu, PlayHome, AI Girl, HoneySelect2)
 Hides the cursor when the camera target is disabled in Studio. In AI Girl, also makes the camera target option in the game settings work properly for the character maker.
 
 ### CardImport
@@ -52,7 +52,7 @@ Allows you to load characters with different iris types without them being reset
 Adds error handling to scene loading and importing. If a scene is invalid or from the wrong game version then a message is shown and the studio doesn't crash.
 
 ### LoadingFixes
-(AI Girl)
+(AI Girl, HoneySelect2)
 
 Fixes some studio scenes failing to load (sometimes you can't load the scene you've just saved with the stock game, many scenes on uploader are like this). Also fixes color picker breaking in maker because of a similar issue.
 
@@ -67,7 +67,7 @@ Multiple performance optimizations for the story mode. Aimed to reduce stutter a
 Multiple performance optimizations for the character maker. Can greatly increase FPSMultiple performance optimizations for the character maker. Can greatly increase FPS, makes turning on/off the interface in maker by pressing space much faster (after the 1st press), and more.
 
 ### ManifestCorrector
-(Koikatsu, EmotionCreators, AI Girl)
+(Koikatsu, EmotionCreators, AI Girl, HoneySelect2)
 
 Prevents mods that use incorrect data in the MainManifest column of item lists from locking up the game in story mode.
 
@@ -85,7 +85,7 @@ Fixes downloaded character cards not appearing in the New Game character selecti
 (EmotionCreators)
 
 ### NullChecks 
-(Koikatsu, EmotionCreators)
+(Koikatsu, EmotionCreators, AI Girl, HoneySelect2)
 
 Fixes for some questionably made mods causing issues.
 
@@ -100,17 +100,17 @@ Allows loading of cards saved in Koikatsu Party (Steam release) in Koikatu and S
 Prevents cards with invalid or missing personalities from crashing the game. A default personality is set instead.
 
 ### PoseLoad
-(Koikatsu)
+(Koikatsu, AI Girl, HoneySelect2)
 
 Corrects Honey Select poses loaded in Koikatsu and prevents errors.
 
 ### ResourceUnloadOptimizations 
-(Koikatsu, EmotionCreators, HoneySelect, AI Girl, PlayHome)
+(PlayHome, Koikatsu, EmotionCreators, HoneySelect, AI Girl, HoneySelect2)
 
 Improves loading times and eliminates stutter after loading was "finished".
 
 ### SettingsVerifier 
-(Koikatsu, AI Girl)
+(Koikatsu, AI Girl, HoneySelect2)
 
 Prevents corrupted setting from causing issues and forces studio to use the settings.xml file instead of registry.
 
@@ -138,7 +138,7 @@ abdata/chara/oo_base.unity3d (rename to oo_base_studio.unity3d, don't replace)
 ```
 
 ### CultureFix
-(EmotionCreators, AI Girl)
+(EmotionCreators, AI Girl, HoneySelect2)
 
 Set process culture to ja-JP, similarly to a locale emulator. Fixes game crashes and lockups on some system locales.
 ### MagicCarrot
