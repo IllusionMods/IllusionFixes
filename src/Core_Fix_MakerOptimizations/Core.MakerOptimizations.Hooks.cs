@@ -191,14 +191,20 @@ namespace IllusionFixes
             }
 
             public static string lastAnimeStateName;
-            public static bool UpdateIKCalc_firstRun = true;
+            public static bool UpdateIKCalc_manualRun = true;
+
+            [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.ChangeCoordinateType), typeof(ChaFileDefine.CoordinateType), typeof(bool))]
+            private static void ChangeCoordinateTypePrefix()
+            {
+                UpdateIKCalc_manualRun = true;
+            }
 
             [HarmonyPrefix, HarmonyPatch(typeof(CustomBase), nameof(CustomBase.UpdateIKCalc))]
             public static bool FixIKSpam(CustomBase __instance)
             {
-                if(__instance.motionIK != null && (lastAnimeStateName != __instance.animeStateName | UpdateIKCalc_firstRun))
+                if(__instance.motionIK != null && (lastAnimeStateName != __instance.animeStateName | UpdateIKCalc_manualRun))
                 {
-                    UpdateIKCalc_firstRun = false;
+                    UpdateIKCalc_manualRun = false;
                     lastAnimeStateName = __instance.animeStateName;
                     __instance.motionIK.Calc(__instance.animeStateName);
                 }
