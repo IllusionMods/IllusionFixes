@@ -10,9 +10,9 @@ namespace IllusionFixes.Patchers
 {
     public static class CultureFix
     {
-        public static IEnumerable<string> TargetDLLs { get; } = new[] { "UnityEngine.dll" };
+        public static IEnumerable<string> TargetDLLs { get; } = new string[0];
 
-        public static void Patch(AssemblyDefinition ad)
+        public static void Initialize()
         {
             var cf = new ConfigFile(Utility.CombinePaths(Paths.ConfigPath, "CultureFix.cfg"), true);
 
@@ -26,7 +26,7 @@ namespace IllusionFixes.Patchers
 
             try
             {
-                var culture = CultureInfo.GetCultureInfo("ja-JP");
+                var culture = CultureInfo.GetCultureInfo(cultureCode);
 
                 if (culture.IsNeutralCulture)
                 {
@@ -46,5 +46,7 @@ namespace IllusionFixes.Patchers
                 Console.WriteLine($"CultureFix failed to load - Crashed while trying to set culture {cultureCode} - {ex}");
             }
         }
+
+        public static void Patch(AssemblyDefinition ad) { }
     }
 }
