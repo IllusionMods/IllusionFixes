@@ -32,13 +32,6 @@ namespace IllusionFixes
                     typeof(Hooks).GetMethod(nameof(HarmonyPatch_CustomNewAnime_Update), AccessTools.all),
                     DisableNewAnimation);
 
-                if (DisableIKCalc.Value)
-                {
-                    var replace = typeof(CustomBase).GetMethod("UpdateIKCalc", AccessTools.all);
-                    var prefix = typeof(Hooks).GetMethod(nameof(HarmonyPatch_CustomBase_UpdateIKCalc), AccessTools.all);
-                    harmony.Patch(replace, new HarmonyMethod(prefix), null);
-                }
-
                 {
                     var replace = typeof(CustomScene).GetMethod("Start", AccessTools.all);
                     var prefix = typeof(Hooks).GetMethod(nameof(MakerStartHook), AccessTools.all);
@@ -65,9 +58,6 @@ namespace IllusionFixes
 
             // Disable indicator for new items
             private static void HarmonyPatch_CustomSelectInfoComponent_Disvisible(CustomSelectInfoComponent __instance) => __instance.objNew.SetActiveIfDifferent(false);
-
-            // Disable heavy method with little use
-            private static bool HarmonyPatch_CustomBase_UpdateIKCalc() => false;
 
             public static void MakerStartHook(CustomScene __instance) => __instance.StartCoroutine(OnMakerLoaded());
 
@@ -199,6 +189,51 @@ namespace IllusionFixes
                 if ((bool)__state)
                     ___objSaveFrameTop.transform.parent = __state;
             }
+
+            public static string lastAnimeStateName;
+            public static bool UpdateIKCalc_manualRun = true;
+
+            [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.ChangeCoordinateType), typeof(ChaFileDefine.CoordinateType), typeof(bool))]
+            private static void ChangeCoordinateTypePrefix()
+            {
+                UpdateIKCalc_manualRun = true;
+            }
+
+            [HarmonyPrefix, HarmonyPatch(typeof(CustomBase), nameof(CustomBase.UpdateIKCalc))]
+            public static bool FixIKSpam(CustomBase __instance)
+            {
+                if(__instance.motionIK != null && (lastAnimeStateName != __instance.animeStateName | UpdateIKCalc_manualRun))
+                {
+                    UpdateIKCalc_manualRun = false;
+                    lastAnimeStateName = __instance.animeStateName;
+                    __instance.motionIK.Calc(__instance.animeStateName);
+                }
+
+                return false;
+            }
+
+            /// Dick starts flopping around in free H with this patch, otherwise would have been better than above
+            //private static Dictionary<MotionIK, string> previousStates = new Dictionary<MotionIK, string>();
+            //[HarmonyPrefix, HarmonyPatch(typeof(MotionIK), nameof(MotionIK.Calc))]
+            //public static bool FixIKSpam(MotionIK __instance, ref string stateName)
+            //{
+            //    if(previousStates.TryGetValue(__instance, out var prevState))
+            //    {
+            //        if(stateName != prevState)
+            //        {
+            //            previousStates[__instance] = stateName;
+            //            Console.WriteLine(stateName);
+            //            return true;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        previousStates.Add(__instance, stateName);
+            //        return true;
+            //    }
+
+            //    return false;
+            //}
         }
     }
 }
