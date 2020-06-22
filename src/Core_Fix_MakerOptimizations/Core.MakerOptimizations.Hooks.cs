@@ -193,11 +193,19 @@ namespace IllusionFixes
             public static string lastAnimeStateName;
             public static bool UpdateIKCalc_manualRun = true;
 
+#if KK
             [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.ChangeCoordinateType), typeof(ChaFileDefine.CoordinateType), typeof(bool))]
             private static void ChangeCoordinateTypePrefix()
             {
                 UpdateIKCalc_manualRun = true;
             }
+#elif EC
+            [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.ChangeNowCoordinate), typeof(ChaFileCoordinate), typeof(bool), typeof(bool))]
+            private static void ChangeNowCoordinatePrefix()
+            {
+                UpdateIKCalc_manualRun = true;
+            }
+#endif
 
             [HarmonyPrefix, HarmonyPatch(typeof(CustomBase), nameof(CustomBase.UpdateIKCalc))]
             public static bool FixIKSpam(CustomBase __instance)
