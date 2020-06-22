@@ -6,6 +6,11 @@ using HarmonyLib;
 using Studio;
 using System;
 using System.IO;
+using System.Reflection;
+using ADV;
+using AIChara;
+using CharaCustom;
+using Manager;
 using UnityEngine;
 
 namespace IllusionFixes
@@ -24,6 +29,40 @@ namespace IllusionFixes
         {
             Logger = base.Logger;
             HarmonyWrapper.PatchAll(typeof(DataCorruptionFixes));
+        }
+
+        [HarmonyFinalizer]
+        [HarmonyPatch(typeof(GameSystem), nameof(GameSystem.LoadNetworkSetting))]
+        [HarmonyPatch(typeof(GameSystem), nameof(GameSystem.LoadDownloadInfo))]
+        [HarmonyPatch(typeof(GameSystem), nameof(GameSystem.LoadApplauseInfo))]
+        [HarmonyPatch(typeof(ChaListControl), nameof(ChaListControl.LoadItemID))] // seen items
+        [HarmonyPatch(typeof(CustomBase.CustomSettingSave), nameof(CustomBase.CustomSettingSave.Load))] // maker config
+        private static Exception CatchCrash(MethodBase __originalMethod, Exception __exception)
+        {
+            if (__exception != null)
+            {
+                Logger.Log(BepInEx.Logging.LogLevel.Warning | BepInEx.Logging.LogLevel.Message, $"Corrupted save file detected in {__originalMethod.DeclaringType?.Name}, some progress might be lost.");
+                Logger.LogWarning(__exception);
+            }
+
+            return null;
+        }
+
+        [HarmonyFinalizer]
+        [HarmonyPatch(typeof(TextScenario), nameof(TextScenario.LoadReadInfo))] // already read adv text
+        private static Exception CatchReadInfoCrash(Exception __exception)
+        {
+            if (__exception != null)
+            {
+                Logger.Log(BepInEx.Logging.LogLevel.Warning | BepInEx.Logging.LogLevel.Message, "ADV memory file was corrupted, you might no longer be able to skip previously read text.");
+                Logger.LogWarning(__exception);
+
+                File.Delete(Path.Combine(UserData.Path, "save/read.dat"));
+                // Try again, this time it'll create a blank state since file doesn't exist
+                TextScenario.LoadReadInfo();
+            }
+
+            return null;
         }
 
         /// <summary>

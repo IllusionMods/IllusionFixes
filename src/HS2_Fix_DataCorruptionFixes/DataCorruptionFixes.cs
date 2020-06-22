@@ -6,6 +6,11 @@ using HarmonyLib;
 using Studio;
 using System;
 using System.IO;
+using System.Reflection;
+using ADV;
+using AIChara;
+using CharaCustom;
+using Manager;
 using UnityEngine;
 
 namespace IllusionFixes
@@ -24,6 +29,25 @@ namespace IllusionFixes
         {
             Logger = base.Logger;
             HarmonyWrapper.PatchAll(typeof(DataCorruptionFixes));
+        }
+
+        [HarmonyFinalizer]
+        [HarmonyPatch(typeof(SaveData), nameof(SaveData.Load), typeof(string), typeof(string))]
+        [HarmonyPatch(typeof(GameSystem), nameof(GameSystem.LoadNetworkSetting))]
+        [HarmonyPatch(typeof(GameSystem), nameof(GameSystem.LoadDownloadInfo))]
+        [HarmonyPatch(typeof(GameSystem), nameof(GameSystem.LoadApplauseInfo))]
+        [HarmonyPatch(typeof(ChaListControl), nameof(ChaListControl.LoadItemID))] // seen items
+        [HarmonyPatch(typeof(CustomBase.CustomSettingSave), nameof(CustomBase.CustomSettingSave.Load))] // maker config
+        [HarmonyPatch(typeof(AlreadyReadInfo), "Load")] // already read adv text
+        private static Exception CatchCrash(MethodBase __originalMethod, Exception __exception)
+        {
+            if (__exception != null)
+            {
+                Logger.Log(LogLevel.Warning | LogLevel.Message, $"Corrupted save file detected in {__originalMethod.DeclaringType?.Name}, some progress might be lost.");
+                Logger.LogWarning(__exception);
+            }
+
+            return null;
         }
 
         /// <summary>
