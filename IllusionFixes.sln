@@ -183,6 +183,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Patch_LogDespammer", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_DataCorruptionFixes", "src\KK_Fix_DataCorruptionFixes\KK_Fix_DataCorruptionFixes.csproj", "{5E147825-FD43-4F2F-9583-809F4DD26C10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Fix_GravityAdjust", "src\HS2_Fix_GravityAdjust\HS2_Fix_GravityAdjust.csproj", "{D9BC998B-BBD1-4836-B00D-90408CA3E4FC}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
@@ -290,6 +292,7 @@ Global
 		src\Common\Common.projitems*{d853338d-efbc-4c7e-a0d9-9b78610ae726}*SharedItemsImports = 4
 		src\Core_Fix_ManifestCorrector\Core_Fix_ManifestCorrector.projitems*{d853338d-efbc-4c7e-a0d9-9b78610ae726}*SharedItemsImports = 4
 		src\Common\Common.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
+		src\Common\Common.projitems*{d9bc998b-bbd1-4836-b00d-90408ca3e4fc}*SharedItemsImports = 4
 		src\Core_Fix_InvalidSceneFileProtection\Core_Fix_InvalidSceneFileProtection.projitems*{de110de4-c432-4f89-bd1e-23915527ef9b}*SharedItemsImports = 13
 		src\Common\Common.projitems*{e0eebf3e-cbf1-4929-a6c8-403767faaa8d}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{e613fea3-a78c-4f26-878a-b7a874961819}*SharedItemsImports = 13
@@ -563,6 +566,10 @@ Global
 		{5E147825-FD43-4F2F-9583-809F4DD26C10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E147825-FD43-4F2F-9583-809F4DD26C10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E147825-FD43-4F2F-9583-809F4DD26C10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9BC998B-BBD1-4836-B00D-90408CA3E4FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9BC998B-BBD1-4836-B00D-90408CA3E4FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9BC998B-BBD1-4836-B00D-90408CA3E4FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9BC998B-BBD1-4836-B00D-90408CA3E4FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
