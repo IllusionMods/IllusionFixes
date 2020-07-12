@@ -75,6 +75,28 @@ namespace IllusionFixes
 
         private static class Hooks
         {
+            [HarmonyFinalizer, HarmonyPatch(typeof(DynamicBone), nameof(DynamicBone.ResetParticlesPosition))]
+            internal static Exception ParticlesCrashCatcher(Exception __exception, DynamicBone __instance, ref UnityEngine.Vector3 ___m_ObjectPrevPosition)
+            {
+                if (__exception != null)
+                {
+                    // Prevent state from getting corrupted
+                    ___m_ObjectPrevPosition = __instance.transform.position;
+                    Logger.LogError("Swallowing exception to prevent game crash!\n" + __exception);
+                }
+                return null;
+            }
+
+            [HarmonyFinalizer, HarmonyPatch(typeof(DynamicBone), "UpdateDynamicBones")]
+            internal static Exception ParticlesCrashCatcher2(Exception __exception)
+            {
+                if (__exception != null)
+                {
+                    Logger.LogError("Swallowing exception to prevent game crash!\n" + __exception);
+                }
+                return null;
+            }
+
 #if !EC
             //Fix for errors resulting from Studio objects with no ItemComponent
             [HarmonyPrefix, HarmonyPatch(typeof(Studio.OCIItem), nameof(Studio.OCIItem.SetPatternTex), typeof(int), typeof(int))]
