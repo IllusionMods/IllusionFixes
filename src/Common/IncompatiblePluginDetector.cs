@@ -1,4 +1,5 @@
-﻿using BepInEx;
+﻿using System;
+using BepInEx;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,7 @@ using Logging = BepInEx.Logging;
 
 namespace Common
 {
+    [Obsolete("About time to get rid of this, maybe move stuff to bepinincompatible attributes")]
     internal class IncompatiblePluginDetector : MonoBehaviour
     {
         private static readonly string[] _pluginBlacklist =

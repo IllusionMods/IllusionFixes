@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace IllusionFixes
 {
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class PhysicsGravityAdjust : BaseUnityPlugin
     {
         public const string GUID = "HS2_Fix_GravityAdjust";

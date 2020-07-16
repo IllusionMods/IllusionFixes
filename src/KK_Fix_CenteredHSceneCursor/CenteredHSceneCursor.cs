@@ -10,7 +10,7 @@ namespace IllusionFixes
     [BepInProcess(Constants.GameProcessNameSteam)]
     [BepInProcess(Constants.VRProcessName)]
     [BepInProcess(Constants.VRProcessNameSteam)]
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class CenteredHSceneCursor : BaseUnityPlugin
     {
         public const string GUID = "KK_Fix_CenteredHSceneCursor";

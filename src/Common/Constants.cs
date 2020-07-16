@@ -1,7 +1,13 @@
-﻿namespace IllusionFixes
+﻿namespace Common
 {
     internal static class Constants
     {
+        /// <summary>
+        /// Version number used by all plugins. Must be convertible to <see cref="System.Version"/>
+        /// Uses ReleaseVersion.HotfixVersion format.
+        /// </summary>
+        public const string PluginsVersion = "13.2";
+
 #if AI
         internal const string StudioProcessName = "StudioNEOV2";
         internal const string GameProcessName = "AI-Syoujyo";

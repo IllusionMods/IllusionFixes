@@ -15,7 +15,7 @@ namespace IllusionFixes
 {
     [BepInProcess(Constants.GameProcessName)]
     [BepInProcess(Constants.StudioProcessName)]
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class DataCorruptionFixes : BaseUnityPlugin
     {
         public const string GUID = "KK_Fix_DataCorruptionFixes";

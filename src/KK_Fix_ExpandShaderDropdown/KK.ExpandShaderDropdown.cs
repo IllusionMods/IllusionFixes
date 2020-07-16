@@ -16,7 +16,7 @@ namespace IllusionFixes
     [BepInProcess(Constants.VRProcessName)]
     [BepInProcess(Constants.VRProcessNameSteam)]
     [BepInProcess(Constants.StudioProcessName)]
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class ExpandShaderDropdown : BaseUnityPlugin
     {
         public const string GUID = "KK_Fix_ExpandShaderDropdown";

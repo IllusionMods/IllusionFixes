@@ -6,7 +6,7 @@ using HarmonyLib;
 namespace IllusionFixes
 {
     [BepInProcess(Constants.GameProcessName)]
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class NewGameShowAllCardsFix : BaseUnityPlugin
     {
         public const string GUID = "AI_Fix_NewGameShowAllCards";

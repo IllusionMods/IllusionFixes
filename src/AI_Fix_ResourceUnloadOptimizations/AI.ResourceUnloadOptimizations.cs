@@ -3,7 +3,7 @@ using Common;
 
 namespace IllusionFixes
 {
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public partial class ResourceUnloadOptimizations : BaseUnityPlugin
     {
         public const string GUID = "AI_Fix_ResourceUnloadOptimizations";

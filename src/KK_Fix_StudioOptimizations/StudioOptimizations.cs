@@ -4,7 +4,7 @@ using Common;
 namespace IllusionFixes
 {
     [BepInProcess(Constants.StudioProcessName)]
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public partial class StudioOptimizations : BaseUnityPlugin
     {
     }

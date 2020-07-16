@@ -23,7 +23,7 @@ namespace IllusionFixes
 #endif
             internal static void ManagerConfigStart()
             {
-                if (CommonCode.InsideStudio)
+                if (Utilities.InsideStudio)
                     ReadSetupXml();
             }
         }

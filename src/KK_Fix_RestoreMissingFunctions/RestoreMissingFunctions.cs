@@ -16,7 +16,7 @@ namespace IllusionFixes
     [BepInProcess(Constants.GameProcessName)]
     [BepInProcess(Constants.GameProcessNameSteam)]
     [BepInDependency(KoikatuAPI.GUID, "1.7")]
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class RestoreMissingFunctions : BaseUnityPlugin
     {
         public const string GUID = "KK_Fix_RestoreMissingFunctions";

@@ -46,7 +46,7 @@ namespace IllusionFixes
         //        [HarmonyPatch(typeof(FindAssist), "FindAll", typeof(Transform))]
         //        private static bool FindAllPatch(FindAssist __instance, Transform trf)
         //        {
-        //            if (!CommonCode.InsideStudio) return true;
+        //            if (!Utilities.InsideStudio) return true;
         //
         //            __instance.dictObjName[trf.name] = trf.gameObject;
         //

@@ -6,7 +6,7 @@ namespace IllusionFixes
 {
     [BepInProcess(Constants.GameProcessName)] //Not currently compatible with Koikatsu Party
     [BepInProcess(Constants.VRProcessName)]
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public partial class CharacterListOptimizations : BaseUnityPlugin
     {
         public const string GUID = "KK_Fix_CharacterListOptimizations";

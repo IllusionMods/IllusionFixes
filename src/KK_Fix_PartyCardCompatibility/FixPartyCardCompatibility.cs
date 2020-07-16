@@ -12,7 +12,7 @@ namespace IllusionFixes
     [BepInProcess(Constants.GameProcessName)]
     [BepInProcess(Constants.VRProcessName)]
     [BepInProcess(Constants.StudioProcessName)]
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public partial class FixPartyCardCompatibility : BaseUnityPlugin
     {
         public const string GUID = "KK_Fix_PartyCardCompatibility";

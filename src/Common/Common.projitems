@@ -10,13 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CommonCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConfigurationManagerAttributes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utilities.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CoroutineUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IncompatiblePluginDetector.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Metadata.cs" />
   </ItemGroup>
 </Project>

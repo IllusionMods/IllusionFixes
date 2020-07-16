@@ -17,5 +17,5 @@ using Common;
 
 [assembly: ComVisible(false)]
 
-[assembly: AssemblyVersion(Metadata.PluginsVersion)]
-[assembly: AssemblyFileVersion(Metadata.PluginsVersion)]
+[assembly: AssemblyVersion(Constants.PluginsVersion)]
+[assembly: AssemblyFileVersion(Constants.PluginsVersion)]

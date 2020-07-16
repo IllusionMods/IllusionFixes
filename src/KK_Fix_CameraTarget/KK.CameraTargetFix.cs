@@ -6,7 +6,7 @@ namespace IllusionFixes
 {
     [BepInIncompatibility("keelhauled.cameratargetfix")]
     [BepInProcess(Constants.StudioProcessName)]
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class CameraTargetFix : CameraTargetFixCore
     {
         public const string GUID = "KK_Fix_CameraTarget";

@@ -8,7 +8,7 @@ using System.Reflection.Emit;
 namespace IllusionFixes
 {
     [BepInProcess(Constants.StudioProcessName)]
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class UnlimitedMapLights : BaseUnityPlugin
     {
         public const string GUID = "KK_Fix_UnlimitedMapLights";

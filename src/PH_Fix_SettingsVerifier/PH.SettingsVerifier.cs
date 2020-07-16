@@ -12,7 +12,7 @@ namespace IllusionFixes
 {
     [BepInProcess(Constants.GameProcessName)]
     [BepInProcess(Constants.StudioProcessName)]
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class SettingsVerifier_PH : BaseUnityPlugin
     {
         public const string PluginName = "Settings Fix";

@@ -8,7 +8,7 @@ using UploaderSystem;
 namespace IllusionFixes
 {
     [BepInProcess(Constants.GameProcessName)]
-    [BepInPlugin(GUID, PluginName, Metadata.PluginsVersion)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class DownloadRenamer : BaseUnityPlugin
     {
         public const string GUID = "EC_Fix_DownloadRenamer";
