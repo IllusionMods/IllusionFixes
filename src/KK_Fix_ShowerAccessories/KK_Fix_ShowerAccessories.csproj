@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="ShowerAccessories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShowerAccessories.Hooks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
