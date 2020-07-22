@@ -14,6 +14,7 @@ A collection of fixes for common issues found in Koikatu, Koikatsu Party, Emotio
 ## Plugin descriptions
 ### CameraTargetFix
 (Koikatsu, PlayHome, AI Girl, HoneySelect2)
+
 Hides the cursor when the camera target is disabled in Studio. In AI Girl, also makes the camera target option in the game settings work properly for the character maker.
 
 ### CardImport
@@ -40,6 +41,11 @@ Maps, scenes, poses, and characters downloaded in game will have their file name
 (Koikatsu, EmotionCreators)
 
 Makes the shader drop down menu extend down instaed of up and expands it. Necessary to select modded shaders since they run off the screen by default.
+
+### HairShadows
+(Koikatsu, EmotionCreators)
+
+Modifies the render queue of front hairs and front hair accessories so that they can receive shadows. Also modifies the render queue of eyes, eyelashes, eyebrows, etc. so they can still show through hair if the option for it is selected.
 
 ### HeterochromiaFix
 (Koikatsu, EmotionCreators)
