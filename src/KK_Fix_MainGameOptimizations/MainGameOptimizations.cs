@@ -7,10 +7,12 @@ using HarmonyLib;
 using Manager;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Scene = Manager.Scene;
 
 namespace IllusionFixes
 {
@@ -37,9 +39,90 @@ namespace IllusionFixes
 
             HarmonyWrapper.PatchAll(typeof(MainGameOptimizations));
 
-            SceneManager.sceneLoaded += (arg0, mode) => _runningReloadCoroutines.Clear();
+            SceneManager.sceneLoaded += (arg0, mode) =>
+            {
+                try
+                {
+                    _runningReloadCoroutines.Clear();
+                    _insideRoamingMode = arg0.name == "Action" || Scene.Instance.LoadSceneName == "Action";
+                    foreach (var boneListItem in _boneList.Keys.ToList())
+                    {
+                        if (!boneListItem)
+                            _boneList.Remove(boneListItem);
+                    }
+                }
+                catch (Exception e)
+                {
+                    UnityEngine.Debug.LogException(e);
+                }
+            };
         }
 
+        #region Optimize dynamic bones
+
+        private sealed class BoneListItem
+        {
+            private readonly ChaControl _chara;
+            private bool _lastState = true;
+
+            public BoneListItem(ChaControl chara)
+            {
+                _chara = chara;
+            }
+
+            public void SetState(bool isVisible)
+            {
+                if (_lastState != isVisible)
+                {
+                    if (Scene.Instance.IsNowLoadingFade) return;
+
+                    _lastState = isVisible;
+                    foreach (var bone in _chara.GetComponentsInChildren<MonoBehaviour>(true).Where(x =>
+                        x is DynamicBone || x is DynamicBone_Ver01 || x is DynamicBone_Ver02))
+                        if (bone)
+                            bone.enabled = isVisible;
+                }
+            }
+        }
+
+        private static readonly Dictionary<ChaControl, BoneListItem> _boneList =
+            new Dictionary<ChaControl, BoneListItem>();
+        private static Transform _cameraTransform;
+        private static bool _insideRoamingMode;
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(ChaControl), nameof(ChaControl.UpdateForce))]
+        private static void DynamicBoneOptimize(ChaControl __instance)
+        {
+            // Only run in roaming mode. Includes roaming mode H
+            if (!__instance.loadEnd || !_insideRoamingMode) return;
+
+            var isVisible = __instance.rendBody.isVisible && CheckDistance(__instance.transform.position);
+
+            if (!_boneList.TryGetValue(__instance, out var boneList))
+            {
+                boneList = new BoneListItem(__instance);
+                _boneList[__instance] = boneList;
+            }
+
+            boneList.SetState(isVisible);
+        }
+
+        private static bool CheckDistance(Vector3 transformPosition)
+        {
+            if (_cameraTransform == null)
+            {
+                if (Camera.main == null)
+                    return true;
+                _cameraTransform = Camera.main.transform;
+            }
+
+            var sqrDistMagnitude = (_cameraTransform.position - transformPosition).sqrMagnitude;
+            const int sqrMaxDistance = 14 * 14; //todo configurable? increase to 20?
+            return sqrDistMagnitude < sqrMaxDistance;
+        }
+
+        #endregion
 
         #region Async clothes load
 
