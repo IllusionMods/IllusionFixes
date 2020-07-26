@@ -70,17 +70,66 @@ namespace IllusionFixes
                 _chara = chara;
             }
 
+            private readonly Dictionary<Component, Transform> _originalroots = new Dictionary<Component, Transform>();
+
             public void SetState(bool isVisible)
             {
-                if (_lastState != isVisible)
-                {
-                    if (Scene.Instance.IsNowLoadingFade) return;
+                if (_lastState == isVisible) return;
+                if (Scene.Instance.IsNowLoadingFade) return;
 
-                    _lastState = isVisible;
-                    foreach (var bone in _chara.GetComponentsInChildren<MonoBehaviour>(true).Where(x =>
-                        x is DynamicBone || x is DynamicBone_Ver01 || x is DynamicBone_Ver02))
-                        if (bone)
-                            bone.enabled = isVisible;
+                _lastState = isVisible;
+
+                foreach (var bone in _chara.GetComponentsInChildren<MonoBehaviour>(true))
+                {
+                    if (!bone) continue;
+
+                    // Setting bone.enabled to false breaks it so we have to hack around by setting Root to null which effectively disables the bones
+                    switch (bone)
+                    {
+                        case DynamicBone x:
+                            if (isVisible)
+                            {
+                                if (x.m_Root == null && _originalroots.TryGetValue(x, out var r)) x.m_Root = r;
+                            }
+                            else
+                            {
+                                if (x.m_Root != null)
+                                {
+                                    _originalroots[x] = x.m_Root;
+                                    x.m_Root = null;
+                                }
+                            }
+
+                            break;
+                        case DynamicBone_Ver01 x:
+                            if (isVisible)
+                            {
+                                if (x.m_Root == null && _originalroots.TryGetValue(x, out var r)) x.m_Root = r;
+                            }
+                            else
+                            {
+                                if (x.m_Root != null)
+                                {
+                                    _originalroots[x] = x.m_Root;
+                                    x.m_Root = null;
+                                }
+                            }
+                            break;
+                        case DynamicBone_Ver02 x:
+                            if (isVisible)
+                            {
+                                if (x.Root == null && _originalroots.TryGetValue(x, out var r)) x.Root = r;
+                            }
+                            else
+                            {
+                                if (x.Root != null)
+                                {
+                                    _originalroots[x] = x.Root;
+                                    x.Root = null;
+                                }
+                            }
+                            break;
+                    }
                 }
             }
         }
