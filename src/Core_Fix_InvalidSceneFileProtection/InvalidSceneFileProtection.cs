@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
@@ -53,7 +54,7 @@ namespace IllusionFixes
                 var pos = f.Position;
                 foreach (var tokenSequence in ValidStudioTokens)
                 {
-                    if (Util.TryReadUntilSequence(f, tokenSequence))
+                    if (Util.FindPosition(f, tokenSequence) > 0)
                         return true;
 
                     f.Seek(pos, SeekOrigin.Begin);
