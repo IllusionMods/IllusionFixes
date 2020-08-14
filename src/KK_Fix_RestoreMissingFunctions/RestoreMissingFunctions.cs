@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using BepInEx;
 using Common;
 using HarmonyLib;
@@ -35,9 +37,15 @@ namespace IllusionFixes
                     MakerAPI.RegisterCustomSubCategories += MakerAPI_RegisterCustomSubCategories;
             }
 
-            // ConfigAddFix is only needed in party
+            // Fixes only needed for party
             if (Paths.ProcessName == Constants.GameProcessNameSteam)
-                Harmony.CreateAndPatchAll(typeof(RestoreMissingFunctions));
+            {
+                var h = new Harmony(GUID);
+                h.Patch(AccessTools.Method(typeof(ConfigScene), "Start"),
+                    postfix: new HarmonyMethod(typeof(RestoreMissingFunctions), nameof(ConfigAddFix)));
+                h.Patch(AccessTools.Method("Localize.Translate.Manager:SetLanguage", new[] { typeof(int) }),
+                    transpiler: new HarmonyMethod(typeof(RestoreMissingFunctions), nameof(LanguageUnlock)));
+            }
         }
 
         private void MakerAPI_RegisterCustomSubCategories(object sender, RegisterSubCategoriesEvent e)
@@ -53,8 +61,6 @@ namespace IllusionFixes
             dd.ValueChanged.Subscribe(x => MakerAPI.GetCharacterControl().ChangeHead(headValues[x].Id));
         }
 
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(ConfigScene), "Start")]
         private static void ConfigAddFix(ConfigScene __instance, ref IEnumerator __result)
         {
             __result = __result.AppendCo(() =>
@@ -85,6 +91,15 @@ namespace IllusionFixes
                     }
                 }
             });
+        }
+
+        private static IEnumerable<CodeInstruction> LanguageUnlock(IEnumerable<CodeInstruction> instructions)
+        {
+            var ins = instructions.ToList();
+            // Remove language check at the start of the method
+            var i = ins.FindIndex(instruction => instruction.opcode == OpCodes.Starg_S);
+            if (i > 0) ins.RemoveRange(0, i + 1);
+            return ins;
         }
     }
 }
