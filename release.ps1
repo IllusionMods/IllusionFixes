@@ -46,6 +46,7 @@ Remove-Item -Force -Path ($dir + "\copy") -Recurse
 
 # KK ------------------------------------------------------------------------------------------------------------------------------------------
 & robocopy ($dir + "\BepInEx\plugins\IllusionFixes\") ($copy + "\plugins\IllusionFixes") "KK_*.*" /R:5 /W:5     
+& robocopy ($dir + "\BepInEx\plugins\IllusionFixes\") ($copy + "\plugins\IllusionFixes") "KKP_*.*" /R:5 /W:5     
 
 $ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Get-ChildItem -Path ($copy + "\*.dll") -Recurse -Force)[0]).FileVersion.ToString()
 Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_Koikatsu_" + $ver + ".zip")
