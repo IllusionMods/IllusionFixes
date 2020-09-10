@@ -8,7 +8,7 @@ namespace IllusionFixes
 {
     [BepInProcess(Constants.GameProcessName)]
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
-    public partial class MakerOptimizations : BaseUnityPlugin
+    public class MakerOptimizations : BaseUnityPlugin
     {
         public const string GUID = "HS2_Fix_MakerOptimizations";
         public const string PluginName = "Maker Optimizations";

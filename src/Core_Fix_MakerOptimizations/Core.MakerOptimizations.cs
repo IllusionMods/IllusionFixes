@@ -44,11 +44,6 @@ namespace IllusionFixes
             Hooks.InstallHooks();
         }
 
-        internal void Start()
-        {
-            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
-        }
-
         private void SceneLoaded(Scene scene, LoadSceneMode mode)
         {
             var cursorManager = gameObject.GetComponent<CursorManager>();
