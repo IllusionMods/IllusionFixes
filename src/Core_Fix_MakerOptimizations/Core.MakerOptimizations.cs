@@ -25,7 +25,7 @@ namespace IllusionFixes
             DisableNewAnimation = Config.Bind(Utilities.ConfigSectionTweaks, "Disable NEW indicator animation", true, new ConfigDescription("Good performance improvement in maker if there are many new items.\nChanges take effect after maker restart."));
             DisableNewIndicator = Config.Bind(Utilities.ConfigSectionTweaks, "Disable NEW indicator for new items", true, new ConfigDescription("visual glitches like 2 coordinates loaded at once."));
             DisableCharaName = Config.Bind(Utilities.ConfigSectionTweaks, "Disable character name box in maker", true, new ConfigDescription("Hides the name box in the bottom right part of the maker, giving you a clearer look at the character."));
-            DisableHiddenTabs = Config.Bind(Utilities.ConfigSectionTweaks, "Deactivate hidden tabs in maker", SystemInfo.processorFrequency < 2700, new ConfigDescription("Major performance improvement at the cost of slower switching between tabs in maker.\nChanges take effect after maker restart."));
+            DisableHiddenTabs = Config.Bind(Utilities.ConfigSectionTweaks, "Disable hidden tabs in maker", true, new ConfigDescription("Major performance improvement in chara maker.\nRecommended to be used together with list virtualization, otherwise switching between tabs becomes slower.\nChanges take effect after maker restart."));
             ManageCursor = Config.Bind(Utilities.ConfigSectionTweaks, "Manage cursor in maker", true, new ConfigDescription("Lock and hide the cursor when moving the camera in maker."));
         }
 
