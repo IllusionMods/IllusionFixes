@@ -19,13 +19,24 @@ namespace IllusionFixes
         {
             internal static void InstallHooks()
             {
-                Harmony.CreateAndPatchAll(typeof(VirtualizeMakerLists));
+                var h = Harmony.CreateAndPatchAll(typeof(VirtualizeMakerLists));
+
+                // Moreaccs overrides one of the methods that we patch with its own patch, so the patch has to be patched as well
+                var moraccs = Type.GetType("MoreAccessoriesKOI.CustomAcsSelectKind_OnSelect_Patches, MoreAccessories");
+                if (moraccs != null)
+                {
+                    Console.WriteLine("patching moreaccs");
+                    var target = moraccs.GetMethod("Prefix", AccessTools.all);
+                    var fix = new HarmonyMethod(typeof(VirtualizeMakerLists), nameof(OnSelectFix));
+                    h.Patch(target, transpiler: fix);
+                }
             }
 
             private sealed class VirtualListData
             {
-                public int ItemsInRow { get; }
-                public int ItemsInColumn { get; }
+                public readonly int ItemsInRow;
+                public readonly int ItemHeight;
+
                 public List<CustomSelectInfoComponent> ItemCache { get; }
                 public List<CustomSelectInfo> ItemList { get; }
                 public RectTransform Content { get; }
@@ -35,24 +46,23 @@ namespace IllusionFixes
                 public CustomSelectInfo SelectedItem { get; set; }
                 public Dictionary<CustomSelectInfo, Sprite> ThumbCache { get; } = new Dictionary<CustomSelectInfo, Sprite>();
 
-                //todo can calculate item size by adding gridlayoutgroup cellsize and spacing
-                public readonly int ItemWidth = 120;
-                public readonly int ItemHeight = 120;
-
                 public int LastItemsAbove;
                 public bool IsDirty;
 
-                public VirtualListData(int itemsInRow, int itemsInColumn, List<CustomSelectInfoComponent> listEntryCache,
+                public VirtualListData(int itemsInRow, List<CustomSelectInfoComponent> listEntryCache,
                     RectTransform content, List<CustomSelectInfo> itemList)
                 {
                     ItemsInRow = itemsInRow;
-                    ItemsInColumn = itemsInColumn;
                     ItemCache = listEntryCache ?? throw new ArgumentNullException(nameof(listEntryCache));
                     ItemList = itemList ?? throw new ArgumentNullException(nameof(itemList));
 
                     if (!content) throw new ArgumentNullException(nameof(content));
                     Content = content;
                     LayoutGroup = content.GetComponent<GridLayoutGroup>();
+
+                    // Alternatively can be calculated by doing Mathf.RoundToInt(LayoutGroup.cellSize.x + LayoutGroup.spacing.x);
+                    ItemHeight = 120;
+
                     InitialTopPadding = LayoutGroup.padding.top;
                     InitialBotPadding = LayoutGroup.padding.bottom;
 
@@ -72,7 +82,7 @@ namespace IllusionFixes
                 {
                     if (!ThumbCache.TryGetValue(item, out var thumb) || thumb == null)
                     {
-                        var thumbTex = CommonLib.LoadAsset<Texture2D>(item.assetBundle, item.assetName, false, String.Empty);
+                        var thumbTex = CommonLib.LoadAsset<Texture2D>(item.assetBundle, item.assetName, false, string.Empty);
                         if (thumbTex)
                         {
                             thumb = Sprite.Create(thumbTex, new Rect(0f, 0f, thumbTex.width, thumbTex.height), new Vector2(0.5f, 0.5f));
@@ -214,7 +224,7 @@ namespace IllusionFixes
 
                 __instance.imgRaycast = spawnedItems.Select(x => x.img).ToArray();
 
-                _listCache[__instance] = new VirtualListData(itemsInRow, itemsInColumn, spawnedItems, ___objContent.GetComponent<RectTransform>(), ___lstSelectInfo);
+                _listCache[__instance] = new VirtualListData(itemsInRow, spawnedItems, ___objContent.GetComponent<RectTransform>(), ___lstSelectInfo);
 
                 return false;
             }
@@ -255,7 +265,7 @@ namespace IllusionFixes
 
             private static void ChangeItem(CustomSelectListCtrl __instance, CustomSelectInfo customSelectInfo)
             {
-                // todo not necessary? maybe better interop
+                // Calling original whenever possible is probably better for interop since any hooks will run
                 if (customSelectInfo.sic != null)
                 {
                     __instance.ChangeItem(customSelectInfo.sic.gameObject);
@@ -323,7 +333,7 @@ namespace IllusionFixes
             private static IEnumerable<CodeInstruction> OnSelectFix(IEnumerable<CodeInstruction> instructions)
             {
                 var getsprm = AccessTools.Property(typeof(Image), nameof(Image.sprite)).GetGetMethod() ?? throw new MemberNotFoundException("Image.sprite");
-                var replacem = AccessTools.Method(typeof(Hooks), nameof(GetThumbSpriteHook)) ?? throw new MemberNotFoundException("Hooks.GetThumbSpriteHook");
+                var replacem = AccessTools.Method(typeof(VirtualizeMakerLists), nameof(GetThumbSpriteHook)) ?? throw new MemberNotFoundException("GetThumbSpriteHook");
 
                 return new CodeMatcher(instructions)
                     .MatchForward(false,
@@ -346,7 +356,7 @@ namespace IllusionFixes
             private static IEnumerable<CodeInstruction> OnDisableFix(IEnumerable<CodeInstruction> instructions)
             {
                 var sicFld = AccessTools.Field(typeof(CustomSelectInfo), "sic") ?? throw new MemberNotFoundException("CustomSelectInfo.sic");
-                var replacem = AccessTools.Method(typeof(Hooks), nameof(MarkListDirty)) ?? throw new MemberNotFoundException("Hooks.TriggerDirtyHook");
+                var replacem = AccessTools.Method(typeof(VirtualizeMakerLists), nameof(MarkListDirty)) ?? throw new MemberNotFoundException("TriggerDirtyHook");
 
                 return new CodeMatcher(instructions)
                     .MatchForward(false,
@@ -366,12 +376,11 @@ namespace IllusionFixes
                 if (_listCache.TryGetValue(list, out var listData)) listData.IsDirty = true;
             }
 
-            private static Sprite GetThumbSpriteHook(CustomSelectInfo item, CustomSelectKind csk)
+            private static Sprite GetThumbSpriteHook(CustomSelectInfo item, MonoBehaviour csk)
             {
                 var list = Traverse.Create(csk).Field<CustomSelectListCtrl>("listCtrl").Value;
-                if (!_listCache.TryGetValue(list, out var listData)) return null;
-
-                return listData.GetThumbSprite(item);
+                _listCache.TryGetValue(list, out var listData);
+                return listData?.GetThumbSprite(item);
             }
         }
     }
