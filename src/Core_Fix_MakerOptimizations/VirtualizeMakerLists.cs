@@ -6,7 +6,6 @@ using ChaCustom;
 using HarmonyLib;
 using Illusion.Extensions;
 using Manager;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -288,8 +287,10 @@ namespace IllusionFixes
 
                 var tv = new Traverse(__instance);
                 tv.Field<string>("selectDrawName").Value = itemInfo.name;
-                var tmp = tv.Field<TextMeshProUGUI>("textDrawName").Value;
+#if KK
+                var tmp = tv.Field<TMPro.TextMeshProUGUI>("textDrawName").Value;
                 if (tmp) tmp.text = itemInfo.name;
+#endif
 
                 if (VirtualListData.IsItemNew(itemInfo))
                 {

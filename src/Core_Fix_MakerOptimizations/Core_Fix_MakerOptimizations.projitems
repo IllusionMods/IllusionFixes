@@ -12,5 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core.MakerOptimizations.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core.MakerOptimizations.Hooks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizeMakerLists.cs" />
   </ItemGroup>
 </Project>

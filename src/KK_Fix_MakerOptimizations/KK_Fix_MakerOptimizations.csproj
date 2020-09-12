@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KK.MakerOptimizations.cs" />
-    <Compile Include="VirtualizeMakerLists.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
