@@ -196,6 +196,9 @@ namespace IllusionFixes
                 // Figure out how many items fit in the window at most
                 // Need to use this specific RT because it's the most reliable
                 var windowRt = __instance.GetComponent<RectTransform>();
+
+                if (ListWidth.Value != 3) windowRt.sizeDelta += new Vector2((ListWidth.Value - 3) * 120, 0);
+
                 var itemsInRow = ((int)windowRt.rect.width - 33) / 120;
                 var itemsInColumn = ((int)windowRt.rect.height - 105) / 120 + 2;
                 var totalVisibleItems = itemsInRow * itemsInColumn;
