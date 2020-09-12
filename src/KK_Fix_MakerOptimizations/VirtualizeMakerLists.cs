@@ -237,9 +237,8 @@ namespace IllusionFixes
                     var itemInfo = listData.ItemList.Find(item => item.index == index);
                     if (itemInfo != null)
                     {
-                        listData.SelectedItem = itemInfo;
+                        ChangeItem(__instance, itemInfo, listData);
                         listData.UpdateSelection();
-                        ChangeItem(__instance, itemInfo);
                     }
                 }
 
@@ -254,36 +253,48 @@ namespace IllusionFixes
                     var itemInfo = listData.ItemList.Find(item => item.name == name);
                     if (itemInfo != null)
                     {
-                        listData.SelectedItem = itemInfo;
+                        ChangeItem(__instance, itemInfo, listData);
                         listData.UpdateSelection();
-                        ChangeItem(__instance, itemInfo);
                     }
                 }
 
                 return false;
             }
 
-            private static void ChangeItem(CustomSelectListCtrl __instance, CustomSelectInfo customSelectInfo)
+            [HarmonyPostfix, HarmonyPatch(typeof(CustomSelectListCtrl), nameof(CustomSelectListCtrl.ChangeItem), typeof(GameObject))]
+            private static void ListChangeItem(CustomSelectListCtrl __instance, GameObject obj)
+            {
+                // Capture which item is selected
+                if (_listCache.TryGetValue(__instance, out var listData))
+                {
+                    var itemInfo = listData.ItemList.Find(item => item.sic.gameObject == obj);
+                    listData.SelectedItem = itemInfo;
+                }
+            }
+
+            private static void ChangeItem(CustomSelectListCtrl __instance, CustomSelectInfo itemInfo, VirtualListData listData)
             {
                 // Calling original whenever possible is probably better for interop since any hooks will run
-                if (customSelectInfo.sic != null)
+                if (itemInfo.sic != null)
                 {
-                    __instance.ChangeItem(customSelectInfo.sic.gameObject);
+                    __instance.ChangeItem(itemInfo.sic.gameObject);
                     return;
                 }
 
-                __instance.onChangeItemFunc?.Invoke(customSelectInfo.index);
+                __instance.onChangeItemFunc?.Invoke(itemInfo.index);
 
                 var tv = new Traverse(__instance);
-                tv.Field<string>("selectDrawName").Value = customSelectInfo.name;
+                tv.Field<string>("selectDrawName").Value = itemInfo.name;
                 var tmp = tv.Field<TextMeshProUGUI>("textDrawName").Value;
-                if (tmp) tmp.text = customSelectInfo.name;
+                if (tmp) tmp.text = itemInfo.name;
 
-                if (VirtualListData.IsItemNew(customSelectInfo))
+                if (VirtualListData.IsItemNew(itemInfo))
                 {
-                    VirtualListData.MarkItemAsNotNew(customSelectInfo);
+                    VirtualListData.MarkItemAsNotNew(itemInfo);
                     MarkListDirty(__instance);
                 }
+
+                listData.SelectedItem = itemInfo;
             }
 
             [HarmonyPrefix, HarmonyPatch(typeof(CustomSelectListCtrl), nameof(CustomSelectListCtrl.UpdateStateNew))]
