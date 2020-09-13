@@ -93,7 +93,7 @@ namespace IllusionFixes
 
             // Clean up more aggresively during loading, less aggresively during gameplay
             var isLoading = GetIsNowLoadingFade();
-            var plentyOfMemory = mem.dwMemoryLoad < (isLoading ? 55 : 75);
+            var plentyOfMemory = mem.dwMemoryLoad < (isLoading ? 65 : 75);
             if (!plentyOfMemory) return false;
 
             Utilities.Logger.LogDebug($"Skipping cleanup because of low memory load ({mem.dwMemoryLoad}%)");
