@@ -1,4 +1,5 @@
-﻿using BepInEx;
+﻿using System;
+using BepInEx;
 using Common;
 
 namespace IllusionFixes
@@ -9,5 +10,10 @@ namespace IllusionFixes
     public partial class MakerOptimizations : BaseUnityPlugin
     {
         public const string GUID = "KK_Fix_MakerOptimizations";
+
+        private void Start()
+        {
+            TmpDropdownSpeedup.ApplyHooks();
+        }
     }
 }

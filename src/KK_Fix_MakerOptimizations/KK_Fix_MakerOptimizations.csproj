@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KK.MakerOptimizations.cs" />
+    <Compile Include="TmpDropdownSpeedup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
