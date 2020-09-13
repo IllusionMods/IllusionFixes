@@ -1,6 +1,5 @@
 ﻿using BepInEx.Configuration;
 using BepInEx.Harmony;
-using BepInEx.Logging;
 using Common;
 using HarmonyLib;
 using MonoMod.RuntimeDetour;
@@ -21,11 +20,14 @@ namespace IllusionFixes
         private float _waitTime;
 
         public static ConfigEntry<bool> DisableUnload { get; private set; }
+        public static ConfigEntry<bool> OptimizeMemoryUsage { get; private set; }
 
         internal void Awake()
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
+
             DisableUnload = Config.Bind(Utilities.ConfigSectionTweaks, "Disable Resource Unload", false, new ConfigDescription("Disables all resource unloading. Requires large amounts of RAM or will likely crash your game.", null, new ConfigurationManagerAttributes { IsAdvanced = true }));
+            OptimizeMemoryUsage = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Usage", true, new ConfigDescription("Use more memory (if available) in order to load the game faster and reduce random stutter."));
 
             StartCoroutine(CleanupCo());
 
@@ -65,9 +67,9 @@ namespace IllusionFixes
         private static AsyncOperation RunUnloadAssets()
         {
             // Only allow a single unload operation to run at one time
-            if (_currentOperation?.isDone != false)
+            if (_currentOperation == null || _currentOperation.isDone && !PlentyOfMemory())
             {
-                Utilities.Logger.Log(LogLevel.Debug, "Starting unused asset cleanup");
+                Utilities.Logger.LogDebug("Starting unused asset cleanup");
                 _currentOperation = _originalUnload();
             }
             return _currentOperation;
@@ -75,9 +77,38 @@ namespace IllusionFixes
 
         private static void RunGarbageCollect()
         {
-            Utilities.Logger.Log(LogLevel.Debug, "Starting full garbage collection");
+            if (PlentyOfMemory()) return;
+
+            Utilities.Logger.LogDebug("Starting full garbage collection");
             // Use different overload since we disable the parameterless one
             GC.Collect(GC.MaxGeneration);
+        }
+
+        private static bool PlentyOfMemory()
+        {
+            if (!OptimizeMemoryUsage.Value) return false;
+
+            var mem = MemoryInfo.GetCurrentStatus();
+            if (mem == null) return false;
+
+            // Clean up more aggresively during loading, less aggresively during gameplay
+            var isLoading = GetIsNowLoadingFade();
+            var plentyOfMemory = mem.dwMemoryLoad < (isLoading ? 55 : 75);
+            if (!plentyOfMemory) return false;
+
+            Utilities.Logger.LogDebug($"Skipping cleanup because of low memory load ({mem.dwMemoryLoad}%)");
+            return true;
+        }
+
+        private static bool GetIsNowLoadingFade()
+        {
+#if HS2
+            return Manager.Scene.IsNowLoadingFade;
+#elif PH
+            return true;
+#else
+            return Manager.Scene.Instance.IsNowLoadingFade;
+#endif
         }
 
         private static class Hooks
@@ -92,7 +123,7 @@ namespace IllusionFixes
                 return false;
             }
 
-            // Replacement methods needs to be inside a static class to be used in NativeDetour
+            // Replacement method needs to be inside a static class to be used in NativeDetour
             public static AsyncOperation UnloadUnusedAssetsHook()
             {
                 if (DisableUnload.Value)

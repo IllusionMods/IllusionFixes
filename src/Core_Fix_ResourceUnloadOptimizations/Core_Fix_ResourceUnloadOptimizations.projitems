@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MemoryInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core.ResourceUnloadOptimizations.cs" />
   </ItemGroup>
 </Project>
