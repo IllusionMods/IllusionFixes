@@ -269,7 +269,7 @@ namespace IllusionFixes
                 // Capture which item is selected
                 if (_listCache.TryGetValue(__instance, out var listData))
                 {
-                    var itemInfo = listData.ItemList.Find(item => item.sic.gameObject == obj);
+                    var itemInfo = listData.ItemList.Find(item => item.sic != null && item.sic.gameObject == obj);
                     listData.SelectedItem = itemInfo;
                 }
             }
