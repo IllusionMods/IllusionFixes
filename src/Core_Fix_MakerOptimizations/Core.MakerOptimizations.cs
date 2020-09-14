@@ -1,10 +1,12 @@
-﻿using BepInEx.Configuration;
+﻿using BepInEx;
+using BepInEx.Configuration;
 using Common;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace IllusionFixes
 {
+    [BepInDependency("com.joan6694.illusionplugins.moreaccessories", BepInDependency.DependencyFlags.SoftDependency)]
     public partial class MakerOptimizations
     {
         public const string PluginName = "Maker Optimizations";
