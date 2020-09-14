@@ -99,7 +99,7 @@ namespace IllusionFixes
 
                 public static bool IsItemNew(CustomSelectInfo item)
                 {
-                    return Singleton<Character>.Instance.chaListCtrl.CheckItemID(item.category, item.index) == 1;
+                    return !DisableNewIndicator.Value && Singleton<Character>.Instance.chaListCtrl.CheckItemID(item.category, item.index) == 1;
                 }
 
                 public static void MarkItemAsNotNew(CustomSelectInfo customSelectInfo)
