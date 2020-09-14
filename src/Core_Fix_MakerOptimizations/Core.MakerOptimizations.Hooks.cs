@@ -32,6 +32,13 @@ namespace IllusionFixes
                     typeof(Hooks).GetMethod(nameof(HarmonyPatch_CustomNewAnime_Update), AccessTools.all),
                     DisableNewAnimation);
 
+                if (DisableIKCalc.Value)
+                {
+                    var replace = typeof(CustomBase).GetMethod("UpdateIKCalc", AccessTools.all);
+                    var prefix = typeof(Hooks).GetMethod(nameof(HarmonyPatch_CustomBase_UpdateIKCalc), AccessTools.all);
+                    harmony.Patch(replace, new HarmonyMethod(prefix), null);
+                }
+
                 {
                     var replace = typeof(CustomScene).GetMethod("Start", AccessTools.all);
                     var prefix = typeof(Hooks).GetMethod(nameof(MakerStartHook), AccessTools.all);
@@ -58,6 +65,9 @@ namespace IllusionFixes
 
             // Disable indicator for new items
             private static void HarmonyPatch_CustomSelectInfoComponent_Disvisible(CustomSelectInfoComponent __instance) => __instance.objNew.SetActiveIfDifferent(false);
+
+            // Disable IK updates in maker to prevent chicken chikas when using ABMX modifiers
+            private static bool HarmonyPatch_CustomBase_UpdateIKCalc() => false;
 
             public static void MakerStartHook(CustomScene __instance) => __instance.StartCoroutine(OnMakerLoaded());
 
