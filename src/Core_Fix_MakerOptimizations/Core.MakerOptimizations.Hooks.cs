@@ -32,13 +32,6 @@ namespace IllusionFixes
                     typeof(Hooks).GetMethod(nameof(HarmonyPatch_CustomNewAnime_Update), AccessTools.all),
                     DisableNewAnimation);
 
-                if (DisableIKCalc.Value)
-                {
-                    var replace = typeof(CustomBase).GetMethod("UpdateIKCalc", AccessTools.all);
-                    var prefix = typeof(Hooks).GetMethod(nameof(HarmonyPatch_CustomBase_UpdateIKCalc), AccessTools.all);
-                    harmony.Patch(replace, new HarmonyMethod(prefix), null);
-                }
-
                 {
                     var replace = typeof(CustomScene).GetMethod("Start", AccessTools.all);
                     var prefix = typeof(Hooks).GetMethod(nameof(MakerStartHook), AccessTools.all);
@@ -65,9 +58,6 @@ namespace IllusionFixes
 
             // Disable indicator for new items
             private static void HarmonyPatch_CustomSelectInfoComponent_Disvisible(CustomSelectInfoComponent __instance) => __instance.objNew.SetActiveIfDifferent(false);
-
-            // Disable IK updates in maker to prevent chicken chikas when using ABMX modifiers
-            private static bool HarmonyPatch_CustomBase_UpdateIKCalc() => false;
 
             public static void MakerStartHook(CustomScene __instance) => __instance.StartCoroutine(OnMakerLoaded());
 
@@ -220,7 +210,10 @@ namespace IllusionFixes
             [HarmonyPrefix, HarmonyPatch(typeof(CustomBase), nameof(CustomBase.UpdateIKCalc))]
             public static bool FixIKSpam(CustomBase __instance)
             {
-                if(__instance.motionIK != null && (lastAnimeStateName != __instance.animeStateName | UpdateIKCalc_manualRun))
+                // Disable IK updates in maker to prevent chicken chikas when using ABMX modifiers
+                if (DisableIKCalc.Value) return false;
+
+                if (__instance.motionIK != null && (lastAnimeStateName != __instance.animeStateName | UpdateIKCalc_manualRun))
                 {
                     UpdateIKCalc_manualRun = false;
                     lastAnimeStateName = __instance.animeStateName;
