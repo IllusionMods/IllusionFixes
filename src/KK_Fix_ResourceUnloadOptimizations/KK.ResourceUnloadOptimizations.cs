@@ -30,7 +30,7 @@ namespace IllusionFixes
             [HarmonyPatch(typeof(GUILayoutUtility), "Begin")]
             private static IEnumerable<CodeInstruction> FixOnguiGarbageDump(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
             {
-                var luT = AccessTools.TypeByName("UnityEngine.GUILayoutUtility") ?? throw new MissingMemberException("AccessTools.TypeByName(\"UnityEngine.GUILayoutUtility\")");
+               var luT = AccessTools.TypeByName("UnityEngine.GUILayoutUtility") ?? throw new MissingMemberException("AccessTools.TypeByName(\"UnityEngine.GUILayoutUtility\")");
                 var lcT = luT.GetNestedType("LayoutCache", AccessTools.all) ?? throw new MissingMemberException("luT.GetNestedType(\"LayoutCache\", AccessTools.all)");
                 var topF = AccessTools.Field(lcT, "topLevel") ?? throw new MissingMemberException("AccessTools.Field(lcT, \"topLevel\")");
                 var winF = AccessTools.Field(lcT, "windows") ?? throw new MissingMemberException("AccessTools.Field(lcT, \"windows\")");
@@ -41,11 +41,24 @@ namespace IllusionFixes
                 var entrT = AccessTools.TypeByName("UnityEngine.GUILayoutEntry") ?? throw new MissingMemberException("AccessTools.TypeByName(\"UnityEngine.GUILayoutEntry\")");
                 var entrClearM = AccessTools.Method(typeof(List<>).MakeGenericType(entrT), "Clear");
 
+                var sltID = AccessTools.Method(luT, "SelectIDList");
+                var curP = AccessTools.PropertyGetter(typeof(UnityEngine.Event), "current");
+                var typeP = AccessTools.PropertyGetter(typeof(UnityEngine.Event), "type");
+
+                var l0 = generator.DefineLabel();
                 var l1 = generator.DefineLabel();
                 var l2 = generator.DefineLabel();
 
                 var replacementInstr = new List<CodeInstruction>
                 {
+                    new CodeInstruction(OpCodes.Ldarg_0),
+                    new CodeInstruction(OpCodes.Ldc_I4_0),
+                    new CodeInstruction(OpCodes.Call, sltID),
+                    new CodeInstruction(OpCodes.Stloc_0),
+                    new CodeInstruction(OpCodes.Call, curP),
+                    new CodeInstruction(OpCodes.Callvirt, typeP),
+                    new CodeInstruction(OpCodes.Ldc_I4_8),
+                    new CodeInstruction(OpCodes.Bne_Un_S, l0),
                     new CodeInstruction(OpCodes.Ldloc_0                                                           ),
                     new CodeInstruction(OpCodes.Ldfld    , topF                                                   ),
                     new CodeInstruction(OpCodes.Brtrue_S , l1                                                     ),
@@ -78,24 +91,28 @@ namespace IllusionFixes
                     new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ),
                     new CodeInstruction(OpCodes.Ldfld    , topF                                                   ),
                     new CodeInstruction(OpCodes.Callvirt ,AccessTools.Method(typeof(Stack), nameof(Stack.Push))   ),
-                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ),
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ),
-                    new CodeInstruction(OpCodes.Ldfld    , winF                                                   ),
-                    new CodeInstruction(OpCodes.Stfld    , winF                                                   ),
                     new CodeInstruction(OpCodes.Ret                                                               ),
+                    new CodeInstruction(OpCodes.Ldsfld, curF){ labels = new List<Label>{l0}}
                 };
 
                 var instr = instructions.ToList();
+                var c = 0;
+                for (int i = instr.Count - 1; i >= 0; i--)
+                {
+                    c = c + Convert.ToInt32(instr[i].opcode == OpCodes.Ldsfld);
+                    if (c == 3)
+                    {
+                        for (int j = i + 1; j < instr.Count; j++)
+                        {
+                            replacementInstr.Add(instr[j]);
+                        }
+                        break;
+                    }
+                }
 
-                var start = instr.FindIndex(x => x.opcode == OpCodes.Bne_Un);
-                if (start < 0) throw new MissingMemberException("OpCodes.Bne_Un");
-                var end = instr.FindIndex(x => x.opcode == OpCodes.Br);
-                if (end < 0) throw new MissingMemberException("OpCodes.Br");
-
-                instr.RemoveRange(start + 1, end - start);
-                instr.InsertRange(start + 1, replacementInstr);
-
-                return instr;
+                if (c != 3) throw new InvalidOperationException("IL footprint does not match expected?");
+                UnityEngine.Debug.Log("IMGUI Patch done");
+                return replacementInstr;
             }
 
             [HarmonyPrefix]
