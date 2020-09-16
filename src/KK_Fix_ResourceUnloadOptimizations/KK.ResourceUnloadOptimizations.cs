@@ -37,41 +37,52 @@ namespace IllusionFixes
                 var curF = AccessTools.Field(luT, "current") ?? throw new MissingMemberException("AccessTools.Field(luT, \"current\")");
                 var lgF = AccessTools.Field(lcT, "layoutGroups") ?? throw new MissingMemberException("AccessTools.Field(lcT, \"layoutGroups\")");
                 var lgT = AccessTools.TypeByName("UnityEngine.GUILayoutGroup") ?? throw new MissingMemberException("AccessTools.TypeByName(\"UnityEngine.GUILayoutGroup\")");
+                var entrF = AccessTools.Field(lgT, "entries") ?? throw new MissingMemberException("AccessTools.Field(lgT, \"entries\")");
+                var entrT = AccessTools.TypeByName("UnityEngine.GUILayoutEntry") ?? throw new MissingMemberException("AccessTools.TypeByName(\"UnityEngine.GUILayoutEntry\")");
+                var entrClearM = AccessTools.Method(typeof(List<>).MakeGenericType(entrT), "Clear");
 
                 var l1 = generator.DefineLabel();
                 var l2 = generator.DefineLabel();
 
                 var replacementInstr = new List<CodeInstruction>
                 {
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ), //8
-                    new CodeInstruction(OpCodes.Ldfld    , topF                                                   ), //9
-                    new CodeInstruction(OpCodes.Brtrue_S , l1                                                     ), //10
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ), //11
-                    new CodeInstruction(OpCodes.Newobj   , AccessTools.Constructor(lgT, new Type[0])              ), //12 -> 14
-                    new CodeInstruction(OpCodes.Stfld    , topF                                                   ), //13
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ){ labels = new List<Label>{l1}}, //14
-                    new CodeInstruction(OpCodes.Ldfld    , winF                                                   ), //15
-                    new CodeInstruction(OpCodes.Brtrue_S , l2                                                     ), //16 -> 20
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ), //17
-                    new CodeInstruction(OpCodes.Newobj   , AccessTools.Constructor(lgT, new Type[0])              ), //18
-                    new CodeInstruction(OpCodes.Stfld    , winF                                                   ), //19
-                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ){ labels = new List<Label>{l2}}, //20
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ), //21
-                    new CodeInstruction(OpCodes.Ldfld    , topF                                                   ), //22
-                    new CodeInstruction(OpCodes.Stfld    , topF                                                   ), //23
-                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ), //24
-                    new CodeInstruction(OpCodes.Ldfld    , lgF                                                    ), //25
-                    new CodeInstruction(OpCodes.Callvirt , AccessTools.Method(typeof(Stack), nameof(Stack.Clear)) ), //26
-                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ), //27
-                    new CodeInstruction(OpCodes.Ldfld    , lgF                                                    ), //28
-                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ), //29
-                    new CodeInstruction(OpCodes.Ldfld    , topF                                                   ), //30
-                    new CodeInstruction(OpCodes.Callvirt ,AccessTools.Method(typeof(Stack), nameof(Stack.Push))   ), //31
-                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ), //32
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ), //33
-                    new CodeInstruction(OpCodes.Ldfld    , winF                                                   ), //34
-                    new CodeInstruction(OpCodes.Stfld    , winF                                                   ), //35
-                    new CodeInstruction(OpCodes.Ret                                                               ), //36
+                    new CodeInstruction(OpCodes.Ldloc_0                                                           ),
+                    new CodeInstruction(OpCodes.Ldfld    , topF                                                   ),
+                    new CodeInstruction(OpCodes.Brtrue_S , l1                                                     ),
+                    new CodeInstruction(OpCodes.Ldloc_0                                                           ),
+                    new CodeInstruction(OpCodes.Newobj   , AccessTools.Constructor(lgT, new Type[0])              ),
+                    new CodeInstruction(OpCodes.Stfld    , topF                                                   ),
+                    new CodeInstruction(OpCodes.Ldloc_0                                                           ), 
+                    new CodeInstruction(OpCodes.Ldfld	 , topF                                                   ),
+                    new CodeInstruction(OpCodes.Ldfld	 , entrF                                                  ),
+                    new CodeInstruction(OpCodes.Callvirt , entrClearM                                             ),
+                    new CodeInstruction(OpCodes.Ldloc_0                                                           ){ labels = new List<Label>{l1}}, 
+                    new CodeInstruction(OpCodes.Ldfld    , winF                                                   ),
+                    new CodeInstruction(OpCodes.Brtrue_S , l2                                                     ),
+                    new CodeInstruction(OpCodes.Ldloc_0                                                           ),
+                    new CodeInstruction(OpCodes.Newobj   , AccessTools.Constructor(lgT, new Type[0])              ),
+                    new CodeInstruction(OpCodes.Stfld    , winF                                                   ),
+                    new CodeInstruction(OpCodes.Ldloc_0                                                           ), 
+                    new CodeInstruction(OpCodes.Ldfld	 , winF                                                   ),
+                    new CodeInstruction(OpCodes.Ldfld	 , entrF                                                  ),
+                    new CodeInstruction(OpCodes.Callvirt , entrClearM                                             ),
+                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ){ labels = new List<Label>{l2}}, 
+                    new CodeInstruction(OpCodes.Ldloc_0                                                           ),
+                    new CodeInstruction(OpCodes.Ldfld    , topF                                                   ),
+                    new CodeInstruction(OpCodes.Stfld    , topF                                                   ),
+                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ),
+                    new CodeInstruction(OpCodes.Ldfld    , lgF                                                    ),
+                    new CodeInstruction(OpCodes.Callvirt , AccessTools.Method(typeof(Stack), nameof(Stack.Clear)) ),
+                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ),
+                    new CodeInstruction(OpCodes.Ldfld    , lgF                                                    ),
+                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ),
+                    new CodeInstruction(OpCodes.Ldfld    , topF                                                   ),
+                    new CodeInstruction(OpCodes.Callvirt ,AccessTools.Method(typeof(Stack), nameof(Stack.Push))   ),
+                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ),
+                    new CodeInstruction(OpCodes.Ldloc_0                                                           ),
+                    new CodeInstruction(OpCodes.Ldfld    , winF                                                   ),
+                    new CodeInstruction(OpCodes.Stfld    , winF                                                   ),
+                    new CodeInstruction(OpCodes.Ret                                                               ),
                 };
 
                 var instr = instructions.ToList();
