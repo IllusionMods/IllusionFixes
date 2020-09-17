@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
 using BepInEx;
 using Common;
@@ -28,6 +29,104 @@ namespace IllusionFixes
 
         private static class AntiTrashHooks
         {
+#if KK
+            /// <summary>
+            /// Runs many times per frame, heavy allocations because of linq
+            /// </summary>
+            [HarmonyPrefix, HarmonyPatch(typeof(Studio.CameraControl), "OnTriggerStay")]
+            internal static bool OnTriggerStayPrefix(Collider other, List<Collider> ___listCollider, int ___m_MapLayer)
+            {
+                if (!(other == null) && (___m_MapLayer & (1 << other.gameObject.layer)) != 0)
+                    if (!___listCollider.Contains(other))
+                        ___listCollider.Add(other);
+                return false;
+            }
+#endif
+
+            [HarmonyTranspiler]
+            [HarmonyPatch(typeof(EyeLookCalc), nameof(EyeLookCalc.EyeUpdateCalc))]
+            private static IEnumerable<CodeInstruction> FixUpdateCalcGarbage(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+            {
+                var c = new CodeMatcher(instructions, generator);
+                // Remove unnecessary new object creation that gets immediately overwritten
+                return c.MatchForward(false,
+                        new CodeMatch(OpCodes.Newobj),
+                        new CodeMatch(OpCodes.Stloc_1),
+                        new CodeMatch(OpCodes.Ldarg_0),
+                        new CodeMatch(OpCodes.Ldfld))
+                    .RemoveInstruction()
+                    .RemoveInstruction()
+                    .Instructions();
+            }
+
+            /// <summary>
+            /// Replace method to get rid of creating many new collections
+            /// </summary>
+            private static readonly ChaFileDefine.SiruParts[] _siruParts = {
+                ChaFileDefine.SiruParts.SiruFrontUp,
+                ChaFileDefine.SiruParts.SiruFrontDown,
+                ChaFileDefine.SiruParts.SiruBackUp,
+                ChaFileDefine.SiruParts.SiruBackDown
+            };
+            private static readonly MethodInfo _siruNewM = AccessTools.Property(typeof(ChaControl), "siruNewLv").GetGetMethod(true);
+            [HarmonyPrefix]
+            [HarmonyPatch(typeof(ChaControl), "UpdateSiru")]
+            private static bool UpdateSiru(ChaControl __instance, ref bool __result, bool forceChange)
+            {
+                if (!__instance.hiPoly)
+                {
+                    return true;
+                }
+
+                var siruNewLv = (byte[])_siruNewM.Invoke(__instance, null);
+
+                if (__instance.customMatFace != null)
+                {
+                    if (forceChange || __instance.fileStatus.siruLv[0] != siruNewLv[0])
+                    {
+                        __instance.fileStatus.siruLv[0] = siruNewLv[0];
+                        __instance.customMatFace.SetFloat(ChaShader._liquidface, (float)__instance.fileStatus.siruLv[0]);
+                    }
+                }
+
+                if (__instance.customMatBody != null)
+                {
+                    var anyChanged = false;
+                    for (var i = 0; i < _siruParts.Length; i++)
+                    {
+                        if (forceChange || __instance.fileStatus.siruLv[(int)_siruParts[i]] != siruNewLv[(int)_siruParts[i]])
+                        {
+                            anyChanged = true;
+                            __instance.fileStatus.siruLv[(int)_siruParts[i]] = siruNewLv[(int)_siruParts[i]];
+                        }
+                    }
+                    if (anyChanged)
+                    {
+                        __instance.customMatBody.SetFloat(ChaShader._liquidftop, __instance.fileStatus.siruLv[(int)_siruParts[0]]);
+                        __instance.customMatBody.SetFloat(ChaShader._liquidfbot, __instance.fileStatus.siruLv[(int)_siruParts[1]]);
+                        __instance.customMatBody.SetFloat(ChaShader._liquidbtop, __instance.fileStatus.siruLv[(int)_siruParts[2]]);
+                        __instance.customMatBody.SetFloat(ChaShader._liquidbbot, __instance.fileStatus.siruLv[(int)_siruParts[3]]);
+
+                        UpdateClothesSiru(__instance, 0);
+                        UpdateClothesSiru(__instance, 1);
+                        UpdateClothesSiru(__instance, 2);
+                        UpdateClothesSiru(__instance, 3);
+                        UpdateClothesSiru(__instance, 5);
+                    }
+                }
+
+                __result = true;
+                return false;
+            }
+            private static void UpdateClothesSiru(ChaControl __instance, int j)
+            {
+                __instance.UpdateClothesSiru(j,
+                    __instance.fileStatus.siruLv[(int)_siruParts[0]],
+                    __instance.fileStatus.siruLv[(int)_siruParts[1]],
+                    __instance.fileStatus.siruLv[(int)_siruParts[2]],
+                    __instance.fileStatus.siruLv[(int)_siruParts[3]]);
+            }
+
             /// <summary>
             /// This hook fixes the mere existence of OnGUI code generating a ton of unnecessary garbage
             /// </summary>
@@ -136,7 +235,7 @@ namespace IllusionFixes
             }
             [HarmonyPrefix]
             [HarmonyPatch(typeof(Scene), nameof(Scene.IsNowLoading), MethodType.Getter)]
-            private static bool GarbagelessIsNowLoading(Stack<Scene.Data> ___loadStack, Scene.SceneStack<Scene.Data> ___sceneStack ,ref bool __result)
+            private static bool GarbagelessIsNowLoading(Stack<Scene.Data> ___loadStack, Scene.SceneStack<Scene.Data> ___sceneStack, ref bool __result)
             {
                 if (___loadStack.Count > 0)
                 {
