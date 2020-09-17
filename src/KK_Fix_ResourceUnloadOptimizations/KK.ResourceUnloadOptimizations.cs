@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using BepInEx;
 using Common;
+using FBSAssist;
 using HarmonyLib;
 using UnityEngine;
 using MissingMemberException = System.MissingMemberException;
@@ -26,11 +27,15 @@ namespace IllusionFixes
 
         private static class AntiTrashHooks
         {
+            /// <summary>
+            /// This hook fixes the mere existence of OnGUI code generating a ton of unnecessary garbage
+            /// </summary>
             [HarmonyTranspiler]
             [HarmonyPatch(typeof(GUILayoutUtility), "Begin")]
-            private static IEnumerable<CodeInstruction> FixOnguiGarbageDump(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+            private static IEnumerable<CodeInstruction> FixOnguiGarbageDump(IEnumerable<CodeInstruction> instructions,
+                ILGenerator generator)
             {
-               var luT = AccessTools.TypeByName("UnityEngine.GUILayoutUtility") ?? throw new MissingMemberException("AccessTools.TypeByName(\"UnityEngine.GUILayoutUtility\")");
+                var luT = AccessTools.TypeByName("UnityEngine.GUILayoutUtility") ?? throw new MissingMemberException("AccessTools.TypeByName(\"UnityEngine.GUILayoutUtility\")");
                 var lcT = luT.GetNestedType("LayoutCache", AccessTools.all) ?? throw new MissingMemberException("luT.GetNestedType(\"LayoutCache\", AccessTools.all)");
                 var topF = AccessTools.Field(lcT, "topLevel") ?? throw new MissingMemberException("AccessTools.Field(lcT, \"topLevel\")");
                 var winF = AccessTools.Field(lcT, "windows") ?? throw new MissingMemberException("AccessTools.Field(lcT, \"windows\")");
@@ -59,40 +64,40 @@ namespace IllusionFixes
                     new CodeInstruction(OpCodes.Callvirt, typeP),
                     new CodeInstruction(OpCodes.Ldc_I4_8),
                     new CodeInstruction(OpCodes.Bne_Un_S, l0),
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ),
-                    new CodeInstruction(OpCodes.Ldfld    , topF                                                   ),
-                    new CodeInstruction(OpCodes.Brtrue_S , l1                                                     ),
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ),
-                    new CodeInstruction(OpCodes.Newobj   , AccessTools.Constructor(lgT, new Type[0])              ),
-                    new CodeInstruction(OpCodes.Stfld    , topF                                                   ),
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ){ labels = new List<Label>{l1}}, 
-                    new CodeInstruction(OpCodes.Ldfld	 , topF                                                   ),
-                    new CodeInstruction(OpCodes.Ldfld	 , entrF                                                  ),
-                    new CodeInstruction(OpCodes.Callvirt , entrClearM                                             ),
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ),
-                    new CodeInstruction(OpCodes.Ldfld    , winF                                                   ),
-                    new CodeInstruction(OpCodes.Brtrue_S , l2                                                     ),
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ),
-                    new CodeInstruction(OpCodes.Newobj   , AccessTools.Constructor(lgT, new Type[0])              ),
-                    new CodeInstruction(OpCodes.Stfld    , winF                                                   ),
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ){ labels = new List<Label>{l2}},
-                    new CodeInstruction(OpCodes.Ldfld	 , winF                                                   ),
-                    new CodeInstruction(OpCodes.Ldfld	 , entrF                                                  ),
-                    new CodeInstruction(OpCodes.Callvirt , entrClearM                                             ),
-                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ),
-                    new CodeInstruction(OpCodes.Ldloc_0                                                           ),
-                    new CodeInstruction(OpCodes.Ldfld    , topF                                                   ),
-                    new CodeInstruction(OpCodes.Stfld    , topF                                                   ),
-                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ),
-                    new CodeInstruction(OpCodes.Ldfld    , lgF                                                    ),
-                    new CodeInstruction(OpCodes.Callvirt , AccessTools.Method(typeof(Stack), nameof(Stack.Clear)) ),
-                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ),
-                    new CodeInstruction(OpCodes.Ldfld    , lgF                                                    ),
-                    new CodeInstruction(OpCodes.Ldsfld   , curF                                                   ),
-                    new CodeInstruction(OpCodes.Ldfld    , topF                                                   ),
-                    new CodeInstruction(OpCodes.Callvirt ,AccessTools.Method(typeof(Stack), nameof(Stack.Push))   ),
-                    new CodeInstruction(OpCodes.Ret                                                               ),
-                    new CodeInstruction(OpCodes.Ldsfld, curF){ labels = new List<Label>{l0}}
+                    new CodeInstruction(OpCodes.Ldloc_0),
+                    new CodeInstruction(OpCodes.Ldfld, topF),
+                    new CodeInstruction(OpCodes.Brtrue_S, l1),
+                    new CodeInstruction(OpCodes.Ldloc_0),
+                    new CodeInstruction(OpCodes.Newobj, AccessTools.Constructor(lgT, new Type[0])),
+                    new CodeInstruction(OpCodes.Stfld, topF),
+                    new CodeInstruction(OpCodes.Ldloc_0) {labels = new List<Label> {l1}},
+                    new CodeInstruction(OpCodes.Ldfld, topF),
+                    new CodeInstruction(OpCodes.Ldfld, entrF),
+                    new CodeInstruction(OpCodes.Callvirt, entrClearM),
+                    new CodeInstruction(OpCodes.Ldloc_0),
+                    new CodeInstruction(OpCodes.Ldfld, winF),
+                    new CodeInstruction(OpCodes.Brtrue_S, l2),
+                    new CodeInstruction(OpCodes.Ldloc_0),
+                    new CodeInstruction(OpCodes.Newobj, AccessTools.Constructor(lgT, new Type[0])),
+                    new CodeInstruction(OpCodes.Stfld, winF),
+                    new CodeInstruction(OpCodes.Ldloc_0) {labels = new List<Label> {l2}},
+                    new CodeInstruction(OpCodes.Ldfld, winF),
+                    new CodeInstruction(OpCodes.Ldfld, entrF),
+                    new CodeInstruction(OpCodes.Callvirt, entrClearM),
+                    new CodeInstruction(OpCodes.Ldsfld, curF),
+                    new CodeInstruction(OpCodes.Ldloc_0),
+                    new CodeInstruction(OpCodes.Ldfld, topF),
+                    new CodeInstruction(OpCodes.Stfld, topF),
+                    new CodeInstruction(OpCodes.Ldsfld, curF),
+                    new CodeInstruction(OpCodes.Ldfld, lgF),
+                    new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(Stack), nameof(Stack.Clear))),
+                    new CodeInstruction(OpCodes.Ldsfld, curF),
+                    new CodeInstruction(OpCodes.Ldfld, lgF),
+                    new CodeInstruction(OpCodes.Ldsfld, curF),
+                    new CodeInstruction(OpCodes.Ldfld, topF),
+                    new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(Stack), nameof(Stack.Push))),
+                    new CodeInstruction(OpCodes.Ret),
+                    new CodeInstruction(OpCodes.Ldsfld, curF) {labels = new List<Label> {l0}}
                 };
 
                 var instr = instructions.ToList();
@@ -103,9 +108,7 @@ namespace IllusionFixes
                     if (c == 3)
                     {
                         for (int j = i + 1; j < instr.Count; j++)
-                        {
                             replacementInstr.Add(instr[j]);
-                        }
                         break;
                     }
                 }
@@ -115,6 +118,9 @@ namespace IllusionFixes
                 return replacementInstr;
             }
 
+            /// <summary>
+            /// Prevent creating new HsvColor object and promptly discarding it on each call
+            /// </summary>
             [HarmonyPrefix]
             [HarmonyPatch(typeof(HsvColor), nameof(HsvColor.ToRgb), typeof(float), typeof(float), typeof(float))]
             private static bool GarbagelessToRgb(ref Color __result, float h, float s, float v)
@@ -153,7 +159,97 @@ namespace IllusionFixes
                     default:
                         return true;
                 }
+
                 return false;
+            }
+
+            /// <summary>
+            /// Fix new Dictionary spam that caused massive allocations and garbage pileup
+            /// </summary>
+            private static readonly List<bool> _blendIdCache = new List<bool>();
+            private static readonly List<float> _blendValueCache = new List<float>();
+            [HarmonyPrefix]
+            [HarmonyPatch(typeof(FBSBase), nameof(FBSBase.CalculateBlendShape))]
+            public static bool CalculateBlendShape(FBSBase __instance, float ___correctOpenMax, float ___openRate,
+                TimeProgressCtrl ___blendTimeCtrl, Dictionary<int, float> ___dictBackFace,
+                Dictionary<int, float> ___dictNowFace)
+            {
+                if (__instance.FBSTarget.Length == 0) return false;
+
+                var openMax = ___correctOpenMax >= 0f ? ___correctOpenMax : __instance.OpenMax;
+                var lerpOpenRate = Mathf.Lerp(__instance.OpenMin, openMax, ___openRate);
+                if (0f <= __instance.FixedRate) lerpOpenRate = __instance.FixedRate;
+
+                var rate = 0f;
+                if (___blendTimeCtrl != null) rate = ___blendTimeCtrl.Calculate();
+
+                retry:
+                try
+                {
+                    for (var index = 0; index < __instance.FBSTarget.Length; index++)
+                    {
+                        for (var i = 0; i < _blendIdCache.Count; i++)
+                        {
+                            _blendIdCache[i] = false;
+                            _blendValueCache[i] = 0f;
+                        }
+
+                        var targetInfo = __instance.FBSTarget[index];
+                        var skinnedMeshRenderer = targetInfo.GetSkinnedMeshRenderer();
+
+                        var percent = (int)Mathf.Clamp(lerpOpenRate * 100f, 0f, 100f);
+
+                        for (var j = 0; j < targetInfo.PtnSet.Length; j++)
+                        {
+                            var ptnSet = targetInfo.PtnSet[j];
+                            var resultClose = 0f;
+                            var resultOpen = 0f;
+
+                            if (rate != 1f)
+                            {
+                                if (___dictBackFace.TryGetValue(j, out var valueBack))
+                                {
+                                    resultClose += valueBack * (100 - percent) * (1f - rate);
+                                    resultOpen += valueBack * percent * (1f - rate);
+                                }
+                            }
+
+                            if (___dictNowFace.TryGetValue(j, out var valueNow))
+                            {
+                                resultClose += valueNow * (100 - percent) * rate;
+                                resultOpen += valueNow * percent * rate;
+                            }
+
+                            if (ptnSet.Close >= 0)
+                            {
+                                _blendIdCache[ptnSet.Close] = true;
+                                _blendValueCache[ptnSet.Close] += resultClose;
+                            }
+                            if (ptnSet.Open >= 0)
+                            {
+                                _blendIdCache[ptnSet.Open] = true;
+                                _blendValueCache[ptnSet.Open] += resultOpen;
+                            }
+                        }
+
+                        for (var i = 0; i < _blendIdCache.Count; i++)
+                        {
+                            if (_blendIdCache[i])
+                            {
+                                skinnedMeshRenderer.SetBlendShapeWeight(i, _blendValueCache[i]);
+                            }
+                        }
+                    }
+
+                    return false;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    UnityEngine.Debug.Log("Increasing blend ID cache size");
+                    _blendIdCache.AddRange(Enumerable.Repeat(false, 50));
+                    _blendValueCache.AddRange(Enumerable.Repeat(0f, 50));
+                    goto retry;
+                }
             }
         }
     }
