@@ -7,6 +7,7 @@ using BepInEx;
 using Common;
 using FBSAssist;
 using HarmonyLib;
+using Manager;
 using UnityEngine;
 using MissingMemberException = System.MissingMemberException;
 
@@ -47,8 +48,8 @@ namespace IllusionFixes
                 var entrClearM = AccessTools.Method(typeof(List<>).MakeGenericType(entrT), "Clear");
 
                 var sltID = AccessTools.Method(luT, "SelectIDList");
-                var curP = AccessTools.PropertyGetter(typeof(UnityEngine.Event), "current");
-                var typeP = AccessTools.PropertyGetter(typeof(UnityEngine.Event), "type");
+                var curP = AccessTools.PropertyGetter(typeof(Event), "current");
+                var typeP = AccessTools.PropertyGetter(typeof(Event), "type");
 
                 var l0 = generator.DefineLabel();
                 var l1 = generator.DefineLabel();
@@ -102,12 +103,12 @@ namespace IllusionFixes
 
                 var instr = instructions.ToList();
                 var c = 0;
-                for (int i = instr.Count - 1; i >= 0; i--)
+                for (var i = instr.Count - 1; i >= 0; i--)
                 {
                     c = c + Convert.ToInt32(instr[i].opcode == OpCodes.Ldsfld);
                     if (c == 3)
                     {
-                        for (int j = i + 1; j < instr.Count; j++)
+                        for (var j = i + 1; j < instr.Count; j++)
                             replacementInstr.Add(instr[j]);
                         break;
                     }
@@ -116,6 +117,46 @@ namespace IllusionFixes
                 if (c != 3) throw new InvalidOperationException("IL footprint does not match expected?");
                 UnityEngine.Debug.Log("IMGUI Patch done");
                 return replacementInstr;
+            }
+
+            [HarmonyPrefix]
+            [HarmonyPatch(typeof(Scene), nameof(Scene.IsOverlap), MethodType.Getter)]
+            private static bool GarbagelessOverlap(Scene.SceneStack<Scene.Data> ___sceneStack, ref bool __result)
+            {
+                __result = ___sceneStack.Count > 0 && ___sceneStack.Peek().isOverlap;
+                return false;
+            }
+            [HarmonyPrefix]
+            [HarmonyPatch(typeof(Scene), nameof(Scene.LoadSceneName), MethodType.Getter)]
+            private static bool GarbagelessLoadSceneName(Scene.SceneStack<Scene.Data> ___sceneStack, ref string __result)
+            {
+                var nameList = ___sceneStack.NowSceneNameList;
+                __result = nameList[nameList.Count - 1];
+                return false;
+            }
+            [HarmonyPrefix]
+            [HarmonyPatch(typeof(Scene), nameof(Scene.IsNowLoading), MethodType.Getter)]
+            private static bool GarbagelessIsNowLoading(Stack<Scene.Data> ___loadStack, Scene.SceneStack<Scene.Data> ___sceneStack ,ref bool __result)
+            {
+                if (___loadStack.Count > 0)
+                {
+                    __result = true;
+                    return false;
+                }
+                foreach (var data in ___sceneStack)
+                {
+                    if (data.isLoading)
+                    {
+                        __result = true;
+                        break;
+                    }
+                    if (data.operation != null && !data.operation.isDone)
+                    {
+                        __result = true;
+                        break;
+                    }
+                }
+                return false;
             }
 
             /// <summary>
