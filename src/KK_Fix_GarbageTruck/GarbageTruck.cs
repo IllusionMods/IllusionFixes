@@ -8,6 +8,7 @@ using BepInEx;
 using Common;
 using FBSAssist;
 using HarmonyLib;
+using ILSetUtility.TimeUtility;
 using Manager;
 using UnityEngine;
 
@@ -212,6 +213,19 @@ namespace IllusionFixes
                 if (c != 3) throw new InvalidOperationException("IL footprint does not match expected?");
                 UnityEngine.Debug.Log("IMGUI Patch done");
                 return replacementInstr;
+            }
+
+            /// <summary>
+            /// Fix badly made ongui that crashes with the ongui garbage patch
+            /// </summary>
+            [HarmonyPrefix]
+            [HarmonyPatch(typeof(TimeUtilityDrawer), "OnGUI")]
+            private static bool FixBuiltinFps(TimeUtilityDrawer __instance, GUIStyle ___style)
+            {
+                var fps = (float)AccessTools.PropertyGetter(typeof(TimeUtilityDrawer), "fps").Invoke(__instance, null);
+                GUI.Box(new Rect(4, 4, 100, 24), "", GUI.skin.box);
+                GUI.Label(new Rect(7, 5, 100, 24), "FPS:" + fps.ToString("000.0"), ___style);
+                return false;
             }
 
             [HarmonyPrefix]
