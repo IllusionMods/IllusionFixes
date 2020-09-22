@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using BepInEx;
 using Common;
+using Config;
 using HarmonyLib;
 using KKAPI;
 using KKAPI.Maker;
@@ -76,6 +77,9 @@ namespace IllusionFixes
                         {
                             add20.gameObject.SetActive(true);
                             add20.SetSiblingIndex(add.GetSiblingIndex());
+                            var s = add20.GetComponent<BaseSetting>();
+                            s.Init();
+                            s.UIPresenter();
                             add.gameObject.SetActive(false);
                         }
                     }
@@ -86,6 +90,9 @@ namespace IllusionFixes
                         {
                             addNormal.gameObject.SetActive(true);
                             addNormal.SetSiblingIndex(add.GetSiblingIndex());
+                            var s = addNormal.GetComponent<BaseSetting>();
+                            s.Init();
+                            s.UIPresenter();
                             add.gameObject.SetActive(false);
                         }
                     }
