@@ -66,36 +66,44 @@ namespace IllusionFixes
         {
             __result = __result.AppendCo(() =>
             {
-                var add = __instance.transform.Find("Canvas/imgWindow/ScrollView/Content/Node Addtional");
-
-                if (add && add.gameObject.activeInHierarchy)
+                try
                 {
-                    if (Game.isAdd20)
+                    var add = __instance.transform.Find("Canvas/imgWindow/ScrollView/Content/Node Addtional");
+
+                    if (add && add.gameObject.activeInHierarchy)
                     {
-                        var add20 = __instance.transform.Find("Canvas/imgWindow/ScrollView/Content/Node Addtional_20");
-                        if (add20)
+                        var add20Prop = Traverse.Create<Game>().Property("isAdd20");
+                        if (add20Prop.FieldExists() && add20Prop.GetValue<bool>())
                         {
-                            add20.gameObject.SetActive(true);
-                            add20.SetSiblingIndex(add.GetSiblingIndex());
-                            var s = add20.GetComponent<BaseSetting>();
-                            s.Init();
-                            s.UIPresenter();
-                            add.gameObject.SetActive(false);
+                            var add20Tr = __instance.transform.Find("Canvas/imgWindow/ScrollView/Content/Node Addtional_20");
+                            if (add20Tr)
+                            {
+                                add20Tr.gameObject.SetActive(true);
+                                add20Tr.SetSiblingIndex(add.GetSiblingIndex());
+                                var setting = add20Tr.GetComponent<BaseSetting>();
+                                setting.Init();
+                                setting.UIPresenter();
+                                add.gameObject.SetActive(false);
+                            }
+                        }
+                        else
+                        {
+                            var addNormalTr = __instance.transform.Find("Canvas/imgWindow/ScrollView/Content/Node Addtional_normal");
+                            if (addNormalTr)
+                            {
+                                addNormalTr.gameObject.SetActive(true);
+                                addNormalTr.SetSiblingIndex(add.GetSiblingIndex());
+                                var setting = addNormalTr.GetComponent<BaseSetting>();
+                                setting.Init();
+                                setting.UIPresenter();
+                                add.gameObject.SetActive(false);
+                            }
                         }
                     }
-                    else
-                    {
-                        var addNormal = __instance.transform.Find("Canvas/imgWindow/ScrollView/Content/Node Addtional_normal");
-                        if (addNormal)
-                        {
-                            addNormal.gameObject.SetActive(true);
-                            addNormal.SetSiblingIndex(add.GetSiblingIndex());
-                            var s = addNormal.GetComponent<BaseSetting>();
-                            s.Init();
-                            s.UIPresenter();
-                            add.gameObject.SetActive(false);
-                        }
-                    }
+                }
+                catch (Exception e)
+                {
+                    UnityEngine.Debug.LogException(e);
                 }
             });
         }
