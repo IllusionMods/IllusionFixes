@@ -93,10 +93,13 @@ namespace IllusionFixes
 
             // Clean up more aggresively during loading, less aggresively during gameplay
             var isLoading = GetIsNowLoadingFade();
-            var plentyOfMemory = mem.dwMemoryLoad < (isLoading ? 65 : 75);
+            var pageFileFree = mem.ullAvailPageFile / (float)mem.ullTotalPageFile;
+            var plentyOfMemory = mem.dwMemoryLoad < (isLoading ? 65 : 75) // physical memory free %
+                                 && pageFileFree > 0.3f // page file free %
+                                 && mem.ullAvailPageFile > 2ul * 1024ul * 1024ul * 1024ul; // at least 2GB of page file free
             if (!plentyOfMemory) return false;
 
-            Utilities.Logger.LogDebug($"Skipping cleanup because of low memory load ({mem.dwMemoryLoad}%)");
+            Utilities.Logger.LogDebug($"Skipping cleanup because of low memory load ({mem.dwMemoryLoad}% RAM, {100 - (int)(pageFileFree * 100)}% Page file, {mem.ullAvailPageFile / 1024 / 1024}MB available in PF)");
             return true;
         }
 
