@@ -46,11 +46,15 @@ namespace IllusionFixes
             {
                 var c = new CodeMatcher(instructions, generator);
                 // Remove unnecessary new object creation that gets immediately overwritten
-                return c.MatchForward(false,
-                        new CodeMatch(OpCodes.Newobj),
-                        new CodeMatch(OpCodes.Stloc_1),
-                        new CodeMatch(OpCodes.Ldarg_0),
-                        new CodeMatch(OpCodes.Ldfld))
+                c.MatchForward(false,
+                    new CodeMatch(OpCodes.Newobj),
+                    new CodeMatch(OpCodes.Stloc_1),
+                    new CodeMatch(OpCodes.Ldarg_0),
+                    new CodeMatch(OpCodes.Ldfld));
+
+                if (c.IsInvalid) return instructions;
+
+                return c
                     .RemoveInstruction()
                     .RemoveInstruction()
                     .Instructions();
