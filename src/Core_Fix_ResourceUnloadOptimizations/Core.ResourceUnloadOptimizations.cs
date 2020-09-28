@@ -110,7 +110,7 @@ namespace IllusionFixes
 #elif PH
             return true;
 #else
-            return Manager.Scene.Instance.IsNowLoadingFade;
+            return !Manager.Scene.IsInstance() || Manager.Scene.Instance.IsNowLoadingFade;
 #endif
         }
 
