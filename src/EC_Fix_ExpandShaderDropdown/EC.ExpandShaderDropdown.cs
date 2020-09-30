@@ -21,6 +21,7 @@ namespace IllusionFixes
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
+            SceneManager.sceneUnloaded += _ => StopAllCoroutines();
             SceneManager.sceneLoaded += (s, m) => StartCoroutine(DelayedStart());
         }
 
