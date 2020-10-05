@@ -1,14 +1,14 @@
 ﻿using BepInEx;
+using Common;
 using HarmonyLib;
 
 namespace IllusionFixes
 {
-    [BepInPlugin(GUID, PluginName, Version)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class DynamicBonesFix : BaseUnityPlugin
     {
         public const string GUID = "Fix_DynamicBones";
         public const string PluginName = "Dynamic Bones Fix";
-        public const string Version = "1.0";
 
         internal void Main() => Harmony.CreateAndPatchAll(typeof(Hooks));
 

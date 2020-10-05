@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using Common;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -7,12 +8,11 @@ using UnityEngine;
 
 namespace IllusionFixes
 {
-    [BepInPlugin(GUID, PluginName, Version)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class HairShadowsFix : BaseUnityPlugin
     {
         public const string GUID = "Fix_HairShadows";
         public const string PluginName = "Hair Shadows Fix";
-        public const string Version = "1.0";
         internal static new ManualLogSource Logger;
 
         private const int HairRenderQueue = 2475;

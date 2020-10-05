@@ -1,15 +1,15 @@
 ﻿using BepInEx;
+using Common;
 using HarmonyLib;
 using UnityEngine;
 
 namespace IllusionFixes
 {
-    [BepInPlugin(GUID, PluginName, Version)]
+    [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class GuideObjectsFix : BaseUnityPlugin
     {
         public const string GUID = "Fix_GuideObjects";
         public const string PluginName = "Guide Objects Fix";
-        public const string Version = "1.0";
 
         internal void Main() => Harmony.CreateAndPatchAll(typeof(Hooks));
 
