@@ -1,7 +1,7 @@
 ﻿using BepInEx;
-using BepInEx.Harmony;
 using BepInEx.Logging;
 using Common;
+using HarmonyLib;
 
 namespace IllusionFixes
 {
@@ -22,7 +22,7 @@ namespace IllusionFixes
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
-            HarmonyWrapper.PatchAll(typeof(Hooks));
+            Harmony.CreateAndPatchAll(typeof(Hooks));
         }
 
         public static void CheckPersonalityAndOverride(ChaFileControl chaFileControl)

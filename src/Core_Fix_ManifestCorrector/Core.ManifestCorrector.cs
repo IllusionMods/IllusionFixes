@@ -1,4 +1,4 @@
-﻿using BepInEx.Harmony;
+﻿using HarmonyLib;
 
 namespace IllusionFixes
 {
@@ -6,6 +6,6 @@ namespace IllusionFixes
     {
         public const string PluginName = "Manifest Corrector";
 
-        internal void Start() => HarmonyWrapper.PatchAll(typeof(Hooks));
+        internal void Start() => Harmony.CreateAndPatchAll(typeof(Hooks));
     }
 }

@@ -1,5 +1,4 @@
 ﻿using BepInEx;
-using BepInEx.Harmony;
 using Common;
 using HarmonyLib;
 using UnityEngine;
@@ -16,7 +15,7 @@ namespace IllusionFixes
         public const string GUID = "KK_Fix_CenteredHSceneCursor";
         public const string PluginName = "Centered HScene Cursor";
 
-        public void Awake() => HarmonyWrapper.PatchAll(typeof(Hooks));
+        public void Awake() => Harmony.CreateAndPatchAll(typeof(Hooks));
 
         internal static class Hooks
         {

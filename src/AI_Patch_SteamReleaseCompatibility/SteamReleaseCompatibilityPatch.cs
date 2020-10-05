@@ -1,16 +1,15 @@
-﻿using System;
+﻿using BepInEx;
+using BepInEx.Configuration;
+using BepInEx.Logging;
+using HarmonyLib;
+using Mono.Cecil;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using BepInEx;
-using BepInEx.Configuration;
-using BepInEx.Harmony;
-using BepInEx.Logging;
-using HarmonyLib;
-using Mono.Cecil;
 
 namespace AI_Fixes
 {
@@ -152,7 +151,7 @@ namespace AI_Fixes
             }
 
             // Preform further voodoo with the harmony patches to make the above voodoo work
-            var h = HarmonyWrapper.PatchAll(typeof(SteamReleaseCompatibilityPatch));
+            var h = Harmony.CreateAndPatchAll(typeof(SteamReleaseCompatibilityPatch));
             byte[] outputAss = null;
             using (var ms = new MemoryStream())
             {

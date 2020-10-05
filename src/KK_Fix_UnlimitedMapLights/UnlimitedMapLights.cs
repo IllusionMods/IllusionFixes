@@ -1,5 +1,4 @@
 ﻿using BepInEx;
-using BepInEx.Harmony;
 using Common;
 using HarmonyLib;
 using System.Collections.Generic;
@@ -14,7 +13,7 @@ namespace IllusionFixes
         public const string GUID = "KK_Fix_UnlimitedMapLights";
         public const string PluginName = "Unlimited Map Lights";
 
-        private void Awake() => HarmonyWrapper.PatchAll(GetType());
+        private void Awake() => Harmony.CreateAndPatchAll(GetType());
 
         [HarmonyPrefix, HarmonyPatch(typeof(Studio.SceneInfo), nameof(Studio.SceneInfo.AddLight))]
         private static bool UnlimitedLights() => false;

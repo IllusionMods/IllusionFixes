@@ -1,14 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using ADV;
+﻿using ADV;
 using BepInEx;
-using BepInEx.Harmony;
 using BepInEx.Logging;
 using ChaCustom;
 using Common;
 using HarmonyLib;
 using Studio;
+using System;
+using System.IO;
+using System.Reflection;
 using UnityEngine;
 
 namespace IllusionFixes
@@ -26,7 +25,7 @@ namespace IllusionFixes
         private void Awake()
         {
             Logger = base.Logger;
-            var h = HarmonyWrapper.PatchAll(typeof(DataCorruptionFixes));
+            var h = Harmony.CreateAndPatchAll(typeof(DataCorruptionFixes));
 
             // Only exists in KKParty
             var td = Type.GetType("TutorialData, Assembly-CSharp", false);

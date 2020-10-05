@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using BepInEx;
-using BepInEx.Harmony;
+﻿using BepInEx;
 using Common;
 using ExtensibleSaveFormat;
 using HarmonyLib;
 using Localize.Translate;
+using System.Linq;
 
 namespace IllusionFixes
 {
@@ -20,7 +19,7 @@ namespace IllusionFixes
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
-            HarmonyWrapper.PatchAll(typeof(Hooks));
+            Harmony.CreateAndPatchAll(typeof(Hooks));
         }
 
         private class Hooks

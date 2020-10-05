@@ -17,7 +17,7 @@ namespace IllusionFixes
 
         internal void Start()
         {
-            BepInEx.Harmony.HarmonyWrapper.PatchAll(typeof(DownloadRenamer));
+            Harmony.CreateAndPatchAll(typeof(DownloadRenamer));
             EnambleRenaming = Config.Bind(Utilities.ConfigSectionTweaks, "Rename downloads", true,
                 new ConfigDescription("When enabled, maps, scenes, poses, and characters downloaded in game will have their file names changed to match the ones on the Illusion website."));
         }

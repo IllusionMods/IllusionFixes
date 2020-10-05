@@ -1,13 +1,11 @@
-﻿using System;
+﻿using BepInEx.Logging;
+using HarmonyLib;
+using Studio;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
-using BepInEx.Harmony;
-using BepInEx.Logging;
-using HarmonyLib;
-using Studio;
 
 namespace IllusionFixes
 {
@@ -21,7 +19,7 @@ namespace IllusionFixes
         {
             Logger = base.Logger;
 
-            var hi = HarmonyWrapper.PatchAll(typeof(InvalidSceneFileProtection));
+            var hi = Harmony.CreateAndPatchAll(typeof(InvalidSceneFileProtection));
             var tpl = new HarmonyMethod(typeof(InvalidSceneFileProtection), nameof(AddExceptionHandler));
             hi.Patch(AccessTools.Method(typeof(SceneInfo), nameof(SceneInfo.Load), new[] { typeof(string), typeof(Version).MakeByRefType() }), null, null, tpl);
             hi.Patch(AccessTools.Method(typeof(SceneInfo), nameof(SceneInfo.Import), new[] { typeof(string) }), null, null, tpl);

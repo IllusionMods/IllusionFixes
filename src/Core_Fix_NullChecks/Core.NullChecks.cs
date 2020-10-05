@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using BepInEx.Harmony;
-using BepInEx.Logging;
+﻿using BepInEx.Logging;
 using Common;
 using HarmonyLib;
+using System;
+using System.Collections;
+using System.Linq;
 
 #if AI || HS2
 using AIChara;
@@ -24,7 +23,7 @@ namespace IllusionFixes
 
             Logger = base.Logger;
 
-            var h = HarmonyWrapper.PatchAll(typeof(Hooks));
+            var h = Harmony.CreateAndPatchAll(typeof(Hooks));
 
             // Catch nullref exceptions inside of Change***Async methods to prevent bad clothes completely crashing game logic
             // Finalizer only affects the start of the coroutines while postfix affects the proceeding steps

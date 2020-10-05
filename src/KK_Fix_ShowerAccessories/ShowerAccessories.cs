@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ActionGame;
+﻿using ActionGame;
 using ActionGame.Chara;
 using BepInEx;
-using BepInEx.Harmony;
 using Common;
 using HarmonyLib;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IllusionFixes
 {
@@ -33,7 +32,7 @@ namespace IllusionFixes
             new AccessoryEntry(125, 12, "a_n_back")
         };
 
-        private void Awake() => HarmonyWrapper.PatchAll(typeof(Hooks));
+        private void Awake() => Harmony.CreateAndPatchAll(typeof(Hooks));
 
         private static void FixAccessoryState(ChaControl chaControl)
         {

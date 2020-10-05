@@ -1,5 +1,4 @@
-﻿using BepInEx.Harmony;
-using Common;
+﻿using Common;
 using HarmonyLib;
 
 namespace IllusionFixes
@@ -10,9 +9,9 @@ namespace IllusionFixes
         {
             public static void Apply()
             {
-                HarmonyWrapper.PatchAll(typeof(Hooks));
+                Harmony.CreateAndPatchAll(typeof(Hooks));
             }
-            
+
             /// <summary>
             /// Run the code for reading setup.xml when inside studio. Done in a Manager.Config.Start hook because the xmlRead method needs stuff to be initialized first.
             /// </summary>

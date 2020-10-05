@@ -3,11 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx;
-using BepInEx.Harmony;
 using HarmonyLib;
 using Studio;
 using UnityEngine;
-using Common;
 
 #if AI || HS2
 using AIChara;
@@ -22,7 +20,7 @@ namespace IllusionFixes
 
         private void Awake()
         {
-            HarmonyWrapper.PatchAll(typeof(StudioOptimizations));
+            Harmony.CreateAndPatchAll(typeof(StudioOptimizations));
         }
 
         #region Fix attaching charas to other charas

@@ -1,11 +1,10 @@
-﻿using System;
+﻿using BepInEx;
+using Common;
+using HarmonyLib;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Xml;
-using BepInEx;
-using BepInEx.Harmony;
-using Common;
-using HarmonyLib;
 using UnityEngine;
 
 namespace IllusionFixes
@@ -25,13 +24,13 @@ namespace IllusionFixes
 
             //Test setup.xml for validity, delete if it has junk data
             if (File.Exists("UserData/setup.xml"))
-                TestSetupXml(); 
+                TestSetupXml();
 
             //Create a setup.xml if there isn't one
             if (!File.Exists("UserData/setup.xml"))
                 CreateSetupXml();
 
-            HarmonyWrapper.PatchAll(typeof(SettingsVerifier_PH));
+            Harmony.CreateAndPatchAll(typeof(SettingsVerifier_PH));
         }
 
         /// <summary>
@@ -39,19 +38,19 @@ namespace IllusionFixes
         /// </summary>
         [HarmonyPostfix, HarmonyPatch(typeof(Studio.Scene), "Awake")]
         internal static void StudioSceneAwake()
-        { 
+        {
             ReadSetupXml();
         }
-        
+
         /// <summary>
         /// Run the code for reading setup.xml when inside main game.
         /// </summary>
         [HarmonyPostfix, HarmonyPatch(typeof(CautionScene), "Start")]
         internal static void CautionSceneStart()
-        { 
+        {
             ReadSetupXml();
         }
-        
+
         /// <summary>
         /// Read a copy of the setup.xml from the plugin's Resources folder and write it to disk
         /// </summary>
@@ -69,7 +68,7 @@ namespace IllusionFixes
                 }
             }
         }
-        
+
         /// <summary>
         /// Try reading the xml, catch exceptions, delete if any invalid data
         /// </summary>
@@ -81,16 +80,16 @@ namespace IllusionFixes
                 file.Load("UserData/setup.xml");
 
                 XmlNode node = file.SelectSingleNode("Setting");
-                if (node == null) 
+                if (node == null)
                     throw new IOException();
 
-                foreach (string item in new []{"Width", "Height", "Quality", "Display", "Language"})
+                foreach (string item in new[] { "Width", "Height", "Quality", "Display", "Language" })
                 {
                     XmlNode prop = node.SelectSingleNode(item);
-                    if(prop == null)
+                    if (prop == null)
                         continue;
-                    
-                    if (int.Parse(prop.InnerText) < 0) 
+
+                    if (int.Parse(prop.InnerText) < 0)
                         throw new ArgumentOutOfRangeException();
                 }
             }
@@ -99,15 +98,15 @@ namespace IllusionFixes
                 File.Delete("UserData/setup.xml");
             }
         }
-        
+
         private static void ReadSetupXml()
         {
             int _width = 1280;
             int _height = 720;
             int _quality = 2;
             bool _full = true;
-            
-            if (!File.Exists("UserData/setup.xml")) 
+
+            if (!File.Exists("UserData/setup.xml"))
                 return;
 
             try
@@ -116,13 +115,13 @@ namespace IllusionFixes
                 file.Load("UserData/setup.xml");
 
                 XmlNode node = file.SelectSingleNode("Setting");
-                if (node == null) 
+                if (node == null)
                     return;
 
-                foreach (string item in new []{"Width", "Height", "Quality", "Display", "Language", "FullScreen"})
+                foreach (string item in new[] { "Width", "Height", "Quality", "Display", "Language", "FullScreen" })
                 {
                     XmlNode prop = node.SelectSingleNode(item);
-                    if(prop == null)
+                    if (prop == null)
                         continue;
 
                     switch (item)

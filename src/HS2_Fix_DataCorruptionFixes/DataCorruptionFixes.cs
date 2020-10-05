@@ -1,16 +1,15 @@
-﻿using BepInEx;
-using BepInEx.Harmony;
+﻿using ADV;
+using AIChara;
+using BepInEx;
 using BepInEx.Logging;
+using CharaCustom;
 using Common;
 using HarmonyLib;
+using Manager;
 using Studio;
 using System;
 using System.IO;
 using System.Reflection;
-using ADV;
-using AIChara;
-using CharaCustom;
-using Manager;
 using UnityEngine;
 
 namespace IllusionFixes
@@ -28,7 +27,7 @@ namespace IllusionFixes
         private void Awake()
         {
             Logger = base.Logger;
-            HarmonyWrapper.PatchAll(typeof(DataCorruptionFixes));
+            Harmony.CreateAndPatchAll(typeof(DataCorruptionFixes));
         }
 
         [HarmonyFinalizer]

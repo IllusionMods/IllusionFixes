@@ -1,7 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
-using BepInEx.Harmony;
 using Common;
+using HarmonyLib;
 
 namespace IllusionFixes
 {
@@ -18,7 +18,7 @@ namespace IllusionFixes
                 new ConfigDescription("Prevents the game from crashing or stripping some modded data when importing KK cards.")).Value)
                 return;
 
-            HarmonyWrapper.PatchAll(typeof(Hooks));
+            Harmony.CreateAndPatchAll(typeof(Hooks));
         }
     }
 }

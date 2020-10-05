@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ActionGame;
+﻿using ActionGame;
 using BepInEx;
-using BepInEx.Harmony;
 using ChaCustom;
 using Common;
 using ExtensibleSaveFormat;
 using FreeH;
 using HarmonyLib;
 using Illusion.Game;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UniRx;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace IllusionFixes
@@ -28,7 +26,7 @@ namespace IllusionFixes
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
-            var h = HarmonyWrapper.PatchAll(typeof(Hooks));
+            var h = Harmony.CreateAndPatchAll(typeof(Hooks));
 
             // The VR classes are only available in VR module so they can't be directly referenced
             var vrType = Type.GetType("VR.VRClassRoomCharaFile, Assembly-CSharp");

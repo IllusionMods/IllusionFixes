@@ -1,5 +1,4 @@
 ﻿using BepInEx.Configuration;
-using BepInEx.Harmony;
 using Common;
 using HarmonyLib;
 using MonoMod.RuntimeDetour;
@@ -44,7 +43,7 @@ namespace IllusionFixes
 
             _originalUnload = detour.GenerateTrampoline<Func<AsyncOperation>>();
 
-            HarmonyWrapper.PatchAll(typeof(Hooks));
+            Harmony.CreateAndPatchAll(typeof(Hooks));
         }
 
         private IEnumerator CleanupCo()

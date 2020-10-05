@@ -1,7 +1,6 @@
 ﻿using ActionGame.Chara;
 using BepInEx;
 using BepInEx.Configuration;
-using BepInEx.Harmony;
 using Common;
 using HarmonyLib;
 using Manager;
@@ -37,7 +36,7 @@ namespace IllusionFixes
             PreloadCharacters = Config.Bind(Utilities.ConfigSectionTweaks, "Preload characters on initial load", true, new ConfigDescription("Forces all characters to load during initial load into school mode. Slightly longer loading time but eliminates large stutters when unseen characters enter current map."));
             ThrottleCharaUpdates = Config.Bind(Utilities.ConfigSectionTweaks, "Throttle chara blend shape updates", true, new ConfigDescription("Reduces the amount of unnecessary blend shape updates. Performance improvement in main game, especially with over 20 characters in one room."));
 
-            HarmonyWrapper.PatchAll(typeof(MainGameOptimizations));
+            Harmony.CreateAndPatchAll(typeof(MainGameOptimizations));
 
             SceneManager.sceneLoaded += (arg0, mode) =>
             {

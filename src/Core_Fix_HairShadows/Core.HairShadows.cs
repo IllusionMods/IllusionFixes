@@ -1,5 +1,4 @@
 ﻿using BepInEx;
-using BepInEx.Harmony;
 using BepInEx.Logging;
 using HarmonyLib;
 using System;
@@ -22,7 +21,7 @@ namespace IllusionFixes
         {
             Logger = base.Logger;
 
-            HarmonyWrapper.PatchAll(typeof(Hooks));
+            Harmony.CreateAndPatchAll(typeof(Hooks));
         }
 
         internal static class Hooks

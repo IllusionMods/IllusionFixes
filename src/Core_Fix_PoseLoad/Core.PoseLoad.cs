@@ -1,5 +1,4 @@
-﻿using BepInEx.Harmony;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Studio;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ namespace IllusionFixes
     {
         public const string PluginName = "Pose Load Fix";
 
-        internal void Start() => HarmonyWrapper.PatchAll(typeof(Hooks));
+        internal void Start() => Harmony.CreateAndPatchAll(typeof(Hooks));
 
         internal static class Hooks
         {
@@ -34,7 +33,7 @@ namespace IllusionFixes
 
                 if (!HSPose && !correctHand) return true;
 
-#region Vanilla Code
+                #region Vanilla Code
                 _char.LoadAnime(__instance.group, __instance.category, __instance.no, __instance.normalizedTime);
 
                 for (int i = 0; i < __instance.activeIK.Length; i++)
@@ -46,7 +45,7 @@ namespace IllusionFixes
                 for (int j = 0; j < __instance.activeFK.Length; j++)
                     _char.ActiveFK(FKCtrl.parts[j], __instance.activeFK[j]);
                 _char.ActiveKinematicMode(OICharInfo.KinematicMode.FK, __instance.enableFK, _force: true);
-#endregion
+                #endregion
 
                 foreach (KeyValuePair<int, ChangeAmount> item2 in __instance.dicFK)
                 {
@@ -87,10 +86,10 @@ namespace IllusionFixes
                     }
                 }
 
-#region Vanilla Code
+                #region Vanilla Code
                 for (int k = 0; k < __instance.expression.Length; k++)
                     _char.EnableExpressionCategory(k, __instance.expression[k]);
-#endregion
+                #endregion
 
                 return false;
             }

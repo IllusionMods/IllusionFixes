@@ -1,5 +1,4 @@
 ﻿using BepInEx.Configuration;
-using BepInEx.Harmony;
 using ChaCustom;
 using HarmonyLib;
 using Illusion.Extensions;
@@ -20,7 +19,7 @@ namespace IllusionFixes
         {
             internal static void InstallHooks()
             {
-                var harmony = HarmonyWrapper.PatchAll(typeof(Hooks));
+                var harmony = Harmony.CreateAndPatchAll(typeof(Hooks));
 
                 SetupSetting(harmony,
                     typeof(CustomSelectInfoComponent).GetMethod("Disvisible", AccessTools.all),

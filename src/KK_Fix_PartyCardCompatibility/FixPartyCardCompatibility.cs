@@ -1,5 +1,4 @@
 ﻿using BepInEx;
-using BepInEx.Harmony;
 using Common;
 using HarmonyLib;
 using System;
@@ -18,7 +17,7 @@ namespace IllusionFixes
         public const string GUID = "KK_Fix_PartyCardCompatibility";
         public const string PluginName = "Party Card Compatibility";
 
-        internal void Awake() => HarmonyWrapper.PatchAll(typeof(FixPartyCardCompatibility));
+        internal void Awake() => Harmony.CreateAndPatchAll(typeof(FixPartyCardCompatibility));
 
         /// <summary>
         /// Needs to return false if the condition passes, true if it fails (this replaces the string != operand)

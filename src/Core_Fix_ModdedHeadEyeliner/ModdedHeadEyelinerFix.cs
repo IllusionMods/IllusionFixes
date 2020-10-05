@@ -1,8 +1,7 @@
-﻿using System;
-using System.Linq;
-using BepInEx.Harmony;
-using Common;
+﻿using Common;
 using HarmonyLib;
+using System;
+using System.Linq;
 using UnityEngine;
 
 namespace IllusionFixes
@@ -15,7 +14,7 @@ namespace IllusionFixes
         {
             if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
 
-            var harmony = HarmonyWrapper.PatchAll(typeof(ModdedHeadEyelinerFix));
+            var harmony = Harmony.CreateAndPatchAll(typeof(ModdedHeadEyelinerFix));
             var getTextureMethod = typeof(ChaControl).GetMethod("GetTexture", AccessTools.all);
             if (getTextureMethod == null) throw new ArgumentException("Could not find ChaControl.GetTexture");
             if (getTextureMethod.GetParameters().Any(x => x.Name == "addStr"))

@@ -1,5 +1,4 @@
 ﻿using BepInEx;
-using BepInEx.Harmony;
 using Common;
 using HarmonyLib;
 
@@ -12,7 +11,7 @@ namespace IllusionFixes
         public const string GUID = "AI_Fix_NewGameShowAllCards";
         public const string PluginName = "Show All Cards In New Game List Fix";
 
-        private void Awake() => HarmonyWrapper.PatchAll(typeof(NewGameShowAllCardsFix));
+        private void Awake() => Harmony.CreateAndPatchAll(typeof(NewGameShowAllCardsFix));
 
         /// <summary>
         /// Fixes downloaded cards not being visible in new game start chara lists
