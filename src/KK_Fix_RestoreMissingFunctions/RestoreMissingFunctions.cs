@@ -13,6 +13,7 @@ using KKAPI.Maker;
 using KKAPI.Maker.UI;
 using Manager;
 using UniRx;
+using UnityEngine;
 
 namespace IllusionFixes
 {
@@ -64,7 +65,7 @@ namespace IllusionFixes
 
         private static void ConfigAddFix(ConfigScene __instance, ref IEnumerator __result)
         {
-            __result = __result.AppendCo(() =>
+            __result = __result.AppendCo(new WaitForEndOfFrame()).AppendCo(() =>
             {
                 try
                 {
