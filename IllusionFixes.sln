@@ -309,6 +309,7 @@ Global
 		src\Core_Fix_Heterochromia\Core_Fix_Heterochromia.projitems*{81ccbaa9-ec68-4558-bbdb-54d59b55b8a7}*SharedItemsImports = 4
 		src\Common\Common.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{854f4e98-5468-47f4-b32f-a5bfbcede6f4}*SharedItemsImports = 4
+		src\Common\Common.projitems*{89afbe74-7a61-4a50-a01e-40e35b9407e6}*SharedItemsImports = 4
 		src\Core_Fix_GuideObjects\Core_Fix_GuideObjects.projitems*{89afbe74-7a61-4a50-a01e-40e35b9407e6}*SharedItemsImports = 4
 		src\Core_Fix_Heterochromia\Core_Fix_Heterochromia.projitems*{89d95d84-bc6a-44cd-9376-6866207b96ae}*SharedItemsImports = 13
 		src\Common\Common.projitems*{8a86e25f-70c1-45a0-b548-d53529539232}*SharedItemsImports = 4

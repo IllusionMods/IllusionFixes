@@ -71,6 +71,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="..\Core_Fix_GuideObjects\Core_Fix_GuideObjects.projitems" Label="Shared" />
+  <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF EXIST $(SolutionDir)PostBuild.bat CALL "$(SolutionDir)PostBuild.bat" $(TargetPath) EC</PostBuildEvent>
