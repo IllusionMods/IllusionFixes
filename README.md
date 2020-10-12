@@ -37,10 +37,20 @@ Fixes the cursor texture not being properly centeres in H scenes, so it's easier
 
 Maps, scenes, poses, and characters downloaded in game will have their file names changed to match the ones on the Illusion website.
 
+### DynamicBonesFix
+(Koikatsu, EmotionCreators)
+
+Fixes dynamic bones oscillating rapidly if FPS is above 60.
+
 ### ExpandShaderDropdown 
 (Koikatsu, EmotionCreators)
 
 Makes the shader drop down menu extend down instaed of up and expands it. Necessary to select modded shaders since they run off the screen by default.
+
+### GarbageTruck
+(Koikatsu)
+
+Modifies some game functions to be more efficient and produce less garbage, reducing the strain on Unity's garbage collector.
 
 ### HairShadows
 (Koikatsu, EmotionCreators)
