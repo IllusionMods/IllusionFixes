@@ -14,16 +14,12 @@ namespace IllusionFixes
 
             byte[] buffer = new byte[byteSequence.Length];
 
-            using (BufferedStream bufStream = new BufferedStream(stream, byteSequence.Length))
+            while (stream.Read(buffer, 0, byteSequence.Length) == byteSequence.Length)
             {
-                int i;
-                while ((i = bufStream.Read(buffer, 0, byteSequence.Length)) == byteSequence.Length)
-                {
-                    if (byteSequence.SequenceEqual(buffer))
-                        return bufStream.Position - byteSequence.Length;
-                    else
-                        bufStream.Position -= byteSequence.Length - PadLeftSequence(buffer, byteSequence);
-                }
+                if (byteSequence.SequenceEqual(buffer))
+                    return stream.Position - byteSequence.Length;
+                else
+                    stream.Position -= byteSequence.Length - PadLeftSequence(buffer, byteSequence);
             }
 
             return -1;

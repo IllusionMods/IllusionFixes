@@ -45,22 +45,32 @@ namespace IllusionFixes
         {
             if (!File.Exists(path)) return false;
 
-            using (var f = File.OpenRead(path))
+            try
             {
-                PngFile.SkipPng(f);
-
-                var pos = f.Position;
-                foreach (var tokenSequence in ValidStudioTokens)
+                using (var fs = File.OpenRead(path))
+                using (var bs = new BufferedStream(fs, 2 * 1024 * 1024))
                 {
-                    if (Util.FindPosition(f, tokenSequence) > 0)
-                        return true;
+                    PngFile.SkipPng(bs);
 
-                    f.Seek(pos, SeekOrigin.Begin);
+                    var pos = bs.Position;
+                    foreach (var tokenSequence in ValidStudioTokens)
+                    {
+                        if (Util.FindPosition(bs, tokenSequence) > 0)
+                            return true;
+
+                        bs.Seek(pos, SeekOrigin.Begin);
+                    }
                 }
-            }
 
-            LogInvalid();
-            return false;
+                LogInvalid();
+                return false;
+            }
+            catch (Exception e)
+            {
+                // If the check crashes then don't prevent loading the scene in case it's actually good and this code is not
+                Logger.LogError(e);
+                return true;
+            }
         }
 
         /// <summary>
@@ -88,13 +98,13 @@ namespace IllusionFixes
 
         private static void LogCrash(Exception ex)
         {
-            Logger.Log(BepInEx.Logging.LogLevel.Message | BepInEx.Logging.LogLevel.Warning, "Failed to load the file - This scene is from a different game or the file is corrupted");
+            Logger.Log(BepInEx.Logging.LogLevel.Message | BepInEx.Logging.LogLevel.Warning, "Failed to load the file - This scene is from a different game or it is corrupted");
             Logger.LogDebug(ex);
         }
 
         private static void LogInvalid()
         {
-            Logger.Log(BepInEx.Logging.LogLevel.Message | BepInEx.Logging.LogLevel.Warning, "Cannot load the file - This is not a studio scene or the file is corrupted");
+            Logger.Log(BepInEx.Logging.LogLevel.Message | BepInEx.Logging.LogLevel.Warning, "Cannot load the file - This is not a studio scene or the it is corrupted");
         }
     }
 }
