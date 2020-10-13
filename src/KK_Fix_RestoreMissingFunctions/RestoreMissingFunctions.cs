@@ -65,48 +65,58 @@ namespace IllusionFixes
 
         private static void ConfigAddFix(ConfigScene __instance, ref IEnumerator __result)
         {
-            __result = __result.AppendCo(new WaitForEndOfFrame()).AppendCo(() =>
-            {
-                try
-                {
-                    var add = __instance.transform.Find("Canvas/imgWindow/ScrollView/Content/Node Addtional");
+            BaseSetting setting = null;
 
-                    if (add && add.gameObject.activeInHierarchy)
+            __result = __result
+                .AppendCo(new WaitForEndOfFrame())
+                .AppendCo(() =>
+                {
+                    try
                     {
-                        var add20Prop = Traverse.Create<Game>().Property("isAdd20");
-                        if (add20Prop.FieldExists() && add20Prop.GetValue<bool>())
+                        var add = __instance.transform.Find("Canvas/imgWindow/ScrollView/Content/Node Addtional");
+
+                        if (add && add.gameObject.activeInHierarchy)
                         {
-                            var add20Tr = __instance.transform.Find("Canvas/imgWindow/ScrollView/Content/Node Addtional_20");
-                            if (add20Tr)
+                            var add20Prop = Traverse.Create<Game>().Property("isAdd20");
+                            if (add20Prop.FieldExists() && add20Prop.GetValue<bool>())
                             {
-                                add20Tr.gameObject.SetActive(true);
-                                add20Tr.SetSiblingIndex(add.GetSiblingIndex());
-                                var setting = add20Tr.GetComponent<BaseSetting>();
-                                setting.Init();
-                                setting.UIPresenter();
-                                add.gameObject.SetActive(false);
+                                var add20Tr = __instance.transform.Find("Canvas/imgWindow/ScrollView/Content/Node Addtional_20");
+                                if (add20Tr)
+                                {
+                                    add20Tr.gameObject.SetActive(true);
+                                    add20Tr.SetSiblingIndex(add.GetSiblingIndex());
+                                    setting = add20Tr.GetComponent<BaseSetting>();
+                                    add.gameObject.SetActive(false);
+                                }
                             }
-                        }
-                        else
-                        {
-                            var addNormalTr = __instance.transform.Find("Canvas/imgWindow/ScrollView/Content/Node Addtional_normal");
-                            if (addNormalTr)
+                            else
                             {
-                                addNormalTr.gameObject.SetActive(true);
-                                addNormalTr.SetSiblingIndex(add.GetSiblingIndex());
-                                var setting = addNormalTr.GetComponent<BaseSetting>();
-                                setting.Init();
-                                setting.UIPresenter();
-                                add.gameObject.SetActive(false);
+                                var addNormalTr = __instance.transform.Find("Canvas/imgWindow/ScrollView/Content/Node Addtional_normal");
+                                if (addNormalTr)
+                                {
+                                    addNormalTr.gameObject.SetActive(true);
+                                    addNormalTr.SetSiblingIndex(add.GetSiblingIndex());
+                                    setting = addNormalTr.GetComponent<BaseSetting>();
+                                    add.gameObject.SetActive(false);
+                                }
                             }
                         }
                     }
-                }
-                catch (Exception e)
+                    catch (Exception e)
+                    {
+                        UnityEngine.Debug.LogException(e);
+                    }
+                })
+                .AppendCo(new WaitForEndOfFrame())
+                .AppendCo(() =>
                 {
-                    UnityEngine.Debug.LogException(e);
-                }
-            });
+                    if (setting != null)
+                    {
+                        // Need to wait until next frame to init because mobcolor setting will be corrupted if inited before colorpicker Start runs
+                        setting.Init();
+                        setting.UIPresenter();
+                    }
+                });
         }
 
         private static IEnumerable<CodeInstruction> LanguageUnlock(IEnumerable<CodeInstruction> instructions)
