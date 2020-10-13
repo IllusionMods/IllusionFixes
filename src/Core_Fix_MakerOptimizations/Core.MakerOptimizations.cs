@@ -24,8 +24,6 @@ namespace IllusionFixes
 
         public MakerOptimizations()
         {
-            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
-
             var stilettoInstalled = BepInEx.Bootstrap.Chainloader.PluginInfos.Values.Any(x => x.Metadata.GUID == "com.essu.stiletto");
 
             DisableNewAnimation = Config.Bind(Utilities.ConfigSectionTweaks, "Disable NEW indicator animation", true, new ConfigDescription("Performance improvement in maker if there are many new items.\nChanges take effect after maker restart."));
@@ -45,8 +43,6 @@ namespace IllusionFixes
 
         internal void Awake()
         {
-            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
-
             SceneManager.sceneLoaded += SceneLoaded;
 
             DisableCharaName.SettingChanged += (sender, args) =>

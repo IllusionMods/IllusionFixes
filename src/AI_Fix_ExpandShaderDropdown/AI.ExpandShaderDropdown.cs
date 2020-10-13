@@ -17,8 +17,6 @@ namespace IllusionFixes
 
         private void Awake()
         {
-            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
-
             SceneManager.sceneUnloaded += _ => StopAllCoroutines();
             SceneManager.sceneLoaded += (s, m) => StartCoroutine(DelayedStart());
         }

@@ -19,8 +19,6 @@ namespace IllusionFixes
 
         private void Awake()
         {
-            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
-
             Logger = base.Logger;
 
             var h = Harmony.CreateAndPatchAll(typeof(Hooks));

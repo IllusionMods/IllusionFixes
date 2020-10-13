@@ -24,8 +24,6 @@ namespace IllusionFixes
 
         internal void Awake()
         {
-            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
-
             var h = Harmony.CreateAndPatchAll(typeof(Hooks));
 
             // The VR classes are only available in VR module so they can't be directly referenced

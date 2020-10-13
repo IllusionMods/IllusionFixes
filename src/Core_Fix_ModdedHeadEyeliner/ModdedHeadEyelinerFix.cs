@@ -12,8 +12,6 @@ namespace IllusionFixes
 
         internal void Awake()
         {
-            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
-
             var harmony = Harmony.CreateAndPatchAll(typeof(ModdedHeadEyelinerFix));
             var getTextureMethod = typeof(ChaControl).GetMethod("GetTexture", AccessTools.all);
             if (getTextureMethod == null) throw new ArgumentException("Could not find ChaControl.GetTexture");

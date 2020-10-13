@@ -14,8 +14,6 @@ namespace IllusionFixes
 
         internal void Awake()
         {
-            if (IncompatiblePluginDetector.AnyIncompatiblePlugins()) return;
-
             //Test setup.xml for validity, delete if it has junk data
             if (File.Exists("UserData/setup.xml"))
                 TestSetupXml();
