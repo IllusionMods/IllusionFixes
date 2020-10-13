@@ -25,7 +25,7 @@ namespace IllusionFixes
             Harmony.CreateAndPatchAll(typeof(Hooks));
         }
 
-        public static void CheckPersonalityAndOverride(ChaFileControl chaFileControl)
+        public static bool CheckPersonalityAndOverride(ChaFileControl chaFileControl)
         {
             switch (chaFileControl.parameter.personality)
             {
@@ -34,6 +34,7 @@ namespace IllusionFixes
                     {
                         ShowPersonalityMissingMessage(chaFileControl, "0727 Free DLC");
                         chaFileControl.parameter.personality = DefaultPersonality;
+                        return true;
                     }
                     break;
                 case 31: //0727 Paid DLC #1
@@ -41,6 +42,7 @@ namespace IllusionFixes
                     {
                         ShowPersonalityMissingMessage(chaFileControl, "0727 Summer Expansion");
                         chaFileControl.parameter.personality = DefaultPersonality;
+                        return true;
                     }
                     break;
                 case 32: //0727 Paid DLC #1
@@ -48,6 +50,7 @@ namespace IllusionFixes
                     {
                         ShowPersonalityMissingMessage(chaFileControl, "0727 Summer Expansion");
                         chaFileControl.parameter.personality = DefaultPersonality;
+                        return true;
                     }
                     break;
                 case 33: //0727 Paid DLC #1
@@ -55,6 +58,7 @@ namespace IllusionFixes
                     {
                         ShowPersonalityMissingMessage(chaFileControl, "0727 Summer Expansion");
                         chaFileControl.parameter.personality = DefaultPersonality;
+                        return true;
                     }
                     break;
                 case 34:
@@ -65,13 +69,15 @@ namespace IllusionFixes
                     {
                         ShowPersonalityMissingMessage(chaFileControl, "1221 AfterSchool Expansion");
                         chaFileControl.parameter.personality = DefaultPersonality;
+                        return true;
                     }
                     break;
                 case 38: //EmotionCreators preorder bonus personality
                     if (!AssetBundleCheck.IsFile("etcetra/list/config/50.unity3d"))
                     {
-                        ShowPersonalityMissingMessage(chaFileControl, "EmotionCreators preorder bonus");
+                        ShowPersonalityMissingMessage(chaFileControl, "EmotionCreators preorder bonus (yoyaku)");
                         chaFileControl.parameter.personality = DefaultPersonality;
+                        return true;
                     }
                     break;
                 case 80:
@@ -81,16 +87,22 @@ namespace IllusionFixes
                 case 84:
                 case 85:
                 case 86: //Story character personalities added by a mod
-                    ShowInvalidModdedPersonality(chaFileControl);
+                    ShowPersonalityInvalidMessage(chaFileControl);
                     chaFileControl.parameter.personality = DefaultPersonality;
-                    break;
+                    return true;
             }
+
+            return false;
         }
 
-        private static void ShowInvalidModdedPersonality(ChaFileControl chaFileControl) => Utilities.Logger.Log(LogLevel.Message, chaFileControl.parameter.fullname + " - Modded personality " +
-                chaFileControl.parameter.personality + " is not compatible with story mode, resetting to default");
+        private static void ShowPersonalityInvalidMessage(ChaFileControl cf) =>
+            Utilities.Logger.Log(LogLevel.Message | LogLevel.Warning,
+                cf.parameter.fullname + " - Modded personality " +
+                cf.parameter.personality + " is not compatible with story mode, resetting to Pure");
 
-        private static void ShowPersonalityMissingMessage(ChaFileControl chaFile, string dlcName) => Utilities.Logger.Log(LogLevel.Message, chaFile.parameter.fullname + " - Personality " +
-                chaFile.parameter.personality + " from " + dlcName + " is missing, resetting to default");
+        private static void ShowPersonalityMissingMessage(ChaFileControl cf, string dlcName) =>
+            Utilities.Logger.Log(LogLevel.Message | LogLevel.Warning,
+                cf.parameter.fullname + " - Personality " +
+                cf.parameter.personality + " from " + dlcName + " is missing, resetting to Pure");
     }
 }
