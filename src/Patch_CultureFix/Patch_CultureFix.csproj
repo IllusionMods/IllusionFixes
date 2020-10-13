@@ -55,7 +55,6 @@
       <HintPath>..\..\packages\IllusionLibs.BepInEx.Mono.Cecil.0.10.4.1\lib\net35\Mono.Cecil.Rocks.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\IllusionLibs.AIGirl.UnityEngine.CoreModule.2018.2.21.1\lib\net46\UnityEngine.dll</HintPath>

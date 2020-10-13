@@ -56,7 +56,6 @@
       <HintPath>..\..\packages\ExtensibleSaveFormat.Koikatu.15.4.0\lib\net35\ExtensibleSaveFormat.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\IllusionLibs.Koikatu.UnityEngine.5.6.2\lib\net35\UnityEngine.dll</HintPath>
