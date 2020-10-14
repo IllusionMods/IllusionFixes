@@ -48,17 +48,16 @@ namespace IllusionFixes
             try
             {
                 using (var fs = File.OpenRead(path))
-                using (var bs = new BufferedStream(fs, 2 * 1024 * 1024))
                 {
-                    PngFile.SkipPng(bs);
+                    PngFile.SkipPng(fs);
 
-                    var pos = bs.Position;
+                    var pos = fs.Position;
                     foreach (var tokenSequence in ValidStudioTokens)
                     {
-                        if (Util.FindPosition(bs, tokenSequence) > 0)
+                        if (Util.FindPosition(fs, tokenSequence) > 0)
                             return true;
 
-                        bs.Seek(pos, SeekOrigin.Begin);
+                        fs.Seek(pos, SeekOrigin.Begin);
                     }
                 }
 
