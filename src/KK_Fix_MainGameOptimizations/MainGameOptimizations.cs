@@ -5,6 +5,7 @@ using Common;
 using HarmonyLib;
 using Manager;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -268,7 +269,7 @@ namespace IllusionFixes
             if (PreloadCharacters.Value)
             {
                 var origPos = instance.position;
-                if (Game.Instance != null && Game.Instance.Player != null && Game.Instance.Player.transform != null)
+                if (Game.IsInstance() && Game.Instance.Player != null && Game.Instance.Player.transform)
                     instance.position = Game.Instance.Player.transform.position;
 
                 // SetActive(true) that will always load the character, even if it's not on current map. Need to hide it after.
@@ -276,7 +277,16 @@ namespace IllusionFixes
                 if (!isPop)
                     instance.SetActive(false);
 
-                instance.position = origPos;
+                instance.StartCoroutine(ForceSetPositionCo(instance, origPos));
+                IEnumerator ForceSetPositionCo(Base i, Vector3 pos)
+                {
+                    i.position = pos;
+                    // Need to wait to reset the position in some cases to prevent glitchyness
+                    yield return new WaitForEndOfFrame();
+                    i.position = pos;
+                    yield return new WaitForEndOfFrame();
+                    i.position = pos;
+                }
             }
             else
             {
