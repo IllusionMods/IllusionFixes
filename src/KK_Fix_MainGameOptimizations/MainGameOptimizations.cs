@@ -181,12 +181,12 @@ namespace IllusionFixes
         [HarmonyPrefix, HarmonyPatch(typeof(NPC), nameof(NPC.SynchroCoordinate))]
         public static bool SynchroCoordinateOverride(NPC __instance, bool isRemove)
         {
-            if (!AsyncClothesLoading.Value)
-                return true;
+            if (!AsyncClothesLoading.Value) return true;
 
-            // If not visible, do async loading of the clothes instead, replaces the original method
-            if (__instance.chaCtrl == null || !Character.IsInstance())
-                return false;
+            // Load immediately during load screens, better compat and slightly faster overall
+            if (Scene.Instance.IsNowLoadingFade) return true;
+
+            if (__instance.chaCtrl == null || !Character.IsInstance()) return false;
 
             var nowCoordinate = __instance.heroine.NowCoordinate;
             if (__instance.chaCtrl.fileStatus.coordinateType == nowCoordinate) return false;
@@ -333,7 +333,7 @@ namespace IllusionFixes
                 {
                     var value = _chaUpdateStatusQueue.Dequeue();
                     // Make sure the character didn't get removed before we got to it
-                    if (allCharaEntries.ContainsKey(value.Key))
+                    if (value.Value && allCharaEntries.ContainsKey(value.Key))
                         _throttledDict[value.Key] = value.Value;
                 }
 
