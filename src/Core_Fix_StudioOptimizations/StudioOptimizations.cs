@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BepInEx;
+using HarmonyLib;
+using Studio;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using BepInEx;
-using HarmonyLib;
-using Studio;
 using UnityEngine;
 
 #if AI || HS2
@@ -22,6 +22,49 @@ namespace IllusionFixes
         {
             Harmony.CreateAndPatchAll(typeof(StudioOptimizations));
         }
+
+#if KK
+        /// <summary>
+        /// FindLoop but doesn't search through accessories
+        /// </summary>
+        public static GameObject FindLoopNoAcc(Transform transform, string name)
+        {
+            if (string.CompareOrdinal(name, transform.gameObject.name) == 0)
+                return transform.gameObject;
+
+            if (transform.gameObject.name.StartsWith("ca_slot"))
+                return null;
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                GameObject gameObject = FindLoopNoAcc(transform.GetChild(i), name);
+                if (gameObject != null)
+                    return gameObject;
+            }
+
+            return null;
+        }
+
+        //Prevent certain methods from searching through accessory hierarchy, if these methods find body transform names within accessories it breaks everything
+        //This is done by replacing calls to FindLoop with calls to a similar method that doesn't search accessories
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(FKCtrl), nameof(FKCtrl.InitBones))]
+        [HarmonyPatch(typeof(AddObjectAssist), nameof(AddObjectAssist.InitBone))]
+        [HarmonyPatch(typeof(AddObjectAssist), nameof(AddObjectAssist.InitHairBone))]
+        private static IEnumerable<CodeInstruction> InitBoneTranspiler(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> instructionsList = instructions.ToList();
+
+            for (var index = 0; index < instructionsList.Count; index++)
+            {
+                var x = instructionsList[index];
+                if (x.operand?.ToString() == "UnityEngine.GameObject FindLoop(UnityEngine.Transform, System.String)")
+                    x.operand = typeof(StudioOptimizations).GetMethod(nameof(FindLoopNoAcc), AccessTools.all);
+            }
+
+            return instructionsList;
+        }
+#endif
 
         #region Fix attaching charas to other charas
 
