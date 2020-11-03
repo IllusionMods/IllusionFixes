@@ -52,6 +52,27 @@ namespace IllusionFixes
             return null;
         }
 
+        /// <summary>
+        /// Same as above but returns a Transform (HS2)
+        /// </summary>
+        public static Transform FindLoopNoAccTransform(Transform transform, string name)
+        {
+            if (string.CompareOrdinal(name, transform.gameObject.name) == 0)
+                return transform;
+
+            if (AccessoryAttachPoints.Contains(transform.name))
+                return null;
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                GameObject gameObject = FindLoopNoAcc(transform.GetChild(i), name);
+                if (gameObject != null)
+                    return gameObject.transform;
+            }
+
+            return null;
+        }
+
         //Prevent certain methods from searching through accessory hierarchy, if these methods find body transform names within accessories it breaks everything
         //This is done by replacing calls to FindLoop with calls to a similar method that doesn't search accessories
         [HarmonyTranspiler]
@@ -67,6 +88,8 @@ namespace IllusionFixes
                 var x = instructionsList[index];
                 if (x.operand?.ToString() == "UnityEngine.GameObject FindLoop(UnityEngine.Transform, System.String)")
                     x.operand = typeof(StudioOptimizations).GetMethod(nameof(FindLoopNoAcc), AccessTools.all);
+                if (x.operand?.ToString() == "UnityEngine.Transform FindLoop(UnityEngine.Transform, System.String)")
+                    x.operand = typeof(StudioOptimizations).GetMethod(nameof(FindLoopNoAccTransform), AccessTools.all);
             }
 
             return instructionsList;
