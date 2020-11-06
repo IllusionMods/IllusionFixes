@@ -95,6 +95,34 @@ namespace IllusionFixes
             return instructionsList;
         }
 
+        /// <summary>
+        /// Fix not being able to replace a character if an FK or IK node is selected
+        /// </summary>
+        [HarmonyPrefix, HarmonyPatch(typeof(CharaList), nameof(CharaList.ChangeCharaFemale))]
+        private static bool CharaList_ChangeCharaFemale(CharaFileSort ___charaFileSort)
+        {
+            TreeNodeObject[] selectNodes = Singleton<Studio.Studio>.Instance.treeNodeCtrl.selectNodes;
+            for (int i = 0; i < selectNodes.Length; i++)
+                if (Studio.Studio.Instance.dicInfo.TryGetValue(selectNodes[i], out ObjectCtrlInfo objectCtrlInfo))
+                    if (objectCtrlInfo is OCICharFemale ociChar)
+                        ociChar.ChangeChara(___charaFileSort.selectPath);
+            return false;
+        }
+
+        /// <summary>
+        /// Fix not being able to replace a character if an FK or IK node is selected
+        /// </summary>
+        [HarmonyPrefix, HarmonyPatch(typeof(CharaList), nameof(CharaList.ChangeCharaMale))]
+        private static bool CharaList_ChangeCharaMale(CharaFileSort ___charaFileSort)
+        {
+            TreeNodeObject[] selectNodes = Singleton<Studio.Studio>.Instance.treeNodeCtrl.selectNodes;
+            for (int i = 0; i < selectNodes.Length; i++)
+                if (Studio.Studio.Instance.dicInfo.TryGetValue(selectNodes[i], out ObjectCtrlInfo objectCtrlInfo))
+                    if (objectCtrlInfo is OCICharMale ociChar)
+                        ociChar.ChangeChara(___charaFileSort.selectPath);
+            return false;
+        }
+
         #region Fix attaching charas to other charas
         /// <summary>
         /// Fixes crashes when adding guide objects if the objects already exist for some reason
