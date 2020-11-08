@@ -2,6 +2,10 @@
 using Studio;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
+using Mono.Cecil.Cil;
+using MonoMod.Utils.Cil;
 using UnityEngine;
 
 namespace IllusionFixes
@@ -10,12 +14,44 @@ namespace IllusionFixes
     {
         public const string PluginName = "Pose Load Fix";
 
-        internal void Start() => Harmony.CreateAndPatchAll(typeof(Hooks));
+        internal void Start()
+        {
+            Harmony.CreateAndPatchAll(typeof(Hooks));
+        }
 
         internal static class Hooks
         {
-            [HarmonyPrefix, HarmonyPatch(typeof(PauseCtrl.FileInfo), nameof(PauseCtrl.FileInfo.Apply))]
-            internal static bool Apply(PauseCtrl.FileInfo __instance, OCIChar _char)
+            [HarmonyTranspiler]
+            [HarmonyPriority(int.MinValue)]
+            [HarmonyPatch(typeof(PauseCtrl.FileInfo), nameof(PauseCtrl.FileInfo.Apply))]
+            static IEnumerable<CodeInstruction> ReplaceBody(IEnumerable<CodeInstruction> instructions, ILGenerator ilGenerator)
+            {
+                return ReplaceWith(AccessTools.Method(typeof(Hooks), nameof(Apply)), ilGenerator);
+            }
+            static IEnumerable<CodeInstruction> ReplaceWith(MethodInfo replacement, ILGenerator ilGenerator)
+            {
+                // First get originals, this will insert labels and currently a ton of locals because of a bug 
+                var result = PatchProcessor.GetOriginalInstructions(replacement, ilGenerator);
+    
+                // Clear out all locals
+                var gen = Traverse.Create(ilGenerator).Field("Target").GetValue<CecilILGenerator>();
+                gen.IL.Body.Variables.Clear();
+    
+                // Make new locals
+                var body = replacement.GetMethodBody();
+                var locals = body.LocalVariables.Select(bodyLocalVariable => ilGenerator.DeclareLocal(bodyLocalVariable.LocalType, bodyLocalVariable.IsPinned)).ToList();
+    
+                // Find all local references and properly resolve them
+                foreach (var codeInstruction in result)
+                {
+                    var ilOperand = Traverse.Create(codeInstruction).Field("ilOperand").GetValue();
+                    if (ilOperand is VariableDefinition vd)
+                        codeInstruction.operand = locals[vd.Index];
+                }
+                return result;
+            }
+
+            internal static void Apply(PauseCtrl.FileInfo __instance, OCIChar _char)
             {
                 //AI and KK pose files are apparently indistinguishable from each other
                 //If the user is holding ctrl while loading the pose correct the right hand FK
@@ -31,7 +67,7 @@ namespace IllusionFixes
                     correctHand = true;
 #endif
 
-                if (!HSPose && !correctHand) return true;
+                //if (!HSPose && !correctHand) return;
 
                 #region Vanilla Code
                 _char.LoadAnime(__instance.group, __instance.category, __instance.no, __instance.normalizedTime);
@@ -91,7 +127,7 @@ namespace IllusionFixes
                     _char.EnableExpressionCategory(k, __instance.expression[k]);
                 #endregion
 
-                return false;
+                return;
             }
         }
     }
