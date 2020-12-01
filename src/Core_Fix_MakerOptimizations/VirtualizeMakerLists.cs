@@ -5,7 +5,7 @@ using System.Reflection.Emit;
 using ChaCustom;
 using HarmonyLib;
 using Illusion.Extensions;
-using Manager;
+using IllusionUtility.SetUtility;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -40,20 +40,57 @@ namespace IllusionFixes
                 public List<CustomSelectInfo> ItemList { get; }
                 public RectTransform Content { get; }
                 public GridLayoutGroup LayoutGroup { get; }
+                private readonly CustomSelectListCtrl _listCtrl;
 
-                public float ScrollPositionY => Content.localPosition.y;
-                public CustomSelectInfo SelectedItem { get; set; }
+                private bool IsVisible
+                {
+                    get
+                    {
+                        if (_listCtrl == null || _listCtrl.canvasGrp == null || _listCtrl.canvasGrp.Length == 0)
+                            return false;
+
+                        var canvasGroups = _listCtrl.canvasGrp;
+                        for (var i = 0; i < canvasGroups.Length; i++)
+                            if (!canvasGroups[i].interactable)
+                                return false;
+
+                        return true;
+                    }
+                }
+
+                public float ScrollPositionY
+                {
+                    get => Content.localPosition.y;
+                    set => Content.SetLocalPositionY(value);
+                }
+
+                private CustomSelectInfo _selectedItem;
+                private bool _selectionChanged;
+                public CustomSelectInfo SelectedItem
+                {
+                    get => _selectedItem;
+                    set
+                    {
+                        if (_selectedItem != value)
+                        {
+                            _selectedItem = value;
+                            _selectionChanged = true;
+                        }
+                    }
+                }
+
                 public Dictionary<CustomSelectInfo, Sprite> ThumbCache { get; } = new Dictionary<CustomSelectInfo, Sprite>();
 
                 public int LastItemsAbove;
                 public bool IsDirty;
 
                 public VirtualListData(int itemsInRow, List<CustomSelectInfoComponent> listEntryCache,
-                    RectTransform content, List<CustomSelectInfo> itemList)
+                    RectTransform content, List<CustomSelectInfo> itemList, CustomSelectListCtrl listCtrl)
                 {
                     ItemsInRow = itemsInRow;
                     ItemCache = listEntryCache ?? throw new ArgumentNullException(nameof(listEntryCache));
                     ItemList = itemList ?? throw new ArgumentNullException(nameof(itemList));
+                    _listCtrl = listCtrl;
 
                     if (!content) throw new ArgumentNullException(nameof(content));
                     Content = content;
@@ -74,7 +111,64 @@ namespace IllusionFixes
                 public void UpdateSelection()
                 {
                     ToggleAllOff();
-                    if (SelectedItem?.sic != null) SelectedItem.sic.tgl.isOn = true;
+                    if (SelectedItem != null)
+                    {
+                        if (SelectedItem.sic != null)
+                            SelectedItem.sic.tgl.isOn = true;
+
+                        if (_selectionChanged && IsVisible) // Only update the scroll after the list is fully loaded and shown, or it will get reset to 0
+                        {
+                            ScrollToSelection();
+                            _selectionChanged = false;
+                        }
+                    }
+                }
+
+                /// <summary>
+                /// Scroll the list to show currently selected item (if necessary)
+                /// </summary>
+                public void ScrollToSelection()
+                {
+                    var itemRow = GetItemVisibleRow(SelectedItem);
+
+                    if (itemRow >= 0)
+                    {
+                        var minScroll = (itemRow - 4f) * ItemHeight;
+                        var maxScroll = (itemRow + 0.5f) * ItemHeight;
+                        var targetScroll = itemRow * ItemHeight;
+                        //Console.WriteLine($"pos={ScrollPositionY} row={itemRow} min={minScroll} max={maxScroll} target={targetScroll}");
+                        if (ScrollPositionY < minScroll || ScrollPositionY > maxScroll)
+                            ScrollPositionY = Mathf.Max(0, targetScroll - ItemHeight * 1.7f);
+                    }
+                }
+
+                /// <summary>
+                /// Get row of the item as it is seen in the list
+                /// (ignores hidden items)
+                /// </summary>
+                private int GetItemVisibleRow(CustomSelectInfo item)
+                {
+                    var i = GetItemVisibleIndex(item);
+                    return i < 0 ? -1 : i / ItemsInRow;
+                }
+
+                /// <summary>
+                /// Get item index in the list as it is seen
+                /// (ignores hidden items so it's not an index in the list)
+                /// </summary>
+                private int GetItemVisibleIndex(CustomSelectInfo item)
+                {
+                    var count = 0;
+                    for (var index = 0; index < ItemList.Count; index++)
+                    {
+                        var x = ItemList[index];
+                        if (!x.disvisible)
+                        {
+                            if (x == item) return count;
+                            count++;
+                        }
+                    }
+                    return -1;
                 }
 
                 public Sprite GetThumbSprite(CustomSelectInfo item)
@@ -99,12 +193,12 @@ namespace IllusionFixes
 
                 public static bool IsItemNew(CustomSelectInfo item)
                 {
-                    return !DisableNewIndicator.Value && Singleton<Character>.Instance.chaListCtrl.CheckItemID(item.category, item.index) == 1;
+                    return !DisableNewIndicator.Value && Singleton<Manager.Character>.Instance.chaListCtrl.CheckItemID(item.category, item.index) == 1;
                 }
 
                 public static void MarkItemAsNotNew(CustomSelectInfo customSelectInfo)
                 {
-                    Singleton<Character>.Instance.chaListCtrl.AddItemID(customSelectInfo.category, customSelectInfo.index, 2);
+                    Singleton<Manager.Character>.Instance.chaListCtrl.AddItemID(customSelectInfo.category, customSelectInfo.index, 2);
                 }
             }
 
@@ -226,7 +320,7 @@ namespace IllusionFixes
 
                 __instance.imgRaycast = spawnedItems.Select(x => x.img).ToArray();
 
-                _listCache[__instance] = new VirtualListData(itemsInRow, spawnedItems, ___objContent.GetComponent<RectTransform>(), ___lstSelectInfo);
+                _listCache[__instance] = new VirtualListData(itemsInRow, spawnedItems, ___objContent.GetComponent<RectTransform>(), ___lstSelectInfo, __instance);
 
                 return false;
             }
