@@ -118,7 +118,8 @@ namespace IllusionFixes
 
                         if (_selectionChanged && IsVisible) // Only update the scroll after the list is fully loaded and shown, or it will get reset to 0
                         {
-                            ScrollToSelection();
+                            if (ScrollListsToSelection.Value)
+                                ScrollToSelection();
                             _selectionChanged = false;
                         }
                     }
