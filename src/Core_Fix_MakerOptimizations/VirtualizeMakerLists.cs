@@ -24,7 +24,7 @@ namespace IllusionFixes
                 var moraccs = Type.GetType("MoreAccessoriesKOI.CustomAcsSelectKind_OnSelect_Patches, MoreAccessories");
                 if (moraccs != null)
                 {
-                    Console.WriteLine("patching moreaccs");
+                    Logger.LogDebug("Patching moreaccs");
                     var target = moraccs.GetMethod("Prefix", AccessTools.all);
                     var fix = new HarmonyMethod(typeof(VirtualizeMakerLists), nameof(OnSelectFix));
                     h.Patch(target, transpiler: fix);

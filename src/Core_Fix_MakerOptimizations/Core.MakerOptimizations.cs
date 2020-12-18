@@ -14,6 +14,8 @@ namespace IllusionFixes
     {
         public const string PluginName = "Maker Optimizations";
 
+        internal static new ManualLogSource Logger;
+
         public static ConfigEntry<bool> DisableNewAnimation { get; private set; }
         public static ConfigEntry<bool> DisableNewIndicator { get; private set; }
         public static ConfigEntry<bool> DisableIKCalc { get; private set; }
@@ -25,6 +27,8 @@ namespace IllusionFixes
 
         public MakerOptimizations()
         {
+            Logger = base.Logger;
+
             var stilettoInstalled = BepInEx.Bootstrap.Chainloader.PluginInfos.Values.Any(x => x.Metadata.GUID == "com.essu.stiletto");
 
             DisableIKCalc = Config.Bind(Utilities.ConfigSectionTweaks, "Disable IK in maker", !stilettoInstalled, "This setting prevents the character's limbs from being readjusted to match body proportions. It can fix weirdly bent limbs on characters that use ABMX sliders, but will break Stiletto if it's installed.\nWarning: This setting will get reset to false if Stiletto is installed to avoid issues!\nChanges take effect after game restart.");
