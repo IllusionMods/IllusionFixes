@@ -12,7 +12,7 @@ namespace IllusionFixes
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class CharacterListOptimizations : BaseUnityPlugin
     {
-        public const string GUID = "KK_Fix_CharacterListOptimizations";
+        public const string GUID = "KKP_Fix_CharacterListOptimizations";
         public const string PluginName = "Character List Optimizations";
 
         internal void Awake()
