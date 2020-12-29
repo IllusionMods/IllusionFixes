@@ -30,10 +30,13 @@ namespace IllusionFixes
             var vrType = Type.GetType("VR.VRClassRoomCharaFile, Assembly-CSharp");
             if (vrType != null)
             {
-                h.Patch(vrType.GetMethod("InitializeList", AccessTools.all),
+                var startMethod = vrType.GetMethod("Start", AccessTools.all);
+                Logger.LogDebug("Found VR character list, patching: " + startMethod.FullDescription());
+                // In VR the list initialization code is inlined into Start, unlike main game
+                h.Patch(startMethod,
                     prefix: new HarmonyMethod(typeof(Hooks), nameof(Hooks.ClassRoomCharaFileInitializeListPrefix)),
                     postfix: new HarmonyMethod(typeof(Hooks), nameof(Hooks.ClassRoomCharaFileInitializeListPostfix)));
-                h.Patch(vrType.GetMethod("Start", AccessTools.all),
+                h.Patch(startMethod,
                     postfix: new HarmonyMethod(typeof(Hooks), nameof(Hooks.ClassRoomCharaFileStartPostfix)));
             }
         }

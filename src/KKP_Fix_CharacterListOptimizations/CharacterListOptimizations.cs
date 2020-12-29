@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace IllusionFixes
 {
-    [BepInProcess(Constants.GameProcessNameSteam)] //Not currently compatible with Koikatsu Party
+    [BepInProcess(Constants.GameProcessNameSteam)]
     [BepInProcess(Constants.VRProcessNameSteam)]
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class CharacterListOptimizations : BaseUnityPlugin
@@ -20,6 +20,7 @@ namespace IllusionFixes
             Harmony.CreateAndPatchAll(typeof(Hooks));
         }
 
+        // In KKP and KKP_VR pretty much all lists use CustomFileListSelecter so the same patches work for everything
         private class Hooks
         {
             /// <summary>
