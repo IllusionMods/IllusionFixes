@@ -165,7 +165,7 @@ namespace IllusionFixes
             }
 
             var sqrDistMagnitude = (_cameraTransform.position - transformPosition).sqrMagnitude;
-            const int sqrMaxDistance = 14 * 14; //todo configurable? increase to 20?
+            const int sqrMaxDistance = 20 * 20;
             return sqrDistMagnitude < sqrMaxDistance;
         }
 
