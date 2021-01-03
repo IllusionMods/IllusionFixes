@@ -28,12 +28,14 @@ namespace IllusionFixes
         public static ConfigEntry<bool> AsyncClothesLoading { get; private set; }
         public static ConfigEntry<bool> PreloadCharacters { get; private set; }
         public static ConfigEntry<bool> ThrottleCharaUpdates { get; private set; }
+        public static ConfigEntry<bool> ThrottleDynamicBoneUpdates { get; private set; }
 
         internal void Awake()
         {
             AsyncClothesLoading = Config.Bind(Utilities.ConfigSectionTweaks, "Async clothes loading", true, new ConfigDescription("Spread loading of clothes in school roam mode over multiple frames. Greatly reduces seemingly random stutters when characters change clothes somewhere in the world.\nWarning: In rare cases can cause some visual glitches like 2 coordinates loaded at once."));
             PreloadCharacters = Config.Bind(Utilities.ConfigSectionTweaks, "Preload characters on initial load", true, new ConfigDescription("Forces all characters to load during initial load into school mode. Slightly longer loading time but eliminates large stutters when unseen characters enter current map."));
             ThrottleCharaUpdates = Config.Bind(Utilities.ConfigSectionTweaks, "Throttle chara blend shape updates", true, new ConfigDescription("Reduces the amount of unnecessary blend shape updates. Performance improvement in main game, especially with over 20 characters in one room."));
+            ThrottleDynamicBoneUpdates = Config.Bind(Utilities.ConfigSectionTweaks, "Throttle dynamic bone updates", true, new ConfigDescription("Stops dynamic bone physics in roaming mode for characters that are far away or not visible. Performance improvement in main game, especially with over 20 characters.\nWarning: In rare cases can cause some physics glitches."));
 
             Harmony.CreateAndPatchAll(typeof(MainGameOptimizations));
 
@@ -142,17 +144,18 @@ namespace IllusionFixes
         private static void DynamicBoneOptimize(ChaControl __instance)
         {
             // Only run in roaming mode. Includes roaming mode H
-            if (!__instance.loadEnd || !_insideRoamingMode) return;
-
-            var isVisible = __instance.rendBody.isVisible && CheckDistance(__instance.transform.position);
-
-            if (!_boneList.TryGetValue(__instance, out var boneList))
+            if (_insideRoamingMode && ThrottleDynamicBoneUpdates.Value && __instance.loadEnd)
             {
-                boneList = new BoneListItem(__instance);
-                _boneList[__instance] = boneList;
-            }
+                var isVisible = __instance.rendBody.isVisible && CheckDistance(__instance.transform.position);
 
-            boneList.SetState(isVisible);
+                if (!_boneList.TryGetValue(__instance, out var boneListItem))
+                {
+                    boneListItem = new BoneListItem(__instance);
+                    _boneList[__instance] = boneListItem;
+                }
+
+                boneListItem.SetState(isVisible);
+            }
         }
 
         private static bool CheckDistance(Vector3 transformPosition)
