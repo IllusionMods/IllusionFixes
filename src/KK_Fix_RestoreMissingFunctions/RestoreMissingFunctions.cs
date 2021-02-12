@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using BepInEx;
+using BepInEx.Logging;
 using Common;
 using Config;
 using HarmonyLib;
@@ -21,13 +22,17 @@ namespace IllusionFixes
     [BepInProcess(Constants.GameProcessNameSteam)]
     [BepInDependency(KoikatuAPI.GUID, "1.7")]
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
-    public class RestoreMissingFunctions : BaseUnityPlugin
+    public partial class RestoreMissingFunctions : BaseUnityPlugin
     {
         public const string GUID = "KK_Fix_RestoreMissingFunctions";
         public const string PluginName = "Restore missing functions";
 
+        private static new ManualLogSource Logger;
+
         private void Awake()
         {
+            Logger = base.Logger;
+
             // Add missing head type selection if the game supports it (ui for it was added in darkness for some reason)
             var missingDarkness = typeof(ChaInfo).GetProperty("exType", BindingFlags.Public | BindingFlags.Instance) == null;
             if (missingDarkness)
@@ -39,10 +44,12 @@ namespace IllusionFixes
                     MakerAPI.RegisterCustomSubCategories += MakerAPI_RegisterCustomSubCategories;
             }
 
+            var h = new Harmony(GUID);
+            h.PatchAll(typeof(CalendarIconHooks));
+
             // Fixes only needed for party
             if (Paths.ProcessName == Constants.GameProcessNameSteam)
             {
-                var h = new Harmony(GUID);
                 h.Patch(AccessTools.Method(typeof(ConfigScene), "Start"),
                     postfix: new HarmonyMethod(typeof(RestoreMissingFunctions), nameof(ConfigAddFix)));
                 h.Patch(AccessTools.Method("Localize.Translate.Manager:SetLanguage", new[] { typeof(int) }),
