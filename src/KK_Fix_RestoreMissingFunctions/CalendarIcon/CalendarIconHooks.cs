@@ -97,7 +97,7 @@ namespace IllusionFixes
                             rendererIcon.enabled = isVisible;
 
                         // Check if player clicked this point
-                        if (isVisible && playerInRange && ActionInput.isAction && !player.isActionNow && !Singleton<Scene>.Instance.IsNowLoadingFade)
+                        if (isVisible && playerInRange && ActionInput.isAction && !player.isActionNow)
                         {
                             Singleton<Scene>.Instance.LoadReserve(new Scene.Data
                             {
