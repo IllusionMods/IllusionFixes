@@ -89,16 +89,24 @@ namespace IllusionFixes
 
                 var player = Singleton<Game>.Instance.actScene.Player;
                 evt.UpdateAsObservable()
-                    .Where(_ => playerInRange && ActionInput.isAction && !player.isActionNow && !Singleton<Scene>.Instance.IsNowLoadingFade)
                     .Subscribe(_ =>
                     {
-                        Singleton<Scene>.Instance.LoadReserve(new Scene.Data
+                        // Hide in H scenes and other places
+                        var isVisible = Singleton<Game>.IsInstance() && !Singleton<Game>.Instance.IsRegulate(true);
+                        if (rendererIcon.enabled != isVisible) 
+                            rendererIcon.enabled = isVisible;
+
+                        // Check if player clicked this point
+                        if (isVisible && playerInRange && ActionInput.isAction && !player.isActionNow && !Singleton<Scene>.Instance.IsNowLoadingFade)
                         {
-                            assetBundleName = "action/menu/classschedulemenu.unity3d",
-                            levelName = "ClassScheduleMenu",
-                            isAdd = true,
-                            isAsync = true
-                        }, false);
+                            Singleton<Scene>.Instance.LoadReserve(new Scene.Data
+                            {
+                                assetBundleName = "action/menu/classschedulemenu.unity3d",
+                                levelName = "ClassScheduleMenu",
+                                isAdd = true,
+                                isAsync = true
+                            }, false);
+                        }
                     })
                     .AddTo(evt);
             }
