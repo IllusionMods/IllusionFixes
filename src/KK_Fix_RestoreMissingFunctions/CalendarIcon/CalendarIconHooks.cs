@@ -37,7 +37,7 @@ namespace IllusionFixes
 
             private static void SpawnCrestActionPoint()
             {
-                Logger.LogDebug("Spawning crest action point");
+                Logger.LogDebug("Spawning calendar icon action point");
 
                 if (_iconOff == null)
                 {
@@ -64,9 +64,6 @@ namespace IllusionFixes
 
                 // position above the small table
                 iconRootTransform.position = new Vector3(2.43f, 0.45f, 4.55f);
-
-                if (iconRootObject.GetComponent<ObservableUpdateTrigger>())
-                    Console.WriteLine("was spawned -=--------------");
 
                 var evt = iconRootObject.AddComponent<TriggerEnterExitEvent>();
                 var animator = iconRootObject.GetComponentInChildren<Animator>();
