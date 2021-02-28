@@ -60,7 +60,12 @@ Modifies the render queue of front hairs and front hair accessories so that they
 ### HeterochromiaFix
 (Koikatsu, EmotionCreators)
 
-Allows you to load characters with different iris types without them being reset
+Allows you to load characters with different iris types without them being reset.
+
+### HS2_Fix_UpdateWet
+(HoneySelect2)
+
+Fixes fairly serious nullref crashes in UpdateWet caused by issues in some mods.
 
 ### InvalidSceneFileProtection
 (Koikatsu, AI Girl)
