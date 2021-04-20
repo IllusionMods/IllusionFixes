@@ -66,7 +66,17 @@ namespace IllusionFixes
             var headValues = categoryInfo.Values.ToList();
 
             var dd = e.AddControl(new MakerDropdown("Head type", headValues.Select(x => x.Name).ToArray(), MakerConstants.Face.All, 0, this));
-            MakerAPI.ReloadCustomInterface += (o, args) => dd.Value = headValues.FindIndex(i => i.Id == MakerAPI.GetCharacterControl().infoHead.Id);
+
+            void OnReload(object o, EventArgs args) => dd.Value = headValues.FindIndex(i => i.Id == MakerAPI.GetCharacterControl().infoHead.Id);
+            MakerAPI.ReloadCustomInterface += OnReload;
+
+            void OnExit(object o, EventArgs args)
+            {
+                MakerAPI.ReloadCustomInterface -= OnReload;
+                MakerAPI.MakerExiting -= OnExit;
+            }
+            MakerAPI.MakerExiting += OnExit;
+
             dd.ValueChanged.Subscribe(x => MakerAPI.GetCharacterControl().ChangeHead(headValues[x].Id));
         }
 
