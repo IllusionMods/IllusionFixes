@@ -58,6 +58,27 @@ namespace IllusionFixes
             };
         }
 
+        /// <summary>
+        /// Prevent a crash that can break level loading and softlock the game
+        /// </summary>
+        [HarmonyFinalizer, HarmonyPatch(typeof(AI), "CoordinateSetting")]
+        public static Exception CoordinateSettingCatchException(AI __instance, Exception __exception)
+        {
+            if (__exception != null)
+            {
+                UnityEngine.Debug.LogException(__exception);
+                // Attempt to clean up state
+                var h = Traverse.Create(__instance).Property<SaveData.Heroine>("heroine").Value;
+                if (h != null)
+                {
+                    h.coordinates = new[] { 0 };
+                    h.isDresses = new[] { false };
+                }
+            }
+
+            return null;
+        }
+
         #region Optimize dynamic bones
 
         private sealed class BoneListItem
@@ -190,51 +211,63 @@ namespace IllusionFixes
             // Load immediately during load screens, better compat and slightly faster overall
             if (Scene.Instance.IsNowLoadingFade) return true;
 
-            if (__instance.chaCtrl == null || !Character.IsInstance()) return false;
+            if (__instance.chaCtrl == null || __instance.heroine == null || !Character.IsInstance()) return false;
 
-            var nowCoordinate = __instance.heroine.NowCoordinate;
-            if (__instance.chaCtrl.fileStatus.coordinateType == nowCoordinate) return false;
+            try
+            {
+                var nowCoordinate = __instance.heroine.NowCoordinate;
+                if (__instance.chaCtrl.fileStatus.coordinateType == nowCoordinate) return false;
 
-            if (!__instance.chaCtrl.ChangeCoordinateType((ChaFileDefine.CoordinateType)nowCoordinate)) return false;
+                if (!__instance.chaCtrl.ChangeCoordinateType((ChaFileDefine.CoordinateType)nowCoordinate)) return false;
 
-            Singleton<Character>.Instance.enableCharaLoadGCClear = false;
-            _runningReloadCoroutines.Add(__instance.chaCtrl);
+                Singleton<Character>.Instance.enableCharaLoadGCClear = false;
+                _runningReloadCoroutines.Add(__instance.chaCtrl);
 
-            // Do this before starting to reload clothes in case player is nearby to make it look less weird
-            if (isRemove)
-                __instance.chaCtrl.RandomChangeOfClothesLowPoly(__instance.heroine.lewdness);
+                // Do this before starting to reload clothes in case player is nearby to make it look less weird
+                if (isRemove)
+                    __instance.chaCtrl.RandomChangeOfClothesLowPoly(__instance.heroine.lewdness);
 
-            var isActive = __instance.chaCtrl.GetActiveTop();
+                var isActive = __instance.chaCtrl.GetActiveTop();
 
-            // Prevent the character from doing anything while clothes load
-            __instance.Pause(true);
+                // Prevent the character from doing anything while clothes load
+                __instance.Pause(true);
 
-            var reloadCoroutine =
-                // Async version of the reload that's implemented but is never actually used ¯\_(ツ)_/¯
-                __instance.chaCtrl.ReloadAsync(false, true, true, true, true)
-                    // Let the game settle down, running next reload so fast can possibly make 2 sets of clothes spawn?
-                    .AppendCo(new WaitForEndOfFrame())
-                    .AppendCo(new WaitForEndOfFrame())
-                    .AppendCo(
-                        () =>
-                        {
-                            // Second normal reload needed to fix clothes randomly not loading fully, goes 
-                            // very fast since assets are loaded by the async version by now
-                            __instance.chaCtrl.Reload(false, true, true, true);
+                var reloadCoroutine =
+                    // Async version of the reload that's implemented but is never actually used ¯\_(ツ)_/¯
+                    __instance.chaCtrl.ReloadAsync(false, true, true, true, true)
+                        // Let the game settle down, running next reload so fast can possibly make 2 sets of clothes spawn?
+                        .AppendCo(new WaitForEndOfFrame())
+                        .AppendCo(new WaitForEndOfFrame())
+                        .AppendCo(
+                            () =>
+                            {
+                                // Second normal reload needed to fix clothes randomly not loading fully, goes 
+                                // very fast since assets are loaded by the async version by now
+                                __instance.chaCtrl.Reload(false, true, true, true);
 
-                            _runningReloadCoroutines.Remove(__instance.chaCtrl);
-                            _runningReloadCoroutines.RemoveAll(c => c == null);
-                            if (_runningReloadCoroutines.Count == 0)
-                                Singleton<Character>.Instance.enableCharaLoadGCClear = true;
+                                _runningReloadCoroutines.Remove(__instance.chaCtrl);
+                                _runningReloadCoroutines.RemoveAll(c => c == null);
+                                if (_runningReloadCoroutines.Count == 0)
+                                    Singleton<Character>.Instance.enableCharaLoadGCClear = true;
 
-                            __instance.Pause(false);
-                        });
+                                __instance.Pause(false);
+                            });
 
-            __instance.chaCtrl.StartCoroutine(reloadCoroutine);
+                __instance.chaCtrl.StartCoroutine(reloadCoroutine);
 
-            // Needed to counter SetActiveTop(false) at the start of ReloadAsync. That code is before 1st yield so 
-            // it is executed in the current "thread" before returning to this call after 1st yield is encountered
-            __instance.chaCtrl.SetActiveTop(isActive);
+                // Needed to counter SetActiveTop(false) at the start of ReloadAsync. That code is before 1st yield so 
+                // it is executed in the current "thread" before returning to this call after 1st yield is encountered
+                __instance.chaCtrl.SetActiveTop(isActive);
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.LogException(e);
+                // Clean up state
+                _runningReloadCoroutines.Remove(__instance.chaCtrl);
+                _runningReloadCoroutines.RemoveAll(c => c == null);
+                if (_runningReloadCoroutines.Count == 0 && Singleton<Character>.IsInstance())
+                    Singleton<Character>.Instance.enableCharaLoadGCClear = true;
+            }
 
             return false;
         }
