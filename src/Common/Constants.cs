@@ -6,7 +6,7 @@
         /// Version number used by all plugins. Must be convertible to <see cref="System.Version"/>
         /// Uses ReleaseVersion.HotfixVersion format.
         /// </summary>
-        public const string PluginsVersion = "15.2";
+        public const string PluginsVersion = "15.2.1";
 
 #if AI
         internal const string StudioProcessName = "StudioNEOV2";
