@@ -12,6 +12,9 @@ namespace IllusionFixes
 
         internal void Start() => Harmony.CreateAndPatchAll(typeof(Hooks));
 
+        /// <summary>
+        /// Use of TryGetValue prevents errors when loading HS poses and poses from different gender, so this method replaces the vanilla method
+        /// </summary>
         internal static class Hooks
         {
             [HarmonyPrefix, HarmonyPatch(typeof(PauseCtrl.FileInfo), nameof(PauseCtrl.FileInfo.Apply))]
@@ -30,8 +33,6 @@ namespace IllusionFixes
                 if (HSPose)
                     correctHand = true;
 #endif
-
-                if (!HSPose && !correctHand) return true;
 
                 #region Vanilla Code
                 _char.LoadAnime(__instance.group, __instance.category, __instance.no, __instance.normalizedTime);
