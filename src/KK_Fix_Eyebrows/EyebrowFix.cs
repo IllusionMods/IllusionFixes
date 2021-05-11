@@ -199,11 +199,14 @@ namespace IllusionFixes
         public static void EnableEyeliners(ChaControl chaControl)
         {
             chaControl.transform.FindLoop("cf_O_eyeline").GetOrAddComponent<Blitty>();
+            chaControl.transform.FindLoop("cf_O_eyeline_low").GetOrAddComponent<Blitty>();
         }
 
         public static void DisableEyeliners(ChaControl chaControl)
         {
             var blitty = chaControl.transform.FindLoop("cf_O_eyeline").GetComponent<Blitty>();
+            Destroy(blitty);
+            blitty = chaControl.transform.FindLoop("cf_O_eyeline_low").GetComponent<Blitty>();
             Destroy(blitty);
         }
     }
@@ -228,15 +231,20 @@ namespace IllusionFixes
             if (KoikatuAPI.GetCurrentGameMode() == GameMode.MainGame)
                 return;
 
-            if (__instance.chaFile.custom.face.foregroundEyebrow == 2) //In front of hair
-                EyebrowFix.EnableEyebrows(__instance);
-            else if (__instance.chaFile.custom.face.foregroundEyebrow == 0 && Manager.Config.EtcData.ForegroundEyebrow)
-                EyebrowFix.EnableEyebrows(__instance);
+            EyebrowFix.SetEyebrows(__instance, __instance.chaFile.custom.face.foregroundEyebrow);
+        }
 
-            if (__instance.chaFile.custom.face.foregroundEyes == 2) //In front of hair
-                EyebrowFix.EnableEyeliners(__instance);
-            else if (__instance.chaFile.custom.face.foregroundEyes == 0 && Manager.Config.EtcData.ForegroundEyes)
-                EyebrowFix.EnableEyeliners(__instance);
+        /// <summary>
+        /// Happens after the character is loaded and eyeliner SMR initialized
+        /// </summary>
+        [HarmonyPostfix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.ChangeSettingEyelineUp))]
+        private static void ChaControl_ChangeSettingEyelineUp(ChaControl __instance)
+        {
+            //Only care about maker and studio, other modes have problems that aren't worth the effort
+            if (KoikatuAPI.GetCurrentGameMode() == GameMode.MainGame)
+                return;
+
+            EyebrowFix.SetEyeliners(__instance, __instance.chaFile.custom.face.foregroundEyes);
         }
     }
 
