@@ -223,6 +223,10 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_GuideObjects", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Fix_UpdateWet", "src\HS2_Fix_UpdateWet\HS2_Fix_UpdateWet.csproj", "{BDB643DB-EE18-4620-AF42-0BD66B829240}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_Eyebrows", "Fix_Eyebrows", "{D57ADF93-BD8E-407B-B9D2-F989423B3140}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_Eyebrows", "src\KK_Fix_Eyebrows\KK_Fix_Eyebrows.csproj", "{A095DBB3-7842-4A5D-BB81-0B90317B4543}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
@@ -667,6 +671,10 @@ Global
 		{BDB643DB-EE18-4620-AF42-0BD66B829240}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDB643DB-EE18-4620-AF42-0BD66B829240}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDB643DB-EE18-4620-AF42-0BD66B829240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A095DBB3-7842-4A5D-BB81-0B90317B4543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A095DBB3-7842-4A5D-BB81-0B90317B4543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A095DBB3-7842-4A5D-BB81-0B90317B4543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A095DBB3-7842-4A5D-BB81-0B90317B4543}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -745,6 +753,7 @@ Global
 		{5DC60B0B-DE92-4DA3-AB07-0D5D8F7BE772} = {0EA17B87-1BE0-4AAF-97EC-9B0885676D1C}
 		{89AFBE74-7A61-4A50-A01E-40E35B9407E6} = {0EA17B87-1BE0-4AAF-97EC-9B0885676D1C}
 		{763D7633-B7FD-4B91-886B-579850E2FAE1} = {0EA17B87-1BE0-4AAF-97EC-9B0885676D1C}
+		{A095DBB3-7842-4A5D-BB81-0B90317B4543} = {D57ADF93-BD8E-407B-B9D2-F989423B3140}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
