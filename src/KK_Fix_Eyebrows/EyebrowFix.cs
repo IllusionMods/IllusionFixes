@@ -24,8 +24,7 @@ namespace IllusionFixes
             - EC version
             - Adapt code for eyeliners as well
             - Rename plugin since EyebrowFix doesn't make sense if it also works on eyeliners
-            - Ask essu to look in to compatiblity with screenshot plugin
-            - Take all the credit
+            - Fix compatibility with MaterialEditor disabled renderers
         */
 
         public static RenderTexture rt;
@@ -45,20 +44,30 @@ namespace IllusionFixes
         //pre render
         private void Update()
         {
-            rt = RenderTexture.GetTemporary(Screen.width, Screen.height, 0, RenderTextureFormat.ARGBHalf);
-            RenderTexture.active = rt;
-            GL.Clear(true, true, Color.clear);
-            RenderTexture.active = null;
-        }
-
-        //post render
-        private void OnGUI()
-        {
             if (rt != null)
             {
                 RenderTexture.ReleaseTemporary(rt);
                 rt = null;
             }
+
+            int rx;
+            int ry;
+
+            if (Screencap.ScreenshotManager.KeyCaptureAlpha.Value.IsDown())
+            {
+                rx = Screencap. ScreenshotManager.ResolutionX.Value * Screencap.ScreenshotManager.DownscalingRate.Value;
+                ry = Screencap.ScreenshotManager.ResolutionY.Value * Screencap.ScreenshotManager.DownscalingRate.Value;
+            }
+            else
+            {
+                rx = Screen.width;
+                ry = Screen.height;
+            }
+            rt = RenderTexture.GetTemporary(rx, ry, 0, RenderTextureFormat.ARGBHalf);
+            var rta = RenderTexture.active;
+            RenderTexture.active = rt;
+            GL.Clear(true, true, Color.clear);
+            RenderTexture.active = rta;
         }
 
         /// <summary>
