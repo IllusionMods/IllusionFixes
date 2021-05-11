@@ -5,9 +5,11 @@ using HarmonyLib;
 using IllusionUtility.GetUtility;
 using KKAPI;
 using KKAPI.Maker;
+using KKAPI.Studio;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace IllusionFixes
@@ -23,7 +25,6 @@ namespace IllusionFixes
         /*
           TODO:
             - EC version
-            - Add handling for changing eyebrow and eyeliner settings in Studio
             - Rename plugin since EyebrowFix doesn't make sense if it also works on eyeliners
             - Fix compatibility with MaterialEditor disabled renderers
               This may also fix H scene compatibility or elsewhere that characters are invisible
@@ -40,6 +41,29 @@ namespace IllusionFixes
 
             Harmony.CreateAndPatchAll(typeof(Hooks));
             MakerAPI.MakerFinishedLoading += MakerAPI_MakerFinishedLoading;
+            SceneManager.sceneLoaded += (s, lsm) => InitStudioUI(s.name);
+        }
+
+        private void InitStudioUI(string sceneName)
+        {
+            if (sceneName != "Studio") return;
+            SceneManager.sceneLoaded -= (s, lsm) => InitStudioUI(s.name);
+
+            var dropdownForegroundEyebrow = GameObject.Find("StudioScene").transform.Find("Canvas Main Menu/02_Manipulate/00_Chara/02_Kinematic/05_Etc/Eyebrows Draw/Dropdown").GetComponent<Dropdown>();
+            dropdownForegroundEyebrow.onValueChanged.AddListener(value =>
+            {
+                var characters = StudioAPI.GetSelectedCharacters();
+                foreach (var character in characters)
+                    SetEyebrows(character.charInfo, (byte)value);
+            });
+
+            var dropdownForegroundEyes = GameObject.Find("StudioScene").transform.Find("Canvas Main Menu/02_Manipulate/00_Chara/02_Kinematic/05_Etc/Eyes Draw/Dropdown").GetComponent<Dropdown>();
+            dropdownForegroundEyes.onValueChanged.AddListener(value =>
+            {
+                var characters = StudioAPI.GetSelectedCharacters();
+                foreach (var character in characters)
+                    SetEyeliners(character.charInfo, (byte)value);
+            });
         }
 
         //TODO: only do any of this allocation and deallocation of rendertextures when in a scene with an actual camera :^)
@@ -85,26 +109,20 @@ namespace IllusionFixes
                 CvsEyebrow cvsEyebrow = (CvsEyebrow)Traverse.Create(ccFaceMenu).Field("cvsEyebrow").GetValue();
                 Toggle[] tglForegroundEyebrow = (Toggle[])Traverse.Create(cvsEyebrow).Field("tglForegroundEyebrow").GetValue();
 
-                //From config
                 tglForegroundEyebrow[0].onValueChanged.AddListener(value =>
                 {
                     if (value)
-                        if (Manager.Config.EtcData.ForegroundEyebrow)
-                            EnableEyebrows(MakerAPI.GetCharacterControl());
-                        else
-                            DisableEyebrows(MakerAPI.GetCharacterControl());
+                        SetEyebrows(MakerAPI.GetCharacterControl(), 0);
                 });
-                //Not showing through hair
                 tglForegroundEyebrow[1].onValueChanged.AddListener(value =>
                 {
                     if (value)
-                        DisableEyebrows(MakerAPI.GetCharacterControl());
+                        SetEyebrows(MakerAPI.GetCharacterControl(), 1);
                 });
-                //Showing through hair
                 tglForegroundEyebrow[2].onValueChanged.AddListener(value =>
                 {
                     if (value)
-                        EnableEyebrows(MakerAPI.GetCharacterControl());
+                        SetEyebrows(MakerAPI.GetCharacterControl(), 2);
                 });
             }
 
@@ -113,28 +131,40 @@ namespace IllusionFixes
                 CvsEye02 cvsEye02 = (CvsEye02)Traverse.Create(ccFaceMenu).Field("cvsEye02").GetValue();
                 Toggle[] tglForegroundEye = (Toggle[])Traverse.Create(cvsEye02).Field("tglForegroundEye").GetValue();
 
-                //From config
                 tglForegroundEye[0].onValueChanged.AddListener(value =>
                 {
                     if (value)
-                        if (Manager.Config.EtcData.ForegroundEyebrow)
-                            EnableEyeliners(MakerAPI.GetCharacterControl());
-                        else
-                            DisableEyeliners(MakerAPI.GetCharacterControl());
+                        SetEyeliners(MakerAPI.GetCharacterControl(), 0);
                 });
-                //Not showing through hair
                 tglForegroundEye[1].onValueChanged.AddListener(value =>
                 {
                     if (value)
-                        DisableEyeliners(MakerAPI.GetCharacterControl());
+                        SetEyeliners(MakerAPI.GetCharacterControl(), 1);
                 });
-                //Showing through hair
                 tglForegroundEye[2].onValueChanged.AddListener(value =>
                 {
                     if (value)
-                        EnableEyeliners(MakerAPI.GetCharacterControl());
+                        SetEyeliners(MakerAPI.GetCharacterControl(), 2);
                 });
             }
+        }
+
+        /// <summary>
+        /// Set the state of the eyebrows
+        /// </summary>
+        /// <param name="chaControl">Character this will be applied to</param>
+        /// <param name="value">Value to set. 0 = from config, 1 = behind hair, 2 = in front of hair</param>
+        public static void SetEyebrows(ChaControl chaControl, byte value)
+        {
+            if (value == 0) //From config
+                if (Manager.Config.EtcData.ForegroundEyebrow)
+                    EnableEyebrows(chaControl);
+                else
+                    DisableEyebrows(chaControl);
+            else if (value == 1) //Behind hair
+                DisableEyebrows(chaControl);
+            else if (value == 2) //In front of hair
+                EnableEyebrows(chaControl);
         }
 
         public static void EnableEyebrows(ChaControl chaControl)
@@ -146,6 +176,24 @@ namespace IllusionFixes
         {
             var blitty = chaControl.transform.FindLoop("cf_O_mayuge").GetComponent<Blitty>();
             Destroy(blitty);
+        }
+
+        /// <summary>
+        /// Set the state of the eyelines
+        /// </summary>
+        /// <param name="chaControl">Character this will be applied to</param>
+        /// <param name="value">Value to set. 0 = from config, 1 = behind hair, 2 = in front of hair</param>
+        public static void SetEyeliners(ChaControl chaControl, byte value)
+        {
+            if (value == 0) //From config
+                if (Manager.Config.EtcData.ForegroundEyes)
+                    EnableEyeliners(chaControl);
+                else
+                    DisableEyeliners(chaControl);
+            else if (value == 1) //Behind hair
+                DisableEyeliners(chaControl);
+            else if (value == 2) //In front of hair
+                EnableEyeliners(chaControl);
         }
 
         public static void EnableEyeliners(ChaControl chaControl)
