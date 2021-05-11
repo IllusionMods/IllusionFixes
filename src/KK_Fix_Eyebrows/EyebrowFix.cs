@@ -23,7 +23,7 @@ namespace IllusionFixes
           TODO:
             - EC version
             - Adapt code for eyeliners as well
-            - Rename plugin since EyebrowFix doesn't make since if it also works on eyeliners
+            - Rename plugin since EyebrowFix doesn't make sense if it also works on eyeliners
             - Ask essu to look in to compatiblity with screenshot plugin
             - Take all the credit
         */

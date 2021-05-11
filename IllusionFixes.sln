@@ -329,6 +329,7 @@ Global
 		src\Common\Common.projitems*{92a43761-b0ad-46fe-b1b6-28ada6f09bbb}*SharedItemsImports = 4
 		src\Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems*{92a43761-b0ad-46fe-b1b6-28ada6f09bbb}*SharedItemsImports = 4
 		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{94e708e4-7b1c-4da8-83bb-7699753825d1}*SharedItemsImports = 13
+		src\Common\Common.projitems*{a095dbb3-7842-4a5d-bb81-0b90317b4543}*SharedItemsImports = 4
 		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{a68b1345-a4d5-4a10-ab5f-f3bbd638b189}*SharedItemsImports = 13
 		src\Common\Common.projitems*{a714b46d-95a3-4eb0-a635-c253bbad0cba}*SharedItemsImports = 4
 		src\Common\Common.projitems*{aaa57b7a-9d2c-4840-94e2-f1fa43c53bc7}*SharedItemsImports = 4
