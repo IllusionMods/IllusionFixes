@@ -26,8 +26,6 @@ namespace IllusionFixes
           TODO:
             - EC version
             - Rename plugin since EyebrowFix doesn't make sense if it also works on eyeliners
-            - Fix compatibility with MaterialEditor disabled renderers
-              This may also fix H scene compatibility or elsewhere that characters are invisible
         */
 
         public static RenderTexture rt;
@@ -156,6 +154,9 @@ namespace IllusionFixes
         /// <param name="value">Value to set. 0 = from config, 1 = behind hair, 2 = in front of hair</param>
         public static void SetEyebrows(ChaControl chaControl, byte value)
         {
+            if (MakerAPI.InsideMaker && !MakerAPI.InsideAndLoaded)
+                return;
+
             if (value == 0) //From config
                 if (Manager.Config.EtcData.ForegroundEyebrow)
                     EnableEyebrows(chaControl);
@@ -185,6 +186,9 @@ namespace IllusionFixes
         /// <param name="value">Value to set. 0 = from config, 1 = behind hair, 2 = in front of hair</param>
         public static void SetEyeliners(ChaControl chaControl, byte value)
         {
+            if (MakerAPI.InsideMaker && !MakerAPI.InsideAndLoaded)
+                return;
+
             if (value == 0) //From config
                 if (Manager.Config.EtcData.ForegroundEyes)
                     EnableEyeliners(chaControl);
@@ -255,12 +259,19 @@ namespace IllusionFixes
         private CommandBuffer cb;
         private Camera mainCam;
         private readonly CameraEvent ev = CameraEvent.AfterForwardOpaque;
+        private bool smrEnabledOriginal;
 
         private void Start()
         {
             smr = GetComponent<SkinnedMeshRenderer>();
             materials = smr.sharedMaterials.OrderBy(x => x.renderQueue).ToArray();
             mainCam = Camera.main;
+        }
+
+        private void LateUpdate()
+        {
+            //Track the original state of the renderer (MaterialEditor compatibility)
+            smrEnabledOriginal = smr.enabled;
         }
 
         private void OnWillRenderObject()
@@ -272,12 +283,16 @@ namespace IllusionFixes
                 - Ensure the skinnedmeshrenderer animates
                 This method apparently fulfils those criteria
             */
+            if (!smrEnabledOriginal)
+                return;
             smr.enabled = false;
         }
 
         public void OnRenderObject()
         {
             OnDestroy();
+            if (!smrEnabledOriginal)
+                return;
 
             cb = new CommandBuffer();
             cb.SetRenderTarget(EyebrowFix.rt);
