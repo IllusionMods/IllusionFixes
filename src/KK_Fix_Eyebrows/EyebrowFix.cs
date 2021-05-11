@@ -5,6 +5,7 @@ using HarmonyLib;
 using IllusionUtility.GetUtility;
 using KKAPI;
 using KKAPI.Maker;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -22,9 +23,10 @@ namespace IllusionFixes
         /*
           TODO:
             - EC version
-            - Adapt code for eyeliners as well
+            - Add handling for changing eyebrow and eyeliner settings in Studio
             - Rename plugin since EyebrowFix doesn't make sense if it also works on eyeliners
             - Fix compatibility with MaterialEditor disabled renderers
+              This may also fix H scene compatibility or elsewhere that characters are invisible
         */
 
         public static RenderTexture rt;
@@ -55,7 +57,7 @@ namespace IllusionFixes
 
             if (Screencap.ScreenshotManager.KeyCaptureAlpha.Value.IsDown())
             {
-                rx = Screencap. ScreenshotManager.ResolutionX.Value * Screencap.ScreenshotManager.DownscalingRate.Value;
+                rx = Screencap.ScreenshotManager.ResolutionX.Value * Screencap.ScreenshotManager.DownscalingRate.Value;
                 ry = Screencap.ScreenshotManager.ResolutionY.Value * Screencap.ScreenshotManager.DownscalingRate.Value;
             }
             else
@@ -77,40 +79,83 @@ namespace IllusionFixes
         {
             var customChangeMainMenu = FindObjectOfType<CustomChangeMainMenu>();
             CustomChangeFaceMenu ccFaceMenu = (CustomChangeFaceMenu)Traverse.Create(customChangeMainMenu).Field("ccFaceMenu").GetValue();
-            CvsEyebrow cvsEyebrow = (CvsEyebrow)Traverse.Create(ccFaceMenu).Field("cvsEyebrow").GetValue();
-            Toggle[] tglForegroundEyebrow = (Toggle[])Traverse.Create(cvsEyebrow).Field("tglForegroundEyebrow").GetValue();
 
-            //From config
-            tglForegroundEyebrow[0].onValueChanged.AddListener(value =>
+            //Eyebrows
             {
-                if (value)
-                    if (Manager.Config.EtcData.ForegroundEyebrow)
-                        Enable(MakerAPI.GetCharacterControl());
-                    else
-                        Disable(MakerAPI.GetCharacterControl());
-            });
-            //Not showing through hair
-            tglForegroundEyebrow[1].onValueChanged.AddListener(value =>
+                CvsEyebrow cvsEyebrow = (CvsEyebrow)Traverse.Create(ccFaceMenu).Field("cvsEyebrow").GetValue();
+                Toggle[] tglForegroundEyebrow = (Toggle[])Traverse.Create(cvsEyebrow).Field("tglForegroundEyebrow").GetValue();
+
+                //From config
+                tglForegroundEyebrow[0].onValueChanged.AddListener(value =>
+                {
+                    if (value)
+                        if (Manager.Config.EtcData.ForegroundEyebrow)
+                            EnableEyebrows(MakerAPI.GetCharacterControl());
+                        else
+                            DisableEyebrows(MakerAPI.GetCharacterControl());
+                });
+                //Not showing through hair
+                tglForegroundEyebrow[1].onValueChanged.AddListener(value =>
+                {
+                    if (value)
+                        DisableEyebrows(MakerAPI.GetCharacterControl());
+                });
+                //Showing through hair
+                tglForegroundEyebrow[2].onValueChanged.AddListener(value =>
+                {
+                    if (value)
+                        EnableEyebrows(MakerAPI.GetCharacterControl());
+                });
+            }
+
+            //Eyeliners
             {
-                if (value)
-                    Disable(MakerAPI.GetCharacterControl());
-            });
-            //Showing through hair
-            tglForegroundEyebrow[2].onValueChanged.AddListener(value =>
-            {
-                if (value)
-                    Enable(MakerAPI.GetCharacterControl());
-            });
+                CvsEye02 cvsEye02 = (CvsEye02)Traverse.Create(ccFaceMenu).Field("cvsEye02").GetValue();
+                Toggle[] tglForegroundEye = (Toggle[])Traverse.Create(cvsEye02).Field("tglForegroundEye").GetValue();
+
+                //From config
+                tglForegroundEye[0].onValueChanged.AddListener(value =>
+                {
+                    if (value)
+                        if (Manager.Config.EtcData.ForegroundEyebrow)
+                            EnableEyeliners(MakerAPI.GetCharacterControl());
+                        else
+                            DisableEyeliners(MakerAPI.GetCharacterControl());
+                });
+                //Not showing through hair
+                tglForegroundEye[1].onValueChanged.AddListener(value =>
+                {
+                    if (value)
+                        DisableEyeliners(MakerAPI.GetCharacterControl());
+                });
+                //Showing through hair
+                tglForegroundEye[2].onValueChanged.AddListener(value =>
+                {
+                    if (value)
+                        EnableEyeliners(MakerAPI.GetCharacterControl());
+                });
+            }
         }
 
-        public static void Enable(ChaControl chaControl)
+        public static void EnableEyebrows(ChaControl chaControl)
         {
             chaControl.transform.FindLoop("cf_O_mayuge").GetOrAddComponent<Blitty>();
         }
 
-        public static void Disable(ChaControl chaControl)
+        public static void DisableEyebrows(ChaControl chaControl)
         {
             var blitty = chaControl.transform.FindLoop("cf_O_mayuge").GetComponent<Blitty>();
+            Destroy(blitty);
+        }
+
+        public static void EnableEyeliners(ChaControl chaControl)
+        {
+            chaControl.transform.FindLoop("cf_O_eyeline").GetOrAddComponent<Blitty>();
+        }
+
+        public static void DisableEyeliners(ChaControl chaControl)
+        {
+            var blitty = chaControl.transform.FindLoop("cf_O_eyeline").GetComponent<Blitty>();
             Destroy(blitty);
         }
     }
@@ -136,16 +181,21 @@ namespace IllusionFixes
                 return;
 
             if (__instance.chaFile.custom.face.foregroundEyebrow == 2) //In front of hair
-                EyebrowFix.Enable(__instance);
+                EyebrowFix.EnableEyebrows(__instance);
             else if (__instance.chaFile.custom.face.foregroundEyebrow == 0 && Manager.Config.EtcData.ForegroundEyebrow)
-                EyebrowFix.Enable(__instance);
+                EyebrowFix.EnableEyebrows(__instance);
+
+            if (__instance.chaFile.custom.face.foregroundEyes == 2) //In front of hair
+                EyebrowFix.EnableEyeliners(__instance);
+            else if (__instance.chaFile.custom.face.foregroundEyes == 0 && Manager.Config.EtcData.ForegroundEyes)
+                EyebrowFix.EnableEyeliners(__instance);
         }
     }
 
     public class Blitty : MonoBehaviour
     {
         private SkinnedMeshRenderer smr;
-        private Material mat; //TODO: do we need this
+        private Material[] materials;
         private CommandBuffer cb;
         private Camera mainCam;
         private readonly CameraEvent ev = CameraEvent.AfterForwardOpaque;
@@ -153,7 +203,7 @@ namespace IllusionFixes
         private void Start()
         {
             smr = GetComponent<SkinnedMeshRenderer>();
-            mat = smr.sharedMaterial;
+            materials = smr.sharedMaterials.OrderBy(x => x.renderQueue).ToArray();
             mainCam = Camera.main;
         }
 
@@ -175,7 +225,8 @@ namespace IllusionFixes
 
             cb = new CommandBuffer();
             cb.SetRenderTarget(EyebrowFix.rt);
-            cb.DrawRenderer(smr, mat, 0, 0);
+            foreach (var mat in materials)
+                cb.DrawRenderer(smr, mat, 0, 0);
             smr.enabled = true;
             mainCam.AddCommandBuffer(ev, cb);
         }
