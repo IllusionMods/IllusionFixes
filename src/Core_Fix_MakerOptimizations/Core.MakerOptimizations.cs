@@ -22,7 +22,9 @@ namespace IllusionFixes
         public static ConfigEntry<bool> DisableCharaName { get; private set; }
         public static ConfigEntry<bool> DisableHiddenTabs { get; private set; }
         public static ConfigEntry<bool> ScrollListsToSelection { get; private set; }
+#if !KKS
         public static ConfigEntry<bool> ManageCursor { get; private set; }
+#endif
         private static ConfigEntry<int> ListWidth { get; set; }
 
         public MakerOptimizations()
@@ -34,7 +36,9 @@ namespace IllusionFixes
             DisableIKCalc = Config.Bind(Utilities.ConfigSectionTweaks, "Disable IK in maker", !stilettoInstalled, "This setting prevents the character's limbs from being readjusted to match body proportions. It can fix weirdly bent limbs on characters that use ABMX sliders, but will break Stiletto if it's installed.\nWarning: This setting will get reset to false if Stiletto is installed to avoid issues!\nChanges take effect after game restart.");
             DisableCharaName = Config.Bind(Utilities.ConfigSectionTweaks, "Disable character name box in maker", true, "Hides the name box in the bottom right part of the maker, giving you a clearer look at the character.");
             DisableHiddenTabs = Config.Bind(Utilities.ConfigSectionTweaks, "Disable hidden tabs in maker", true, "Major performance improvement in chara maker.\nRecommended to be used together with list virtualization, otherwise switching between tabs becomes slower.\nChanges take effect after maker restart.");
+#if !KKS
             ManageCursor = Config.Bind(Utilities.ConfigSectionTweaks, "Manage cursor in maker", true, "Lock and hide the cursor when moving the camera in maker.");
+#endif
 
             var itemListsCat = "Maker item lists";
             DisableNewAnimation = Config.Bind(itemListsCat, "Disable NEW indicator animation", true, "Performance improvement in maker if there are many new items.\nChanges take effect after maker restart.");
@@ -65,16 +69,22 @@ namespace IllusionFixes
 
         private void SceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            var cursorManager = gameObject.GetComponent<CursorManager>();
-            if (FindObjectOfType<CustomScene>())
-            {
+            var customScene = FindObjectOfType<CustomScene>();
+            if (customScene)
                 ToggleCharaName();
-                if (!cursorManager) gameObject.AddComponent<CursorManager>();
+
+#if !KKS
+            var cursorManager = gameObject.GetComponent<CursorManager>();
+            if (customScene)
+            {
+                if (!cursorManager)
+                    gameObject.AddComponent<CursorManager>();
             }
             else if (cursorManager)
             {
                 Destroy(cursorManager);
             }
+#endif
         }
 
         private void ToggleCharaName()

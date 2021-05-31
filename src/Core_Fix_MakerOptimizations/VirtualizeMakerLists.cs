@@ -194,12 +194,21 @@ namespace IllusionFixes
 
                 public static bool IsItemNew(CustomSelectInfo item)
                 {
-                    return !DisableNewIndicator.Value && Singleton<Manager.Character>.Instance.chaListCtrl.CheckItemID(item.category, item.index) == 1;
+                    return !DisableNewIndicator.Value &&
+#if !KKS
+                           Singleton<Manager.Character>.Instance.chaListCtrl.CheckItemID(item.category, item.index) == 1;
+#else
+                           Manager.Character.chaListCtrl.CheckItemID(item.category, item.index) == 1;
+#endif
                 }
 
                 public static void MarkItemAsNotNew(CustomSelectInfo customSelectInfo)
                 {
+#if !KKS
                     Singleton<Manager.Character>.Instance.chaListCtrl.AddItemID(customSelectInfo.category, customSelectInfo.index, 2);
+#else
+                    Manager.Character.chaListCtrl.AddItemID(customSelectInfo.category, customSelectInfo.index, 2);
+#endif
                 }
             }
 
@@ -470,14 +479,12 @@ namespace IllusionFixes
 
                 return new CodeMatcher(instructions)
                     .MatchForward(false,
-                        new CodeMatch(OpCodes.Ldloc_1),
                         new CodeMatch(OpCodes.Ldfld, sicFld),
                         new CodeMatch(OpCodes.Ldarg_2),
                         new CodeMatch(OpCodes.Callvirt))
+                    .SetAndAdvance(OpCodes.Pop, null)
                     .SetAndAdvance(OpCodes.Ldarg_0, null)
                     .SetAndAdvance(OpCodes.Call, replacem)
-                    .SetAndAdvance(OpCodes.Nop, null)
-                    .SetAndAdvance(OpCodes.Nop, null)
                     .Instructions();
             }
 
