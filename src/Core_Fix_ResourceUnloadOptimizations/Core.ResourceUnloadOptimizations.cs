@@ -102,7 +102,7 @@ namespace IllusionFixes
 
         private static bool GetIsNowLoadingFade()
         {
-#if HS2
+#if HS2 || KKS
             return Manager.Scene.IsNowLoadingFade;
 #elif PH
             return true;

@@ -3,6 +3,7 @@ using Common;
 using HarmonyLib;
 using UnityEngine;
 
+// Fixed in KKS
 namespace IllusionFixes
 {
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]

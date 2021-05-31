@@ -231,6 +231,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_Eyebrows", "src\KK_F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_Heterochromia", "src\KKS_Fix_Heterochromia\KKS_Fix_Heterochromia.csproj", "{C2D1E929-6936-4B1D-921D-ED11A7504E38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_ResourceUnloadOptimizations", "src\KKS_Fix_ResourceUnloadOptimizations\KKS_Fix_ResourceUnloadOptimizations.csproj", "{D70142FB-FA2A-4BF3-90AA-19674E8F82CC}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
@@ -357,6 +359,8 @@ Global
 		src\Common\Common.projitems*{c990bca0-e95f-4853-b80f-bf2ab7023eb7}*SharedItemsImports = 4
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{c990bca0-e95f-4853-b80f-bf2ab7023eb7}*SharedItemsImports = 4
 		src\Common\Common.projitems*{ceac55c1-ded9-4581-9466-f9c6e7407a6f}*SharedItemsImports = 4
+		src\Common\Common.projitems*{d70142fb-fa2a-4bf3-90aa-19674e8f82cc}*SharedItemsImports = 4
+		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{d70142fb-fa2a-4bf3-90aa-19674e8f82cc}*SharedItemsImports = 4
 		src\Common\Common.projitems*{d853338d-efbc-4c7e-a0d9-9b78610ae726}*SharedItemsImports = 4
 		src\Core_Fix_ManifestCorrector\Core_Fix_ManifestCorrector.projitems*{d853338d-efbc-4c7e-a0d9-9b78610ae726}*SharedItemsImports = 4
 		src\Common\Common.projitems*{d8ac8107-11f4-4bc0-855e-4d0330af5d46}*SharedItemsImports = 4
@@ -692,6 +696,10 @@ Global
 		{C2D1E929-6936-4B1D-921D-ED11A7504E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2D1E929-6936-4B1D-921D-ED11A7504E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2D1E929-6936-4B1D-921D-ED11A7504E38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D70142FB-FA2A-4BF3-90AA-19674E8F82CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D70142FB-FA2A-4BF3-90AA-19674E8F82CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D70142FB-FA2A-4BF3-90AA-19674E8F82CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D70142FB-FA2A-4BF3-90AA-19674E8F82CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -773,6 +781,7 @@ Global
 		{950B1CC5-D38C-4933-8E4E-385F320EC744} = {7EE89BA8-EF7C-414B-B9CE-341D51A2814A}
 		{A095DBB3-7842-4A5D-BB81-0B90317B4543} = {D57ADF93-BD8E-407B-B9D2-F989423B3140}
 		{C2D1E929-6936-4B1D-921D-ED11A7504E38} = {CB52D092-E8AE-4598-8C79-56241C82DA19}
+		{D70142FB-FA2A-4BF3-90AA-19674E8F82CC} = {47CA3E45-1672-4D71-ABD2-8621D4C74003}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
