@@ -8,6 +8,7 @@ namespace IllusionFixes
     {
         internal static class Hooks
         {
+            // Fix "both" being selected in eye color when loaded card uses different colors per eye
             [HarmonyPostfix, HarmonyPatch(typeof(ChaFileControl), nameof(ChaFileControl.LoadFileLimited), typeof(string), typeof(byte), typeof(bool), typeof(bool), typeof(bool), typeof(bool), typeof(bool))]
             internal static void LoadFileLimitedPostfix(ChaFileControl __instance)
             {
@@ -27,6 +28,10 @@ namespace IllusionFixes
                 if (toggles[0].isOn && (pupil1 != pupil2 || gradient1 != gradient2))
                     toggles[1].isOn = true;
             }
+
+            // Fix for the eyeline shadow color not being updated when changing skin color
+            [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.CreateBodyTexture))]
+            private static void CreateBodyTextureHook(ChaControl __instance) => __instance.UpdateEyelineShadowColor();
         }
     }
 }
