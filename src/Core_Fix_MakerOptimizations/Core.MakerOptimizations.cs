@@ -34,6 +34,7 @@ namespace IllusionFixes
             var stilettoInstalled = BepInEx.Bootstrap.Chainloader.PluginInfos.Values.Any(x => x.Metadata.GUID == "com.essu.stiletto");
 
             DisableIKCalc = Config.Bind(Utilities.ConfigSectionTweaks, "Disable IK in maker", !stilettoInstalled, "This setting prevents the character's limbs from being readjusted to match body proportions. It can fix weirdly bent limbs on characters that use ABMX sliders, but will break Stiletto if it's installed.\nWarning: This setting will get reset to false if Stiletto is installed to avoid issues!\nChanges take effect after game restart.");
+            if (stilettoInstalled) DisableIKCalc.Value = false; 
             DisableCharaName = Config.Bind(Utilities.ConfigSectionTweaks, "Disable character name box in maker", true, "Hides the name box in the bottom right part of the maker, giving you a clearer look at the character.");
             DisableHiddenTabs = Config.Bind(Utilities.ConfigSectionTweaks, "Disable hidden tabs in maker", true, "Major performance improvement in chara maker.\nRecommended to be used together with list virtualization, otherwise switching between tabs becomes slower.\nChanges take effect after maker restart.");
 #if !KKS
