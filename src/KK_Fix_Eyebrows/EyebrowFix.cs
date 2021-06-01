@@ -1,6 +1,8 @@
 ﻿using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Logging;
 using ChaCustom;
+using Common;
 using HarmonyLib;
 using IllusionUtility.GetUtility;
 using KKAPI;
@@ -14,25 +16,24 @@ using UnityEngine.UI;
 
 namespace IllusionFixes
 {
-    [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
+    [BepInPlugin(PluginGUID, PluginName, Constants.PluginsVersion)]
     public class EyebrowFix : BaseUnityPlugin
     {
         public const string PluginGUID = "KK_Fix_Eyebrow";
         public const string PluginName = "Eyebrow Outline Fix";
-        public const string PluginVersion = "1.0";
         internal static new ManualLogSource Logger;
-
-        /*
-          TODO:
-            - EC version
-            - Rename plugin since EyebrowFix doesn't make sense if it also works on eyeliners
-        */
 
         public static RenderTexture rt;
         public static Material mat;
 
+        public static ConfigEntry<bool> ConfigEnabled { get; private set; }
+
         internal void Awake()
         {
+            ConfigEnabled = Config.Bind("", "Enabled", false, "Whether the plugin is enabled. Restart the game after changing this setting.\n\nWarning: This plugin is still experiemental and not recommended for general use.");
+            if (!ConfigEnabled.Value)
+                return;
+
             Logger = base.Logger;
 
             mat = new Material(Shader.Find("Hidden/Internal-GUITextureClip"));
