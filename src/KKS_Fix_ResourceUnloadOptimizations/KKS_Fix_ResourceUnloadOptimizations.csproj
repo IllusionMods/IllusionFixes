@@ -52,12 +52,12 @@
       <HintPath>..\..\packages\IllusionLibs.BepInEx.Harmony.2.3.2\lib\net35\BepInEx.Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="MonoMod.RuntimeDetour, Version=20.8.3.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\IllusionLibs.BepInEx.MonoMod.20.8.3.5\lib\net35\MonoMod.RuntimeDetour.dll</HintPath>
+    <Reference Include="MonoMod.RuntimeDetour, Version=21.1.11.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\IllusionLibs.BepInEx.MonoMod.21.1.11.1\lib\net35\MonoMod.RuntimeDetour.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="MonoMod.Utils, Version=20.8.3.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\IllusionLibs.BepInEx.MonoMod.20.8.3.5\lib\net35\MonoMod.Utils.dll</HintPath>
+    <Reference Include="MonoMod.Utils, Version=21.1.11.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\IllusionLibs.BepInEx.MonoMod.21.1.11.1\lib\net35\MonoMod.Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sirenix.Serialization, Version=2.1.13.0, Culture=neutral, processorArchitecture=MSIL">
@@ -101,10 +101,12 @@
     <Error Condition="!Exists('..\..\packages\IllusionLibs.BepInEx.Harmony.2.3.2\build\IllusionLibs.BepInEx.Harmony.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\IllusionLibs.BepInEx.Harmony.2.3.2\build\IllusionLibs.BepInEx.Harmony.targets'))" />
     <Error Condition="!Exists('..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.targets'))" />
     <Error Condition="!Exists('..\..\packages\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.2021.5.28\build\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.2021.5.28\build\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.targets'))" />
+    <Error Condition="!Exists('..\..\packages\IllusionLibs.BepInEx.MonoMod.21.1.11.1\build\IllusionLibs.BepInEx.MonoMod.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\IllusionLibs.BepInEx.MonoMod.21.1.11.1\build\IllusionLibs.BepInEx.MonoMod.targets'))" />
   </Target>
   <Import Project="..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.targets" Condition="Exists('..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.targets')" />
   <Import Project="..\..\packages\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.2021.5.28\build\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.targets" Condition="Exists('..\..\packages\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.2021.5.28\build\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.targets')" />
   <PropertyGroup>
     <PostBuildEvent>IF EXIST $(SolutionDir)PostBuild.bat CALL "$(SolutionDir)PostBuild.bat" $(TargetPath) KKS</PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\..\packages\IllusionLibs.BepInEx.MonoMod.21.1.11.1\build\IllusionLibs.BepInEx.MonoMod.targets" Condition="Exists('..\..\packages\IllusionLibs.BepInEx.MonoMod.21.1.11.1\build\IllusionLibs.BepInEx.MonoMod.targets')" />
 </Project>

@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +23,7 @@
     <DefineConstants>TRACE;DEBUG;HS2</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>embedded</DebugType>
@@ -30,23 +33,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BepInEx, Version=5.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\IllusionLibs.BepInEx.5.3.0\lib\net35\BepInEx.dll</HintPath>
+    <Reference Include="BepInEx, Version=5.4.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\IllusionLibs.BepInEx.5.4.8\lib\net35\BepInEx.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.CoreModule.2018.4.11\lib\net46\UnityEngine.dll</HintPath>
+      <HintPath>..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.CoreModule.2018.4.11.4\lib\net46\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.CoreModule.2018.4.11\lib\net46\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.CoreModule.2018.4.11.4\lib\net46\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.PhysicsModule.2018.4.11\lib\net46\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.PhysicsModule.2018.4.11.4\lib\net46\UnityEngine.PhysicsModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -59,4 +63,13 @@
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.CoreModule.2018.4.11.4\build\IllusionLibs.HoneySelect2.UnityEngine.CoreModule.targets" Condition="Exists('..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.CoreModule.2018.4.11.4\build\IllusionLibs.HoneySelect2.UnityEngine.CoreModule.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.CoreModule.2018.4.11.4\build\IllusionLibs.HoneySelect2.UnityEngine.CoreModule.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.CoreModule.2018.4.11.4\build\IllusionLibs.HoneySelect2.UnityEngine.CoreModule.targets'))" />
+    <Error Condition="!Exists('..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.PhysicsModule.2018.4.11.4\build\IllusionLibs.HoneySelect2.UnityEngine.PhysicsModule.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.PhysicsModule.2018.4.11.4\build\IllusionLibs.HoneySelect2.UnityEngine.PhysicsModule.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.PhysicsModule.2018.4.11.4\build\IllusionLibs.HoneySelect2.UnityEngine.PhysicsModule.targets" Condition="Exists('..\..\packages\IllusionLibs.HoneySelect2.UnityEngine.PhysicsModule.2018.4.11.4\build\IllusionLibs.HoneySelect2.UnityEngine.PhysicsModule.targets')" />
 </Project>
