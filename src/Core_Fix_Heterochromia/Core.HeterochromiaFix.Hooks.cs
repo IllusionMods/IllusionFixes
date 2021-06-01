@@ -9,7 +9,11 @@ namespace IllusionFixes
         internal static class Hooks
         {
             // Fix "both" being selected in eye color when loaded card uses different colors per eye
+#if KKS
+            [HarmonyPostfix, HarmonyPatch(typeof(ChaFileControl), nameof(ChaFileControl.LoadFileLimited), typeof(string), typeof(byte), typeof(bool), typeof(bool), typeof(bool), typeof(bool), typeof(bool), typeof(bool))]
+#else
             [HarmonyPostfix, HarmonyPatch(typeof(ChaFileControl), nameof(ChaFileControl.LoadFileLimited), typeof(string), typeof(byte), typeof(bool), typeof(bool), typeof(bool), typeof(bool), typeof(bool))]
+#endif
             internal static void LoadFileLimitedPostfix(ChaFileControl __instance)
             {
                 //Find the toggle set
