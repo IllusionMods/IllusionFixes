@@ -84,7 +84,7 @@ namespace IllusionFixes
                 return null;
             }
 
-            [HarmonyFinalizer, HarmonyPatch(typeof(DynamicBone), "UpdateDynamicBones")]
+            [HarmonyFinalizer, HarmonyPatch(typeof(DynamicBone), nameof(DynamicBone.UpdateDynamicBones))]
             internal static Exception ParticlesCrashCatcher2(Exception __exception)
             {
                 if (__exception != null)
@@ -109,7 +109,7 @@ namespace IllusionFixes
             }
 #endif
 
-#if !AI && !HS2
+#if KK || EC || KKS
             [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.ChangeSettingHairColor))]
             internal static void ChangeSettingHairColor(int parts, ChaControl __instance) => RemoveNullParts(__instance.GetCustomHairComponent(parts));
 
