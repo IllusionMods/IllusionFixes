@@ -30,7 +30,7 @@ namespace IllusionFixes
             /// Set the render queue for front hairs down so that they receive shadows
             /// </summary>
             /// <param name="actObj">Object being loaded</param>
-            [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), "LoadCharaFbxDataAsync")]
+            [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.LoadCharaFbxDataAsync))]
             internal static void LoadCharaFbxDataAsync(ref Action<GameObject> actObj)
             {
                 Action<GameObject> oldAct = actObj;
@@ -45,12 +45,49 @@ namespace IllusionFixes
                         foreach (var rend in o.GetComponentsInChildren<Renderer>())
                         {
                             foreach (var mat in rend.materials)
+                            {
                                 if (mat.shader.name == "Shader Forge/main_hair_front")
                                     mat.renderQueue = HairRenderQueue;
+#if KKS
+                                if (mat.shader.name == "Koikano/hair_main_sun_front")
+                                    mat.renderQueue = HairRenderQueue;
+#endif
+                            }
                         }
                     }
                 };
             }
+#if KKS
+            /// <summary>
+            /// Set the render queue for front hairs down so that they receive shadows
+            /// </summary>
+            /// <param name="actObj">Object being loaded</param>
+            [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.LoadCharaFbxDataNoAsync))]
+            internal static void LoadCharaFbxDataNoAsync(ref Action<GameObject> actObj)
+            {
+                Action<GameObject> oldAct = actObj;
+                actObj = delegate (GameObject o)
+                {
+                    oldAct(o);
+                    if (o == null)
+                        return;
+                    var hair = o.GetComponent<ChaCustomHairComponent>();
+                    if (hair != null)
+                    {
+                        foreach (var rend in o.GetComponentsInChildren<Renderer>())
+                        {
+                            foreach (var mat in rend.materials)
+                            {
+                                if (mat.shader.name == "Shader Forge/main_hair_front")
+                                    mat.renderQueue = HairRenderQueue;
+                                if (mat.shader.name == "Koikano/hair_main_sun_front")
+                                    mat.renderQueue = HairRenderQueue;
+                            }
+                        }
+                    }
+                };
+            }
+#endif
             /// <summary>
             /// Change the render queue for eyes and eyebrows visible through hair setting to compensate for lower front hair render queue
             /// </summary>
