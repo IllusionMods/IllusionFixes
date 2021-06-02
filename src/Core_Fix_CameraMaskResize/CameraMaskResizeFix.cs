@@ -8,7 +8,7 @@ namespace IllusionFixes
 {
     [BepInProcess(Constants.GameProcessName)]
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
-    public class CameraMaskResizeFix : BaseUnityPlugin //todo add an EC version
+    public class CameraMaskResizeFix : BaseUnityPlugin
     {
         public const string GUID = "Fix_CameraMaskResize";
         public const string PluginName = "Fix camera color mask not resizing";

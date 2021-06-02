@@ -245,9 +245,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_CameraMaskResize", "Fix
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_CameraMaskResize", "src\KKS_Fix_CameraMaskResize\KKS_Fix_CameraMaskResize.csproj", "{00E09FD0-9862-41B3-BD2C-7094A16C97F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_CameraMaskResize", "src\EC_Fix_CameraMaskResize\EC_Fix_CameraMaskResize.csproj", "{989BECED-1D58-4271-BDD2-72E849224F0A}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_CameraMaskResize", "src\Core_Fix_CameraMaskResize\Core_Fix_CameraMaskResize.shproj", "{CE3392F0-F9F0-43D8-BCBF-84CB66B639E0}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{00e09fd0-9862-41b3-bd2c-7094a16c97f7}*SharedItemsImports = 4
+		src\Core_Fix_CameraMaskResize\Core_Fix_CameraMaskResize.projitems*{00e09fd0-9862-41b3-bd2c-7094a16c97f7}*SharedItemsImports = 4
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
 		src\Core_Fix_InvalidSceneFileProtection\Core_Fix_InvalidSceneFileProtection.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
 		src\Common\Common.projitems*{0218b7ff-4cc3-4c9a-8a91-f8db31084499}*SharedItemsImports = 4
@@ -357,6 +362,8 @@ Global
 		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{94e708e4-7b1c-4da8-83bb-7699753825d1}*SharedItemsImports = 13
 		src\Common\Common.projitems*{950b1cc5-d38c-4933-8e4e-385f320ec744}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{950b1cc5-d38c-4933-8e4e-385f320ec744}*SharedItemsImports = 4
+		src\Common\Common.projitems*{989beced-1d58-4271-bdd2-72e849224f0a}*SharedItemsImports = 4
+		src\Core_Fix_CameraMaskResize\Core_Fix_CameraMaskResize.projitems*{989beced-1d58-4271-bdd2-72e849224f0a}*SharedItemsImports = 4
 		src\Common\Common.projitems*{9dcbd3d0-c327-4e63-838a-90273b1b4984}*SharedItemsImports = 4
 		src\Core_Fix_HairShadows\Core_Fix_HairShadows.projitems*{9dcbd3d0-c327-4e63-838a-90273b1b4984}*SharedItemsImports = 4
 		src\Common\Common.projitems*{a095dbb3-7842-4a5d-bb81-0b90317b4543}*SharedItemsImports = 4
@@ -380,6 +387,7 @@ Global
 		src\Core_Fix_Heterochromia\Core_Fix_Heterochromia.projitems*{c2d1e929-6936-4b1d-921d-ed11a7504e38}*SharedItemsImports = 4
 		src\Common\Common.projitems*{c990bca0-e95f-4853-b80f-bf2ab7023eb7}*SharedItemsImports = 4
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{c990bca0-e95f-4853-b80f-bf2ab7023eb7}*SharedItemsImports = 4
+		src\Core_Fix_CameraMaskResize\Core_Fix_CameraMaskResize.projitems*{ce3392f0-f9f0-43d8-bcbf-84cb66b639e0}*SharedItemsImports = 13
 		src\Common\Common.projitems*{ceac55c1-ded9-4581-9466-f9c6e7407a6f}*SharedItemsImports = 4
 		src\Common\Common.projitems*{d70142fb-fa2a-4bf3-90aa-19674e8f82cc}*SharedItemsImports = 4
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{d70142fb-fa2a-4bf3-90aa-19674e8f82cc}*SharedItemsImports = 4
@@ -742,6 +750,10 @@ Global
 		{00E09FD0-9862-41B3-BD2C-7094A16C97F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00E09FD0-9862-41B3-BD2C-7094A16C97F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00E09FD0-9862-41B3-BD2C-7094A16C97F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{989BECED-1D58-4271-BDD2-72E849224F0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{989BECED-1D58-4271-BDD2-72E849224F0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{989BECED-1D58-4271-BDD2-72E849224F0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{989BECED-1D58-4271-BDD2-72E849224F0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -829,6 +841,8 @@ Global
 		{741BE318-D645-406C-AC01-E6FB29A5C0AF} = {A1C7C084-38B0-48BD-90C6-572EB94001AB}
 		{2A4BAD8C-B5C8-440D-87AA-BBA45D52DCC9} = {3E501D49-3E6E-4C9C-8575-52F719A1A5CC}
 		{00E09FD0-9862-41B3-BD2C-7094A16C97F7} = {C4C9D0BB-F62D-4CB8-B854-66811D91DDDB}
+		{989BECED-1D58-4271-BDD2-72E849224F0A} = {C4C9D0BB-F62D-4CB8-B854-66811D91DDDB}
+		{CE3392F0-F9F0-43D8-BCBF-84CB66B639E0} = {C4C9D0BB-F62D-4CB8-B854-66811D91DDDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
