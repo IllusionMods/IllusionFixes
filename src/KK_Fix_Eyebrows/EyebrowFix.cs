@@ -40,13 +40,13 @@ namespace IllusionFixes
 
             Harmony.CreateAndPatchAll(typeof(Hooks));
             MakerAPI.MakerFinishedLoading += MakerAPI_MakerFinishedLoading;
-            SceneManager.sceneLoaded += (s, lsm) => InitStudioUI(s.name);
+            SceneManager.sceneLoaded += InitStudioUI;
         }
 
-        private void InitStudioUI(string sceneName)
+        private void InitStudioUI(Scene scene, LoadSceneMode loadSceneMode)
         {
-            if (sceneName != "Studio") return;
-            SceneManager.sceneLoaded -= (s, lsm) => InitStudioUI(s.name);
+            if (scene.name != "Studio") return;
+            SceneManager.sceneLoaded -= InitStudioUI;
 
             var dropdownForegroundEyebrow = GameObject.Find("StudioScene").transform.Find("Canvas Main Menu/02_Manipulate/00_Chara/02_Kinematic/05_Etc/Eyebrows Draw/Dropdown").GetComponent<Dropdown>();
             dropdownForegroundEyebrow.onValueChanged.AddListener(value =>
