@@ -241,8 +241,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_SettingsVerifier", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_ManifestCorrector", "src\KKS_Fix_ManifestCorrector\KKS_Fix_ManifestCorrector.csproj", "{2A4BAD8C-B5C8-440D-87AA-BBA45D52DCC9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_CameraMaskResize", "Fix_CameraMaskResize", "{C4C9D0BB-F62D-4CB8-B854-66811D91DDDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_CameraMaskResize", "src\KKS_Fix_CameraMaskResize\KKS_Fix_CameraMaskResize.csproj", "{00E09FD0-9862-41B3-BD2C-7094A16C97F7}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Common\Common.projitems*{00e09fd0-9862-41b3-bd2c-7094a16c97f7}*SharedItemsImports = 4
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
 		src\Core_Fix_InvalidSceneFileProtection\Core_Fix_InvalidSceneFileProtection.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
 		src\Common\Common.projitems*{0218b7ff-4cc3-4c9a-8a91-f8db31084499}*SharedItemsImports = 4
@@ -733,6 +738,10 @@ Global
 		{2A4BAD8C-B5C8-440D-87AA-BBA45D52DCC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A4BAD8C-B5C8-440D-87AA-BBA45D52DCC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A4BAD8C-B5C8-440D-87AA-BBA45D52DCC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00E09FD0-9862-41B3-BD2C-7094A16C97F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00E09FD0-9862-41B3-BD2C-7094A16C97F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00E09FD0-9862-41B3-BD2C-7094A16C97F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00E09FD0-9862-41B3-BD2C-7094A16C97F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -819,6 +828,7 @@ Global
 		{1B72F174-4CCB-4A7F-B406-3940A025E126} = {79E75B3B-B01C-4D21-8C4A-F4C94418A2C1}
 		{741BE318-D645-406C-AC01-E6FB29A5C0AF} = {A1C7C084-38B0-48BD-90C6-572EB94001AB}
 		{2A4BAD8C-B5C8-440D-87AA-BBA45D52DCC9} = {3E501D49-3E6E-4C9C-8575-52F719A1A5CC}
+		{00E09FD0-9862-41B3-BD2C-7094A16C97F7} = {C4C9D0BB-F62D-4CB8-B854-66811D91DDDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
