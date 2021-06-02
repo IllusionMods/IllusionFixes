@@ -68,3 +68,11 @@ $ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Get-ChildItem -Path
 Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_PlayHome_" + $ver + ".zip")
 
 Remove-Item -Force -Path ($dir + "\copy") -Recurse
+
+# KKS -----------------------------------------------------------------------------------------------------------------------------------------
+& robocopy ($dir + "\BepInEx\plugins\IllusionFixes\") ($copy + "\plugins\IllusionFixes") "KKS_*.*" /R:5 /W:5     
+
+$ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Get-ChildItem -Path ($copy + "\*.dll") -Recurse -Force)[0]).FileVersion.ToString()
+Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_KoikatsuSunshine_" + $ver + ".zip")
+
+Remove-Item -Force -Path ($dir + "\copy") -Recurse
