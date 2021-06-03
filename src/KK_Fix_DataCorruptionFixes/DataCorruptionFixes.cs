@@ -37,8 +37,8 @@ namespace IllusionFixes
         }
 
         [HarmonyFinalizer]
+        [HarmonyPatch(typeof(SaveData), nameof(SaveData.Load), typeof(string), typeof(string))] // must be in first or bad things happen on some harmony versions
         [HarmonyPatch(typeof(GlobalSaveData), nameof(GlobalSaveData.Load))]
-        [HarmonyPatch(typeof(SaveData), nameof(SaveData.Load), typeof(string), typeof(string))]
         [HarmonyPatch(typeof(RankingData), nameof(RankingData.Load))]
         [HarmonyPatch(typeof(WeddingData), nameof(WeddingData.Load))]
         [HarmonyPatch(typeof(MemoriesData), nameof(MemoriesData.Load))]
