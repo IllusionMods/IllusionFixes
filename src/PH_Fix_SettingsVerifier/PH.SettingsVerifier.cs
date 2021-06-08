@@ -10,7 +10,9 @@ using UnityEngine;
 namespace IllusionFixes
 {
     [BepInProcess(Constants.GameProcessName)]
+    [BepInProcess(Constants.GameProcessName32bit)]
     [BepInProcess(Constants.StudioProcessName)]
+    [BepInProcess(Constants.StudioProcessName32bit)]
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class SettingsVerifier_PH : BaseUnityPlugin
     {

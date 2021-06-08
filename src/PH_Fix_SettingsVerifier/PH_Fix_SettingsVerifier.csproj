@@ -7,7 +7,7 @@
     <ProjectGuid>{562AF895-6472-4215-BE57-C34501D59EDF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PH_Fix_SettingsVerifier</RootNamespace>
+    <RootNamespace>IllusionFixes</RootNamespace>
     <AssemblyName>PH_Fix_SettingsVerifier</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -30,7 +30,7 @@
     <DebugType>embedded</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>../../bin/BepInEx/plugins/IllusionFixes/</OutputPath>
-    <DefineConstants>TRACE;AI</DefineConstants>
+    <DefineConstants>TRACE;PH</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
