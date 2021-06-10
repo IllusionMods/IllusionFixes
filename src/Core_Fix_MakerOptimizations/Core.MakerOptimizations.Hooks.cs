@@ -77,7 +77,9 @@ namespace IllusionFixes
                      * Changing tab parent out of canvas is same as setactive, canvas needs to recalculate everything
                      */
 
+#if KK
                     var kkKiyaseExists = GameObject.Find("KK_Kiyase") != null;
+#endif
                     var treeTop = GameObject.Find("CvsMenuTree");
 
                     foreach (Transform mainTab in treeTop.transform)
@@ -94,13 +96,27 @@ namespace IllusionFixes
 
                             var innerContent = subTab.Cast<Transform>().FirstOrDefault(x =>
                             {
+#if KK
                                 // Needed for KK_Kiyase to not crash, it uses slides under this tab
                                 if (kkKiyaseExists && x.GetComponent<CvsBreast>() != null) return false;
+#endif
 
                                 // Tab pages have raycast controllers on them, buttons have only image
                                 return x.GetComponent<UI_RaycastCtrl>() != null;
                             })?.gameObject;
                             if (innerContent == null) continue;
+
+#if KKS
+                            // Needed in KKS because the close action is set in a coroutine which doesn't finish because we disable the gameobject
+                            foreach (var window in innerContent.GetComponentsInChildren<CustomSelectWindow>())
+                            {
+                                window.btnClose.OnClickAsObservable().Subscribe(_ =>
+                                {
+                                    if (window.tglReference)
+                                        window.tglReference.isOn = false;
+                                });
+                            }
+#endif
 
                             void SetTabActive(bool val) => innerContent.SetActive(val && (topMenuToggle == null || topMenuToggle.isOn));
 
