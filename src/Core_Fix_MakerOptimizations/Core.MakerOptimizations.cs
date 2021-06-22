@@ -26,6 +26,9 @@ namespace IllusionFixes
         public static ConfigEntry<bool> ManageCursor { get; private set; }
 #endif
         private static ConfigEntry<int> ListWidth { get; set; }
+#if EC
+        public static ConfigEntry<bool> ClothesAssetUnload { get; set; }
+#endif
 
         public MakerOptimizations()
         {
@@ -52,6 +55,10 @@ namespace IllusionFixes
 
             if (DisableIKCalc.Value && BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.essu.stiletto"))
                 Logger.Log(LogLevel.Warning, "Stiletto is installed but Disable maker IK is enabled! Heels will not work properly in character maker until this setting is turned off");
+
+#if EC
+            ClothesAssetUnload = Config.Bind(Utilities.ConfigSectionTweaks, "Unload Assets On Clothes Selection", true, "Unloads unused clothing assets from memory when switching clothes, freeing memory");
+#endif
         }
 
 
