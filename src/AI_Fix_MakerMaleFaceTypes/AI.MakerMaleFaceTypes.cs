@@ -10,7 +10,7 @@ namespace IllusionFixes
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public partial class MakerMaleFaceTypes : BaseUnityPlugin
     {
-        public const string GUID = "HS2_Fix_MakerMaleFaceTypes";
+        public const string GUID = "AI_Fix_MakerMaleFaceTypes";
 
         internal void MakerFinishedLoading()
         {
