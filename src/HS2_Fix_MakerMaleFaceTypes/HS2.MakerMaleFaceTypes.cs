@@ -12,7 +12,7 @@ namespace IllusionFixes
     {
         public const string GUID = "HS2_Fix_MakerMaleFaceTypes";
 
-        internal void MakerFinishedLoading()
+        private void MakerAPI_MakerFinishedLoading(object sender, EventArgs e)
         {
             CvsF_FaceType faceType = GameObject.Find("CharaCustom").transform.GetComponentInChildren<CvsF_FaceType>();
             faceType.transform.Find("Setting/Setting01/title").gameObject.SetActive(true);
