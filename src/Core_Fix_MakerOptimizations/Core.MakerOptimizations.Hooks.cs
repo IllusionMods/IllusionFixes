@@ -260,28 +260,6 @@ namespace IllusionFixes
 
             //    return false;
             //}
-
-#if EC
-            [HarmonyPostfix, HarmonyPatch(typeof(CvsClothes), "UpdateSelectClothes")]
-            public static void HarmonyPatch_CvsClothes_UpdateSelectClothes()
-            {
-                if (ClothesAssetUnload.Value)
-                {
-                    UnityEngine.Resources.UnloadUnusedAssets();
-                    GC.Collect();
-                }
-            }
-
-            [HarmonyPostfix, HarmonyPatch(typeof(CvsAccessory), "FuncUpdateAccessory")]
-            public static void HarmonyPatch_CvsAccessory_FuncUpdateAccessory()
-            {
-                if (ClothesAssetUnload.Value)
-                {
-                    UnityEngine.Resources.UnloadUnusedAssets();
-                    GC.Collect();
-                }
-            }
-#endif
         }
     }
 }
