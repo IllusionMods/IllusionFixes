@@ -1,5 +1,8 @@
 ﻿using BepInEx;
+using CharaCustom;
 using Common;
+using System;
+using UnityEngine;
 
 namespace IllusionFixes
 {
@@ -8,5 +11,13 @@ namespace IllusionFixes
     public partial class MakerMaleFaceTypes : BaseUnityPlugin
     {
         public const string GUID = "HS2_Fix_MakerMaleFaceTypes";
+
+        private void MakerAPI_MakerFinishedLoading(object sender, EventArgs e)
+        {
+            CvsF_FaceType faceType = GameObject.Find("CharaCustom").transform.GetComponentInChildren<CvsF_FaceType>();
+            faceType.transform.Find("Setting/Setting01/title").gameObject.SetActive(true);
+            faceType.transform.Find("Setting/Setting01/SelectBox").gameObject.SetActive(true);
+            faceType.transform.Find("Setting/Setting01/separate").gameObject.SetActive(true);
+        }
     }
 }
