@@ -249,12 +249,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_CameraMaskResize", "
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_CameraMaskResize", "src\Core_Fix_CameraMaskResize\Core_Fix_CameraMaskResize.shproj", "{CE3392F0-F9F0-43D8-BCBF-84CB66B639E0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_MakerMaleFaceTypes", "Fix_MakerMaleFaceTypes", "{49AF57AC-0980-4BF4-9189-AA2DCCEF428D}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_MakerMaleFaceTypes", "src\Core_Fix_MakerMaleFaceTypes\Core_Fix_MakerMaleFaceTypes.shproj", "{A4528407-5F49-4983-8EAC-E03AD21C7076}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Fix_MakerMaleFaceTypes", "src\HS2_Fix_MakerMaleFaceTypes\HS2_Fix_MakerMaleFaceTypes.csproj", "{97DB3C43-DDC3-47D3-93B1-024AF1E4E522}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{00e09fd0-9862-41b3-bd2c-7094a16c97f7}*SharedItemsImports = 4
@@ -368,14 +362,11 @@ Global
 		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{94e708e4-7b1c-4da8-83bb-7699753825d1}*SharedItemsImports = 13
 		src\Common\Common.projitems*{950b1cc5-d38c-4933-8e4e-385f320ec744}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{950b1cc5-d38c-4933-8e4e-385f320ec744}*SharedItemsImports = 4
-		src\Common\Common.projitems*{97db3c43-ddc3-47d3-93b1-024af1e4e522}*SharedItemsImports = 4
-		src\Core_Fix_MakerMaleFaceTypes\Core_Fix_MakerMaleFaceTypes.projitems*{97db3c43-ddc3-47d3-93b1-024af1e4e522}*SharedItemsImports = 4
 		src\Common\Common.projitems*{989beced-1d58-4271-bdd2-72e849224f0a}*SharedItemsImports = 4
 		src\Core_Fix_CameraMaskResize\Core_Fix_CameraMaskResize.projitems*{989beced-1d58-4271-bdd2-72e849224f0a}*SharedItemsImports = 4
 		src\Common\Common.projitems*{9dcbd3d0-c327-4e63-838a-90273b1b4984}*SharedItemsImports = 4
 		src\Core_Fix_HairShadows\Core_Fix_HairShadows.projitems*{9dcbd3d0-c327-4e63-838a-90273b1b4984}*SharedItemsImports = 4
 		src\Common\Common.projitems*{a095dbb3-7842-4a5d-bb81-0b90317b4543}*SharedItemsImports = 4
-		src\Core_Fix_MakerMaleFaceTypes\Core_Fix_MakerMaleFaceTypes.projitems*{a4528407-5f49-4983-8eac-e03ad21c7076}*SharedItemsImports = 13
 		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{a68b1345-a4d5-4a10-ab5f-f3bbd638b189}*SharedItemsImports = 13
 		src\Common\Common.projitems*{a714b46d-95a3-4eb0-a635-c253bbad0cba}*SharedItemsImports = 4
 		src\Common\Common.projitems*{aaa57b7a-9d2c-4840-94e2-f1fa43c53bc7}*SharedItemsImports = 4
@@ -763,10 +754,6 @@ Global
 		{989BECED-1D58-4271-BDD2-72E849224F0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{989BECED-1D58-4271-BDD2-72E849224F0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{989BECED-1D58-4271-BDD2-72E849224F0A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{97DB3C43-DDC3-47D3-93B1-024AF1E4E522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{97DB3C43-DDC3-47D3-93B1-024AF1E4E522}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{97DB3C43-DDC3-47D3-93B1-024AF1E4E522}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{97DB3C43-DDC3-47D3-93B1-024AF1E4E522}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -856,8 +843,6 @@ Global
 		{00E09FD0-9862-41B3-BD2C-7094A16C97F7} = {C4C9D0BB-F62D-4CB8-B854-66811D91DDDB}
 		{989BECED-1D58-4271-BDD2-72E849224F0A} = {C4C9D0BB-F62D-4CB8-B854-66811D91DDDB}
 		{CE3392F0-F9F0-43D8-BCBF-84CB66B639E0} = {C4C9D0BB-F62D-4CB8-B854-66811D91DDDB}
-		{A4528407-5F49-4983-8EAC-E03AD21C7076} = {49AF57AC-0980-4BF4-9189-AA2DCCEF428D}
-		{97DB3C43-DDC3-47D3-93B1-024AF1E4E522} = {49AF57AC-0980-4BF4-9189-AA2DCCEF428D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
