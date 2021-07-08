@@ -24,7 +24,7 @@ namespace IllusionFixes
 
         private void Awake()
         {
-            Hooks.InstallHooks();
+            KKAPI.Maker.MakerAPI.MakerFinishedLoading += MakerAPI_MakerFinishedLoading;
         }
     }
 }

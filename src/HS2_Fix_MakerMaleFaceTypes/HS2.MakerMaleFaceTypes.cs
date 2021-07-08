@@ -1,7 +1,10 @@
-﻿using BepInEx;
+﻿using AIChara;
+using BepInEx;
 using CharaCustom;
 using Common;
+using KKAPI.Maker;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace IllusionFixes
@@ -12,12 +15,15 @@ namespace IllusionFixes
     {
         public const string GUID = "HS2_Fix_MakerMaleFaceTypes";
 
-        internal void MakerFinishedLoading()
+        private void MakerAPI_MakerFinishedLoading(object sender, EventArgs e)
         {
-            CvsF_FaceType faceType = GameObject.Find("CharaCustom").transform.GetComponentInChildren<CvsF_FaceType>();
-            faceType.transform.Find("Setting/Setting01/title").gameObject.SetActive(true);
-            faceType.transform.Find("Setting/Setting01/SelectBox").gameObject.SetActive(true);
-            faceType.transform.Find("Setting/Setting01/separate").gameObject.SetActive(true);
+            if (MakerAPI.GetMakerSex() == 0)
+            {
+                CvsF_FaceType faceType = GameObject.Find("CharaCustom").transform.GetComponentInChildren<CvsF_FaceType>();
+                faceType.transform.Find("Setting/Setting01/title").gameObject.SetActive(true);
+                faceType.transform.Find("Setting/Setting01/SelectBox").gameObject.SetActive(true);
+                faceType.transform.Find("Setting/Setting01/separate").gameObject.SetActive(true);
+            }
         }
     }
 }

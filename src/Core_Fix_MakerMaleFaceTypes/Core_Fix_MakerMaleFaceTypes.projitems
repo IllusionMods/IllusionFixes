@@ -10,6 +10,5 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Core.MakerMaleFaceTypes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core.MakerMaleFaceTypes.Hooks.cs" />
   </ItemGroup>
 </Project>
