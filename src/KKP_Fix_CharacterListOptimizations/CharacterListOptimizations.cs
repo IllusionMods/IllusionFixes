@@ -39,7 +39,7 @@ namespace IllusionFixes
             {
                 __instance.onEnter += control =>
                 {
-                    var files = Traverse.Create(__instance).Field<Localize.Translate.Manager.ChaFileInfo[]>("files").Value;
+                    var files = __instance.files;
                     var fileInfo = files.First(x => x.chaFile == control);
                     control.LoadCharaFile(fileInfo.info.FullPath);
                 };

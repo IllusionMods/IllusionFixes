@@ -36,7 +36,7 @@ namespace IllusionFixes
             var sceneMan = Singleton<Manager.Scene>.Instance;
             if (sceneMan.NowSceneNames.Any(sName => sName == "Config"))
             {
-                var tmpDropdown = Traverse.Create(Singleton<GraphicSetting>.Instance).Field("rampIDDropdown").GetValue<TMP_Dropdown>();
+                var tmpDropdown = Singleton<GraphicSetting>.Instance.rampIDDropdown;
                 tmpDropdown.template.pivot = new Vector2(0.5f, 0f);
                 tmpDropdown.template.anchorMin = new Vector2(0f, 0.86f);
 
@@ -50,7 +50,7 @@ namespace IllusionFixes
             }
             else if (sceneMan.NowSceneNames.Any(sName => sName == "CustomScene"))
             {
-                var tmpDropdown = Traverse.Create(Singleton<ChaCustom.CustomConfig>.Instance).Field("ddRamp").GetValue<TMP_Dropdown>();
+                var tmpDropdown = Singleton<ChaCustom.CustomConfig>.Instance.ddRamp;
                 tmpDropdown.template.pivot = new Vector2(0.5f, 0f);
                 tmpDropdown.template.anchorMin = new Vector2(0f, 0.86f);
             }
@@ -58,10 +58,9 @@ namespace IllusionFixes
             {
                 if (Studio.Studio.IsInstance())
                 {
-                    var traverse = Traverse.Create(Studio.Studio.Instance.systemButtonCtrl);
-                    var tmpDropdownLut = traverse.Field("amplifyColorEffectInfo").Field("dropdownLut").GetValue<Dropdown>();
+                    var tmpDropdownLut = Studio.Studio.Instance.systemButtonCtrl.amplifyColorEffectInfo.dropdownLut;
                     tmpDropdownLut.template.sizeDelta = new Vector2(0, 950);
-                    var tmpDropdownRamp = traverse.Field("etcInfo").Field("dropdownRamp").GetValue<Dropdown>();
+                    var tmpDropdownRamp = Studio.Studio.Instance.systemButtonCtrl.etcInfo.dropdownRamp;
                     tmpDropdownRamp.template.sizeDelta = new Vector2(0, 800);
                 }
             }

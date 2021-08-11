@@ -25,7 +25,7 @@ namespace IllusionFixes
         public static void GetTexture(ChaListDefine.CategoryNo type, int id, ChaListDefine.KeyType assetBundleKey, ChaListDefine.KeyType assetKey, string addStr, ChaControl __instance, ref Texture2D __result)
         {
             if (__result == null && !addStr.IsNullOrEmpty())
-                __result = Traverse.Create(__instance).Method("GetTexture", type, id, assetBundleKey, assetKey, "").GetValue() as Texture2D;
+                __result = __instance.GetTexture(type, id, assetBundleKey, assetKey, "");
         }
     }
 }

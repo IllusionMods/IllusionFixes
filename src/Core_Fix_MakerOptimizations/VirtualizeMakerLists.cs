@@ -308,7 +308,6 @@ namespace IllusionFixes
 
                 // Create a cache of list items for the virtual list
                 var spawnedItems = new List<CustomSelectInfoComponent>();
-                var setHandlerMethod = Traverse.Create(__instance).Method("SetToggleHandler", new[] { typeof(GameObject) });
                 for (int i = 0; i < totalVisibleItems; i++)
                 {
                     var copy = Instantiate(___objTemp, ___objContent.transform, false);
@@ -317,7 +316,7 @@ namespace IllusionFixes
                     copyInfoComp.tgl.group = toggleGroup;
                     copyInfoComp.tgl.isOn = false;
 
-                    setHandlerMethod.GetValue(copy);
+                    __instance.SetToggleHandler(copy);
 
                     copyInfoComp.img = copy.GetComponent<Image>();
 

@@ -20,7 +20,7 @@ namespace IllusionFixes
                 var cvsEye02 = CustomBase.Instance.gameObject.GetComponentInChildren<CvsEye02>(true);
                 if (cvsEye02 == null) return;
 
-                var toggles = (Toggle[])Traverse.Create(cvsEye02).Field("tglEyeSetType")?.GetValue();
+                var toggles = cvsEye02.tglEyeSetType;
                 if (toggles == null) return;
 
                 int pupil1 = __instance.custom.face.pupil[0].id;

@@ -157,12 +157,11 @@ namespace IllusionFixes
             public static void MakerUiHideLagFix(CustomControl __instance)
             {
                 var customControl = Traverse.Create(__instance);
-
-                var hideFrontUi = customControl.Field("_hideFrontUI");
-                var oldHide = hideFrontUi.GetValue<BoolReactiveProperty>();
+                
+                var oldHide = __instance._hideFrontUI;
                 oldHide.Dispose();
                 var newHide = new BoolReactiveProperty(false);
-                hideFrontUi.SetValue(newHide);
+                __instance._hideFrontUI = newHide;
 
                 var cvsSpace = customControl.Field("cvsSpace").GetValue<Canvas>();
                 var objFrontUiGroup = customControl.Field("objFrontUIGroup").GetValue<GameObject>();

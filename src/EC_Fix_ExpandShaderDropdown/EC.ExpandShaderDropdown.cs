@@ -31,13 +31,13 @@ namespace IllusionFixes
             var sceneMan = Singleton<Manager.Scene>.Instance;
             if (sceneMan.NowSceneNames.Any(sName => sName == "CustomScene"))
             {
-                var tmpDropdown = Traverse.Create(Singleton<CustomConfig>.Instance).Field("ddRamp").GetValue<TMP_Dropdown>();
+                var tmpDropdown = Singleton<CustomConfig>.Instance.ddRamp;
                 tmpDropdown.template.pivot = new Vector2(0.5f, 0f);
                 tmpDropdown.template.anchorMin = new Vector2(0f, 0.86f);
             }
             else if (sceneMan.NowSceneNames.Any(sName => sName == "Config"))
             {
-                var tmpDropdown = Traverse.Create(Singleton<Config.GraphicSetting>.Instance).Field("rampIDDropdown").GetValue<TMP_Dropdown>();
+                var tmpDropdown = Singleton<Config.GraphicSetting>.Instance.rampIDDropdown;
                 tmpDropdown.template.pivot = new Vector2(0.5f, 0f);
                 tmpDropdown.template.anchorMin = new Vector2(0f, 0.86f);
             }

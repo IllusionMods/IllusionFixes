@@ -24,7 +24,7 @@ namespace IllusionFixes
             {
                 if (_kind == -2)
                 {
-                    var sizeWindow = Traverse.Create(__instance).Field("sizeWindow").GetValue<int>();
+                    var sizeWindow = __instance.sizeWindow;
                     var tex = __instance.iconDefalutTextures[sizeWindow];
                     var center = new Vector2(tex.width / 2, tex.height / 2);
                     Cursor.SetCursor(tex, center, CursorMode.ForceSoftware);

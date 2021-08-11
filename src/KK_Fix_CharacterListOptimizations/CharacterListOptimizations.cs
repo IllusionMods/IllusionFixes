@@ -57,18 +57,17 @@ namespace IllusionFixes
             {
                 ExtendedSave.LoadEventsEnabled = true;
 
-                ReactiveProperty<ChaFileControl> info = Traverse.Create(__instance).Field("info").GetValue<ReactiveProperty<ChaFileControl>>();
-                ClassRoomFileListCtrl listCtrl = Traverse.Create(__instance).Field("listCtrl").GetValue<ClassRoomFileListCtrl>();
-                List<CustomFileInfo> lstFileInfo = Traverse.Create(listCtrl).Field("lstFileInfo").GetValue<List<CustomFileInfo>>();
-                Button enterButton = Traverse.Create(__instance).Field("enterButton").GetValue<Button>();
+                var info = __instance.info;
+                var lstFileInfo = __instance.listCtrl.lstFileInfo;
+                var enterButton = __instance.enterButton;
 
                 enterButton.onClick.RemoveAllListeners();
                 enterButton.onClick.AddListener(() =>
                 {
                     var onEnter = (Action<ChaFileControl>)AccessTools.Field(typeof(FreeHClassRoomCharaFile), "onEnter").GetValue(__instance);
-                    string fullPath = lstFileInfo.First(x => x.FileName == info.Value.charaFileName.Remove(info.Value.charaFileName.Length - 4)).FullPath;
+                    var fullPath = lstFileInfo.First(x => x.FileName == info.Value.charaFileName.Remove(info.Value.charaFileName.Length - 4)).FullPath;
 
-                    ChaFileControl chaFileControl = new ChaFileControl();
+                    var chaFileControl = new ChaFileControl();
                     chaFileControl.LoadCharaFile(fullPath, info.Value.parameter.sex, false, true);
 
                     onEnter(chaFileControl);

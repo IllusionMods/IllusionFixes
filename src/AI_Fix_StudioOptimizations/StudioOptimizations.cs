@@ -24,8 +24,7 @@ namespace IllusionFixes
                 if (!Studio.GuideObjectManager.IsInstance()) return;
 
                 // Fix rotation gizmo center being disabled for some reason
-                var rotateObj = Traverse.Create(Studio.GuideObjectManager.Instance).Field("objectOriginal").GetValue<GameObject>()
-                    ?.transform.GetComponentsInChildren<Transform>(true).FirstOrDefault(y => y.name == "XYZ" && y.parent.name == "rotation");
+                var rotateObj = Studio.GuideObjectManager.Instance.objectOriginal?.transform.GetComponentsInChildren<Transform>(true).FirstOrDefault(y => y.name == "XYZ" && y.parent.name == "rotation");
                 if (rotateObj != null)
                 {
                     rotateObj.gameObject.SetActive(true);
@@ -34,7 +33,7 @@ namespace IllusionFixes
             }
             catch (Exception ex)
             {
-                Debug.LogError(ex);
+                UnityEngine.Debug.LogError(ex);
             }
         }
     }

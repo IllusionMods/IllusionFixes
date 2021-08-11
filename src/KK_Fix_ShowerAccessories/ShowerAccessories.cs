@@ -72,10 +72,10 @@ namespace IllusionFixes
             {
                 try
                 {
-                    var map = (ActionMap)AccessTools.Field(typeof(HSceneProc), "map").GetValue(Singleton<HSceneProc>.Instance);
+                    var map = Singleton<HSceneProc>.Instance.map;
                     if (map.no == 52) //shower
                     {
-                        var lstFemale = (List<ChaControl>)AccessTools.Field(typeof(HSceneProc), "lstFemale").GetValue(Singleton<HSceneProc>.Instance);
+                        var lstFemale = Singleton<HSceneProc>.Instance.lstFemale;
                         FixAccessoryState(lstFemale[0]);
                     }
                 }
@@ -93,7 +93,7 @@ namespace IllusionFixes
                 {
                     if (result.actionNo == 2) //shower
                     {
-                        var chaControl = Traverse.Create(__instance).Property("npc").Property<ChaControl>("chaCtrl").Value;
+                        var chaControl = __instance.npc.chaCtrl;
                         FixAccessoryState(chaControl);
                     }
                 }

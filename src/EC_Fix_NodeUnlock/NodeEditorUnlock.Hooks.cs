@@ -13,7 +13,7 @@ namespace IllusionFixes
             internal static bool NodeRestrictionPrefix() => false;
 
             [HarmonyPostfix, HarmonyPatch(typeof(NodeUI), "Start")]
-            internal static void NodeUIStartPostfix(NodeUI __instance) => Traverse.Create(__instance).Field("limitOver").GetValue<BoolReactiveProperty>().Dispose();
+            internal static void NodeUIStartPostfix(NodeUI __instance) => __instance.limitOver.Dispose();
         }
     }
 }

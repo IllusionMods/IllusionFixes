@@ -68,7 +68,7 @@ namespace IllusionFixes
             {
                 UnityEngine.Debug.LogException(__exception);
                 // Attempt to clean up state
-                var h = Traverse.Create(__instance).Property<SaveData.Heroine>("heroine").Value;
+                var h = __instance.heroine;
                 if (h != null)
                 {
                     h.coordinates = new[] { 0 };

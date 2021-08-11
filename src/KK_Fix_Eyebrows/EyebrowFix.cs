@@ -101,12 +101,11 @@ namespace IllusionFixes
         private void MakerAPI_MakerFinishedLoading(object sender, System.EventArgs e)
         {
             var customChangeMainMenu = FindObjectOfType<CustomChangeMainMenu>();
-            CustomChangeFaceMenu ccFaceMenu = (CustomChangeFaceMenu)Traverse.Create(customChangeMainMenu).Field("ccFaceMenu").GetValue();
+            CustomChangeFaceMenu ccFaceMenu = customChangeMainMenu.ccFaceMenu;
 
             //Eyebrows
             {
-                CvsEyebrow cvsEyebrow = (CvsEyebrow)Traverse.Create(ccFaceMenu).Field("cvsEyebrow").GetValue();
-                Toggle[] tglForegroundEyebrow = (Toggle[])Traverse.Create(cvsEyebrow).Field("tglForegroundEyebrow").GetValue();
+                Toggle[] tglForegroundEyebrow = ccFaceMenu.cvsEyebrow.tglForegroundEyebrow;
 
                 tglForegroundEyebrow[0].onValueChanged.AddListener(value =>
                 {
@@ -127,8 +126,7 @@ namespace IllusionFixes
 
             //Eyeliners
             {
-                CvsEye02 cvsEye02 = (CvsEye02)Traverse.Create(ccFaceMenu).Field("cvsEye02").GetValue();
-                Toggle[] tglForegroundEye = (Toggle[])Traverse.Create(cvsEye02).Field("tglForegroundEye").GetValue();
+                Toggle[] tglForegroundEye = ccFaceMenu.cvsEye02.tglForegroundEye;
 
                 tglForegroundEye[0].onValueChanged.AddListener(value =>
                 {

@@ -155,16 +155,15 @@ namespace IllusionFixes
 
             Common.Utilities.Logger.LogInfo("Cleaning up destroyed objects from FKCtrl.listBones");
 
-            var fk = Traverse.Create(__instance);
-            var boneList = fk.Field("listBones").GetValue<IList>();
+            var boneList = __instance.listBones;
 
-            foreach (var targetInfo in boneList.Cast<object>().ToList())
+            foreach (var targetInfo in boneList.ToList())
             {
-                if (Traverse.Create(targetInfo).Field("gameObject").GetValue<GameObject>() == null)
+                if (targetInfo?.gameObject == null)
                     boneList.Remove(targetInfo);
             }
 
-            fk.Property("count").SetValue(boneList.Count);
+            __instance.count = boneList.Count;
 
             return null;
         }

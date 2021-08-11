@@ -28,10 +28,9 @@ namespace IllusionFixes
 
             if (Studio.Studio.IsInstance() && Manager.Scene.LoadSceneName == "Studio")
             {
-                var traverse = Traverse.Create(Studio.Studio.Instance.systemButtonCtrl);
-                var tmpDropdownLut = traverse.Field("colorGradingInfo").Field("dropdownLookupTexture").GetValue<Dropdown>();
+                var tmpDropdownLut = Studio.Studio.Instance.systemButtonCtrl.colorGradingInfo.dropdownLookupTexture;
                 tmpDropdownLut.template.sizeDelta = new Vector2(0, 950);
-                var tmpDropdownRamp = traverse.Field("reflectionProbeInfo").Field("dropdownCubemap").GetValue<Dropdown>();
+                var tmpDropdownRamp = Studio.Studio.Instance.systemButtonCtrl.reflectionProbeInfo.dropdownCubemap;
                 tmpDropdownRamp.template.sizeDelta = new Vector2(0, 800);
             }
         }
