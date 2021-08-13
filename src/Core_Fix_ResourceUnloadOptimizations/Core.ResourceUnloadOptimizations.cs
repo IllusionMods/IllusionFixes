@@ -4,10 +4,12 @@ using HarmonyLib;
 using MonoMod.RuntimeDetour;
 using System;
 using System.Collections;
+using BepInEx;
 using UnityEngine;
 
 namespace IllusionFixes
 {
+    [BepInIncompatibility("BepInEx.ResourceUnloadOptimizations")]
     public partial class ResourceUnloadOptimizations
     {
         public const string PluginName = "Resource Unload Optimizations";
