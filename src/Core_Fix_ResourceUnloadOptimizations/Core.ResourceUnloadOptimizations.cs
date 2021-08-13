@@ -26,15 +26,13 @@ namespace IllusionFixes
         public static ConfigEntry<bool> OptimizeMemoryUsage { get; private set; }
         public static ConfigEntry<int> PercentMemoryThreshold { get; private set; }
         public static ConfigEntry<int> PercentMemoryThresholdDuringLoad { get; private set; }
-
-
-
+        
         internal void Awake()
         {
             DisableUnload = Config.Bind(Utilities.ConfigSectionTweaks, "Disable Resource Unload", false, new ConfigDescription("Disables all resource unloading. Requires large amounts of RAM or will likely crash your game.", null, new ConfigurationManagerAttributes { IsAdvanced = true }));
             OptimizeMemoryUsage = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Usage", true, new ConfigDescription("Use more memory (if available) in order to load the game faster and reduce random stutter."));
-            PercentMemoryThreshold = Config.Bind(Utilities.ConfigSectionTweaks, "Percent Memory Threshold", 75, new ConfigDescription("Minimum amount of memory to be used before resource unloading will run.", null, new ConfigurationManagerAttributes {IsAdvanced = true}));
-            PercentMemoryThresholdDuringLoad = Config.Bind(Utilities.ConfigSectionTweaks, "Percent Memory Threshold During Load", 65, new ConfigDescription("Minimum amount of memory to be used during load before resource unloading will run (should be lower than 'Percent Memory Threshold').", null, new ConfigurationManagerAttributes {IsAdvanced = true}));
+            PercentMemoryThreshold = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Threshold", 75, new ConfigDescription("Minimum amount of memory to be used before resource unloading will run.", null, new ConfigurationManagerAttributes {IsAdvanced = true}));
+            PercentMemoryThresholdDuringLoad = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Threshold During Load", 65, new ConfigDescription("Minimum amount of memory to be used during load before resource unloading will run (should be lower than 'Percent Memory Threshold').", null, new ConfigurationManagerAttributes {IsAdvanced = true}));
             StartCoroutine(CleanupCo());
 
             InstallHooks();
@@ -166,11 +164,11 @@ namespace IllusionFixes
 
 #if !EC
             [HarmonyPrefix]
-            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.LoadScene))]
-            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.ImportScene))]
-            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.InitScene))]
+            [HarmonyPatch(typeof(Studio.Studio), nameof(Studio.Studio.LoadScene))]
+            [HarmonyPatch(typeof(Studio.Studio), nameof(Studio.Studio.ImportScene))]
+            [HarmonyPatch(typeof(Studio.Studio), nameof(Studio.Studio.InitScene))]
 #if !HS && !PH
-            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.LoadSceneCoroutine))]
+            [HarmonyPatch(typeof(Studio.Studio), nameof(Studio.Studio.LoadSceneCoroutine))]
 #endif
             public static void LoadScenePrefix()
             {
@@ -178,14 +176,14 @@ namespace IllusionFixes
             }
 
             [HarmonyPostfix]
-            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.LoadScene))]
-            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.ImportScene))]
-            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.InitScene))]
+            [HarmonyPatch(typeof(Studio.Studio), nameof(Studio.Studio.LoadScene))]
+            [HarmonyPatch(typeof(Studio.Studio), nameof(Studio.Studio.ImportScene))]
+            [HarmonyPatch(typeof(Studio.Studio), nameof(Studio.Studio.InitScene))]
             public static void LoadScenePostfix()
             {
                 try
                 {
-                    global::Studio.Studio.Instance.StartCoroutine(SceneLoadComplete());
+                    Studio.Studio.Instance.StartCoroutine(SceneLoadComplete());
                 }
                 catch
                 {
@@ -195,7 +193,7 @@ namespace IllusionFixes
 
 #if !PH && !HS
             [HarmonyPostfix]
-            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.LoadSceneCoroutine))]
+            [HarmonyPatch(typeof(Studio.Studio), nameof(Studio.Studio.LoadSceneCoroutine))]
             public static void LoadSceneCoroutinePostfix(ref IEnumerator __result)
             {
                 // Setup a coroutine postfix
