@@ -15,6 +15,7 @@ namespace Common
         internal const string StudioProcessName = "StudioNEOV2";
         internal const string GameProcessName = "AI-Syoujyo";
 #elif EC
+        internal static bool InsideStudio => false;
         internal const string GameProcessName = "EmotionCreators";
 #elif HS
         internal static bool InsideStudio => Application.productName == StudioProcessName || Application.productName == StudioProcessName32bit;

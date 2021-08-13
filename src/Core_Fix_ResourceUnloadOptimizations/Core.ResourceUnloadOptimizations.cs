@@ -4,8 +4,6 @@ using HarmonyLib;
 using MonoMod.RuntimeDetour;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace IllusionFixes
@@ -18,16 +16,10 @@ namespace IllusionFixes
         private static Func<AsyncOperation> _originalUnload;
 
         private static int _garbageCollect;
-        private static readonly List<Func<bool>> IsLoadingChecks = new List<Func<bool>>
-        {
-            GetIsNowLoadingFade
-        };
 
-#if !EC
         private static int _sceneLoadOperationsInProgress;
         private static bool _sceneLoadedOrReset;
-        private static global::Studio.Studio Studio => global::Studio.Studio.Instance;
-#endif
+
         private float _waitTime;
 
         public static ConfigEntry<bool> DisableUnload { get; private set; }
@@ -46,10 +38,6 @@ namespace IllusionFixes
             StartCoroutine(CleanupCo());
 
             InstallHooks();
-
-#if !EC
-            if (Constants.InsideStudio) IsLoadingChecks.Add(GetStudioLoadedNewScene);
-#endif
         }
 
         private static void InstallHooks()
@@ -110,12 +98,17 @@ namespace IllusionFixes
             if (mem == null) return false;
 
             // Clean up more aggresively during loading, less aggresively during gameplay
-            var isLoading = IsLoadingChecks.Any(x => x());
+            var isLoading = GetStudioLoadedNewScene() || GetIsNowLoadingFade();
             var pageFileFree = mem.ullAvailPageFile / (float)mem.ullTotalPageFile;
             var plentyOfMemory = mem.dwMemoryLoad < (isLoading ? PercentMemoryThresholdDuringLoad.Value : PercentMemoryThreshold.Value) // physical memory free %
                                  && pageFileFree > 0.3f // page file free %
                                  && mem.ullAvailPageFile > 2ul * 1024ul * 1024ul * 1024ul; // at least 2GB of page file free
-            if (!plentyOfMemory) return false;
+            if (!plentyOfMemory)
+            {
+                // in case a previous scene load crashed leaving count incorrect, clean it up
+                _sceneLoadOperationsInProgress = 0;
+                return false;
+            }
 
             Utilities.Logger.LogDebug($"Skipping cleanup because of low memory load ({mem.dwMemoryLoad}% RAM, {100 - (int)(pageFileFree * 100)}% Page file, {mem.ullAvailPageFile / 1024 / 1024}MB available in PF)");
             return true;
@@ -134,17 +127,14 @@ namespace IllusionFixes
 
         private static bool GetStudioLoadedNewScene()
         {
-#if !EC
-            if (_sceneLoadedOrReset)
+            if (Constants.InsideStudio && _sceneLoadedOrReset)
             {
                 _sceneLoadedOrReset = false;
                 return true;
             }
-#endif
             return false;
         }
 
-#if !EC
         private static IEnumerator SceneLoadComplete()
         {
             yield return null;
@@ -152,7 +142,7 @@ namespace IllusionFixes
             _sceneLoadOperationsInProgress = 0;
             _sceneLoadedOrReset = true;
         }
-#endif
+
         private static class Hooks
         {
             [HarmonyPrefix]
@@ -195,7 +185,7 @@ namespace IllusionFixes
             {
                 try
                 {
-                    Studio.StartCoroutine(SceneLoadComplete());
+                    global::Studio.Studio.Instance.StartCoroutine(SceneLoadComplete());
                 }
                 catch
                 {
