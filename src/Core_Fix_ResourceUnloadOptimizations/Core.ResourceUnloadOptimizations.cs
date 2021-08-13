@@ -16,16 +16,25 @@ namespace IllusionFixes
         private static Func<AsyncOperation> _originalUnload;
 
         private static int _garbageCollect;
+
+        private static int _sceneLoadOperationsInProgress;
+        private static bool _sceneLoadedOrReset;
+
         private float _waitTime;
 
         public static ConfigEntry<bool> DisableUnload { get; private set; }
         public static ConfigEntry<bool> OptimizeMemoryUsage { get; private set; }
+        public static ConfigEntry<int> PercentMemoryThreshold { get; private set; }
+        public static ConfigEntry<int> PercentMemoryThresholdDuringLoad { get; private set; }
+
+
 
         internal void Awake()
         {
             DisableUnload = Config.Bind(Utilities.ConfigSectionTweaks, "Disable Resource Unload", false, new ConfigDescription("Disables all resource unloading. Requires large amounts of RAM or will likely crash your game.", null, new ConfigurationManagerAttributes { IsAdvanced = true }));
             OptimizeMemoryUsage = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Usage", true, new ConfigDescription("Use more memory (if available) in order to load the game faster and reduce random stutter."));
-
+            PercentMemoryThreshold = Config.Bind(Utilities.ConfigSectionTweaks, "Percent Memory Threshold", 75, new ConfigDescription("Minimum amount of memory to be used before resource unloading will run.", null, new ConfigurationManagerAttributes {IsAdvanced = true}));
+            PercentMemoryThresholdDuringLoad = Config.Bind(Utilities.ConfigSectionTweaks, "Percent Memory Threshold During Load", 65, new ConfigDescription("Minimum amount of memory to be used during load before resource unloading will run (should be lower than 'Percent Memory Threshold').", null, new ConfigurationManagerAttributes {IsAdvanced = true}));
             StartCoroutine(CleanupCo());
 
             InstallHooks();
@@ -89,12 +98,17 @@ namespace IllusionFixes
             if (mem == null) return false;
 
             // Clean up more aggresively during loading, less aggresively during gameplay
-            var isLoading = GetIsNowLoadingFade();
+            var isLoading = GetStudioLoadedNewScene() || GetIsNowLoadingFade();
             var pageFileFree = mem.ullAvailPageFile / (float)mem.ullTotalPageFile;
-            var plentyOfMemory = mem.dwMemoryLoad < (isLoading ? 65 : 75) // physical memory free %
+            var plentyOfMemory = mem.dwMemoryLoad < (isLoading ? PercentMemoryThresholdDuringLoad.Value : PercentMemoryThreshold.Value) // physical memory free %
                                  && pageFileFree > 0.3f // page file free %
                                  && mem.ullAvailPageFile > 2ul * 1024ul * 1024ul * 1024ul; // at least 2GB of page file free
-            if (!plentyOfMemory) return false;
+            if (!plentyOfMemory)
+            {
+                // in case a previous scene load crashed leaving count incorrect, clean it up
+                _sceneLoadOperationsInProgress = 0;
+                return false;
+            }
 
             Utilities.Logger.LogDebug($"Skipping cleanup because of low memory load ({mem.dwMemoryLoad}% RAM, {100 - (int)(pageFileFree * 100)}% Page file, {mem.ullAvailPageFile / 1024 / 1024}MB available in PF)");
             return true;
@@ -109,6 +123,24 @@ namespace IllusionFixes
 #else
             return !Manager.Scene.IsInstance() || Manager.Scene.Instance.IsNowLoadingFade;
 #endif
+        }
+
+        private static bool GetStudioLoadedNewScene()
+        {
+            if (Constants.InsideStudio && _sceneLoadedOrReset)
+            {
+                _sceneLoadedOrReset = false;
+                return true;
+            }
+            return false;
+        }
+
+        private static IEnumerator SceneLoadComplete()
+        {
+            yield return null;
+            if (--_sceneLoadOperationsInProgress > 0) yield break;
+            _sceneLoadOperationsInProgress = 0;
+            _sceneLoadedOrReset = true;
         }
 
         private static class Hooks
@@ -131,6 +163,52 @@ namespace IllusionFixes
                 else
                     return RunUnloadAssets();
             }
+
+#if !EC
+            [HarmonyPrefix]
+            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.LoadScene))]
+            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.ImportScene))]
+            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.InitScene))]
+#if !HS && !PH
+            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.LoadSceneCoroutine))]
+#endif
+            public static void LoadScenePrefix()
+            {
+                _sceneLoadOperationsInProgress++;
+            }
+
+            [HarmonyPostfix]
+            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.LoadScene))]
+            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.ImportScene))]
+            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.InitScene))]
+            public static void LoadScenePostfix()
+            {
+                try
+                {
+                    global::Studio.Studio.Instance.StartCoroutine(SceneLoadComplete());
+                }
+                catch
+                {
+                    _sceneLoadOperationsInProgress = 0;
+                }
+            }
+
+#if !PH && !HS
+            [HarmonyPostfix]
+            [HarmonyPatch(typeof(global::Studio.Studio), nameof(global::Studio.Studio.LoadSceneCoroutine))]
+            public static void LoadSceneCoroutinePostfix(ref IEnumerator __result)
+            {
+                // Setup a coroutine postfix
+                var original = __result;
+                __result = new[]
+                {
+                    original,
+                    SceneLoadComplete()
+                }.GetEnumerator();
+            }
+#endif // !PH && !HS
+
+#endif // !EC
         }
     }
 }
