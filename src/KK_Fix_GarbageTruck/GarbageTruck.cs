@@ -11,6 +11,8 @@ using HarmonyLib;
 using ILSetUtility.TimeUtility;
 using Manager;
 using UnityEngine;
+using Illusion.Component.Correct;
+using Illusion.Component.Correct.Process;
 
 namespace IllusionFixes
 {
@@ -313,6 +315,21 @@ namespace IllusionFixes
                     _blendValueCache.AddRange(Enumerable.Repeat(0f, 50));
                     goto retry;
                 }
+            }
+
+            /// <summary>
+            /// Allocation-free reimplementation (this can be called ~60 times per frame).
+            /// </summary>
+            [HarmonyPrefix]
+            [HarmonyPatch(typeof(BaseProcess), nameof(BaseProcess.data), MethodType.Getter)]
+            private static bool GetDataNoAlloc(BaseProcess __instance, ref BaseData ____data, ref BaseData __result)
+            {
+                if (____data == null)
+                {
+                    ____data = __instance.GetComponent<BaseData>();
+                }
+                __result = ____data;
+                return false;
             }
         }
     }
