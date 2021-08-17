@@ -331,6 +331,28 @@ namespace IllusionFixes
                 __result = ____data;
                 return false;
             }
+
+            /// <summary>
+            /// Use a preallocated buffer instead of doing new float[1024].
+            /// </summary>
+            private static readonly float[] _waveBuffer = new float[1024];
+            private static float[] GetWaveBuffer()
+            {
+                Array.Clear(_waveBuffer, 0, _waveBuffer.Length);
+                return _waveBuffer;
+            }
+            [HarmonyTranspiler]
+            [HarmonyPatch(typeof(FBSAssist.AudioAssist), nameof(FBSAssist.AudioAssist.GetAudioWaveValue))]
+            private static IEnumerable<CodeInstruction> FixGetAudioWaveValue(IEnumerable<CodeInstruction> insts)
+            {
+                return new CodeMatcher(insts)
+                    .MatchForward(false,
+                        new CodeMatch(OpCodes.Ldc_I4, 1024),
+                        new CodeMatch(OpCodes.Newarr, typeof(float)))
+                    .SetAndAdvance(OpCodes.Call, AccessTools.Method(typeof(AntiGarbageHooks), nameof(GetWaveBuffer)))
+                    .RemoveInstruction()
+                    .Instructions();
+            }
         }
     }
 }
