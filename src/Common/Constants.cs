@@ -45,7 +45,7 @@ namespace Common
         internal const string StudioProcessName32bit = "PlayHomeStudio32bit";
 #elif KKS //todo change on full release
         internal static bool InsideStudio => false;
-        internal const string GameProcessName = "KoikatsuSunshineTrial";
+        internal const string GameProcessName = "KoikatsuSunshine";
 #endif
     }
 }
