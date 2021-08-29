@@ -15,7 +15,9 @@ namespace IllusionFixes
 
         private void Awake()
         {
-            Harmony.CreateAndPatchAll(typeof(WetAccessoriesFix));
+            //TODO Reenable once things work properly
+            //Harmony.CreateAndPatchAll(typeof(WetAccessoriesFix));
+            Logger.LogWarning("This plugin is temporarily disabled because of some accessory zipmods crashing the game");
         }
 
         [HarmonyPostfix]
