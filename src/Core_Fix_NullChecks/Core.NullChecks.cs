@@ -28,9 +28,12 @@ namespace IllusionFixes
             var finalizer = new HarmonyMethod(typeof(NullChecks), nameof(MethodNullRefEater));
             var postfix = new HarmonyMethod(typeof(NullChecks), nameof(CoroutineNullRefEater));
             foreach (var methodInfo in typeof(ChaControl).GetMethods(AccessTools.all)
-                .Where(x => x.Name.StartsWith("Change", StringComparison.Ordinal) && x.Name.EndsWith("Async", StringComparison.Ordinal) && x.ReturnType == typeof(IEnumerator)))
+                .Where(x => x.Name.StartsWith("Change", StringComparison.Ordinal) && x.Name.EndsWith("Async", StringComparison.Ordinal)))
             {
-                h.Patch(methodInfo, null, postfix, null, finalizer);
+                if (methodInfo.ReturnType == typeof(IEnumerator))
+                    h.Patch(methodInfo, postfix: postfix, finalizer: finalizer);
+                else
+                    h.Patch(methodInfo, finalizer: finalizer);
             }
         }
 
