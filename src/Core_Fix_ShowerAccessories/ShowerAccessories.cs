@@ -1,9 +1,5 @@
-﻿using ActionGame;
-using ActionGame.Chara;
-using BepInEx;
+﻿using BepInEx;
 using Common;
-using HarmonyLib;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,10 +8,8 @@ namespace IllusionFixes
     /// <summary>
     /// Prevents accessories from being disabled in the shower peeping mode
     /// </summary>
-    [BepInProcess(Constants.GameProcessName)]
-    [BepInProcess(Constants.GameProcessNameSteam)]
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
-    public class ShowerAccessories : BaseUnityPlugin
+    public partial class ShowerAccessories : BaseUnityPlugin
     {
         public const string GUID = "KK_Fix_ShowerAccessories";
         public const string PluginName = "Shower Accessories Fix";
@@ -32,7 +26,7 @@ namespace IllusionFixes
             new AccessoryEntry(125, 12, "a_n_back")
         };
 
-        private void Awake() => Harmony.CreateAndPatchAll(typeof(Hooks));
+        private void Awake() => Hooks.ApplyHooks(GUID);
 
         private static void FixAccessoryState(ChaControl chaControl)
         {
@@ -61,46 +55,6 @@ namespace IllusionFixes
                 Type = type;
                 Id = id;
                 ParentKey = parentKey;
-            }
-        }
-
-        private static class Hooks
-        {
-            [HarmonyPrefix]
-            [HarmonyPatch(typeof(HSceneProc), "MapSameObjectDisable")]
-            internal static void HSceneShowerFix()
-            {
-                try
-                {
-                    var map = Singleton<HSceneProc>.Instance.map;
-                    if (map.no == 52) //shower
-                    {
-                        var lstFemale = Singleton<HSceneProc>.Instance.lstFemale;
-                        FixAccessoryState(lstFemale[0]);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    UnityEngine.Debug.LogException(ex);
-                }
-            }
-
-            [HarmonyPostfix]
-            [HarmonyPatch(typeof(AI), "ArrivalSet")]
-            internal static void OverworldShowerFix(AI __instance, ActionControl.ResultInfo result)
-            {
-                try
-                {
-                    if (result.actionNo == 2) //shower
-                    {
-                        var chaControl = __instance.npc.chaCtrl;
-                        FixAccessoryState(chaControl);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    UnityEngine.Debug.LogException(ex);
-                }
             }
         }
     }
