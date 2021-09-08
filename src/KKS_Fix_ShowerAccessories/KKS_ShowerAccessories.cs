@@ -25,7 +25,7 @@ namespace IllusionFixes
 
 
                 var movenext = GetMoveNext(AccessTools.Method(typeof(HSceneProc), nameof(HSceneProc.Start)));
-                hi.Patch(movenext, transpiler: new HarmonyMethod(typeof(Hooks), nameof(Hooks.HSceneShowerFix)));
+                hi.Patch(movenext, transpiler: new HarmonyMethod(typeof(Hooks), nameof(Hooks.ShowerFixTpl)));
             }
 
             private static MethodInfo GetMoveNext(MethodInfo targetMethod)
@@ -45,19 +45,38 @@ namespace IllusionFixes
                 return movenext;
             }
 
-            internal static IEnumerable<CodeInstruction> HSceneShowerFix(IEnumerable<CodeInstruction> instructions)
+            internal static IEnumerable<CodeInstruction> ShowerFixTpl(IEnumerable<CodeInstruction> instructions)
             {
-                // Find the part that checks if it's inside of a shower (id 15) and make sure it never returns true
-                // (the shower code branch turns off ALL accessories, while by default only Sub accessories are turned off, which is much better for acc hair)
+                // Find the last fade out that goes into the scene and fix acc state right before it
                 return new CodeMatcher(instructions)
-                    .Advance(2982)
-                    .MatchForward(true,
-                        new CodeMatch(OpCodes.Ldfld),
-                        new CodeMatch(OpCodes.Callvirt),
-                        new CodeMatch(OpCodes.Ldc_I4_S, (sbyte)15))
-                    .ThrowIfInvalid("Could not find map id")
-                    .SetOperandAndAdvance(int.MinValue)
+                    .Advance(3490) // Reduce unnecessary checks, still has a safety buffer of a few instructions for future updates
+                    .MatchForward(false,
+                        new CodeMatch(OpCodes.Ldc_I4_2),
+                        new CodeMatch(OpCodes.Ldc_I4_0),
+                        new CodeMatch(OpCodes.Callvirt, AccessTools.Method(typeof(FadeCanvas), nameof(FadeCanvas.StartFadeAysnc))))
+                    .ThrowIfInvalid("Could " + nameof(FadeCanvas.StartFadeAysnc))
+                    .InsertAndAdvance(
+                        new CodeInstruction(OpCodes.Ldloc_1),
+                        CodeInstruction.Call(typeof(Hooks), nameof(Hooks.ShowerFixHook)))
                     .Instructions();
+            }
+
+            private static void ShowerFixHook(HSceneProc __instance)
+            {
+                try
+                {
+
+                    var map = __instance.map;
+                    if (map.no == 15) //shower
+                    {
+                        var lstFemale = __instance.lstFemale;
+                        FixAccessoryState(lstFemale[0]);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    UnityEngine.Debug.LogException(ex);
+                }
             }
 
             [HarmonyPostfix]
