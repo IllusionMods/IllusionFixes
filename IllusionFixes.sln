@@ -277,6 +277,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_MainGameOptimizations",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_MainGameOptimizations", "src\KKS_Fix_MainGameOptimizations\KKS_Fix_MainGameOptimizations.csproj", "{C9A1D681-4F11-4BFE-9179-62797903F3E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_DataCorruptionFixes", "src\KKS_Fix_DataCorruptionFixes\KKS_Fix_DataCorruptionFixes.csproj", "{CB2E8A3C-05A9-4D5F-A666-71DD93537E11}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{00e09fd0-9862-41b3-bd2c-7094a16c97f7}*SharedItemsImports = 4
@@ -428,6 +430,7 @@ Global
 		src\Common\Common.projitems*{c990bca0-e95f-4853-b80f-bf2ab7023eb7}*SharedItemsImports = 4
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{c990bca0-e95f-4853-b80f-bf2ab7023eb7}*SharedItemsImports = 4
 		src\Common\Common.projitems*{c9a1d681-4f11-4bfe-9179-62797903f3e7}*SharedItemsImports = 4
+		src\Common\Common.projitems*{cb2e8a3c-05a9-4d5f-a666-71dd93537e11}*SharedItemsImports = 4
 		src\Core_Fix_CameraMaskResize\Core_Fix_CameraMaskResize.projitems*{ce3392f0-f9f0-43d8-bcbf-84cb66b639e0}*SharedItemsImports = 13
 		src\Common\Common.projitems*{ceac55c1-ded9-4581-9466-f9c6e7407a6f}*SharedItemsImports = 4
 		src\Common\Common.projitems*{d70142fb-fa2a-4bf3-90aa-19674e8f82cc}*SharedItemsImports = 4
@@ -826,6 +829,10 @@ Global
 		{C9A1D681-4F11-4BFE-9179-62797903F3E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9A1D681-4F11-4BFE-9179-62797903F3E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9A1D681-4F11-4BFE-9179-62797903F3E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB2E8A3C-05A9-4D5F-A666-71DD93537E11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB2E8A3C-05A9-4D5F-A666-71DD93537E11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB2E8A3C-05A9-4D5F-A666-71DD93537E11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB2E8A3C-05A9-4D5F-A666-71DD93537E11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -927,6 +934,7 @@ Global
 		{C95FFB04-1EFE-428C-BB55-56CD9881A95A} = {44EF8EA1-7AA9-4397-9FB5-280D6914C0EE}
 		{5065BA00-D9AD-4E37-A2B5-5B7E369C10CF} = {EEAF0BD9-2427-4B92-BD7F-7D2D8D2D2045}
 		{C9A1D681-4F11-4BFE-9179-62797903F3E7} = {8F64F0FC-2CA0-47FF-96EF-37338F513C4C}
+		{CB2E8A3C-05A9-4D5F-A666-71DD93537E11} = {D9E1F804-F37B-4ECB-B993-37AE3BED70C4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
