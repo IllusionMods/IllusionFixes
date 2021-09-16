@@ -279,6 +279,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_MainGameOptimizatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_DataCorruptionFixes", "src\KKS_Fix_DataCorruptionFixes\KKS_Fix_DataCorruptionFixes.csproj", "{CB2E8A3C-05A9-4D5F-A666-71DD93537E11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_GuideObjects", "src\KKS_Fix_GuideObjects\KKS_Fix_GuideObjects.csproj", "{7C8F1DBF-0BA4-4DFD-96EC-71605D913D6D}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{00e09fd0-9862-41b3-bd2c-7094a16c97f7}*SharedItemsImports = 4
@@ -375,6 +377,8 @@ Global
 		src\Core_Fix_GuideObjects\Core_Fix_GuideObjects.projitems*{763d7633-b7fd-4b91-886b-579850e2fae1}*SharedItemsImports = 13
 		src\Common\Common.projitems*{765d725f-05ad-4b34-8799-90be65754513}*SharedItemsImports = 4
 		src\Core_Fix_InvalidSceneFileProtection\Core_Fix_InvalidSceneFileProtection.projitems*{765d725f-05ad-4b34-8799-90be65754513}*SharedItemsImports = 4
+		src\Common\Common.projitems*{7c8f1dbf-0ba4-4dfd-96ec-71605d913d6d}*SharedItemsImports = 4
+		src\Core_Fix_GuideObjects\Core_Fix_GuideObjects.projitems*{7c8f1dbf-0ba4-4dfd-96ec-71605d913d6d}*SharedItemsImports = 4
 		src\Common\Common.projitems*{81a9c4ba-5c32-4e35-b17d-8c3c9e2a676c}*SharedItemsImports = 4
 		src\Core_Fix_PoseLoad\Core_Fix_PoseLoad.projitems*{81a9c4ba-5c32-4e35-b17d-8c3c9e2a676c}*SharedItemsImports = 4
 		src\Common\Common.projitems*{81ccbaa9-ec68-4558-bbdb-54d59b55b8a7}*SharedItemsImports = 4
@@ -833,6 +837,10 @@ Global
 		{CB2E8A3C-05A9-4D5F-A666-71DD93537E11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB2E8A3C-05A9-4D5F-A666-71DD93537E11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB2E8A3C-05A9-4D5F-A666-71DD93537E11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C8F1DBF-0BA4-4DFD-96EC-71605D913D6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C8F1DBF-0BA4-4DFD-96EC-71605D913D6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C8F1DBF-0BA4-4DFD-96EC-71605D913D6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C8F1DBF-0BA4-4DFD-96EC-71605D913D6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -935,6 +943,7 @@ Global
 		{5065BA00-D9AD-4E37-A2B5-5B7E369C10CF} = {EEAF0BD9-2427-4B92-BD7F-7D2D8D2D2045}
 		{C9A1D681-4F11-4BFE-9179-62797903F3E7} = {8F64F0FC-2CA0-47FF-96EF-37338F513C4C}
 		{CB2E8A3C-05A9-4D5F-A666-71DD93537E11} = {D9E1F804-F37B-4ECB-B993-37AE3BED70C4}
+		{7C8F1DBF-0BA4-4DFD-96EC-71605D913D6D} = {0EA17B87-1BE0-4AAF-97EC-9B0885676D1C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}

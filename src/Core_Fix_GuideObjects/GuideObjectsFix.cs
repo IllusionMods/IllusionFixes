@@ -19,7 +19,7 @@ namespace IllusionFixes
             /// <summary>
             /// Fix accessory guide objects not having speed and scale sliders applied right after first enabling them
             /// </summary>
-            [HarmonyPrefix, HarmonyPatch(typeof(CustomUtility.CustomGuideObject), "Awake")]
+            [HarmonyPrefix, HarmonyPatch(typeof(CustomUtility.CustomGuideObject), nameof(CustomUtility.CustomGuideObject.Awake))]
             internal static void CustomGuideObject_Awake(CustomUtility.CustomGuideObject __instance)
             {
                 var id = __instance.name.EndsWith("1") ? 0 : 1;
@@ -31,7 +31,7 @@ namespace IllusionFixes
             /// <summary>
             /// Fix accessory guide objects not being on top of everything like studio guide objects
             /// </summary>
-            [HarmonyPostfix, HarmonyPatch(typeof(CustomUtility.CustomGuideBase), "Start")]
+            [HarmonyPostfix, HarmonyPatch(typeof(CustomUtility.CustomGuideBase), nameof(CustomUtility.CustomGuideBase.Start))]
             internal static void CustomGuideBase_Start(CustomUtility.CustomGuideBase __instance, ref Color ___colorNormal, ref Color ___colorHighlighted)
             {
                 // Rotation guides have serious issues with z fighting
