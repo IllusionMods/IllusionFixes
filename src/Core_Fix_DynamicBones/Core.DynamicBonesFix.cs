@@ -4,6 +4,7 @@ using HarmonyLib;
 
 namespace IllusionFixes
 {
+    // Also used for KKS
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class DynamicBonesFix : BaseUnityPlugin
     {
@@ -15,9 +16,9 @@ namespace IllusionFixes
         internal static class Hooks
         {
             //Disable the SkipUpdateParticles method since it causes problems, namely causing jittering when the FPS is higher than 60
-            [HarmonyPrefix, HarmonyPatch(typeof(DynamicBone), "SkipUpdateParticles")]
+            [HarmonyPrefix, HarmonyPatch(typeof(DynamicBone), nameof(DynamicBone.SkipUpdateParticles))]
             internal static bool SkipUpdateParticles() => false;
-            [HarmonyPrefix, HarmonyPatch(typeof(DynamicBone_Ver02), "SkipUpdateParticles")]
+            [HarmonyPrefix, HarmonyPatch(typeof(DynamicBone_Ver02), nameof(DynamicBone_Ver02.SkipUpdateParticles))]
             internal static bool SkipUpdateParticlesVer02() => false;
         }
     }
