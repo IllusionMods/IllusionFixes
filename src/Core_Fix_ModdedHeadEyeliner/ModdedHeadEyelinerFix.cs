@@ -13,10 +13,10 @@ namespace IllusionFixes
         internal void Awake()
         {
             var harmony = Harmony.CreateAndPatchAll(typeof(ModdedHeadEyelinerFix));
-            var getTextureMethod = typeof(ChaControl).GetMethod("GetTexture", AccessTools.all);
+            var getTextureMethod = typeof(ChaControl).GetMethod(nameof(ChaControl.GetTexture), AccessTools.all);
             if (getTextureMethod == null) throw new ArgumentException("Could not find ChaControl.GetTexture");
             if (getTextureMethod.GetParameters().Any(x => x.Name == "addStr"))
-                harmony.Patch(typeof(ChaControl).GetMethod("GetTexture", AccessTools.all), null, new HarmonyMethod(typeof(ModdedHeadEyelinerFix).GetMethod(nameof(GetTexture), AccessTools.all)));
+                harmony.Patch(typeof(ChaControl).GetMethod(nameof(ChaControl.GetTexture), AccessTools.all), null, new HarmonyMethod(typeof(ModdedHeadEyelinerFix).GetMethod(nameof(GetTexture), AccessTools.all)));
         }
 
         /// <summary>
