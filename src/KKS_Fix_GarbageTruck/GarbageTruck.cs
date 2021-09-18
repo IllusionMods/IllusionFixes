@@ -8,7 +8,6 @@ using FBSAssist;
 using HarmonyLib;
 using Illusion.Component.Correct.Process;
 using ILSetUtility.TimeUtility;
-using KKAPI.Utilities;
 using Manager;
 using UnityEngine;
 
@@ -45,17 +44,14 @@ namespace IllusionFixes
             [HarmonyPatch(typeof(EyeLookCalc), nameof(EyeLookCalc.EyeUpdateCalc))]
             private static IEnumerable<CodeInstruction> FixUpdateCalcGarbage(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
             {
-                var c = new CodeMatcher(instructions, generator);
                 // Remove unnecessary new object creation that gets immediately overwritten
-                c.MatchForward(false,
-                    new CodeMatch(OpCodes.Newobj),
-                    new CodeMatch(OpCodes.Stloc_1),
-                    new CodeMatch(OpCodes.Ldarg_0),
-                    new CodeMatch(OpCodes.Ldfld));
-
-                if (c.IsInvalid) return instructions;
-
-                return c
+                return new CodeMatcher(instructions, generator)
+                    .MatchForward(false,
+                        new CodeMatch(OpCodes.Newobj),
+                        new CodeMatch(OpCodes.Stloc_1),
+                        new CodeMatch(OpCodes.Ldarg_0),
+                        new CodeMatch(OpCodes.Ldfld))
+                    .ThrowIfInvalid("Couldn't find the new object opcode")
                     .RemoveInstruction()
                     .RemoveInstruction()
                     .Instructions();
@@ -65,11 +61,11 @@ namespace IllusionFixes
             /// Fix badly made ongui that crashes with the ongui garbage patch
             /// </summary>
             [HarmonyPrefix]
-            [HarmonyPatch(typeof(TimeUtilityDrawer), "OnGUI")]
-            private static bool FixBuiltinFps(TimeUtilityDrawer __instance, GUIStyle ___style)
+            [HarmonyPatch(typeof(TimeUtilityDrawer), nameof(TimeUtilityDrawer.OnGUI))]
+            private static bool FixBuiltinFps(TimeUtilityDrawer __instance)
             {
-                GUI.Box(new Rect(4, 4, 100, 24), "", GUI.skin.box);
-                GUI.Label(new Rect(7, 5, 100, 24), "FPS:" + __instance.fps.ToString("000.0"), ___style);
+                GUI.Box(new Rect(4, 4, 100, 24), string.Empty, GUI.skin.box);
+                GUI.Label(new Rect(7, 5, 100, 24), $"FPS:{__instance.fps:000.0}", __instance.style);
                 return false;
             }
 
@@ -127,30 +123,34 @@ namespace IllusionFixes
                 return false;
             }
 
+            #region GetAudioWaveValue caching
+
             /// <summary>
             /// Use a preallocated buffer instead of doing new float[1024].
             /// </summary>
             private static readonly float[] _waveBuffer = new float[1024];
-
-
 
             private static float[] GetWaveBuffer()
             {
                 Array.Clear(_waveBuffer, 0, _waveBuffer.Length);
                 return _waveBuffer;
             }
+
             [HarmonyTranspiler]
-            [HarmonyPatch(typeof(AudioAssist), nameof(FBSAssist.AudioAssist.GetAudioWaveValue))]
+            [HarmonyPatch(typeof(AudioAssist), nameof(AudioAssist.GetAudioWaveValue))]
             private static IEnumerable<CodeInstruction> FixGetAudioWaveValue(IEnumerable<CodeInstruction> insts)
             {
                 return new CodeMatcher(insts)
                     .MatchForward(false,
                         new CodeMatch(OpCodes.Ldc_I4, 1024),
                         new CodeMatch(OpCodes.Newarr, typeof(float)))
+                    .ThrowIfInvalid("No match")
                     .SetAndAdvance(OpCodes.Call, AccessTools.Method(typeof(AntiGarbageHooks), nameof(GetWaveBuffer)))
                     .RemoveInstruction()
                     .Instructions();
             }
+
+            #endregion
 
             #region Fix BaseProcessLateUpdate StartCoroutine allocations
 
@@ -161,15 +161,6 @@ namespace IllusionFixes
             [HarmonyPatch(typeof(BaseProcess), nameof(BaseProcess.LateUpdate))]
             private static IEnumerable<CodeInstruction> FixBaseProcessLateUpdate(IEnumerable<CodeInstruction> insts)
             {
-                //ldarg.0
-                //ldarg.0
-                //ldloc.0
-                //ldloc.2
-                //ldloc.3
-                //call	instance class [mscorlib]System.Collections.IEnumerator Illusion.Component.Correct.Process.BaseProcess::Restore(class [UnityEngine.CoreModule]UnityEngine.Transform, valuetype ne.CoreModule]//UnityEngine.Vector3, valuetype [UnityEngine.CoreModule]UnityEngine.Quaternion)
-                //call	instance class [UnityEngine.CoreModule]UnityEngine.Coroutine [UnityEngine.CoreModule]UnityEngine.MonoBehaviour::StartCoroutine(class [mscorlib]System.Collections.IEnumerator)
-                //pop
-
                 return new CodeMatcher(insts)
                     .MatchForward(false,
                         new CodeMatch(OpCodes.Ldarg_0),
@@ -183,13 +174,13 @@ namespace IllusionFixes
                     .ThrowIfInvalid("Could not find StartCoroutine")
                     .SetOpcodeAndAdvance(OpCodes.Nop)
                     .SetOpcodeAndAdvance(OpCodes.Nop)
-                    .Advance(3) // Keep the Restore parameters
+                    .Advance(3) // Keep parameters given to the original Restore so we can reuse them
                     .SetOperandAndAdvance(AccessTools.Method(typeof(AntiGarbageHooks), nameof(QueueBaseProcessUpdateJob)))
                     .SetOpcodeAndAdvance(OpCodes.Nop) // Don't remove StartCoroutine operand in case some other transplier wants to use it as landmark
                     .SetOpcodeAndAdvance(OpCodes.Nop)
                     .Instructions();
             }
-            
+
             private static void QueueBaseProcessUpdateJob(Transform t, Vector3 pos, Quaternion rot)
             {
                 _baseProcessUpdateJobStack.Push(new BaseProcessUpdateJob { pos = pos, rot = rot, t = t });
@@ -210,12 +201,13 @@ namespace IllusionFixes
             }
 
             private static readonly Stack<BaseProcessUpdateJob> _baseProcessUpdateJobStack = new Stack<BaseProcessUpdateJob>(100);
+            private static readonly WaitForEndOfFrame _cachedWaitForEndOfFrame = new WaitForEndOfFrame();
 
             public static IEnumerator BaseProcessUpdateJobCo()
             {
                 while (true)
                 {
-                    yield return CoroutineUtils.WaitForEndOfFrame;
+                    yield return _cachedWaitForEndOfFrame;
                     while (_baseProcessUpdateJobStack.Count > 0)
                         _baseProcessUpdateJobStack.Pop().Do();
                 }
