@@ -43,9 +43,11 @@ namespace Common
         internal const string GameProcessName32bit = "PlayHome32bit";
         internal const string StudioProcessName = "PlayHomeStudio64bit";
         internal const string StudioProcessName32bit = "PlayHomeStudio32bit";
-#elif KKS //todo change on full release
-        internal static bool InsideStudio => false;
+#elif KKS
+        internal static bool InsideStudio => Application.productName == StudioProcessName;
         internal const string GameProcessName = "KoikatsuSunshine";
+        internal const string StudioProcessName = "CharaStudio";
+        internal const string VRProcessName = "KoikatsuSunshine_VR";
 #endif
     }
 }
