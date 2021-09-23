@@ -14,8 +14,8 @@ namespace IllusionFixes
 {
     [BepInProcess(Constants.GameProcessName)]
     //[BepInProcess(Constants.GameProcessNameSteam)]
-    //[BepInProcess(Constants.StudioProcessName)]
-    //[BepInProcess(Constants.VRProcessName)]
+    [BepInProcess(Constants.StudioProcessName)]
+    [BepInProcess(Constants.VRProcessName)]
     //[BepInProcess(Constants.VRProcessNameSteam)]
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class DataCorruptionFixes : BaseUnityPlugin
