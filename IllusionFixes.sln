@@ -207,7 +207,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_GarbageTruck", "src\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_DynamicBones", "Fix_DynamicBones", "{1EF89218-A9E1-492D-8F37-61B2F1668886}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_DynamicBones", "src\KK_Fix_DynamicBones\KK_Fix_DynamicBones.csproj", "{E797F38B-4104-4027-9B34-C210AF558EA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK-KKS_Fix_DynamicBones", "src\KK_Fix_DynamicBones\KK-KKS_Fix_DynamicBones.csproj", "{E797F38B-4104-4027-9B34-C210AF558EA9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_DynamicBones", "src\EC_Fix_DynamicBones\EC_Fix_DynamicBones.csproj", "{B50199CA-BA76-4628-8E86-2A2B40E40520}"
 EndProject
