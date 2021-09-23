@@ -22,7 +22,7 @@ namespace IllusionFixes
         }
 
 #if DEBUG
-        internal void OnDestroy() => Harmony.UnpatchAll();
+        internal void OnDestroy() => Harmony?.UnpatchAll();
 #endif
 
         protected static IEnumerable<CodeInstruction> StudioPatch(IEnumerable<CodeInstruction> instructions)

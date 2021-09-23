@@ -13,10 +13,16 @@ namespace IllusionFixes
 
         protected override void Awake()
         {
-            base.Awake();
+            var set = Config.Bind("Controls", "Unlock cursor when Cam center is off", false,
+                "By default cursor will be unlocked when the camera center point is hidden and you drag it to rotate view. This plugin stops that from happening, so the cursor is locked by default. Turn this on to restore the original behavior.\nChanges take effect after studio resteart.");
 
-            Harmony.Patch(typeof(Studio.CameraControl).GetMethod("LateUpdate", AccessTools.all),
-                          transpiler: new HarmonyMethod(typeof(CameraTargetFixCore).GetMethod(nameof(StudioPatch), AccessTools.all)));
+            if (!set.Value)
+            {
+                base.Awake();
+
+                Harmony.Patch(typeof(Studio.CameraControl).GetMethod("LateUpdate", AccessTools.all),
+                    transpiler: new HarmonyMethod(typeof(CameraTargetFixCore).GetMethod(nameof(StudioPatch), AccessTools.all)));
+            }
         }
     }
 }
