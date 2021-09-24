@@ -105,7 +105,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_InvalidSceneFileProtect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_InvalidSceneFileProtection", "src\AI_Fix_InvalidSceneFileProtection\AI_Fix_InvalidSceneFileProtection.csproj", "{386AE527-1B53-4AD6-AAA3-F90D610C6080}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_InvalidSceneFileProtection", "src\KK_Fix_InvalidSceneFileProtection\KK_Fix_InvalidSceneFileProtection.csproj", "{020992E5-0E49-4B83-A3CE-C5EB990EDDA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK-KKS_Fix_InvalidSceneFileProtection", "src\KK_Fix_InvalidSceneFileProtection\KK-KKS_Fix_InvalidSceneFileProtection.csproj", "{020992E5-0E49-4B83-A3CE-C5EB990EDDA7}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_InvalidSceneFileProtection", "src\Core_Fix_InvalidSceneFileProtection\Core_Fix_InvalidSceneFileProtection.shproj", "{DE110DE4-C432-4F89-BD1E-23915527EF9B}"
 EndProject

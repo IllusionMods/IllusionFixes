@@ -103,7 +103,7 @@ namespace IllusionFixes
 
         private static void LogInvalid()
         {
-            Logger.Log(BepInEx.Logging.LogLevel.Message | BepInEx.Logging.LogLevel.Warning, "Cannot load the file - This is not a studio scene or the it is corrupted");
+            Logger.Log(BepInEx.Logging.LogLevel.Message | BepInEx.Logging.LogLevel.Warning, "Cannot load the file - This is not a studio scene, it's a scene from a different game, or it is corrupted");
         }
     }
 }
