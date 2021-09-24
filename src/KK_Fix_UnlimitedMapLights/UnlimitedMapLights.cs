@@ -3,6 +3,7 @@ using Common;
 using HarmonyLib;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using BepInEx.Logging;
 
 namespace IllusionFixes
 {
@@ -13,10 +14,28 @@ namespace IllusionFixes
         public const string GUID = "KK_Fix_UnlimitedMapLights";
         public const string PluginName = "Unlimited Map Lights";
 
-        private void Awake() => Harmony.CreateAndPatchAll(GetType());
+        private static new ManualLogSource Logger;
 
-        [HarmonyPrefix, HarmonyPatch(typeof(Studio.SceneInfo), nameof(Studio.SceneInfo.AddLight))]
-        private static bool UnlimitedLights() => false;
+        private void Awake()
+        {
+            Logger = base.Logger;
+            Harmony.CreateAndPatchAll(typeof(UnlimitedMapLights));
+        }
+
+        [HarmonyPostfix, HarmonyPatch(typeof(Studio.SceneInfo), nameof(Studio.SceneInfo.AddLight))]
+        private static void UnlimitedLights(Studio.SceneInfo __instance)
+        {
+            if(__instance.lightCount > 2)
+                Logger.LogMessage("Warning: Lights above 2 might not affect characters and some items!");
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Studio.SceneInfo), nameof(Studio.SceneInfo.isLightCheck), MethodType.Getter)]
+        private static void UnlimitedLights(ref bool __result) => __result = true;
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Studio.SceneInfo), nameof(Studio.SceneInfo.isLightLimitOver), MethodType.Getter)]
+        private static void UnlimitedLights2(ref bool __result) => __result = false;
 
         [HarmonyTranspiler, HarmonyPatch(typeof(Studio.LightLine), "CreateMaterial")]
         private static IEnumerable<CodeInstruction> LightLineFix(IEnumerable<CodeInstruction> instructions)
