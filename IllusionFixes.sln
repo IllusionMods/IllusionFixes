@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_ExpandShaderDropdown
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_CenteredHSceneCursor", "src\KK_Fix_CenteredHSceneCursor\KK_Fix_CenteredHSceneCursor.csproj", "{EC9E7C9B-10FA-41C7-8B30-F91E33D97F7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_UnlimitedMapLights", "src\KK_Fix_UnlimitedMapLights\KK_Fix_UnlimitedMapLights.csproj", "{51F20404-6A48-4578-B994-FF0A867EF2C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK-KKS_Fix_UnlimitedMapLights", "src\KK_Fix_UnlimitedMapLights\KK-KKS_Fix_UnlimitedMapLights.csproj", "{51F20404-6A48-4578-B994-FF0A867EF2C0}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common.AccessoriesAPI", "src\Common.AccessoriesAPI\Common.AccessoriesAPI.shproj", "{94E708E4-7B1C-4DA8-83BB-7699753825D1}"
 EndProject
