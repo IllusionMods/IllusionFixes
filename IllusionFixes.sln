@@ -31,8 +31,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_CenteredHSceneCursor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK-KKS_Fix_UnlimitedMapLights", "src\KK_Fix_UnlimitedMapLights\KK-KKS_Fix_UnlimitedMapLights.csproj", "{51F20404-6A48-4578-B994-FF0A867EF2C0}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Common.AccessoriesAPI", "src\Common.AccessoriesAPI\Common.AccessoriesAPI.shproj", "{94E708E4-7B1C-4DA8-83BB-7699753825D1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_DownloadRenamer", "src\EC_Fix_DownloadRenamer\EC_Fix_DownloadRenamer.csproj", "{9216D4D0-B421-4D3B-B038-49D76DC12573}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC_Fix_CardImport", "src\EC_Fix_CardImport\EC_Fix_CardImport.csproj", "{4DEB7768-385E-43B8-84B2-E0ACF13C61C3}"
@@ -308,7 +306,6 @@ Global
 		src\Common\Common.projitems*{18c09038-0189-4505-b49b-3ec8cb465d55}*SharedItemsImports = 4
 		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{18c09038-0189-4505-b49b-3ec8cb465d55}*SharedItemsImports = 4
 		src\Common\Common.projitems*{18dca0f9-3bf4-48e2-baba-23e6a1d1c774}*SharedItemsImports = 4
-		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{1b72f174-4ccb-4a7f-b406-3940a025e126}*SharedItemsImports = 4
 		src\Common\Common.projitems*{1b72f174-4ccb-4a7f-b406-3940a025e126}*SharedItemsImports = 4
 		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{1b72f174-4ccb-4a7f-b406-3940a025e126}*SharedItemsImports = 4
 		src\Common\Common.projitems*{1c122b92-e1b9-47af-a19a-97b5589e9931}*SharedItemsImports = 4
@@ -332,7 +329,6 @@ Global
 		src\Common\Common.projitems*{3b5f9fa8-191b-48e7-9ca1-1025584d49cd}*SharedItemsImports = 4
 		src\Common\Common.projitems*{3e1acc1f-fdcc-49a9-9711-c344ab550fc0}*SharedItemsImports = 4
 		src\Core_Fix_ModdedHeadEyeliner\Core_Fix_ModdedHeadEyeliner.projitems*{3e1acc1f-fdcc-49a9-9711-c344ab550fc0}*SharedItemsImports = 4
-		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
 		src\Common\Common.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
 		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{40967983-df5c-411a-bfa4-96c6cfebc63e}*SharedItemsImports = 4
 		src\Common\Common.projitems*{4327874b-9ddb-4eb0-8f4d-7492ccc08a34}*SharedItemsImports = 4
@@ -407,7 +403,6 @@ Global
 		src\Common\Common.projitems*{9216d4d0-b421-4d3b-b038-49d76dc12573}*SharedItemsImports = 4
 		src\Common\Common.projitems*{92a43761-b0ad-46fe-b1b6-28ada6f09bbb}*SharedItemsImports = 4
 		src\Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems*{92a43761-b0ad-46fe-b1b6-28ada6f09bbb}*SharedItemsImports = 4
-		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{94e708e4-7b1c-4da8-83bb-7699753825d1}*SharedItemsImports = 13
 		src\Common\Common.projitems*{950b1cc5-d38c-4933-8e4e-385f320ec744}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{950b1cc5-d38c-4933-8e4e-385f320ec744}*SharedItemsImports = 4
 		src\Common\Common.projitems*{97db3c43-ddc3-47d3-93b1-024af1e4e522}*SharedItemsImports = 4
@@ -470,7 +465,6 @@ Global
 		src\Core_Fix_CameraTarget\Core_Fix_CameraTarget.projitems*{f31470c2-8c31-400b-b010-525a76c57bb8}*SharedItemsImports = 4
 		src\Common\Common.projitems*{f4b42914-1d55-4791-9a82-bd330502ffb8}*SharedItemsImports = 4
 		src\Core_Fix_ManifestCorrector\Core_Fix_ManifestCorrector.projitems*{f4b42914-1d55-4791-9a82-bd330502ffb8}*SharedItemsImports = 4
-		src\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems*{f652b8d9-374a-44bd-8ded-578414a9fc89}*SharedItemsImports = 4
 		src\Common\Common.projitems*{f652b8d9-374a-44bd-8ded-578414a9fc89}*SharedItemsImports = 4
 		src\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems*{f652b8d9-374a-44bd-8ded-578414a9fc89}*SharedItemsImports = 4
 		src\Core_Fix_WetAccessories\Core_Fix_WetAccessories.projitems*{fb854b2b-7c3b-4190-8f82-c732ce49ff6e}*SharedItemsImports = 13

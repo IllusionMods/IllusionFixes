@@ -48,6 +48,10 @@
       <HintPath>..\..\packages\IllusionLibs.BepInEx.5.4.15\lib\net35\BepInEx.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ECAPI, Version=1.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\IllusionModdingAPI.ECAPI.1.15.0\lib\net46\ECAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\IllusionLibs.EmotionCreators.UnityEngine.CoreModule.2017.4.24.4\lib\net46\UnityEngine.dll</HintPath>
@@ -69,7 +73,6 @@
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="..\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems" Label="Shared" />
-  <Import Project="..\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF EXIST $(SolutionDir)PostBuild.bat CALL "$(SolutionDir)PostBuild.bat" $(TargetPath) EC</PostBuildEvent>

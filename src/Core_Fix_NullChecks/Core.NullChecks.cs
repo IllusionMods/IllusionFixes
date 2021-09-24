@@ -4,6 +4,9 @@ using HarmonyLib;
 using System;
 using System.Collections;
 using System.Linq;
+using BepInEx;
+using KKAPI;
+using KKAPI.Maker;
 
 #if AI || HS2
 using AIChara;
@@ -11,6 +14,7 @@ using AIChara;
 
 namespace IllusionFixes
 {
+    [BepInDependency(KoikatuAPI.GUID, KoikatuAPI.VersionConst)]
     public partial class NullChecks
     {
         internal const string PluginName = "Null Checks";
@@ -123,7 +127,7 @@ namespace IllusionFixes
             internal static void ChangeSettingHairAcsColor(int parts, ChaControl __instance) => RemoveNullParts(__instance.GetCustomHairComponent(parts));
 
             [HarmonyPrefix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.UpdateAccessoryMoveFromInfo))]
-            internal static void UpdateAccessoryMoveFromInfo(int slotNo, ChaControl __instance) => RemoveNullParts(__instance.GetAccessory(slotNo)?.gameObject.GetComponent<ChaCustomHairComponent>());
+            internal static void UpdateAccessoryMoveFromInfo(int slotNo, ChaControl __instance) => RemoveNullParts(__instance.GetAccessoryObject(slotNo)?.GetComponent<ChaCustomHairComponent>());
 
             private static void RemoveNullParts(ChaCustomHairComponent hairComponent)
             {

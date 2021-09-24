@@ -48,6 +48,10 @@
       <HintPath>..\..\packages\IllusionLibs.BepInEx.5.4.15\lib\net35\BepInEx.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="KKAPI, Version=1.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\IllusionModdingAPI.KKAPI.1.15.0\lib\net35\KKAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\IllusionLibs.Koikatu.UnityEngine.5.6.2.4\lib\net35\UnityEngine.dll</HintPath>
@@ -64,7 +68,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
-  <Import Project="..\Common.AccessoriesAPI\Common.AccessoriesAPI.projitems" Label="Shared" />
   <Import Project="..\Core_Fix_NullChecks\Core_Fix_NullChecks.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
