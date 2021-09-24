@@ -186,7 +186,7 @@ namespace IllusionFixes
             // Run the whole load process immediately without wasting time rendering frames
             RunCoroutineImmediately(Singleton<Info>.Instance.LoadExcelDataCoroutine());
 
-#if HS2
+#if HS2 || KKS
             Manager.Scene.LoadReserve(new Manager.Scene.Data
             {
                 levelName = "Studio",
