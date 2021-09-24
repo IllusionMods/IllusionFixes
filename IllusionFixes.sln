@@ -69,7 +69,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_SettingsVerifier", "
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_SettingsVerifier", "src\Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.shproj", "{3189BE0A-2860-416A-9BBA-A70D9908FC50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK_Fix_PoseLoad", "src\KK_Fix_PoseLoad\KK_Fix_PoseLoad.csproj", "{7051504A-575B-417C-BE33-55E7A58F71FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK-KKS_Fix_PoseLoad", "src\KK_Fix_PoseLoad\KK-KKS_Fix_PoseLoad.csproj", "{7051504A-575B-417C-BE33-55E7A58F71FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patch_CultureFix", "src\Patch_CultureFix\Patch_CultureFix.csproj", "{52D92C5E-F220-473C-B683-BD17198EFD32}"
 EndProject
