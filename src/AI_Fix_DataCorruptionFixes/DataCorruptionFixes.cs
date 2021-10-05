@@ -132,5 +132,23 @@ namespace IllusionFixes
                 Logger.LogWarning("Invalid Json data detected");
             }
         }
+
+        [HarmonyFinalizer]
+        [HarmonyPatch(typeof(ChaFile), nameof(ChaFile.LoadFile), typeof(BinaryReader), typeof(int), typeof(bool), typeof(bool))]
+        private static Exception CatchCorruptedCardCrash(ChaFile __instance, ref bool __result, Exception __exception, BinaryReader br)
+        {
+            if (__exception != null)
+            {
+                var source = br.BaseStream as FileStream;
+
+                Logger.Log(BepInEx.Logging.LogLevel.Warning | BepInEx.Logging.LogLevel.Message, "Corrupted character card: " + (source?.Name ?? "Unknown"));
+                Logger.LogWarning(__exception);
+
+                __result = false;
+                __instance.lastLoadErrorCode = -69;
+            }
+
+            return null;
+        }
     }
 }
