@@ -198,7 +198,7 @@ namespace IllusionFixes
 
             // pause bones of characters not visible on game screen
             var viewPos = _camera.WorldToViewportPoint(transformPosition);
-            var isVisible = viewPos.z > 0 && viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1;
+            var isVisible = viewPos.z > -0.1f && viewPos.x >= -0.1f && viewPos.x <= 1.1f && viewPos.y >= -0.1f && viewPos.y <= 1.1f;
             if (!isVisible) return false;
             
             // pause bones of characters a certain distance away from camera
