@@ -30,6 +30,7 @@ namespace IllusionFixes
         public static ConfigEntry<bool> ThrottleCharaUpdates { get; private set; }
         public static ConfigEntry<bool> ThrottleDynamicBoneUpdates { get; private set; }
         public static ConfigEntry<int> ThrottleDynamicBoneUpdatesRange { get; private set; }
+        public static ConfigEntry<bool> ThrottleDynamicBoneUpdatesViewport { get; private set; }
 
         internal void Start()
         {
@@ -42,6 +43,7 @@ namespace IllusionFixes
             void UpdateThrottleDynamicBoneUpdatesRange() => _dynamicBoneUpdateSqrMaxDistance = ThrottleDynamicBoneUpdatesRange.Value * ThrottleDynamicBoneUpdatesRange.Value;
             UpdateThrottleDynamicBoneUpdatesRange();
             ThrottleDynamicBoneUpdatesRange.SettingChanged += (sender, args) => UpdateThrottleDynamicBoneUpdatesRange();
+            ThrottleDynamicBoneUpdatesViewport = Config.Bind(Utilities.ConfigSectionTweaks, "Pause dynamic bones outside camera view", true, new ConfigDescription("Stops dynamic bone physics in roaming mode for characters that are outside of the camera view (e.g. behind or to the side). Improves performance, but can cause the bones to visibly jerk into place as camera rotates to show the character.\nNeeds 'Throttle dynamic bone updates' to be enabled."));
 
             Harmony.CreateAndPatchAll(typeof(MainGameOptimizations));
 
@@ -196,11 +198,14 @@ namespace IllusionFixes
                 _playerTransform = Camera.main.transform;
             }
 
-            // pause bones of characters not visible on game screen
-            var viewPos = _camera.WorldToViewportPoint(transformPosition);
-            var isVisible = viewPos.z > -0.1f && viewPos.x >= -0.1f && viewPos.x <= 1.1f && viewPos.y >= -0.1f && viewPos.y <= 1.1f;
-            if (!isVisible) return false;
-            
+            if (ThrottleDynamicBoneUpdatesViewport.Value)
+            {
+                // pause bones of characters not visible on game screen
+                var viewPos = _camera.WorldToViewportPoint(transformPosition);
+                var isVisible = viewPos.z > -0.2f && viewPos.x >= -0.2f && viewPos.x <= 1.2f && viewPos.y >= -0.2f && viewPos.y <= 1.2f;
+                if (!isVisible) return false;
+            }
+
             // pause bones of characters a certain distance away from camera
             var sqrDistMagnitude = (_playerTransform.position - transformPosition).sqrMagnitude;
             return sqrDistMagnitude < _dynamicBoneUpdateSqrMaxDistance;
