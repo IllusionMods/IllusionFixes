@@ -71,10 +71,42 @@ namespace IllusionFixes
 
             [HarmonyPrefix]
             [HarmonyPatch(typeof(Scene), nameof(Scene.LoadSceneName), MethodType.Getter)]
-            private static bool GarbagelessLoadSceneName(ref string __result)
+            private static bool GarbagelessLoadSceneName(out string __result)
             {
                 var nameList = Scene._sceneStack.NowSceneNameList;
+                // Always at least one
                 __result = nameList[nameList.Count - 1];
+                return false;
+            }
+
+            [HarmonyPrefix]
+            [HarmonyPatch(typeof(Scene), nameof(Scene.IsNowLoading), MethodType.Getter)]
+            private static bool GarbagelessIsNowLoading(ref bool __result)
+            {
+                if (Scene._loadStack.Count > 0)
+                {
+                    __result = true;
+                }
+                else
+                {
+                    // Uses struct GetEnumerator so no allocs, unlike .Any which does alloc.
+                    foreach (var sceneData in Scene._sceneStack)
+                    {
+                        if (sceneData.isLoading)
+                        {
+                            __result = true;
+                            break;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            [HarmonyPrefix]
+            [HarmonyPatch(typeof(Scene), nameof(Scene.IsOverlap), MethodType.Getter)]
+            private static bool GarbagelessIsOverlap(out bool __result)
+            {
+                __result = Scene._overlapList.Count > 0;
                 return false;
             }
 
