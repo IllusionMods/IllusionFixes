@@ -34,7 +34,6 @@ namespace IllusionFixes
 
         internal void Start()
         {
-
             AsyncClothesLoading = Config.Bind(Utilities.ConfigSectionTweaks, "Async clothes loading", true, new ConfigDescription("Spread loading of clothes in school roam mode over multiple frames. Greatly reduces seemingly random stutters when characters change clothes somewhere in the world.\nWarning: In rare cases can cause some visual glitches like 2 coordinates loaded at once."));
             PreloadCharacters = Config.Bind(Utilities.ConfigSectionTweaks, "Preload characters on initial load", true, new ConfigDescription("Forces all characters to load during initial load into school mode. Slightly longer loading time but eliminates large stutters when unseen characters enter current map."));
             ThrottleCharaUpdates = Config.Bind(Utilities.ConfigSectionTweaks, "Throttle chara blend shape updates", true, new ConfigDescription("Reduces the amount of unnecessary blend shape updates. Performance improvement in main game, especially with over 20 characters in one room."));
@@ -43,7 +42,7 @@ namespace IllusionFixes
             void UpdateThrottleDynamicBoneUpdatesRange() => _dynamicBoneUpdateSqrMaxDistance = ThrottleDynamicBoneUpdatesRange.Value * ThrottleDynamicBoneUpdatesRange.Value;
             UpdateThrottleDynamicBoneUpdatesRange();
             ThrottleDynamicBoneUpdatesRange.SettingChanged += (sender, args) => UpdateThrottleDynamicBoneUpdatesRange();
-            ThrottleDynamicBoneUpdatesViewport = Config.Bind(Utilities.ConfigSectionTweaks, "Pause dynamic bones outside camera view", true, new ConfigDescription("Stops dynamic bone physics in roaming mode for characters that are outside of the camera view (e.g. behind or to the side). Improves performance, but can cause the bones to visibly jerk into place as camera rotates to show the character.\nNeeds 'Throttle dynamic bone updates' to be enabled."));
+            ThrottleDynamicBoneUpdatesViewport = Config.Bind(Utilities.ConfigSectionTweaks, "Pause dynamic bones outside camera view", false, new ConfigDescription("Stops dynamic bone physics in roaming mode for characters that are outside of the camera view (e.g. behind or to the side). Improves performance, but can cause the bones to visibly jerk into place as camera rotates to show the character.\nNeeds 'Throttle dynamic bone updates' to be enabled."));
 
             Harmony.CreateAndPatchAll(typeof(MainGameOptimizations));
 
