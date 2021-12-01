@@ -413,6 +413,7 @@ Global
 		src\Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems*{92a43761-b0ad-46fe-b1b6-28ada6f09bbb}*SharedItemsImports = 4
 		src\Common\Common.projitems*{950b1cc5-d38c-4933-8e4e-385f320ec744}*SharedItemsImports = 4
 		src\Core_Fix_MakerOptimizations\Core_Fix_MakerOptimizations.projitems*{950b1cc5-d38c-4933-8e4e-385f320ec744}*SharedItemsImports = 4
+		src\Core_Fix_MakerOptimizations_CursorManager\Core_Fix_MakerOptimizations_CursorManager.projitems*{950b1cc5-d38c-4933-8e4e-385f320ec744}*SharedItemsImports = 4
 		src\Common\Common.projitems*{97db3c43-ddc3-47d3-93b1-024af1e4e522}*SharedItemsImports = 4
 		src\Core_Fix_MakerMaleFaceTypes\Core_Fix_MakerMaleFaceTypes.projitems*{97db3c43-ddc3-47d3-93b1-024af1e4e522}*SharedItemsImports = 4
 		src\Common\Common.projitems*{989beced-1d58-4271-bdd2-72e849224f0a}*SharedItemsImports = 4
