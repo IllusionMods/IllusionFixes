@@ -289,6 +289,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_Eyebrows", "src\KKS
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_Eyebrows", "src\Core_Fix_Eyebrows\Core_Fix_Eyebrows.shproj", "{E5C0B431-275E-422F-B23D-A548A31326BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_FaceShadows", "src\KKS_Fix_FaceShadows\KKS_Fix_FaceShadows.csproj", "{D2CBD054-486F-413E-9052-679BFBF011CF}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{00e09fd0-9862-41b3-bd2c-7094a16c97f7}*SharedItemsImports = 4
@@ -448,6 +450,7 @@ Global
 		src\Common\Common.projitems*{cb2e8a3c-05a9-4d5f-a666-71dd93537e11}*SharedItemsImports = 4
 		src\Core_Fix_CameraMaskResize\Core_Fix_CameraMaskResize.projitems*{ce3392f0-f9f0-43d8-bcbf-84cb66b639e0}*SharedItemsImports = 13
 		src\Common\Common.projitems*{ceac55c1-ded9-4581-9466-f9c6e7407a6f}*SharedItemsImports = 4
+		src\Common\Common.projitems*{d2cbd054-486f-413e-9052-679bfbf011cf}*SharedItemsImports = 4
 		src\Common\Common.projitems*{d70142fb-fa2a-4bf3-90aa-19674e8f82cc}*SharedItemsImports = 4
 		src\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems*{d70142fb-fa2a-4bf3-90aa-19674e8f82cc}*SharedItemsImports = 4
 		src\Common\Common.projitems*{d853338d-efbc-4c7e-a0d9-9b78610ae726}*SharedItemsImports = 4
@@ -870,6 +873,10 @@ Global
 		{76CDF549-5883-4C38-AFE4-828CEFF5AA85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76CDF549-5883-4C38-AFE4-828CEFF5AA85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76CDF549-5883-4C38-AFE4-828CEFF5AA85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2CBD054-486F-413E-9052-679BFBF011CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2CBD054-486F-413E-9052-679BFBF011CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2CBD054-486F-413E-9052-679BFBF011CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2CBD054-486F-413E-9052-679BFBF011CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
