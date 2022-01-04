@@ -92,11 +92,27 @@ namespace IllusionFixes
             }
 
             [HarmonyFinalizer, HarmonyPatch(typeof(DynamicBone), nameof(DynamicBone.UpdateDynamicBones))]
-            internal static Exception ParticlesCrashCatcher2(Exception __exception)
+            internal static Exception ParticlesCrashCatcher2(Exception __exception, DynamicBone __instance)
             {
                 if (__exception != null)
                 {
-                    Logger.LogError("Swallowing exception to prevent game crash!\n" + __exception);
+                    if (__exception is NullReferenceException && __instance.m_Particles.Any(x => x.m_Transform == null))
+                    {
+                        if (__instance.m_Root != null)
+                        {
+                            Logger.LogWarning("Attempting to fix invalid DynamicBone particles!");
+                            __instance.SetupParticles();
+                            __instance.m_Particles.RemoveAll(x => x.m_Transform == null);
+                        }
+                        else
+                        {
+                            Logger.LogWarning("Invalid DynamicBone particles caused a crash, but m_Root is null so they can't be fixed.");
+                        }
+                    }
+                    else
+                    {
+                        Logger.LogError("Swallowing exception to prevent game crash!\n" + __exception);
+                    }
                 }
                 return null;
             }
