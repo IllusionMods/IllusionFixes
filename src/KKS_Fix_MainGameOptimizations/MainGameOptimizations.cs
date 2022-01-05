@@ -112,6 +112,7 @@ namespace IllusionFixes
                     if (!bone) continue;
 
                     // Setting bone.enabled to false breaks it so we have to hack around by setting Root to null which effectively disables the bones
+                    // if m_Root is set to null too early it can mess up the init process, so check if particles are initialized before changing it
                     switch (bone)
                     {
                         case DynamicBone x:
@@ -121,7 +122,7 @@ namespace IllusionFixes
                             }
                             else
                             {
-                                if (x.m_Root != null)
+                                if (x.m_Root != null && x.m_Particles.Count > 0)
                                 {
                                     _originalroots[x] = x.m_Root;
                                     x.m_Root = null;
@@ -136,7 +137,7 @@ namespace IllusionFixes
                             }
                             else
                             {
-                                if (x.m_Root != null)
+                                if (x.m_Root != null && x.m_Particles.Count > 0)
                                 {
                                     _originalroots[x] = x.m_Root;
                                     x.m_Root = null;
@@ -150,7 +151,7 @@ namespace IllusionFixes
                             }
                             else
                             {
-                                if (x.Root != null)
+                                if (x.Root != null && x.Particles.Count > 0)
                                 {
                                     _originalroots[x] = x.Root;
                                     x.Root = null;
