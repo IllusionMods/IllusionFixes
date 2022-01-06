@@ -198,6 +198,8 @@ namespace IllusionFixes
                 _playerTransform = Camera.main.transform;
             }
 
+            if (TalkScene.isPaly) return true;
+
             if (ThrottleDynamicBoneUpdatesViewport.Value)
             {
                 // pause bones of characters not visible on game screen
