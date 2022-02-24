@@ -9,6 +9,7 @@
     <Import_RootNamespace>Core_Fix_PoseLoad</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core.PoseLoad.cs" />
   </ItemGroup>
 </Project>
