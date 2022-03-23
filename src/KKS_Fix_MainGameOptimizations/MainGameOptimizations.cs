@@ -173,8 +173,8 @@ namespace IllusionFixes
         [HarmonyPatch(typeof(ChaControl), nameof(ChaControl.UpdateForce))]
         private static void DynamicBoneOptimize(ChaControl __instance)
         {
-            // Only run in roaming mode. Includes roaming mode H
-            if (_insideRoamingMode && ThrottleDynamicBoneUpdates.Value && __instance.loadEnd)
+            // Only run in roaming mode. Excludes roaming mode H
+            if (!_needsFullCharaUpdate && ThrottleDynamicBoneUpdates.Value && __instance.loadEnd)
             {
                 var isVisible = __instance.rendBody.isVisible && CheckDistance(__instance.transform.position);
 
