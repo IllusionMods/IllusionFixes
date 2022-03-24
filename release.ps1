@@ -16,7 +16,7 @@ Remove-Item -Force -Path ($dir + "\copy") -Recurse -ErrorAction SilentlyContinue
 & robocopy ($dir + "\BepInEx\patchers\") ($copy + "\patchers") /R:5 /W:5     
 
 $ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Get-ChildItem -Path ($copy + "\*.dll") -Recurse -Force)[0]).FileVersion.ToString()
-Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_AIGirl_" + $ver + ".zip")
+Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_AIGirl_v" + $ver + ".zip")
 
 Remove-Item -Force -Path ($dir + "\copy") -Recurse -ErrorAction SilentlyContinue
 
@@ -28,7 +28,7 @@ Remove-Item -Force -Path ($dir + "\copy") -Recurse -ErrorAction SilentlyContinue
 Remove-Item -Force -Path ($copy + "\patchers\AI_*")  
 
 $ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Get-ChildItem -Path ($copy + "\*.dll") -Recurse -Force)[0]).FileVersion.ToString()
-Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_HoneySelect2_" + $ver + ".zip")
+Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_HoneySelect2_v" + $ver + ".zip")
 
 Remove-Item -Force -Path ($dir + "\copy") -Recurse
 
@@ -40,7 +40,7 @@ Remove-Item -Force -Path ($dir + "\copy") -Recurse
 Remove-Item -Force -Path ($copy + "\patchers\AI_*")
 
 $ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Get-ChildItem -Path ($copy + "\*.dll") -Recurse -Force)[0]).FileVersion.ToString()
-Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_EmotionCreators_" + $ver + ".zip")
+Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_EmotionCreators_v" + $ver + ".zip")
 
 Remove-Item -Force -Path ($dir + "\copy") -Recurse
 
@@ -49,7 +49,7 @@ Remove-Item -Force -Path ($dir + "\copy") -Recurse
 & robocopy ($dir + "\BepInEx\plugins\IllusionFixes\") ($copy + "\plugins\IllusionFixes") "KKP_*.*" /R:5 /W:5     
 
 $ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Get-ChildItem -Path ($copy + "\*.dll") -Recurse -Force)[0]).FileVersion.ToString()
-Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_Koikatsu_" + $ver + ".zip")
+Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_Koikatsu_v" + $ver + ".zip")
 
 Remove-Item -Force -Path ($dir + "\copy") -Recurse
 
@@ -57,7 +57,7 @@ Remove-Item -Force -Path ($dir + "\copy") -Recurse
 & robocopy ($dir + "\BepInEx\plugins\IllusionFixes\") ($copy + "\plugins\IllusionFixes") "HS_*.*" /R:5 /W:5     
 
 $ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Get-ChildItem -Path ($copy + "\*.dll") -Recurse -Force)[0]).FileVersion.ToString()
-Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_HoneySelect_" + $ver + ".zip")
+Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_HoneySelect_v" + $ver + ".zip")
 
 Remove-Item -Force -Path ($dir + "\copy") -Recurse
 
@@ -65,7 +65,7 @@ Remove-Item -Force -Path ($dir + "\copy") -Recurse
 & robocopy ($dir + "\BepInEx\plugins\IllusionFixes\") ($copy + "\plugins\IllusionFixes") "PH_*.*" /R:5 /W:5     
 
 $ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Get-ChildItem -Path ($copy + "\*.dll") -Recurse -Force)[0]).FileVersion.ToString()
-Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_PlayHome_" + $ver + ".zip")
+Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_PlayHome_v" + $ver + ".zip")
 
 Remove-Item -Force -Path ($dir + "\copy") -Recurse
 
@@ -76,6 +76,6 @@ Remove-Item -Force -Path ($dir + "\copy") -Recurse
 & copy ($dir + "\BepInEx\patchers\CultureFix.dll") ($copy + "\patchers\")
 
 $ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Get-ChildItem -Path ($copy + "\*.dll") -Recurse -Force)[0]).FileVersion.ToString()
-Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_KoikatsuSunshine_" + $ver + ".zip")
+Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_KoikatsuSunshine_v" + $ver + ".zip")
 
 Remove-Item -Force -Path ($dir + "\copy") -Recurse
