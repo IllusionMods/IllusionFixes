@@ -9,7 +9,9 @@ namespace IllusionFixes
     /// Changes any invalid personalities to the "Pure" personality to prevent the game from breaking when adding them to the class
     /// </summary>
     [BepInProcess(Constants.GameProcessName)]
+#if KK
     [BepInProcess(Constants.GameProcessNameSteam)]
+#endif
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public partial class PersonalityCorrector : BaseUnityPlugin
     {
@@ -25,6 +27,7 @@ namespace IllusionFixes
 
         public static bool CheckPersonalityAndOverride(ChaFileControl chaFileControl)
         {
+#if KK
             switch (chaFileControl.parameter.personality)
             {
                 case 30: //0727 Free DLC
@@ -88,8 +91,26 @@ namespace IllusionFixes
                     ShowPersonalityInvalidMessage(chaFileControl);
                     chaFileControl.parameter.personality = DefaultPersonality;
                     return true;
+                default:
+                    if (chaFileControl.parameter.personality > 38)
+                    {
+                        if (!Manager.Voice.Instance.voiceInfoDic.ContainsKey(chaFileControl.parameter.personality))
+                        {
+                            ShowPersonalityMissingMessage(chaFileControl);
+                            chaFileControl.parameter.personality = DefaultPersonality;
+                            return true;
+                        }
+                    }
+                    break;
             }
-
+#else
+            if (!Manager.Voice.infoTable.ContainsKey(chaFileControl.parameter.personality))
+            {
+                ShowPersonalityMissingMessage(chaFileControl);
+                chaFileControl.parameter.personality = DefaultPersonality;
+                return true;
+            }
+#endif
             return false;
         }
 
@@ -98,9 +119,9 @@ namespace IllusionFixes
                 cf.parameter.fullname + " - Modded personality " +
                 cf.parameter.personality + " is not compatible with story mode, resetting to Pure");
 
-        private static void ShowPersonalityMissingMessage(ChaFileControl cf, string dlcName) =>
+        private static void ShowPersonalityMissingMessage(ChaFileControl cf, string dlcName = null) =>
             Utilities.Logger.Log(LogLevel.Message | LogLevel.Warning,
                 cf.parameter.fullname + " - Personality " +
-                cf.parameter.personality + " from " + dlcName + " is missing, resetting to Pure");
+                cf.parameter.personality + (dlcName != null ? " from " + dlcName : "") + " is missing, resetting to Pure");
     }
 }
