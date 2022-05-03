@@ -422,7 +422,7 @@ namespace IllusionFixes
         private static IEnumerable<CodeInstruction> PatchCharaDic(IEnumerable<CodeInstruction> instructions)
         {
             return new CodeMatcher(instructions)
-                .MatchForward(false, new CodeMatch(OpCodes.Call, AccessTools.Method(typeof(Character), nameof(Character.chaControls))))
+                .MatchForward(false, new CodeMatch(OpCodes.Call, AccessTools.PropertyGetter(typeof(Character), nameof(Character.chaControls))))
                 .ThrowIfInvalid("Character.chaControls not found")
                 .SetOperandAndAdvance(AccessTools.Method(typeof(MainGameOptimizations), nameof(MainGameOptimizations.GetThrottledChaControls))).Instructions();
         }
