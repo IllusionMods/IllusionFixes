@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using BepInEx;
+﻿using BepInEx;
 using Common;
 using HarmonyLib;
 using Manager;
@@ -22,11 +20,17 @@ namespace IllusionFixes
             [HarmonyPostfix, HarmonyPatch(typeof(GameSystem), "LoadLanguage")]
             internal static void CheckLanguage(GameSystem __instance)
             {
-                if (!Enum.GetValues(typeof(GameSystem.Language)).Cast<GameSystem.Language>().Contains(__instance.language))
+                if (__instance.language != GameSystem.Language.Japanese && !IsSteam())
                 {
                     UnityEngine.Debug.LogWarning("Unsupported language was set, resetting to Japanese");
                     Traverse.Create(__instance).Property(nameof(__instance.language)).SetValue(GameSystem.Language.Japanese);
                 }
+            }
+
+            private static bool IsSteam()
+            {
+                // Checking GameSystem.Language is no longer working in HS2 since jp version has all of the cultures listed despite not actually supporting them
+                return typeof(AIChara.ChaFileDefine).GetMethod("GetOriginalValueFromSteam", new[] { typeof(float), typeof(int) }) != null;
             }
         }
     }
