@@ -9,6 +9,7 @@ using Manager;
 using Studio;
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -47,6 +48,25 @@ namespace IllusionFixes
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Fixes steam save files missing some achievements which breaks the achievement screen.
+        /// </summary>
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(SaveData), nameof(SaveData.Load), typeof(string), typeof(string))]
+        private static void LoadPresetsaaPostfix(SaveData __instance)
+        {
+            foreach (var k in Game.Instance.infoAchievementDic.Keys)
+            {
+                if (!__instance.achievement.ContainsKey(k))
+                    __instance.achievement.Add(k, SaveData.AchievementState.AS_NotAchieved);
+            }
+            foreach (var k in Game.Instance.infoAchievementExchangeDic.Keys)
+            {
+                if (!__instance.achievementExchange.ContainsKey(k))
+                    __instance.achievementExchange.Add(k, SaveData.AchievementState.AS_NotAchieved);
+            }
         }
 
         /// <summary>
