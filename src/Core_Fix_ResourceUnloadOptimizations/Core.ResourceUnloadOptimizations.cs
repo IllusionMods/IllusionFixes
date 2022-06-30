@@ -28,13 +28,21 @@ namespace IllusionFixes
         public static ConfigEntry<bool> OptimizeMemoryUsage { get; private set; }
         public static ConfigEntry<int> PercentMemoryThreshold { get; private set; }
         public static ConfigEntry<int> PercentMemoryThresholdDuringLoad { get; private set; }
-        
+
+#if !SBPR
+        private const int DefaultPercentMemoryThresholdDuringLoad = 65;
+        private const string PercentMemoryThresholdDuringLoadRelative = "lower";
+#else
+        private const int DefaultPercentMemoryThresholdDuringLoad = 80;
+        private const string PercentMemoryThresholdDuringLoadRelative = "higher";
+#endif
+
         internal void Awake()
         {
             DisableUnload = Config.Bind(Utilities.ConfigSectionTweaks, "Disable Resource Unload", false, new ConfigDescription("Disables all resource unloading. Requires large amounts of RAM or will likely crash your game.", null, new ConfigurationManagerAttributes { IsAdvanced = true }));
             OptimizeMemoryUsage = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Usage", true, new ConfigDescription("Use more memory (if available) in order to load the game faster and reduce random stutter."));
             PercentMemoryThreshold = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Threshold", 75, new ConfigDescription("Minimum amount of memory to be used before resource unloading will run.", null, new ConfigurationManagerAttributes {IsAdvanced = true}));
-            PercentMemoryThresholdDuringLoad = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Threshold During Load", 65, new ConfigDescription("Minimum amount of memory to be used during load before resource unloading will run (should be lower than 'Percent Memory Threshold').", null, new ConfigurationManagerAttributes {IsAdvanced = true}));
+            PercentMemoryThresholdDuringLoad = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Threshold During Load", DefaultPercentMemoryThresholdDuringLoad, new ConfigDescription($"Minimum amount of memory to be used during load before resource unloading will run (should be {PercentMemoryThresholdDuringLoadRelative} than 'Optimize Memory Threshold').", null, new ConfigurationManagerAttributes {IsAdvanced = true}));
             StartCoroutine(CleanupCo());
 
             InstallHooks();
@@ -120,6 +128,14 @@ namespace IllusionFixes
             return Manager.Scene.IsNowLoadingFade;
 #elif PH
             return true;
+#elif SBPR
+            if (Constants.InsideStudio) return false;
+            // SBPR main game loading detection is a bit more convoluted since large async loads
+            // happen at during live game play
+            return !Manager.Scene.IsInstance() || !Manager.Map.IsInstance() || !Manager.MapScene.IsInstance() ||
+                   Manager.Map.Instance.NowLoading || Manager.MapScene.Instance.MapSceneClass == null ||
+                   Manager.MapScene.Instance.MapSceneClass.IsNowLoading || Manager.Scene.Instance.sceneFade == null ||
+                   Manager.Scene.Instance.sceneFade.IsFadeNow;
 #else
             return !Manager.Scene.IsInstance() || Manager.Scene.Instance.IsNowLoadingFade;
 #endif
@@ -143,7 +159,7 @@ namespace IllusionFixes
             _sceneLoadedOrReset = true;
         }
 
-        private static class Hooks
+        private static partial class Hooks
         {
             [HarmonyPrefix]
             [HarmonyPatch(typeof(GC), nameof(GC.Collect), new Type[0])]
@@ -164,12 +180,12 @@ namespace IllusionFixes
                     return RunUnloadAssets();
             }
 
-#if !EC
+#if !EC && !SBPR
             [HarmonyPrefix]
             [HarmonyPatch(typeof(Studio.Studio), nameof(Studio.Studio.LoadScene))]
             [HarmonyPatch(typeof(Studio.Studio), nameof(Studio.Studio.ImportScene))]
             [HarmonyPatch(typeof(Studio.Studio), nameof(Studio.Studio.InitScene))]
-#if !HS && !PH
+#if !HS && !PH && !SBPR
             [HarmonyPatch(typeof(Studio.Studio), nameof(Studio.Studio.LoadSceneCoroutine))]
 #endif
             public static void LoadScenePrefix()
