@@ -29,20 +29,16 @@ namespace IllusionFixes
         public static ConfigEntry<int> PercentMemoryThreshold { get; private set; }
         public static ConfigEntry<int> PercentMemoryThresholdDuringLoad { get; private set; }
 
-#if !SBPR
-        private const int DefaultPercentMemoryThresholdDuringLoad = 65;
-        private const string PercentMemoryThresholdDuringLoadRelative = "lower";
-#else
-        private const int DefaultPercentMemoryThresholdDuringLoad = 80;
-        private const string PercentMemoryThresholdDuringLoadRelative = "higher";
-#endif
-
         internal void Awake()
         {
             DisableUnload = Config.Bind(Utilities.ConfigSectionTweaks, "Disable Resource Unload", false, new ConfigDescription("Disables all resource unloading. Requires large amounts of RAM or will likely crash your game.", null, new ConfigurationManagerAttributes { IsAdvanced = true }));
             OptimizeMemoryUsage = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Usage", true, new ConfigDescription("Use more memory (if available) in order to load the game faster and reduce random stutter."));
             PercentMemoryThreshold = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Threshold", 75, new ConfigDescription("Minimum amount of memory to be used before resource unloading will run.", null, new ConfigurationManagerAttributes {IsAdvanced = true}));
-            PercentMemoryThresholdDuringLoad = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Threshold During Load", DefaultPercentMemoryThresholdDuringLoad, new ConfigDescription($"Minimum amount of memory to be used during load before resource unloading will run (should be {PercentMemoryThresholdDuringLoadRelative} than 'Optimize Memory Threshold').", null, new ConfigurationManagerAttributes {IsAdvanced = true}));
+#if !SBPR
+            PercentMemoryThresholdDuringLoad = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Threshold During Load", 65, new ConfigDescription($"Minimum amount of memory to be used during load before resource unloading will run (should be lower than 'Optimize Memory Threshold').", null, new ConfigurationManagerAttributes {IsAdvanced = true}));
+#else
+            PercentMemoryThresholdDuringLoad = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Threshold During Load", 80, new ConfigDescription($"Minimum amount of memory to be used during load before resource unloading will run (should be higher than 'Optimize Memory Threshold').", null, new ConfigurationManagerAttributes { IsAdvanced = true }));
+#endif
             StartCoroutine(CleanupCo());
 
             InstallHooks();
