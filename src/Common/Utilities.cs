@@ -10,8 +10,18 @@ namespace Common
         public const string ConfigSectionFixes = "Bug Fixes";
         public const string ConfigSectionTweaks = "Tweaks";
 
-        public static bool InsideStudio { get; } = Application.productName == "CharaStudio" || Application.productName == "StudioNEOV2";
+        public static bool InsideStudio { get; } =
+#if !SBPR
+            Application.productName == "CharaStudio" || Application.productName == "StudioNEOV2";
+#else
+            false;
+#endif
 
-        public static bool InsideKoikatsuParty { get; } = Application.productName == "Koikatsu Party";
+        public static bool InsideKoikatsuParty { get; } =
+#if !SBPR
+            Application.productName == "Koikatsu Party";
+#else
+            false;
+#endif
     }
 }

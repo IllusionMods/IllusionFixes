@@ -48,6 +48,10 @@ namespace Common
         internal const string GameProcessName = "KoikatsuSunshine";
         internal const string StudioProcessName = "CharaStudio";
         internal const string VRProcessName = "KoikatsuSunshine_VR";
+#elif SBPR
+        internal static bool InsideStudio => false;
+        internal const string GameProcessName = "SexyBeachPR_64";
+        internal const string GameProcessName32bit = "SexyBeachPR_32";
 #endif
     }
 }
