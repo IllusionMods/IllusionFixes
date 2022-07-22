@@ -301,6 +301,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_PersonalityCorrect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SBPR_Fix_ResourceUnloadOptimizations", "src\SBPR_Fix_ResourceUnloadOptimizations\SBPR_Fix_ResourceUnloadOptimizations.csproj", "{09D5D602-4CFD-43C3-AD7E-58E5072E8127}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_AssignMainCamera", "src\AI_Fix_AssignMainCamera\AI_Fix_AssignMainCamera.csproj", "{8C053C10-4E5B-4BCB-938E-747BD8CA0907}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{00e09fd0-9862-41b3-bd2c-7094a16c97f7}*SharedItemsImports = 4
@@ -420,6 +422,7 @@ Global
 		src\Core_Fix_ManifestCorrector\Core_Fix_ManifestCorrector.projitems*{8a86e25f-70c1-45a0-b548-d53529539232}*SharedItemsImports = 4
 		src\Common\Common.projitems*{8aad72ed-b34e-468f-9bd6-7210183461be}*SharedItemsImports = 4
 		src\Core_Fix_CameraTarget\Core_Fix_CameraTarget.projitems*{8aad72ed-b34e-468f-9bd6-7210183461be}*SharedItemsImports = 4
+		src\Common\Common.projitems*{8c053c10-4e5b-4bcb-938e-747bd8ca0907}*SharedItemsImports = 4
 		src\Common\Common.projitems*{90ac93cb-9efe-46e4-944f-c236aec0fc21}*SharedItemsImports = 4
 		src\Common\Common.projitems*{90f116fe-9fcf-473f-a7d5-b9d1fdbfe52f}*SharedItemsImports = 4
 		src\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.projitems*{90f116fe-9fcf-473f-a7d5-b9d1fdbfe52f}*SharedItemsImports = 4
@@ -908,6 +911,10 @@ Global
 		{09D5D602-4CFD-43C3-AD7E-58E5072E8127}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09D5D602-4CFD-43C3-AD7E-58E5072E8127}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09D5D602-4CFD-43C3-AD7E-58E5072E8127}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C053C10-4E5B-4BCB-938E-747BD8CA0907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C053C10-4E5B-4BCB-938E-747BD8CA0907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C053C10-4E5B-4BCB-938E-747BD8CA0907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C053C10-4E5B-4BCB-938E-747BD8CA0907}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
