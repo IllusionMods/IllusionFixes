@@ -52,6 +52,19 @@ namespace IllusionFixes
         }
 
         [HarmonyFinalizer]
+        [HarmonyPatch(typeof(SaveData.WorldData), nameof(SaveData.WorldData.SimpleData), typeof(string))]
+        private static Exception CatchCrash(string fileName, Exception __exception)
+        {
+            if (__exception != null)
+            {
+                Logger.Log(LogLevel.Warning | LogLevel.Message, $"Save file {fileName} is corrupted, progress is most likely lost.");
+                Logger.LogWarning(__exception);
+            }
+
+            return null;
+        }
+
+        [HarmonyFinalizer]
         [HarmonyPatch(typeof(AlreadyReadInfo), nameof(AlreadyReadInfo.Load))] // already read adv text
         private static Exception CatchReadInfoCrash(Exception __exception)
         {
