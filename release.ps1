@@ -10,10 +10,15 @@ $copy = $dir + "\copy\BepInEx"
 New-Item -ItemType Directory -Force -Path ($dir + "\out")  
 Remove-Item -Force -Path ($dir + "\copy") -Recurse -ErrorAction SilentlyContinue
 
+# IL2CPP grabbag ------------------------------------------------------------------------------------------------------------------------------
+
+$ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Get-ChildItem -Path ($dir + "\IL2CPP" + "\*.dll") -Recurse -Force)[0]).FileVersion.ToString()
+Compress-Archive -Path ($dir + "\IL2CPP\BepInEx") -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_IL2CPP_v" + $ver + ".zip")
+
 # AIS -----------------------------------------------------------------------------------------------------------------------------------------
 & robocopy ($dir + "\BepInEx\plugins\IllusionFixes\") ($copy + "\plugins\IllusionFixes") "AI_*.*" /R:5 /W:5 
 
-& robocopy ($dir + "\BepInEx\patchers\") ($copy + "\patchers") /R:5 /W:5     
+& robocopy ($dir + "\BepInEx\patchers\") ($copy + "\patchers") /R:5 /W:5 
 
 $ver = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Get-ChildItem -Path ($copy + "\*.dll") -Recurse -Force)[0]).FileVersion.ToString()
 Compress-Archive -Path $copy -Force -CompressionLevel "Optimal" -DestinationPath ($dir + "out\" + "IllusionFixes_AIGirl_v" + $ver + ".zip")

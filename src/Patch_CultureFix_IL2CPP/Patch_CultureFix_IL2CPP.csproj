@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>CultureFix_IL2CPP</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>$(DefineConstants)TRACE;IL2CPP</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>$(DefineConstants)TRACE;IL2CPP</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Core" Version="6.0.0-pre.1" />
+    <PackageReference Include="BepInEx.IL2CPP" Version="6.0.0-pre.1" />
+    <PackageReference Include="BepInEx.Preloader.Core" Version="6.0.0-pre.1" />
+    <PackageReference Include="BepInEx.Unity" Version="6.0.0-pre.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>..\..\packages\Il2Cppmscorlib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Import Project="..\Common\Common.projitems" Label="Shared" />
+
+  <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+	  <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SolutionDir)\bin\IL2CPP\BepInEx\patchers" />
+  </Target>
+</Project>
