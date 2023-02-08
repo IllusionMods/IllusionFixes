@@ -79,6 +79,17 @@ namespace IllusionFixes
 
         private static class Hooks
         {
+            [HarmonyFinalizer, HarmonyPatch(typeof(Illusion.Game.Utils.Bundle), nameof(Illusion.Game.Utils.Bundle.LoadSprite))]
+            private static Exception LoadSpriteNullRefEater(Exception __exception, string assetBundleName, string assetName)
+            {
+                if (__exception != null)
+                {
+                    Logger.LogError($"Caught a crash when trying to load sprite {assetBundleName} > {assetName}! \n{__exception}");
+                }
+
+                return null;
+            }
+
             [HarmonyFinalizer, HarmonyPatch(typeof(DynamicBone), nameof(DynamicBone.ResetParticlesPosition))]
             internal static Exception ParticlesCrashCatcher(Exception __exception, DynamicBone __instance, ref UnityEngine.Vector3 ___m_ObjectPrevPosition)
             {
