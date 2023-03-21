@@ -303,7 +303,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SBPR_Fix_ResourceUnloadOpti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_AssignMainCamera", "src\AI_Fix_AssignMainCamera\AI_Fix_AssignMainCamera.csproj", "{8C053C10-4E5B-4BCB-938E-747BD8CA0907}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patch_CultureFix_IL2CPP", "src\Patch_CultureFix_IL2CPP\Patch_CultureFix_IL2CPP.csproj", "{143BAA8F-D1A3-4CF1-BE3D-8947C3DB2762}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patch_CultureFix_IL2CPP", "src\Patch_CultureFix_IL2CPP\Patch_CultureFix_IL2CPP.csproj", "{143BAA8F-D1A3-4CF1-BE3D-8947C3DB2762}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Fix_GarbageTruck", "src\HS2_Fix_GarbageTruck\HS2_Fix_GarbageTruck.csproj", "{63F1B988-39C4-41A2-B266-1F5D13EF7A13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_GarbageTruck", "src\AI_Fix_GarbageTruck\AI_Fix_GarbageTruck.csproj", "{B02CE742-4626-4D73-9E2A-8789EFF525E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -723,6 +727,14 @@ Global
 		{143BAA8F-D1A3-4CF1-BE3D-8947C3DB2762}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{143BAA8F-D1A3-4CF1-BE3D-8947C3DB2762}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{143BAA8F-D1A3-4CF1-BE3D-8947C3DB2762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63F1B988-39C4-41A2-B266-1F5D13EF7A13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63F1B988-39C4-41A2-B266-1F5D13EF7A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63F1B988-39C4-41A2-B266-1F5D13EF7A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63F1B988-39C4-41A2-B266-1F5D13EF7A13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B02CE742-4626-4D73-9E2A-8789EFF525E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B02CE742-4626-4D73-9E2A-8789EFF525E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B02CE742-4626-4D73-9E2A-8789EFF525E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B02CE742-4626-4D73-9E2A-8789EFF525E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -836,6 +848,8 @@ Global
 		{1F49B69E-9C3C-4A0F-B0EB-28A8E907E6D6} = {40715440-0FF3-47D1-BC1F-96AC7FDAF26E}
 		{7A9F7BD1-FC29-4D40-BE21-66BBA1845D35} = {40715440-0FF3-47D1-BC1F-96AC7FDAF26E}
 		{09D5D602-4CFD-43C3-AD7E-58E5072E8127} = {47CA3E45-1672-4D71-ABD2-8621D4C74003}
+		{63F1B988-39C4-41A2-B266-1F5D13EF7A13} = {EEAF0BD9-2427-4B92-BD7F-7D2D8D2D2045}
+		{B02CE742-4626-4D73-9E2A-8789EFF525E9} = {EEAF0BD9-2427-4B92-BD7F-7D2D8D2D2045}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
@@ -917,6 +931,7 @@ Global
 		src\Common\Common.projitems*{5eaa5078-ac8e-482b-98eb-e7ce8a12d0ca}*SharedItemsImports = 4
 		src\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.projitems*{5eaa5078-ac8e-482b-98eb-e7ce8a12d0ca}*SharedItemsImports = 4
 		src\Common\Common.projitems*{624fe20e-7f19-403b-ad4e-6a2bd7359c88}*SharedItemsImports = 4
+		src\Common\Common.projitems*{63f1b988-39c4-41a2-b266-1f5d13ef7a13}*SharedItemsImports = 4
 		src\Common\Common.projitems*{647579b1-abb7-4180-ac3f-da12b092ed22}*SharedItemsImports = 4
 		src\Core_Fix_Heterochromia\Core_Fix_Heterochromia.projitems*{647579b1-abb7-4180-ac3f-da12b092ed22}*SharedItemsImports = 4
 		src\Common\Common.projitems*{65b49352-65b3-4994-832f-83a868987e22}*SharedItemsImports = 4
@@ -988,6 +1003,7 @@ Global
 		src\Common\Common.projitems*{ac77c02d-d371-4f81-9e9e-da544ac49488}*SharedItemsImports = 4
 		src\Common\Common.projitems*{aec39cf2-191c-4d35-9224-e6793352e110}*SharedItemsImports = 4
 		src\Core_Fix_WetAccessories\Core_Fix_WetAccessories.projitems*{aec39cf2-191c-4d35-9224-e6793352e110}*SharedItemsImports = 4
+		src\Common\Common.projitems*{b02ce742-4626-4d73-9e2a-8789eff525e9}*SharedItemsImports = 4
 		src\Common\Common.projitems*{b211581c-80f2-422d-8180-46b0228aae2c}*SharedItemsImports = 4
 		src\Core_Fix_CameraTarget\Core_Fix_CameraTarget.projitems*{b211581c-80f2-422d-8180-46b0228aae2c}*SharedItemsImports = 4
 		src\Common\Common.projitems*{b3a37bdb-238f-47a7-9a73-1c15ea1a05ab}*SharedItemsImports = 4
