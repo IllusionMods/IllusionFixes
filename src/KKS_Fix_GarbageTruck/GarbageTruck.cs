@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using BepInEx;
 using Common;
-using FBSAssist;
 using HarmonyLib;
 using Illusion.Component.Correct.Process;
 using ILSetUtility.TimeUtility;
@@ -16,7 +15,7 @@ namespace IllusionFixes
 {
     [BepInPlugin(GUID, GUID, Constants.PluginsVersion)]
     [BepInDependency(Screencap.ScreenshotManager.GUID, BepInDependency.DependencyFlags.SoftDependency)]
-    public partial class GarbageTruck : BaseUnityPlugin
+    public class GarbageTruck : BaseUnityPlugin
     {
         public const string GUID = "KKS_Fix_GarbageTruck";
 
@@ -52,18 +51,20 @@ namespace IllusionFixes
 
         private static class AntiGarbageHooks
         {
-            // todo no studio yet
-            ///// <summary>
-            ///// Runs many times per frame, heavy allocations because of linq
-            ///// </summary>
-            //[HarmonyPrefix, HarmonyPatch(typeof(Studio.CameraControl), "OnTriggerStay")]
-            //internal static bool OnTriggerStayPrefix(Collider other, List<Collider> ___listCollider, int ___m_MapLayer)
-            //{
-            //    if (!(other == null) && (___m_MapLayer & (1 << other.gameObject.layer)) != 0)
-            //        if (!___listCollider.Contains(other))
-            //            ___listCollider.Add(other);
-            //    return false;
-            //}
+            /// <summary>
+            /// Runs many times per frame, heavy allocations because of linq
+            /// </summary>
+            [HarmonyPrefix, HarmonyPatch(typeof(Studio.CameraControl), nameof(Studio.CameraControl.OnTriggerStay))]
+            internal static bool OnTriggerStayPrefix(Collider other, List<Collider> ___listCollider, int ___m_MapLayer)
+            {
+                if (other == null)
+                    return false;
+                if ((___m_MapLayer & (1 << other.gameObject.layer)) == 0)
+                    return false;
+                if (!___listCollider.Contains(other))
+                    ___listCollider.Add(other);
+                return false;
+            }
 
             [HarmonyTranspiler]
             [HarmonyPatch(typeof(EyeLookCalc), nameof(EyeLookCalc.EyeUpdateCalc))]
@@ -194,7 +195,7 @@ namespace IllusionFixes
             }
 
             [HarmonyTranspiler]
-            [HarmonyPatch(typeof(AudioAssist), nameof(AudioAssist.GetAudioWaveValue))]
+            [HarmonyPatch(typeof(FBSAssist.AudioAssist), nameof(FBSAssist.AudioAssist.GetAudioWaveValue))]
             private static IEnumerable<CodeInstruction> FixGetAudioWaveValue(IEnumerable<CodeInstruction> insts)
             {
                 return new CodeMatcher(insts)

@@ -1,23 +1,21 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using BepInEx;
 using Common;
-using FBSAssist;
 using HarmonyLib;
+using Illusion.Component.Correct;
+using Illusion.Component.Correct.Process;
 using ILSetUtility.TimeUtility;
 using Manager;
 using UnityEngine;
-using Illusion.Component.Correct;
-using Illusion.Component.Correct.Process;
 
 namespace IllusionFixes
 {
     [BepInPlugin(GUID, GUID, Constants.PluginsVersion)]
-    public partial class GarbageTruck : BaseUnityPlugin
+    public class GarbageTruck : BaseUnityPlugin
     {
         public const string GUID = "KK_Fix_GarbageTruck";
 
@@ -28,19 +26,20 @@ namespace IllusionFixes
 
         private static class AntiGarbageHooks
         {
-#if KK
             /// <summary>
             /// Runs many times per frame, heavy allocations because of linq
             /// </summary>
-            [HarmonyPrefix, HarmonyPatch(typeof(Studio.CameraControl), "OnTriggerStay")]
+            [HarmonyPrefix, HarmonyPatch(typeof(Studio.CameraControl), nameof(Studio.CameraControl.OnTriggerStay))]
             internal static bool OnTriggerStayPrefix(Collider other, List<Collider> ___listCollider, int ___m_MapLayer)
             {
-                if (!(other == null) && (___m_MapLayer & (1 << other.gameObject.layer)) != 0)
-                    if (!___listCollider.Contains(other))
-                        ___listCollider.Add(other);
+                if (other == null)
+                    return false;
+                if ((___m_MapLayer & (1 << other.gameObject.layer)) == 0)
+                    return false;
+                if (!___listCollider.Contains(other))
+                    ___listCollider.Add(other);
                 return false;
             }
-#endif
 
             [HarmonyTranspiler]
             [HarmonyPatch(typeof(EyeLookCalc), nameof(EyeLookCalc.EyeUpdateCalc))]
@@ -236,7 +235,7 @@ namespace IllusionFixes
             [HarmonyPrefix]
             [HarmonyPatch(typeof(FBSBase), nameof(FBSBase.CalculateBlendShape))]
             public static bool CalculateBlendShape(FBSBase __instance, float ___correctOpenMax, float ___openRate,
-                TimeProgressCtrl ___blendTimeCtrl, Dictionary<int, float> ___dictBackFace,
+                FBSAssist.TimeProgressCtrl ___blendTimeCtrl, Dictionary<int, float> ___dictBackFace,
                 Dictionary<int, float> ___dictNowFace)
             {
                 if (__instance.FBSTarget.Length == 0) return false;
@@ -349,6 +348,7 @@ namespace IllusionFixes
                     .MatchForward(false,
                         new CodeMatch(OpCodes.Ldc_I4, 1024),
                         new CodeMatch(OpCodes.Newarr, typeof(float)))
+                    .ThrowIfInvalid("No match")
                     .SetAndAdvance(OpCodes.Call, AccessTools.Method(typeof(AntiGarbageHooks), nameof(GetWaveBuffer)))
                     .RemoveInstruction()
                     .Instructions();
