@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using BepInEx;
 using Common;
 using HarmonyLib;
@@ -134,38 +133,6 @@ namespace IllusionFixes
                 }
 
                 return false;
-            }
-
-            /// <summary>
-            /// Reuse ChaFileControl when loading the character list to reduce garbage created
-            /// </summary>
-            [HarmonyTranspiler]
-            [HarmonyDebug]
-            [HarmonyPatch(typeof(CharaCustom.CustomCharaFileInfoAssist), nameof(CharaCustom.CustomCharaFileInfoAssist.AddList))]
-            private static IEnumerable<CodeInstruction> ReduceCreatedCharaListGarbage(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
-            {
-                // Find new object creation inside the for loop
-                var cm = new CodeMatcher(instructions, generator)
-                         .MatchForward(false,
-                                       new CodeMatch(OpCodes.Newobj, AccessTools.Constructor(typeof(AIChara.ChaFileControl))),
-                                       new CodeMatch(OpCodes.Stloc_S))
-                         .ThrowIfInvalid("ChaFileControl ctor not found");
-
-                // Copy both of matched instructions and remove them 
-                var a = cm.Instruction;
-                cm.RemoveInstruction();
-                var b = cm.Instruction;
-                cm.RemoveInstruction();
-
-                // Move the instructions outside of the for loop so new object is only created once and then reused
-                cm.MatchBack(false,
-                             new CodeMatch(OpCodes.Callvirt, AccessTools.Method(typeof(FolderAssist), nameof(FolderAssist.GetFileCount))),
-                             new CodeMatch(OpCodes.Stloc_S))
-                  .ThrowIfInvalid("GetFileCount not found")
-                  .Advance(2)
-                  .Insert(a, b);
-
-                return cm.Instructions();
             }
         }
     }
