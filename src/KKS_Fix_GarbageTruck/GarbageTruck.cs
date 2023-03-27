@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using BepInEx;
@@ -267,6 +268,34 @@ namespace IllusionFixes
             }
 
             #endregion
+
+            // Doesn't help with character list loading memory leak, but might still be useful
+            //[HarmonyPrefix]
+            //[HarmonyPatch(typeof(Localize.Translate.Manager), nameof(Localize.Translate.Manager.CreateChaFileInfo))]
+            //private static bool FixedCreateChaFileInfo(int sex, bool useDefaultData, ref Localize.Translate.Manager.ChaFileInfo[] __result)
+            //{
+            //    var fileInfo = Localize.Translate.Manager.DefaultData.UserDataAssist(sex == 0 ? "chara/male/" : "chara/female/", useDefaultData);
+            //
+            //    var results = new List<Localize.Translate.Manager.ChaFileInfo>(fileInfo.Length);
+            //
+            //    var chaFileControl = new ChaFileControl();
+            //    for (int i = 0; i < fileInfo.Length; i++)
+            //    {
+            //        var file = fileInfo[i];
+            //        
+            //        var success = chaFileControl.LoadCharaFile(file.info.FullPath, byte.MaxValue, false, true);
+            //        if (success && chaFileControl.parameter.sex == sex)
+            //        {
+            //            results.Add(new Localize.Translate.Manager.ChaFileInfo(chaFileControl, file));
+            //
+            //            chaFileControl = new ChaFileControl();
+            //        }
+            //    }
+            //
+            //    __result = results.ToArray();
+            //
+            //    return false;
+            //}
         }
     }
 }
