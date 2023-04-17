@@ -166,6 +166,23 @@ namespace IllusionFixes
                 hairComponent.trfLength = hairComponent.trfLength.RemoveNulls();
             }
 #endif
+
+#if KK || KKS
+            [HarmonyFinalizer, HarmonyPatch(typeof(SetRenderQueue_Custom), nameof(SetRenderQueue_Custom.ChangeRendererQueue))]
+            private static Exception ChangeRendererQueueErrorHandler(Exception __exception, SetRenderQueue_Custom __instance)
+            {
+                // ChangeRendererQueue is called from Update after an item is loaded on every frame until it doesn't crash.
+                // If m_queueDatas has bad data in it then this will result in exception spam on every frame.
+                // This eats the exception so that there is only one log entry for the exception and the component can usually work just fine.
+                if (__exception != null)
+                {
+                    Logger.LogError($"Caught a crash in ChangeRendererQueue! This studio item might not work correctly until SetRenderQueue_Custom.m_queueDatas is fixed in the mod! Please report this issue to the mod author.\n" +
+                                    $"Path: {StrayTech.GameObjectExtension.FullPath(__instance)}\n" +
+                                    $"Exception: {__exception}");
+                }
+                return null;
+            }
+#endif
         }
     }
 }
