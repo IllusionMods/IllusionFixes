@@ -183,6 +183,21 @@ namespace IllusionFixes
                 return null;
             }
 #endif
+
+#if AI || HS2 || KKS
+            /// <summary>
+            /// RuntimeUtilities.GetAllAssemblyTypes is bugged - if some types can't be loaded it either skips the whole assembly or causes a nullref on every frame later on if the .GetType doesn't throw but does return a null in the type array.
+            /// </summary>
+            [HarmonyPrefix, HarmonyPatch(typeof(UnityEngine.Rendering.PostProcessing.RuntimeUtilities), nameof(UnityEngine.Rendering.PostProcessing.RuntimeUtilities.GetAllAssemblyTypes))]
+            internal static void FixedGetAllAssemblyTypes()
+            {
+                if (UnityEngine.Rendering.PostProcessing.RuntimeUtilities.m_AssemblyTypes == null)
+                {
+                    // todo: AccessTools.AllTypes in current HarmonyX ver. has the same issue of returning a null sometimes on assemblies with unloadable types but that don't crash .GetType somehow
+                    UnityEngine.Rendering.PostProcessing.RuntimeUtilities.m_AssemblyTypes = AccessTools.AllTypes().Where(x => x != null).ToArray();
+                }
+            }
+#endif
         }
     }
 }
