@@ -359,6 +359,7 @@ namespace IllusionFixes
             /// </summary>
             [HarmonyPatch(typeof(ChaReference), MethodType.Constructor)]
             [HarmonyPostfix]
+            [HarmonyPriority(Priority.First)]
             private static void FixChaReferenceComparer(ChaReference __instance)
             {
                 var dic = new Dictionary<ChaReference.RefObjKey, GameObject>(
