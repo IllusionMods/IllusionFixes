@@ -297,7 +297,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fix_PersonalityCorrector", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_PersonalityCorrector", "src\KKS_Fix_PersonalityCorrector\KKS_Fix_PersonalityCorrector.csproj", "{1F49B69E-9C3C-4A0F-B0EB-28A8E907E6D6}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_PersonalityCorrector", "src\Core_Fix_PersonalityCorrector\Core_Fix_PersonalityCorrector.shproj", "{7A9F7BD1-FC29-4D40-BE21-66BBA1845D35}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core_Fix_PersonalityCorrector_KKalike", "src\Core_Fix_PersonalityCorrector\Core_Fix_PersonalityCorrector_KKalike.shproj", "{7A9F7BD1-FC29-4D40-BE21-66BBA1845D35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SBPR_Fix_ResourceUnloadOptimizations", "src\SBPR_Fix_ResourceUnloadOptimizations\SBPR_Fix_ResourceUnloadOptimizations.csproj", "{09D5D602-4CFD-43C3-AD7E-58E5072E8127}"
 EndProject
@@ -310,6 +310,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_Fix_GarbageTruck", "src\AI_Fix_GarbageTruck\AI_Fix_GarbageTruck.csproj", "{B02CE742-4626-4D73-9E2A-8789EFF525E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI-HS2_Fix_DynamicBones", "src\AI-HS2_Fix_DynamicBones\AI-HS2_Fix_DynamicBones.csproj", "{C68CDDBC-570F-403A-92E3-B44EB3A31D31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Fix_PersonalityCorrector", "src\HS2_Fix_PersonalityCorrector\HS2_Fix_PersonalityCorrector.csproj", "{018A823B-2248-419E-8A7A-3F7E4D65FDA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -741,6 +743,10 @@ Global
 		{C68CDDBC-570F-403A-92E3-B44EB3A31D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C68CDDBC-570F-403A-92E3-B44EB3A31D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C68CDDBC-570F-403A-92E3-B44EB3A31D31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{018A823B-2248-419E-8A7A-3F7E4D65FDA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{018A823B-2248-419E-8A7A-3F7E4D65FDA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{018A823B-2248-419E-8A7A-3F7E4D65FDA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{018A823B-2248-419E-8A7A-3F7E4D65FDA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -857,6 +863,7 @@ Global
 		{63F1B988-39C4-41A2-B266-1F5D13EF7A13} = {EEAF0BD9-2427-4B92-BD7F-7D2D8D2D2045}
 		{B02CE742-4626-4D73-9E2A-8789EFF525E9} = {EEAF0BD9-2427-4B92-BD7F-7D2D8D2D2045}
 		{C68CDDBC-570F-403A-92E3-B44EB3A31D31} = {1EF89218-A9E1-492D-8F37-61B2F1668886}
+		{018A823B-2248-419E-8A7A-3F7E4D65FDA9} = {40715440-0FF3-47D1-BC1F-96AC7FDAF26E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3F10C8B-FD6C-43DA-94B4-1D9688BBE11B}
@@ -864,6 +871,7 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Common.projitems*{00e09fd0-9862-41b3-bd2c-7094a16c97f7}*SharedItemsImports = 4
 		src\Core_Fix_CameraMaskResize\Core_Fix_CameraMaskResize.projitems*{00e09fd0-9862-41b3-bd2c-7094a16c97f7}*SharedItemsImports = 4
+		src\Common\Common.projitems*{018a823b-2248-419e-8a7a-3f7e4d65fda9}*SharedItemsImports = 4
 		src\Common\Common.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
 		src\Core_Fix_InvalidSceneFileProtection\Core_Fix_InvalidSceneFileProtection.projitems*{020992e5-0e49-4b83-a3ce-c5eb990edda7}*SharedItemsImports = 4
 		src\Common\Common.projitems*{0218b7ff-4cc3-4c9a-8a91-f8db31084499}*SharedItemsImports = 4
