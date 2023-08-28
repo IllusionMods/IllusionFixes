@@ -353,6 +353,32 @@ namespace IllusionFixes
                     .RemoveInstruction()
                     .Instructions();
             }
+
+            /// <summary>
+            /// Use a nonallocating equality comparer for ChaReference.dictRefObj.
+            /// </summary>
+            [HarmonyPatch(typeof(ChaReference), MethodType.Constructor)]
+            [HarmonyPostfix]
+            [HarmonyPriority(Priority.First)]
+            private static void FixChaReferenceComparer(ChaReference __instance)
+            {
+                var dic = new Dictionary<ChaReference.RefObjKey, GameObject>(
+                    __instance.dictRefObj,
+                    new RefObjKeyEqualityComparer());
+                __instance.dictRefObj = dic;
+            }
+            class RefObjKeyEqualityComparer : IEqualityComparer<ChaReference.RefObjKey>
+            {
+                public bool Equals(ChaReference.RefObjKey x, ChaReference.RefObjKey y)
+                {
+                    return x == y;
+                }
+
+                public int GetHashCode(ChaReference.RefObjKey x)
+                {
+                    return ((int)x).GetHashCode();
+                }
+            }
         }
     }
 }
