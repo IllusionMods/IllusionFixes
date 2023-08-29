@@ -379,6 +379,82 @@ namespace IllusionFixes
                     return ((int)x).GetHashCode();
                 }
             }
+
+            /// <summary>
+            /// Cache allocations of many small arrays in ChaControl.UpdateVisible.
+            /// </summary>
+            [HarmonyTranspiler]
+            [HarmonyPatch(typeof(ChaControl), nameof(ChaControl.UpdateVisible))]
+            private static IEnumerable<CodeInstruction> FixUpdateVisible(IEnumerable<CodeInstruction> insts)
+            {
+                var matcher = new CodeMatcher(insts);
+                var get1DArray = AccessTools.Method(typeof(AntiGarbageHooks), nameof(Get1DArrayForUpdateVisible));
+                var get2DArray = AccessTools.Method(typeof(AntiGarbageHooks), nameof(Get2DArrayForUpdateVisible));
+                int id = 0;
+                matcher
+                    .MatchForward(true, new CodeMatch(OpCodes.Newarr))
+                    .Repeat(m => {
+                        var elementType = m.Instruction.operand as Type;
+                        m
+                            .SetAndAdvance(OpCodes.Ldc_I4, id)
+                            .Insert(
+                                new CodeInstruction(OpCodes.Ldtoken, elementType),
+                                new CodeInstruction(OpCodes.Call, get1DArray));
+                        id++;
+                    });
+                if (id != 42)
+                    throw new Exception($"Unexpected number of 1D array allocations in UpdateVisible: {id}");
+                var array2DTypes = new Dictionary<Type, Type> {
+                    { typeof(byte[,]), typeof(byte) },
+                    { typeof(bool[,]), typeof(bool) },
+                    { typeof(ChaReference.RefObjKey[,]), typeof(ChaReference.RefObjKey) },
+                };
+                matcher
+                    .Start()
+                    .MatchForward(true,
+                        new CodeMatch(inst =>
+                            inst.opcode == OpCodes.Newobj &&
+                            inst.operand is ConstructorInfo constructor &&
+                            array2DTypes.ContainsKey(constructor.DeclaringType)))
+                    .Repeat(m => {
+                        var elementType = array2DTypes[(m.Instruction.operand as ConstructorInfo).DeclaringType];
+                        m
+                            .SetAndAdvance(OpCodes.Ldc_I4, id)
+                            .Insert(
+                                new CodeInstruction(OpCodes.Ldtoken, elementType),
+                                new CodeInstruction(OpCodes.Call, get2DArray));
+                        id++;
+                    });
+                if (id != 45)
+                    throw new Exception($"Unexpected number of 2D array allocations in UpdateVisible: {id}");
+                _updateVisibleArrayPool.Clear();
+                return matcher.Instructions();
+            }
+            private static Dictionary<int, Array> _updateVisibleArrayPool = new Dictionary<int, Array>();
+            private static Array Get1DArrayForUpdateVisible(int size, int id, RuntimeTypeHandle typeHandle)
+            {
+                if (_updateVisibleArrayPool.TryGetValue(id, out var arr))
+                {
+                    Array.Clear(arr, 0, size);
+                    return arr;
+                }
+
+                arr = Array.CreateInstance(Type.GetTypeFromHandle(typeHandle), size);
+                _updateVisibleArrayPool.Add(id, arr);
+                return arr;
+            }
+            private static Array Get2DArrayForUpdateVisible(int size0, int size1, int id, RuntimeTypeHandle typeHandle)
+            {
+                if (_updateVisibleArrayPool.TryGetValue(id, out var arr))
+                {
+                    Array.Clear(arr, 0, size0 * size1);
+                    return arr;
+                }
+
+                arr = Array.CreateInstance(Type.GetTypeFromHandle(typeHandle), size0, size1);
+                _updateVisibleArrayPool.Add(id, arr);
+                return arr;
+            }
         }
     }
 }
