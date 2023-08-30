@@ -390,6 +390,11 @@ namespace IllusionFixes
                 var matcher = new CodeMatcher(insts);
                 var get1DArray = AccessTools.Method(typeof(AntiGarbageHooks), nameof(Get1DArrayForUpdateVisible));
                 var get2DArray = AccessTools.Method(typeof(AntiGarbageHooks), nameof(Get2DArrayForUpdateVisible));
+                var array2DTypes = new Dictionary<Type, Type> {
+                    { typeof(byte[,]), typeof(byte) },
+                    { typeof(bool[,]), typeof(bool) },
+                    { typeof(ChaReference.RefObjKey[,]), typeof(ChaReference.RefObjKey) },
+                };
                 int id = 0;
                 matcher
                     .MatchForward(true, new CodeMatch(OpCodes.Newarr))
@@ -401,15 +406,7 @@ namespace IllusionFixes
                                 new CodeInstruction(OpCodes.Ldtoken, elementType),
                                 new CodeInstruction(OpCodes.Call, get1DArray));
                         id++;
-                    });
-                if (id != 42)
-                    throw new Exception($"Unexpected number of 1D array allocations in UpdateVisible: {id}");
-                var array2DTypes = new Dictionary<Type, Type> {
-                    { typeof(byte[,]), typeof(byte) },
-                    { typeof(bool[,]), typeof(bool) },
-                    { typeof(ChaReference.RefObjKey[,]), typeof(ChaReference.RefObjKey) },
-                };
-                matcher
+                    })
                     .Start()
                     .MatchForward(true,
                         new CodeMatch(inst =>
@@ -425,34 +422,37 @@ namespace IllusionFixes
                                 new CodeInstruction(OpCodes.Call, get2DArray));
                         id++;
                     });
-                if (id != 45)
-                    throw new Exception($"Unexpected number of 2D array allocations in UpdateVisible: {id}");
-                _updateVisibleArrayPool.Clear();
+                if (id != _updateVisibleAllocationCount)
+                    throw new Exception($"Unexpected number of array allocations in UpdateVisible: {id}");
+                Array.Clear(_updateVisibleArrays, 0, _updateVisibleAllocationCount);
                 return matcher.Instructions();
             }
-            private static Dictionary<int, Array> _updateVisibleArrayPool = new Dictionary<int, Array>();
+            private static readonly int _updateVisibleAllocationCount = 45;
+            private static Array[] _updateVisibleArrays = new Array[_updateVisibleAllocationCount];
             private static Array Get1DArrayForUpdateVisible(int size, int id, RuntimeTypeHandle typeHandle)
             {
-                if (_updateVisibleArrayPool.TryGetValue(id, out var arr))
+                var arr = _updateVisibleArrays[id];
+                if (arr != null)
                 {
                     Array.Clear(arr, 0, size);
                     return arr;
                 }
 
                 arr = Array.CreateInstance(Type.GetTypeFromHandle(typeHandle), size);
-                _updateVisibleArrayPool.Add(id, arr);
+                _updateVisibleArrays[id] = arr;
                 return arr;
             }
             private static Array Get2DArrayForUpdateVisible(int size0, int size1, int id, RuntimeTypeHandle typeHandle)
             {
-                if (_updateVisibleArrayPool.TryGetValue(id, out var arr))
+                var arr = _updateVisibleArrays[id];
+                if (arr != null)
                 {
                     Array.Clear(arr, 0, size0 * size1);
                     return arr;
                 }
 
                 arr = Array.CreateInstance(Type.GetTypeFromHandle(typeHandle), size0, size1);
-                _updateVisibleArrayPool.Add(id, arr);
+                _updateVisibleArrays[id] = arr;
                 return arr;
             }
         }
