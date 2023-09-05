@@ -424,16 +424,16 @@ namespace IllusionFixes
                                 new CodeInstruction(OpCodes.Call, get2DArray));
                         id++;
                     });
-                if (id != _updateVisibleAllocationCount)
+                if (id != ExpectedUpdateVisibleAllocationCount)
                 {
                     Utilities.Logger.LogWarning($"Unexpected number of array allocations in UpdateVisible ({id}). Not patching.");
                     return insts;
                 }
-                Array.Clear(_updateVisibleArrays, 0, _updateVisibleAllocationCount);
+                Array.Clear(_updateVisibleArrays, 0, ExpectedUpdateVisibleAllocationCount);
                 return matcher.Instructions();
             }
-            private static readonly int _updateVisibleAllocationCount = 45;
-            private static Array[] _updateVisibleArrays = new Array[_updateVisibleAllocationCount];
+            private const int ExpectedUpdateVisibleAllocationCount = 45;
+            private static Array[] _updateVisibleArrays = new Array[ExpectedUpdateVisibleAllocationCount];
             private static Array Get1DArrayForUpdateVisible(int size, int id, RuntimeTypeHandle typeHandle)
             {
                 var arr = _updateVisibleArrays[id];
