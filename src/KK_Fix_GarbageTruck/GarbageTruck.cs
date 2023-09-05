@@ -387,8 +387,7 @@ namespace IllusionFixes
             [HarmonyPatch(typeof(ChaControl), nameof(ChaControl.UpdateVisible))]
             private static IEnumerable<CodeInstruction> FixUpdateVisible(IEnumerable<CodeInstruction> insts)
             {
-                var originalInstList = insts.ToList();
-                var matcher = new CodeMatcher(originalInstList);
+                var matcher = new CodeMatcher(insts);
                 var get1DArray = AccessTools.Method(typeof(AntiGarbageHooks), nameof(Get1DArrayForUpdateVisible));
                 var get2DArray = AccessTools.Method(typeof(AntiGarbageHooks), nameof(Get2DArrayForUpdateVisible));
                 var array2DTypes = new Dictionary<Type, Type> {
@@ -428,7 +427,7 @@ namespace IllusionFixes
                 if (id != _updateVisibleAllocationCount)
                 {
                     Utilities.Logger.LogWarning($"Unexpected number of array allocations in UpdateVisible ({id}). Not patching.");
-                    return originalInstList;
+                    return insts;
                 }
                 Array.Clear(_updateVisibleArrays, 0, _updateVisibleAllocationCount);
                 return matcher.Instructions();
