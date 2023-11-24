@@ -5,7 +5,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using UnityEngine;
+using UnityEngine.UI;
 #if AI || HS2
 using AIChara;
 #endif
@@ -213,5 +215,40 @@ namespace IllusionFixes
         }
 
         #endregion
+
+        /// <summary>
+        /// Stop studio character and outfit lists from running UnloadUnusedAssets and GC.Collect unnecessarily on mouse hover.
+        /// Instead, only destroy the previous thumbnail texture which basically has the same effect but is instant.
+        /// </summary>
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(CharaList), nameof(CharaList.LoadCharaImage))]
+        [HarmonyPatch(typeof(MPCharCtrl.CostumeInfo), nameof(MPCharCtrl.CostumeInfo.LoadImage))]
+        private static IEnumerable<CodeInstruction> StudioListLagFixTranspiler(IEnumerable<CodeInstruction> instructions)
+        {
+            return new CodeMatcher(instructions)
+                .MatchForward(false, 
+                              new CodeMatch(OpCodes.Ldfld), // <- this is the RawImage field, it changes between the two methods
+                              new CodeMatch(OpCodes.Ldloc_0),
+                              new CodeMatch(OpCodes.Ldfld),
+                              new CodeMatch(OpCodes.Call, AccessTools.Method(typeof(PngAssist), nameof(PngAssist.LoadTexture))))
+                .ThrowIfInvalid("LoadTexture target field not found")
+                .Advance(1)
+                .InsertAndAdvance(new CodeInstruction(OpCodes.Dup)) // Duplicate value of the RawImage field and use it in our new method call
+                .InsertAndAdvance(new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(StudioOptimizations), nameof(StudioOptimizations.DisposeRawTexture))))
+                .MatchForward(false,
+                              new CodeMatch(OpCodes.Call, AccessTools.Method(typeof(Resources), nameof(Resources.UnloadUnusedAssets))),
+                              new CodeMatch(OpCodes.Pop))
+                .ThrowIfInvalid("UnloadUnusedAssets not found")
+                .SetOpcodeAndAdvance(OpCodes.Nop) // Nop out the UnloadUnusedAssets call and the Pop of its return value. Keep the operand in case other transpliers look for it.
+                .SetOpcodeAndAdvance(OpCodes.Nop)
+                .MatchForward(false, new CodeMatch(OpCodes.Call, AccessTools.Method(typeof(GC), nameof(GC.Collect), new Type[0])))
+                .ThrowIfInvalid("GC.Collect not found")
+                .SetOpcodeAndAdvance(OpCodes.Nop) // Nop out as above, except there's no return value.
+                .Instructions();
+        }
+        private static void DisposeRawTexture(RawImage target)
+        {
+            Destroy(target.texture);
+        }
     }
 }
