@@ -4,6 +4,7 @@ using HarmonyLib;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using BepInEx.Logging;
+using BepInEx.Configuration;
 
 namespace IllusionFixes
 {
@@ -16,16 +17,21 @@ namespace IllusionFixes
 
         private static new ManualLogSource Logger;
 
+        private static ConfigEntry<bool> showWarning;
+
         private void Awake()
         {
             Logger = base.Logger;
+
+            showWarning = Config.Bind("Logging", "Show Maplight Warning", true, "Toggle the Warning that gets displayed if more than two maplights are added to the scene");
+
             Harmony.CreateAndPatchAll(typeof(UnlimitedMapLights));
         }
 
         [HarmonyPostfix, HarmonyPatch(typeof(Studio.SceneInfo), nameof(Studio.SceneInfo.AddLight))]
         private static void UnlimitedLights(Studio.SceneInfo __instance)
         {
-            if(__instance.lightCount > 2)
+            if(__instance.lightCount > 2 && showWarning.Value)
                 Logger.LogMessage("Warning: Lights above 2 might not affect characters and some items!");
         }
 
