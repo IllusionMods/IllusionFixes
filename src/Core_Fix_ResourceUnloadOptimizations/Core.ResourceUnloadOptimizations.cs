@@ -18,6 +18,8 @@ namespace IllusionFixes
         private static Func<AsyncOperation> _originalUnload;
 
         private static int _garbageCollect;
+        private static int _forceCleanup;
+        private static int _countForceCleanup;
 
         private static int _sceneLoadOperationsInProgress;
         private static bool _sceneLoadedOrReset;
@@ -28,6 +30,7 @@ namespace IllusionFixes
         public static ConfigEntry<bool> OptimizeMemoryUsage { get; private set; }
         public static ConfigEntry<int> PercentMemoryThreshold { get; private set; }
         public static ConfigEntry<int> PercentMemoryThresholdDuringLoad { get; private set; }
+        public static ConfigEntry<int> PercentForceCleanupThreshold { get; private set; }
 
         internal void Awake()
         {
@@ -39,6 +42,7 @@ namespace IllusionFixes
 #else
             PercentMemoryThresholdDuringLoad = Config.Bind(Utilities.ConfigSectionTweaks, "Optimize Memory Threshold During Load", 80, new ConfigDescription($"Minimum amount of memory to be used during load before resource unloading will run (should be higher than 'Optimize Memory Threshold').", null, new ConfigurationManagerAttributes { IsAdvanced = true }));
 #endif
+            PercentForceCleanupThreshold = Config.Bind(Utilities.ConfigSectionTweaks, "Force Cleanup Threshold", 90, new ConfigDescription("Threshold for memory usage to force unloading of resources.", null, new ConfigurationManagerAttributes { IsAdvanced = true }));
             StartCoroutine(CleanupCo());
 
             InstallHooks();
@@ -71,6 +75,12 @@ namespace IllusionFixes
                     if (--_garbageCollect == 0)
                         RunGarbageCollect();
                 }
+
+                if( _forceCleanup > 0 )
+                {
+                    if (--_forceCleanup == 0)
+                        RunForceCleanupIfNecessary();
+                }
             }
         }
 
@@ -92,6 +102,32 @@ namespace IllusionFixes
             Utilities.Logger.LogDebug("Starting full garbage collection");
             // Use different overload since we disable the parameterless one
             GC.Collect(GC.MaxGeneration);
+        }
+
+        private static void RunForceCleanupIfNecessary()
+        {
+            _forceCleanup = 10;
+
+            var status = MemoryInfo.GetCurrentStatus();
+            if (status == null)
+                return;
+
+            if (status.dwMemoryLoad < PercentForceCleanupThreshold.Value)
+            {
+                _countForceCleanup = 0;
+                return;
+            }
+
+            if (++_countForceCleanup > 8)
+            {
+                // Cleanup was performed, but memory utilization remained high.
+                // Maybe the system memory is low or you have a huge scene open.
+                // Cleanup will only cause stuttering and should be aborted.
+                return;
+            }
+
+            GC.Collect(GC.MaxGeneration);
+            Resources.UnloadUnusedAssets();
         }
 
         private static bool PlentyOfMemory()
