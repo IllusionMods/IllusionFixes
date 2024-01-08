@@ -18,7 +18,7 @@ namespace IllusionFixes
         private static Func<AsyncOperation> _originalUnload;
 
         private static int _garbageCollect;
-        private static int _forceCleanup;
+        private static int _forceCleanup = 20;
         private static int _countForceCleanup;
 
         private static int _sceneLoadOperationsInProgress;
