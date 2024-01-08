@@ -126,7 +126,6 @@ namespace IllusionFixes
                 return;
             }
 
-            GC.Collect(GC.MaxGeneration);
             Resources.UnloadUnusedAssets();
         }
 
