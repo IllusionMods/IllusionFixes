@@ -44,8 +44,8 @@
       <HintPath>..\..\packages\IllusionLibs.Koikatu.Assembly-CSharp.2019.4.27.4\lib\net35\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="BepInEx, Version=5.4.20.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\IllusionLibs.BepInEx.5.4.20\lib\net35\BepInEx.dll</HintPath>
+    <Reference Include="BepInEx, Version=5.4.22.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\IllusionLibs.BepInEx.5.4.22\lib\net35\BepInEx.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core" />
@@ -64,6 +64,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\KoikatuCompatibilityAnalyzer.1.1.0\analyzers\dotnet\cs\KoikatuCompatibilityAnalyzer.dll" />
+    <Analyzer Include="..\..\packages\Microsoft.Unity.Analyzers.1.18.0\analyzers\dotnet\cs\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="..\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.projitems" Label="Shared" />

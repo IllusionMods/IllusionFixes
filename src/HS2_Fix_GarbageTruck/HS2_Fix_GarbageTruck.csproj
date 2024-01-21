@@ -48,20 +48,20 @@
       <HintPath>..\..\packages\IllusionLibs.HoneySelect2.Assembly-CSharp-firstpass.2020.5.29.4\lib\net46\Assembly-CSharp-firstpass.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="BepInEx, Version=5.4.20.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\IllusionLibs.BepInEx.5.4.20\lib\net35\BepInEx.dll</HintPath>
+    <Reference Include="BepInEx, Version=5.4.22.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\IllusionLibs.BepInEx.5.4.22\lib\net35\BepInEx.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Cinemachine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\IllusionLibs.HoneySelect2.Cinemachine.2018.4.11.4\lib\net46\Cinemachine.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="HS2API, Version=1.35.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\IllusionModdingAPI.HS2API.1.35.0\lib\net46\HS2API.dll</HintPath>
+    <Reference Include="HS2API, Version=1.36.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\IllusionModdingAPI.HS2API.1.36.0\lib\net46\HS2API.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HS2_Screencap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ScreenshotManager.HoneySelect2.19.1.0\lib\net46\HS2_Screencap.dll</HintPath>
+      <HintPath>..\..\packages\ScreenshotManager.HoneySelect2.19.3.3\lib\net46\HS2_Screencap.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="IL, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -119,6 +119,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\Microsoft.Unity.Analyzers.1.18.0\analyzers\dotnet\cs\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

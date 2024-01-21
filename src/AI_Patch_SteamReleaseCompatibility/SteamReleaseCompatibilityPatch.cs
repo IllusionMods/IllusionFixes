@@ -158,7 +158,7 @@ namespace AI_Fixes
                 studioAss.Write(ms, new WriterParameters() { WriteSymbols = false });
                 outputAss = ms.ToArray();
             }
-            h.UnpatchAll(h.Id);
+            h.UnpatchSelf();
 
             Assembly.Load(outputAss);
 
