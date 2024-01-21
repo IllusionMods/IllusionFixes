@@ -315,6 +315,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS2_Fix_PersonalityCorrecto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KKS_Fix_CharacterListOptimizations", "src\KKS_Fix_CharacterListOptimizations\KKS_Fix_CharacterListOptimizations.csproj", "{27D21C00-8152-4D1F-8A1C-1DC2E875AF3F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AF28DA59-0B14-47EB-B7D1-7732C1D364AD}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
