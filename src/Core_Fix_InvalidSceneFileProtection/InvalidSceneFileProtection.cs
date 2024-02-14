@@ -51,13 +51,25 @@ namespace IllusionFixes
                 {
                     PngFile.SkipPng(fs);
 
-                    var pos = fs.Position;
-                    foreach (var tokenSequence in ValidStudioTokens)
-                    {
-                        if (Util.FindPosition(fs, tokenSequence) > 0)
-                            return true;
+                    var searchers = ValidStudioTokens.Select(token => new KMPSearch(token)).ToArray();
+                    int maxTokenSize = ValidStudioTokens.Max(token => token.Length);
 
-                        fs.Seek(pos, SeekOrigin.Begin);
+                    byte[] chunks = new byte[2 << 20];
+
+                    //Search for tokens while reading a certain size
+                    while (true)
+                    {
+                        int readed = fs.Read(chunks, 0, chunks.Length);
+
+                        for (int i = 0; i < searchers.Length; ++i)
+                            if (searchers[i].Search(chunks, readed))
+                                return true;
+
+                        if (chunks.Length != readed)
+                            break;
+
+                        //Slide a little because there may be data on the border.
+                        fs.Position -= maxTokenSize - 1;
                     }
                 }
 

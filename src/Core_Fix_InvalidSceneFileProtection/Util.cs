@@ -3,43 +3,85 @@ using System.IO;
 using System.Linq;
 
 namespace IllusionFixes
-{
-    internal class Util
+{        
+    internal class KMPSearch
     {
-        // https://stackoverflow.com/a/1472689
-        public static long FindPosition(Stream stream, byte[] byteSequence)
+        private readonly byte[] pattern;
+        private int[] lps; // Longest Proper Prefix which is also Suffix
+
+        public KMPSearch(byte[] pattern)
         {
-            if (byteSequence.Length > stream.Length)
-                return -1;
-
-            byte[] buffer = new byte[byteSequence.Length];
-
-            while (stream.Read(buffer, 0, byteSequence.Length) == byteSequence.Length)
-            {
-                if (byteSequence.SequenceEqual(buffer))
-                    return stream.Position - byteSequence.Length;
-                else
-                    stream.Position -= byteSequence.Length - PadLeftSequence(buffer, byteSequence);
-            }
-
-            return -1;
+            this.pattern = pattern;
+            this.lps = ComputeLPSArray();
         }
 
-        private static int PadLeftSequence(byte[] bytes, byte[] seqBytes)
+        public bool Search(byte[] text, int n)
         {
-            int i = 1;
-            while (i < bytes.Length)
+            int m = pattern.Length;
+
+            int i = 0; // index for text[]
+            int j = 0; // index for pattern[]
+
+            while (i < n)
             {
-                int n = bytes.Length - i;
-                byte[] aux1 = new byte[n];
-                byte[] aux2 = new byte[n];
-                Array.Copy(bytes, i, aux1, 0, n);
-                Array.Copy(seqBytes, aux2, n);
-                if (aux1.SequenceEqual(aux2))
-                    return i;
-                i++;
+                if (pattern[j] == text[i])
+                {
+                    j++;
+                    i++;
+                }
+
+                if (j == m)
+                {
+                    return true; // Pattern found
+                }
+                else if (i < n && pattern[j] != text[i])
+                {
+                    if (j != 0)
+                    {
+                        j = lps[j - 1];
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
             }
-            return i;
+
+            return false; // Pattern not found
+        }
+
+        private int[] ComputeLPSArray()
+        {
+            int m = pattern.Length;
+            int[] lps = new int[m];
+            int len = 0; // length of the previous longest prefix suffix
+
+            lps[0] = 0;
+            int i = 1;
+
+            while (i < m)
+            {
+                if (pattern[i] == pattern[len])
+                {
+                    len++;
+                    lps[i] = len;
+                    i++;
+                }
+                else
+                {
+                    if (len != 0)
+                    {
+                        len = lps[len - 1];
+                    }
+                    else
+                    {
+                        lps[i] = 0;
+                        i++;
+                    }
+                }
+            }
+
+            return lps;
         }
     }
 }
