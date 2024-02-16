@@ -21,7 +21,8 @@ namespace IllusionFixes
 
         private void Awake()
         {
-            Harmony.CreateAndPatchAll(typeof(StudioOptimizations));
+            Harmony.CreateAndPatchAll(typeof(StudioOptimizations), GUID);
+            MeasuringLoadTimes.Setup(base.Logger);
         }
 
         /// <summary>
