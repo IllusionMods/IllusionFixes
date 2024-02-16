@@ -2,6 +2,7 @@
 using HarmonyLib;
 using Studio;
 using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,23 +34,75 @@ namespace IllusionFixes
 #else
         public static HashSet<string> AccessoryAttachPoints = new HashSet<string> { "a_n_nip_L", "a_n_nip_R", "a_n_shoulder_L", "a_n_arm_L", "a_n_wrist_L", "a_n_hand_L", "a_n_ind_L", "a_n_mid_L", "a_n_ring_L", "a_n_elbo_L", "a_n_shoulder_R", "a_n_arm_R", "a_n_wrist_R", "a_n_hand_R", "a_n_ind_R", "a_n_mid_R", "a_n_ring_R", "a_n_elbo_R", "a_n_mouth", "a_n_hair_pin_R", "a_n_hair_pin", "a_n_hair_pony", "a_n_hair_twin_L", "a_n_hair_twin_R", "a_n_head", "a_n_headflont", "a_n_headside", "a_n_headtop", "a_n_earrings_L", "a_n_earrings_R", "a_n_nose", "a_n_megane", "a_n_neck", "a_n_back", "a_n_back_L", "a_n_back_R", "a_n_bust", "a_n_bust_f", "a_n_ana", "a_n_kokan", "a_n_dan", "a_n_leg_L", "a_n_ankle_L", "a_n_heel_L", "a_n_knee_L", "a_n_leg_R", "a_n_ankle_R", "a_n_heel_R", "a_n_knee_R", "a_n_waist", "a_n_waist_b", "a_n_waist_f", "a_n_waist_L", "a_n_waist_R" };
 #endif
+        /// <summary>
+        /// Map from the name of transform to path where it resides
+        /// </summary>
+        private static Dictionary<string, HashSet<string>> NameToPathMap = new Dictionary<string, HashSet<string>>();
+
+        //Variables to avoid GC
+        private static List<string> _transformPaths = new List<string>();
+        private static StringBuilder _pathBuilder = new StringBuilder();
 
         /// <summary>
         /// FindLoop but doesn't search through accessories
         /// </summary>
-        public static GameObject FindLoopNoAcc(Transform transform, string name)
+        public static GameObject FindLoopNoAcc(Transform transform, string findName)
         {
-            if (string.CompareOrdinal(name, transform.gameObject.name) == 0)
+            if (NameToPathMap.TryGetValue(findName, out var pathMap))
+            {
+                foreach (var path in pathMap)
+                {
+                    var child = transform.Find(path);
+                    if (child != null)
+                        return child.gameObject;
+                }
+            }
+
+            List<string> paths = _transformPaths;
+            paths.Clear();
+
+            var gobj = FindLoopNoAccWithPaths(transform, findName, paths);
+
+            if (gobj != null)
+            {
+                if (!NameToPathMap.TryGetValue(findName, out pathMap))
+                    pathMap = NameToPathMap[findName] = new HashSet<string>();
+
+                var builder = _pathBuilder;
+                builder.Length = 0;
+
+                builder.Append(paths[paths.Count - 1]);
+                for (int i = paths.Count - 2; i >= 0; --i)
+                {
+                    builder.Append('/');
+                    builder.Append(paths[i]);
+                }
+
+                pathMap.Add(builder.ToString());
+            }
+
+            return gobj;
+        }
+
+        private static GameObject FindLoopNoAccWithPaths(Transform transform, string findName, List<string> paths)
+        {
+            string transformName = transform.name;
+            if (string.CompareOrdinal(findName, transformName) == 0)   
                 return transform.gameObject;
 
-            if (AccessoryAttachPoints.Contains(transform.name))
+            if (AccessoryAttachPoints.Contains(transformName))
                 return null;
 
-            for (int i = 0; i < transform.childCount; i++)
+            for (int i = 0, childCount = transform.childCount; i < childCount; i++)
             {
-                GameObject gameObject = FindLoopNoAcc(transform.GetChild(i), name);
+                Transform child = transform.GetChild(i);
+                GameObject gameObject = FindLoopNoAccWithPaths(child, findName, paths);
+
                 if (gameObject != null)
+                {
+                    paths.Add(child.name);
                     return gameObject;
+                }
             }
 
             return null;
