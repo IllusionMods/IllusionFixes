@@ -37,7 +37,7 @@ namespace IllusionFixes
         /// <summary>
         /// Map from the name of transform to path where it resides
         /// </summary>
-        private static Dictionary<string, HashSet<string>> NameToPathMap = new Dictionary<string, HashSet<string>>();
+        private static Dictionary<string, List<string>> NameToPathMap = new Dictionary<string, List<string>>();
 
         //Variables to avoid GC
         private static List<string> _transformPaths = new List<string>();
@@ -48,11 +48,11 @@ namespace IllusionFixes
         /// </summary>
         public static GameObject FindLoopNoAcc(Transform transform, string findName)
         {
-            if (NameToPathMap.TryGetValue(findName, out var pathMap))
+            if (NameToPathMap.TryGetValue(findName, out var pathList))
             {
-                foreach (var path in pathMap)
+                for( int i = 0, n = pathList.Count; i < n; ++i )
                 {
-                    var child = transform.Find(path);
+                    var child = transform.Find(pathList[i]);
                     if (child != null)
                         return child.gameObject;
                 }
@@ -65,8 +65,8 @@ namespace IllusionFixes
 
             if (gobj != null)
             {
-                if (!NameToPathMap.TryGetValue(findName, out pathMap))
-                    pathMap = NameToPathMap[findName] = new HashSet<string>();
+                if (pathList == null)
+                    pathList = NameToPathMap[findName] = new List<string>();
 
                 var builder = _pathBuilder;
                 builder.Length = 0;
@@ -78,7 +78,7 @@ namespace IllusionFixes
                     builder.Append(paths[i]);
                 }
 
-                pathMap.Add(builder.ToString());
+                pathList.Add(builder.ToString());
             }
 
             return gobj;
