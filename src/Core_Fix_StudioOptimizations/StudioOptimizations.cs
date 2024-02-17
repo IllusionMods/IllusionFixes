@@ -47,69 +47,14 @@ namespace IllusionFixes
         private static List<string> _transformPaths = new List<string>();
         private static StringBuilder _pathBuilder = new StringBuilder();
 
+        private static FindLoopAssistant assistant = new FindLoopAssistant(AccessoryAttachPoints);
+
         /// <summary>
         /// FindLoop but doesn't search through accessories
         /// </summary>
         public static GameObject FindLoopNoAcc(Transform transform, string findName)
         {
-            if (NameToPathMap.TryGetValue(findName, out var pathList))
-            {
-                for( int i = 0, n = pathList.Count; i < n; ++i )
-                {
-                    var child = transform.Find(pathList[i]);
-                    if (child != null)
-                        return child.gameObject;
-                }
-            }
-
-            List<string> paths = _transformPaths;
-            paths.Clear();
-
-            var gobj = FindLoopNoAccWithPaths(transform, findName, paths);
-
-            if (gobj != null)
-            {
-                if (pathList == null)
-                    pathList = NameToPathMap[findName] = new List<string>();
-
-                var builder = _pathBuilder;
-                builder.Length = 0;
-
-                builder.Append(paths[paths.Count - 1]);
-                for (int i = paths.Count - 2; i >= 0; --i)
-                {
-                    builder.Append('/');
-                    builder.Append(paths[i]);
-                }
-
-                pathList.Add(builder.ToString());
-            }
-
-            return gobj;
-        }
-
-        private static GameObject FindLoopNoAccWithPaths(Transform transform, string findName, List<string> paths)
-        {
-            string transformName = transform.name;
-            if (string.CompareOrdinal(findName, transformName) == 0)   
-                return transform.gameObject;
-
-            if (AccessoryAttachPoints.Contains(transformName))
-                return null;
-
-            for (int i = 0, childCount = transform.childCount; i < childCount; i++)
-            {
-                Transform child = transform.GetChild(i);
-                GameObject gameObject = FindLoopNoAccWithPaths(child, findName, paths);
-
-                if (gameObject != null)
-                {
-                    paths.Add(child.name);
-                    return gameObject;
-                }
-            }
-
-            return null;
+            return assistant.FindChild(transform, findName)?.gameObject;
         }
 
         /// <summary>
