@@ -2,6 +2,7 @@
 using BepInEx;
 using HarmonyLib;
 using Studio;
+using System.Diagnostics;
 
 namespace IllusionFixes
 {
@@ -10,8 +11,7 @@ namespace IllusionFixes
     /// </summary>
     public partial class StudioOptimizations : BaseUnityPlugin
     {
-        private static DateTime _startLoading = new DateTime();
-        private static bool _loading = false;
+        private static Stopwatch _stopwatch;
 
         static private void SetupMeasuringSceneLoad()
         {
@@ -24,19 +24,17 @@ namespace IllusionFixes
         [HarmonyPatch(typeof(SceneLoadScene), nameof(SceneLoadScene.OnClickImport))]
         static private void OnStartLoadScene()
         {
-            Logger.LogInfo("Start load/import scene");
-            _startLoading = System.DateTime.Now;
-            _loading = true;
+            Logger.LogInfo("Scene loading started.");
+            _stopwatch = Stopwatch.StartNew();
         }
 
         static private void OnSceneUnloaded(UnityEngine.SceneManagement.Scene arg0)
         {
-            if (_loading && arg0.name == "StudioSceneLoad")
+            if (_stopwatch != null && arg0.name == "StudioSceneLoad")
             {
-                _loading = false;
-                DateTime end = DateTime.Now;
-                double sec = (end - _startLoading).TotalSeconds;
-                Logger.LogInfo($"Scene Loaded: {sec:F1}[s]");
+                double sec = _stopwatch.Elapsed.TotalSeconds;
+                _stopwatch = null;
+                Logger.LogInfo($"Scene loading completed: {sec:F1}[s]");
             }
         }
     }
