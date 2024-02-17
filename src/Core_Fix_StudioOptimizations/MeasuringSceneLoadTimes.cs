@@ -1,5 +1,5 @@
 ﻿using System;
-using BepInEx.Logging;
+using BepInEx;
 using HarmonyLib;
 using Studio;
 
@@ -8,34 +8,25 @@ namespace IllusionFixes
     /// <summary>
     /// Outputs scene load times to log
     /// </summary>
-    class MeasuringLoadTimes
+    public partial class StudioOptimizations : BaseUnityPlugin
     {
-        private static ManualLogSource Logger;
-
         private static DateTime _startLoading = new DateTime();
         private static bool _loading = false;
 
-        public static void Setup( ManualLogSource logger )
+        static private void SetupMeasuringSceneLoad()
         {
-            Logger = logger;
             UnityEngine.SceneManagement.SceneManager.sceneUnloaded += OnSceneUnloaded;
-            Harmony.CreateAndPatchAll(typeof(MeasuringLoadTimes), nameof(MeasuringLoadTimes));
         }
 
         [HarmonyPrefix]
-        [HarmonyPriority(Priority.High)]
-        [HarmonyPatch(typeof(SceneLoadScene), "OnClickLoad")]
-        private static void OnClickLoadPrefix()
+        [HarmonyPriority(Priority.First)]
+        [HarmonyPatch(typeof(SceneLoadScene), nameof(SceneLoadScene.OnClickLoad))]
+        [HarmonyPatch(typeof(SceneLoadScene), nameof(SceneLoadScene.OnClickImport))]
+        static private void OnStartLoadScene()
         {
-            OnStartLoadScene();
-        }
-
-        [HarmonyPrefix]
-        [HarmonyPriority(Priority.High)]
-        [HarmonyPatch(typeof(SceneLoadScene), "OnClickImport")]
-        private static void OnClickImportPrefix()
-        {
-            OnStartLoadScene();
+            Logger.LogInfo("Start load/import scene");
+            _startLoading = System.DateTime.Now;
+            _loading = true;
         }
 
         static private void OnSceneUnloaded(UnityEngine.SceneManagement.Scene arg0)
@@ -45,14 +36,8 @@ namespace IllusionFixes
                 _loading = false;
                 DateTime end = DateTime.Now;
                 double sec = (end - _startLoading).TotalSeconds;
-                Logger.LogInfo($"Scene Loaded: {sec:F2}[s]");
+                Logger.LogInfo($"Scene Loaded: {sec:F1}[s]");
             }
-        }
-
-        static private void OnStartLoadScene()
-        {
-            _startLoading = System.DateTime.Now;
-            _loading = true;
         }
     }
 }

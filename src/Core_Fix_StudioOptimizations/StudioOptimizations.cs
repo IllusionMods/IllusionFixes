@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Logging;
 using HarmonyLib;
 using Studio;
 using System;
@@ -20,10 +21,13 @@ namespace IllusionFixes
         public const string GUID = "Fix_StudioOptimizations";
         public const string PluginName = "Studio Optimizations";
 
+        private static new ManualLogSource Logger;
+
         private void Awake()
         {
+            Logger = base.Logger;
             Harmony.CreateAndPatchAll(typeof(StudioOptimizations), GUID);
-            MeasuringLoadTimes.Setup(base.Logger);
+            SetupMeasuringSceneLoad();
         }
 
         /// <summary>
