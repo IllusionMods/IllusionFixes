@@ -8,7 +8,7 @@ namespace Common
         /// Version number used by all plugins. Must be convertible to <see cref="System.Version"/>
         /// Uses ReleaseVersion.HotfixVersion format.
         /// </summary>
-        public const string PluginsVersion = "21.4";
+        public const string PluginsVersion = "21.4.1";
 
 #if AI
         internal static bool InsideStudio => Application.productName == StudioProcessName;
