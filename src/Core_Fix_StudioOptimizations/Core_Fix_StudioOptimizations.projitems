@@ -9,6 +9,8 @@
     <Import_RootNamespace>Core_Fix_StudioOptimizations</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)FindLoopAssistant.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MeasuringSceneLoadTimes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StudioOptimizations.cs" />
   </ItemGroup>
 </Project>
