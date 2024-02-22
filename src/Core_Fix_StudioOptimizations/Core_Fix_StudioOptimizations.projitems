@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)FindLoopAssistant.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FixGuideObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MeasuringSceneLoadTimes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StudioOptimizations.cs" />
   </ItemGroup>
