@@ -38,6 +38,7 @@ namespace IllusionFixes
 
         private HashSet<string> _skipNames = null;
 
+        private int _resetFrame = -1;
         private Transform _root = null;
         private List<Frame> _findStack = new List<Frame>();
         private Dictionary<string, Transform> _childMap = new Dictionary<string, Transform>();
@@ -53,6 +54,15 @@ namespace IllusionFixes
 
         static Dictionary<string, int> counter = new Dictionary<string, int>();
 
+        private void ResetFindStack( Transform root )
+        {
+            _root = root;
+            _childMap.Clear();
+            _findStack.Clear();
+            _findStack.Add(new Frame(root));
+            _resetFrame = Time.frameCount;
+        }
+
         public Transform FindChild( Transform root, string findName )
         {
             if (_nameToPathMap.TryGetValue(findName, out var pathList))
@@ -65,20 +75,24 @@ namespace IllusionFixes
                 }
             }
 
-            if ( _root == root )
+            if ( _root == root && Time.frameCount == _resetFrame )
             {
                 if (_childMap.TryGetValue(findName, out var transform))
                 {
-                    RegisterPath(root, transform, findName);
-                    return transform;
+                    if( transform != null )
+                    {
+                        RegisterPath(root, transform, findName);
+                        return transform;
+                    }
+                    else
+                    {
+                        ResetFindStack(root);
+                    }
                 }
             }
             else
             {
-                _root = root;
-                _childMap.Clear();
-                _findStack.Clear();
-                _findStack.Add(new Frame(root));
+                ResetFindStack(root);
             }
 
             while ( _findStack.Count > 0 )
