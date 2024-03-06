@@ -41,6 +41,8 @@ namespace IllusionFixes
             Harmony.CreateAndPatchAll(typeof(Hooks));
             MakerAPI.MakerFinishedLoading += MakerAPI_MakerFinishedLoading;
             SceneManager.sceneLoaded += InitStudioUI;
+
+            Camera.onPreCull += OnPreCull;
         }
 
         private void InitStudioUI(Scene scene, LoadSceneMode loadSceneMode)
@@ -88,11 +90,27 @@ namespace IllusionFixes
                 rx = Screen.width;
                 ry = Screen.height;
             }
+
             rt = RenderTexture.GetTemporary(rx, ry, 0, RenderTextureFormat.ARGBHalf);
+        }
+
+        /// <summary>
+        /// Clear RenderTexture before rendering
+        /// </summary>
+        static internal void OnPreCull(Camera cam)
+        {
+            if (rt == null || (LayerName.CharaMask & cam.cullingMask) == 0)
+                return;
+
             var rta = RenderTexture.active;
             RenderTexture.active = rt;
             GL.Clear(true, true, Color.clear);
             RenderTexture.active = rta;
+        }
+
+        private void OnDestroy()
+        {
+            Camera.onPreCull -= OnPreCull;
         }
 
         /// <summary>
@@ -221,6 +239,7 @@ namespace IllusionFixes
         {
             if (EyebrowFix.rt == null)
                 return;
+
             Graphics.Blit(EyebrowFix.rt, source, EyebrowFix.mat); //blit into whatever the camera sees before applying first post effect (which is apparently ACE)
         }
 
