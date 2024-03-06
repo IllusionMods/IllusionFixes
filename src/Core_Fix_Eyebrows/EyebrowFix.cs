@@ -28,8 +28,6 @@ namespace IllusionFixes
 
         public static ConfigEntry<bool> ConfigEnabled { get; private set; }
 
-        internal static bool inCapture { get; private set; }
-
         internal void Awake()
         {
             ConfigEnabled = Config.Bind("", "Enabled", false, "Whether the plugin is enabled. Restart the game after changing this setting.\n\nWarning: This plugin is still experiemental and not recommended for general use.");
@@ -43,6 +41,8 @@ namespace IllusionFixes
             Harmony.CreateAndPatchAll(typeof(Hooks));
             MakerAPI.MakerFinishedLoading += MakerAPI_MakerFinishedLoading;
             SceneManager.sceneLoaded += InitStudioUI;
+
+            Camera.onPreCull += OnPreCull;
         }
 
         private void InitStudioUI(Scene scene, LoadSceneMode loadSceneMode)
@@ -84,25 +84,33 @@ namespace IllusionFixes
             {
                 rx = Screencap.ScreenshotManager.ResolutionX.Value * Screencap.ScreenshotManager.DownscalingRate.Value;
                 ry = Screencap.ScreenshotManager.ResolutionY.Value * Screencap.ScreenshotManager.DownscalingRate.Value;
-                inCapture = true;
             }
             else
             {
                 rx = Screen.width;
                 ry = Screen.height;
-                inCapture = false;
             }
 
             rt = RenderTexture.GetTemporary(rx, ry, 0, RenderTextureFormat.ARGBHalf);
-            ClearRT();
         }
 
-        static internal void ClearRT()
+        /// <summary>
+        /// Clear RenderTexture before rendering
+        /// </summary>
+        static internal void OnPreCull(Camera cam)
         {
+            if (rt == null || (LayerName.CharaMask & cam.cullingMask) == 0)
+                return;
+
             var rta = RenderTexture.active;
             RenderTexture.active = rt;
             GL.Clear(true, true, Color.clear);
             RenderTexture.active = rta;
+        }
+
+        void OnDestroy()
+        {
+            Camera.onPreCull -= OnPreCull;
         }
 
         /// <summary>
@@ -233,12 +241,6 @@ namespace IllusionFixes
                 return;
 
             Graphics.Blit(EyebrowFix.rt, source, EyebrowFix.mat); //blit into whatever the camera sees before applying first post effect (which is apparently ACE)
-
-            if( EyebrowFix.inCapture )
-            {
-                //Clear to avoid drawing multiply when additional drawing flows occur.
-                EyebrowFix.ClearRT();
-            }
         }
 
         /// <summary>
