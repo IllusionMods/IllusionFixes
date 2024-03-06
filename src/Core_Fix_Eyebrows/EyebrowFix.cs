@@ -108,7 +108,7 @@ namespace IllusionFixes
             RenderTexture.active = rta;
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             Camera.onPreCull -= OnPreCull;
         }
