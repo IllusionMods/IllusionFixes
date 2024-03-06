@@ -28,6 +28,8 @@ namespace IllusionFixes
 
         public static ConfigEntry<bool> ConfigEnabled { get; private set; }
 
+        internal static bool inCapture { get; private set; }
+
         internal void Awake()
         {
             ConfigEnabled = Config.Bind("", "Enabled", false, "Whether the plugin is enabled. Restart the game after changing this setting.\n\nWarning: This plugin is still experiemental and not recommended for general use.");
@@ -82,13 +84,21 @@ namespace IllusionFixes
             {
                 rx = Screencap.ScreenshotManager.ResolutionX.Value * Screencap.ScreenshotManager.DownscalingRate.Value;
                 ry = Screencap.ScreenshotManager.ResolutionY.Value * Screencap.ScreenshotManager.DownscalingRate.Value;
+                inCapture = true;
             }
             else
             {
                 rx = Screen.width;
                 ry = Screen.height;
+                inCapture = false;
             }
+
             rt = RenderTexture.GetTemporary(rx, ry, 0, RenderTextureFormat.ARGBHalf);
+            ClearRT();
+        }
+
+        static internal void ClearRT()
+        {
             var rta = RenderTexture.active;
             RenderTexture.active = rt;
             GL.Clear(true, true, Color.clear);
@@ -221,7 +231,14 @@ namespace IllusionFixes
         {
             if (EyebrowFix.rt == null)
                 return;
+
             Graphics.Blit(EyebrowFix.rt, source, EyebrowFix.mat); //blit into whatever the camera sees before applying first post effect (which is apparently ACE)
+
+            if( EyebrowFix.inCapture )
+            {
+                //Clear to avoid drawing multiply when additional drawing flows occur.
+                EyebrowFix.ClearRT();
+            }
         }
 
         /// <summary>
