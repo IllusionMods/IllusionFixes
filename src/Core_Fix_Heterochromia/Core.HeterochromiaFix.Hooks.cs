@@ -17,7 +17,7 @@ namespace IllusionFixes
             internal static void LoadFileLimitedPostfix(ChaFileControl __instance)
             {
                 //Find the toggle set
-                var cvsEye02 = CustomBase.Instance.gameObject.GetComponentInChildren<CvsEye02>(true);
+                var cvsEye02 = CustomBase.Instance?.gameObject.GetComponentInChildren<CvsEye02>(true);
                 if (cvsEye02 == null) return;
 
                 var toggles = cvsEye02.tglEyeSetType;
