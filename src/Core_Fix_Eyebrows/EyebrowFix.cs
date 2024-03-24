@@ -286,6 +286,11 @@ namespace IllusionFixes
             mainCam = Camera.main;
         }
 
+        private void OnDisable()
+        {
+            OnDestroy();
+        }
+
         private void LateUpdate()
         {
             //Track the original state of the renderer (MaterialEditor compatibility)
