@@ -20,7 +20,7 @@ namespace IllusionFixes
     //[BepInProcess(Constants.GameProcessNameSteam)]
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     [DefaultExecutionOrder(-1000)]
-    public class MainGameOptimizations : BaseUnityPlugin
+    public partial class MainGameOptimizations : BaseUnityPlugin
     {
         public const string GUID = "KKS_Fix_MainGameOptimizations";
         public const string PluginName = "Main Game Optimizations";
@@ -31,6 +31,7 @@ namespace IllusionFixes
         public static ConfigEntry<bool> ThrottleDynamicBoneUpdates { get; private set; }
         public static ConfigEntry<int> ThrottleDynamicBoneUpdatesRange { get; private set; }
         public static ConfigEntry<bool> ThrottleDynamicBoneUpdatesViewport { get; private set; }
+        public static ConfigEntry<int> AddHeroines { get; private set; }
 
         internal void Start()
         {
@@ -43,6 +44,7 @@ namespace IllusionFixes
             UpdateThrottleDynamicBoneUpdatesRange();
             ThrottleDynamicBoneUpdatesRange.SettingChanged += (sender, args) => UpdateThrottleDynamicBoneUpdatesRange();
             ThrottleDynamicBoneUpdatesViewport = Config.Bind(Utilities.ConfigSectionTweaks, "Pause dynamic bones outside camera view", false, new ConfigDescription("Stops dynamic bone physics in roaming mode for characters that are outside of the camera view (e.g. behind or to the side). Improves performance, but can cause the bones to visibly jerk into place as camera rotates to show the character.\nNeeds 'Throttle dynamic bone updates' to be enabled."));
+            AddHeroines = Config.Bind(Utilities.ConfigSectionTweaks, "Number of heroines to be added to each inn", 0, new ConfigDescription("Maximum number of heroines in each inn will be extended", new AcceptableValueRange<int>(0, 500)));
 
             Harmony.CreateAndPatchAll(typeof(MainGameOptimizations));
 
