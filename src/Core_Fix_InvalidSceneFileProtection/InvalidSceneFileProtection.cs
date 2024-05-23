@@ -58,26 +58,48 @@ namespace IllusionFixes
 
         class PoolAllocator<T> where T : new()
         {
+            private Queue<T> _queue = new Queue<T>();
+            private volatile int _remaingNewCount;
+            private int _maxPool;
+
+            public PoolAllocator( int maxPool )
+            {
+                _maxPool = maxPool;
+                _remaingNewCount = maxPool;
+            }
+
             public T Acquire()
             {
-                lock(m_Queue)
+                lock (_queue)
                 {
-                    if (m_Queue.Count > 0)
-                        return m_Queue.Dequeue();
-                }
+                    while (_queue.Count <= 0 && _remaingNewCount <= 0)
+                        Monitor.Wait(_queue);
 
-                return new T();
+                    if (_queue.Count > 0)
+                        return _queue.Dequeue();
+
+                    --_remaingNewCount;
+                    return new T();
+                }
             }
 
             public void Release( T value )
             {
-                lock (m_Queue)
+                lock (_queue)
                 {
-                    m_Queue.Enqueue(value);
-                }   
+                    _queue.Enqueue(value);
+                    Monitor.Pulse(_queue);
+                }
             }
 
-            private Queue<T> m_Queue = new Queue<T>();
+            public void WaitAllReleased()
+            {
+                lock(_queue)
+                {
+                    while (_queue.Count < _maxPool - _remaingNewCount)
+                        Monitor.Wait(_queue);
+                }
+            }
         }
 
         private static bool IsFileValid(string path)
@@ -93,8 +115,8 @@ namespace IllusionFixes
                     var searchers = ValidStudioTokens.Select(token => new BoyerMoore(token)).ToArray();
                     int maxTokenSize = ValidStudioTokens.Max(token => token.Length);
                     
-                    PoolAllocator<Chunk> allocator = new PoolAllocator<Chunk>();                    
                     ManualResetEvent waitEvent = new ManualResetEvent(false);
+                    PoolAllocator<Chunk> allocator = new PoolAllocator<Chunk>(Math.Max(4, System.Environment.ProcessorCount));
                     SearchStatus status = new SearchStatus();
 
                     void _Search( object _chunk )
