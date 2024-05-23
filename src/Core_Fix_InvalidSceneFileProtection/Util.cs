@@ -3,85 +3,69 @@ using System.IO;
 using System.Linq;
 
 namespace IllusionFixes
-{        
-    internal class KMPSearch
+{
+    internal class BoyerMoore
     {
-        private readonly byte[] pattern;
-        private int[] lps; // Longest Proper Prefix which is also Suffix
+        private readonly byte[] _needle;
+        private readonly int[] _badMatchTable;
 
-        public KMPSearch(byte[] pattern)
+        public BoyerMoore(byte[] needle)
         {
-            this.pattern = pattern;
-            this.lps = ComputeLPSArray();
+            _needle = needle ?? throw new ArgumentNullException(nameof(needle));
+            _badMatchTable = BuildBadMatchTable(_needle);
         }
 
-        public bool Search(byte[] text, int n)
+        public bool Contains(byte[] haystack, int haystackLen)
         {
-            int m = pattern.Length;
+            if (haystack == null)
+                throw new ArgumentNullException(nameof(haystack));
 
-            int i = 0; // index for text[]
-            int j = 0; // index for pattern[]
+            int needleLen = _needle.Length;
 
-            while (i < n)
+            if (needleLen == 0)
+                return true;
+
+            if (needleLen > haystackLen)
+                return false;
+
+            int skip = 0;
+
+            while (haystackLen - skip >= needleLen)
             {
-                if (pattern[j] == text[i])
+                int i = needleLen - 1;
+                while (i >= 0 && _needle[i] == haystack[skip + i])
                 {
-                    j++;
-                    i++;
+                    i--;
                 }
-
-                if (j == m)
+                if (i < 0)
                 {
-                    return true; // Pattern found
-                }
-                else if (i < n && pattern[j] != text[i])
-                {
-                    if (j != 0)
-                    {
-                        j = lps[j - 1];
-                    }
-                    else
-                    {
-                        i++;
-                    }
-                }
-            }
-
-            return false; // Pattern not found
-        }
-
-        private int[] ComputeLPSArray()
-        {
-            int m = pattern.Length;
-            int[] lps = new int[m];
-            int len = 0; // length of the previous longest prefix suffix
-
-            lps[0] = 0;
-            int i = 1;
-
-            while (i < m)
-            {
-                if (pattern[i] == pattern[len])
-                {
-                    len++;
-                    lps[i] = len;
-                    i++;
+                    return true; // needle found in haystack
                 }
                 else
                 {
-                    if (len != 0)
-                    {
-                        len = lps[len - 1];
-                    }
-                    else
-                    {
-                        lps[i] = 0;
-                        i++;
-                    }
+                    skip += _badMatchTable[haystack[skip + i]];
                 }
             }
 
-            return lps;
+            return false; // needle not found in haystack
+        }
+
+        private int[] BuildBadMatchTable(byte[] needle)
+        {
+            int len = needle.Length;
+            int[] table = new int[256];
+
+            for (int i = 0; i < table.Length; i++)
+            {
+                table[i] = len;
+            }
+
+            for (int i = 0; i < len - 1; i++)
+            {
+                table[needle[i]] = len - i - 1;
+            }
+
+            return table;
         }
     }
 }

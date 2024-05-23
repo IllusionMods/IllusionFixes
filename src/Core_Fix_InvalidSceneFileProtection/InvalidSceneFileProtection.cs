@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Diagnostics;
+using System.Threading;
 
 namespace IllusionFixes
 {
@@ -41,6 +43,43 @@ namespace IllusionFixes
             return IsFileValid(path);
         }
 
+        class Chunk
+        {
+            public static int Size = 1 << 20;
+            public byte[] bytes = new byte[Size];
+            public bool last;
+            public int readed;
+        }
+
+        class SearchStatus
+        {
+            public volatile bool found;
+        }
+
+        class PoolAllocator<T> where T : new()
+        {
+            public T Acquire()
+            {
+                lock(m_Queue)
+                {
+                    if (m_Queue.Count > 0)
+                        return m_Queue.Dequeue();
+                }
+
+                return new T();
+            }
+
+            public void Release( T value )
+            {
+                lock (m_Queue)
+                {
+                    m_Queue.Enqueue(value);
+                }   
+            }
+
+            private Queue<T> m_Queue = new Queue<T>();
+        }
+
         private static bool IsFileValid(string path)
         {
             if (!File.Exists(path)) return false;
@@ -51,26 +90,51 @@ namespace IllusionFixes
                 {
                     PngFile.SkipPng(fs);
 
-                    var searchers = ValidStudioTokens.Select(token => new KMPSearch(token)).ToArray();
+                    var searchers = ValidStudioTokens.Select(token => new BoyerMoore(token)).ToArray();
                     int maxTokenSize = ValidStudioTokens.Max(token => token.Length);
+                    
+                    PoolAllocator<Chunk> allocator = new PoolAllocator<Chunk>();                    
+                    ManualResetEvent waitEvent = new ManualResetEvent(false);
+                    SearchStatus status = new SearchStatus();
 
-                    byte[] chunks = new byte[2 << 20];
-
-                    //Search for tokens while reading a certain size
-                    while (true)
+                    void _Search( object _chunk )
                     {
-                        int readed = fs.Read(chunks, 0, chunks.Length);
+                        Chunk chunk = (Chunk)_chunk;
+                        bool found = false;
 
                         for (int i = 0; i < searchers.Length; ++i)
-                            if (searchers[i].Search(chunks, readed))
-                                return true;
+                            if (searchers[i].Contains(chunk.bytes, chunk.readed))
+                            {
+                                status.found = found = true;
+                                break;
+                            }
 
-                        if (chunks.Length != readed)
+                        if (found || chunk.last)
+                            waitEvent.Set();
+
+                        allocator.Release(chunk);
+                    }
+
+                    while ( !status.found )
+                    {
+                        var chunk = allocator.Acquire();
+                        chunk.readed = fs.Read(chunk.bytes, 0, chunk.bytes.Length);
+                        chunk.last = fs.Position == fs.Length;
+
+                        System.Threading.ThreadPool.QueueUserWorkItem( _Search, chunk );
+
+                        if (chunk.last)
                             break;
 
                         //Slide a little because there may be data on the border.
                         fs.Position -= maxTokenSize - 1;
                     }
+
+                    //Waiting for search to finish
+                    waitEvent.WaitOne();
+
+                    if (status.found)
+                        return true;
                 }
 
                 LogInvalid();
