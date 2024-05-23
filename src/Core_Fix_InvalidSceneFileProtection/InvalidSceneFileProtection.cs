@@ -47,7 +47,6 @@ namespace IllusionFixes
         {
             public static int Size = 1 << 20;
             public byte[] bytes = new byte[Size];
-            public bool last;
             public int readed;
         }
 
@@ -115,45 +114,42 @@ namespace IllusionFixes
                     var searchers = ValidStudioTokens.Select(token => new BoyerMoore(token)).ToArray();
                     int maxTokenSize = ValidStudioTokens.Max(token => token.Length);
                     
-                    ManualResetEvent waitEvent = new ManualResetEvent(false);
                     PoolAllocator<Chunk> allocator = new PoolAllocator<Chunk>(Math.Max(4, System.Environment.ProcessorCount));
                     SearchStatus status = new SearchStatus();
 
                     void _Search( object _chunk )
                     {
                         Chunk chunk = (Chunk)_chunk;
-                        bool found = false;
 
                         for (int i = 0; i < searchers.Length; ++i)
                             if (searchers[i].Contains(chunk.bytes, chunk.readed))
                             {
-                                status.found = found = true;
+                                status.found = true;
                                 break;
                             }
-
-                        if (found || chunk.last)
-                            waitEvent.Set();
 
                         allocator.Release(chunk);
                     }
 
-                    while ( !status.found )
+                    while (!status.found)
                     {
                         var chunk = allocator.Acquire();
                         chunk.readed = fs.Read(chunk.bytes, 0, chunk.bytes.Length);
-                        chunk.last = fs.Position == fs.Length;
 
-                        System.Threading.ThreadPool.QueueUserWorkItem( _Search, chunk );
+                        System.Threading.ThreadPool.QueueUserWorkItem(_Search, chunk);
 
-                        if (chunk.last)
+                        if (fs.Position >= fs.Length)
                             break;
 
                         //Slide a little because there may be data on the border.
                         fs.Position -= maxTokenSize - 1;
                     }
 
-                    //Waiting for search to finish
-                    waitEvent.WaitOne();
+                    if( !status.found )
+                    {
+                        //Waiting for search to finish
+                        allocator.WaitAllReleased();
+                    }
 
                     if (status.found)
                         return true;
