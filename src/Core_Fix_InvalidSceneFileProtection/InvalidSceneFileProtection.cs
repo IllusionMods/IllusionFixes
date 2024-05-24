@@ -72,7 +72,7 @@ namespace IllusionFixes
                 lock (_queue)
                 {
                     while (_queue.Count <= 0 && _remaingNewCount <= 0)
-                        Monitor.Wait(_queue);
+                        Monitor.Wait(_queue, 2000);
 
                     if (_queue.Count > 0)
                         return _queue.Dequeue();
@@ -97,7 +97,7 @@ namespace IllusionFixes
                 lock(_queue)
                 {
                     while (_queue.Count < _maxPool - _remaingNewCount)
-                        Monitor.Wait(_queue);
+                        Monitor.Wait(_queue, 2000);
                 }
             }
         }
@@ -122,14 +122,19 @@ namespace IllusionFixes
                     {
                         Chunk chunk = (Chunk)_chunk;
 
-                        for (int i = 0; i < searchers.Length; ++i)
-                            if (searchers[i].Contains(chunk.bytes, chunk.readed))
-                            {
-                                status.found = true;
-                                break;
-                            }
-
-                        allocator.Release(chunk);
+                        try
+                        {
+                            for (int i = 0; i < searchers.Length; ++i)
+                                if (searchers[i].Contains(chunk.bytes, chunk.readed))
+                                {
+                                    status.found = true;
+                                    break;
+                                }
+                        }
+                        finally
+                        {
+                            allocator.Release(chunk);
+                        }
                     }
 
                     while (!status.found)
