@@ -78,8 +78,9 @@ namespace IllusionFixes
                         return _queue.Dequeue();
 
                     --_remaingNewCount;
-                    return new T();
                 }
+
+                return new T();
             }
 
             public void Release( T value )
