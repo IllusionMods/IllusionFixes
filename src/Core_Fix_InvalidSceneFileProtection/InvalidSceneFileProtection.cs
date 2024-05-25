@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Diagnostics;
+using System.Threading;
 
 namespace IllusionFixes
 {
@@ -41,6 +43,65 @@ namespace IllusionFixes
             return IsFileValid(path);
         }
 
+        class Chunk
+        {
+            public static int Size = 1 << 20;
+            public byte[] bytes = new byte[Size];
+            public int readed;
+        }
+
+        class SearchStatus
+        {
+            public volatile bool found;
+        }
+
+        class PoolAllocator<T> where T : new()
+        {
+            private Queue<T> _queue = new Queue<T>();
+            private volatile int _remaingNewCount;
+            private int _maxPool;
+
+            public PoolAllocator( int maxPool )
+            {
+                _maxPool = maxPool;
+                _remaingNewCount = maxPool;
+            }
+
+            public T Acquire()
+            {
+                lock (_queue)
+                {
+                    while (_queue.Count <= 0 && _remaingNewCount <= 0)
+                        Monitor.Wait(_queue, 2000);
+
+                    if (_queue.Count > 0)
+                        return _queue.Dequeue();
+
+                    --_remaingNewCount;
+                }
+
+                return new T();
+            }
+
+            public void Release( T value )
+            {
+                lock (_queue)
+                {
+                    _queue.Enqueue(value);
+                    Monitor.Pulse(_queue);
+                }
+            }
+
+            public void WaitAllReleased()
+            {
+                lock(_queue)
+                {
+                    while (_queue.Count < _maxPool - _remaingNewCount)
+                        Monitor.Wait(_queue, 2000);
+                }
+            }
+        }
+
         private static bool IsFileValid(string path)
         {
             if (!File.Exists(path)) return false;
@@ -51,26 +112,53 @@ namespace IllusionFixes
                 {
                     PngFile.SkipPng(fs);
 
-                    var searchers = ValidStudioTokens.Select(token => new KMPSearch(token)).ToArray();
+                    var searchers = ValidStudioTokens.Select(token => new BoyerMoore(token)).ToArray();
                     int maxTokenSize = ValidStudioTokens.Max(token => token.Length);
+                    
+                    PoolAllocator<Chunk> allocator = new PoolAllocator<Chunk>(Math.Max(4, System.Environment.ProcessorCount));
+                    SearchStatus status = new SearchStatus();
 
-                    byte[] chunks = new byte[2 << 20];
-
-                    //Search for tokens while reading a certain size
-                    while (true)
+                    void _Search( object _chunk )
                     {
-                        int readed = fs.Read(chunks, 0, chunks.Length);
+                        Chunk chunk = (Chunk)_chunk;
 
-                        for (int i = 0; i < searchers.Length; ++i)
-                            if (searchers[i].Search(chunks, readed))
-                                return true;
+                        try
+                        {
+                            for (int i = 0; i < searchers.Length; ++i)
+                                if (searchers[i].Contains(chunk.bytes, chunk.readed))
+                                {
+                                    status.found = true;
+                                    break;
+                                }
+                        }
+                        finally
+                        {
+                            allocator.Release(chunk);
+                        }
+                    }
 
-                        if (chunks.Length != readed)
+                    while (!status.found)
+                    {
+                        var chunk = allocator.Acquire();
+                        chunk.readed = fs.Read(chunk.bytes, 0, chunk.bytes.Length);
+
+                        System.Threading.ThreadPool.QueueUserWorkItem(_Search, chunk);
+
+                        if (fs.Position >= fs.Length)
                             break;
 
                         //Slide a little because there may be data on the border.
                         fs.Position -= maxTokenSize - 1;
                     }
+
+                    if( !status.found )
+                    {
+                        //Waiting for search to finish
+                        allocator.WaitAllReleased();
+                    }
+
+                    if (status.found)
+                        return true;
                 }
 
                 LogInvalid();
