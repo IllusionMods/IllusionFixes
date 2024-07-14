@@ -8,13 +8,16 @@ namespace Core_Fix_LoadFileLimited
     {
         internal class Hooks
         {
+
+            // Makes ChaFileControl.LoadFileLimited (used by Maker to partially load a character) overwrite the charaFileName property whenever new parameters are loaded.
+            // This should keep the value of that property and the character the player thinks of as currently loaded in sync. 
             [HarmonyTranspiler]
             [HarmonyPatch(typeof(ChaFileControl), nameof(ChaFileControl.LoadFileLimited), typeof(string), typeof(byte), typeof(bool), typeof(bool), typeof(bool), typeof(bool), typeof(bool)
 #if KKS
                     ,typeof(bool)
 #endif
                 )]
-            private static IEnumerable<CodeInstruction> LoadFileLimitedTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+            private static IEnumerable<CodeInstruction> MakeLoadLimitedCopyCardFileNameTooWhenCopyingParameters(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
             {
                 List<CodeInstruction> code = new List<CodeInstruction>(instructions);
 
