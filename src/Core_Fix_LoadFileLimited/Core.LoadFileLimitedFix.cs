@@ -4,7 +4,7 @@ using Common;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 
-namespace Core_Fix_LoadFileLimited
+namespace IllusionFixes
 {
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class LoadFileLimitedFix : BaseUnityPlugin

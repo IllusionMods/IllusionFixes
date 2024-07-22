@@ -9,7 +9,7 @@
     <Import_RootNamespace>Core_Fix_LoadFileLimited</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core.LoadFileLimitedFix.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core.LoadFileLimitedFix.Hooks.cs" />
   </ItemGroup>
 </Project>
