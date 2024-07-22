@@ -10,6 +10,5 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Core.LoadFileLimitedFix.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core.LoadFileLimitedFix.Hooks.cs" />
   </ItemGroup>
 </Project>
