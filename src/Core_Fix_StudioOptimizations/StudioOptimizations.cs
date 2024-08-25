@@ -245,5 +245,84 @@ namespace IllusionFixes
         {
             Destroy(target.texture);
         }
+
+#if KK || KKS
+        /// <summary>
+        /// A faster version of AssignedAnotherWeights.AssignedWeightsAndSetBoundsLoop.
+        /// </summary>
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(AssignedAnotherWeights), nameof(AssignedAnotherWeights.AssignedWeightsAndSetBoundsLoop))]
+        static private bool AssignedWeightsAndSetBoundsLoopFast(AssignedAnotherWeights __instance, Transform t, Bounds bounds, Transform rootBone = null)
+        {
+            foreach (var component1 in t.GetComponentsInChildren<SkinnedMeshRenderer>(true))
+            {
+                if (component1)
+                {
+                    Transform[] bones = component1.bones;
+                    int length = bones.Length;
+                    var dictBone = __instance.dictBone;
+                    for (int index = 0; index < length; ++index)
+                    {
+                        if (dictBone.TryGetValue(bones[index].name, out var gameObject))
+                            bones[index] = gameObject.transform;
+                    }
+                    component1.bones = bones;
+                    component1.localBounds = bounds;
+                    if (rootBone && !component1.GetComponent<Cloth>())
+                        component1.rootBone = rootBone;
+                    else if (component1.rootBone && dictBone.TryGetValue(component1.rootBone.name, out var gameObject))
+                        component1.rootBone = gameObject.transform;
+                }
+            }
+
+            return false;
+        }
+#endif
+
+#if KKS
+        /// <summary>
+        /// A faster version of Studio.FKCtrl.UsedBone.
+        /// 
+        /// KKS: Improper use of LINQ. Can be optimized.
+        /// KK:  This function does not exist.
+        /// HS2: Not using inappropriate LINQ.
+        /// </summary>
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(Studio.FKCtrl), nameof(Studio.FKCtrl.UsedBone), typeof(SkinnedMeshRenderer), typeof(Transform))]
+        static private bool UsedBoneFast(Studio.FKCtrl __instance, SkinnedMeshRenderer _renderer, Transform _transform, out bool __result)
+        {
+            if (!_renderer)
+            {
+                __result = false;
+                return false;
+            }
+
+            int idx = System.Array.IndexOf(_renderer.bones, _transform);
+            if (idx < 0)
+            {
+                __result = false;
+                return false;
+            }
+
+            BoneWeight[] boneWeights = _renderer.sharedMesh.boneWeights;
+
+            for (int i = 0; i < boneWeights.Length; ++i)
+            {
+                var w = boneWeights[i];
+                if (w.boneIndex0 == idx && w.weight0 != 0f) goto _used;
+                if (w.boneIndex1 == idx && w.weight1 != 0f) goto _used;
+                if (w.boneIndex2 == idx && w.weight2 != 0f) goto _used;
+                if (w.boneIndex3 == idx && w.weight3 != 0f) goto _used;
+            }
+
+            __result = false;
+            return false;
+
+        _used:
+
+            __result = true;
+            return false;
+        }
+#endif
     }
 }
