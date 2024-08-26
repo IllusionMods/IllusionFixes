@@ -309,10 +309,10 @@ namespace IllusionFixes
             for (int i = 0; i < boneWeights.Length; ++i)
             {
                 var w = boneWeights[i];
-                if (w.boneIndex0 == idx && w.weight0 != 0f) goto _used;
-                if (w.boneIndex1 == idx && w.weight1 != 0f) goto _used;
-                if (w.boneIndex2 == idx && w.weight2 != 0f) goto _used;
-                if (w.boneIndex3 == idx && w.weight3 != 0f) goto _used;
+                if (w.m_BoneIndex0 == idx && w.m_Weight0 != 0f) goto _used;
+                if (w.m_BoneIndex1 == idx && w.m_Weight1 != 0f) goto _used;
+                if (w.m_BoneIndex2 == idx && w.m_Weight2 != 0f) goto _used;
+                if (w.m_BoneIndex3 == idx && w.m_Weight3 != 0f) goto _used;
             }
 
             __result = false;
