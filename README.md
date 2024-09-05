@@ -222,3 +222,9 @@ Removes some unnecessary debug logging from the game to clean up the logs.
 
 Prevents the game from locking up when starting, for some reason. No one knows why this works, but it does.
 
+### ByteFiddler
+This plugin allows you to replace a sequence of bytes in the memory of the current process. Use with caution!
+
+1. Run the game once to generate `BepInEx\config\ByteFiddler.cfg` and edit it. 
+2. Change the settings as needed, read setting descriptions for more info.
+3. Run the game and the plugin will replace the found pattern with the replacement pattern. Check the log for errors or the success message.
