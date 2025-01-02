@@ -24,6 +24,11 @@ namespace IllusionFixes
             [HarmonyPrefix, HarmonyPatch(typeof(DynamicBone_Ver02), nameof(DynamicBone_Ver02.SkipUpdateParticles))]
             internal static bool SkipUpdateParticlesVer02() => false;
 
+            /// <summary>
+            /// Without this it is not possible to add multiple consecutive "chain links" (transforms that would become particles) in the m_notRolls list because the recursive method call loop would end. The m_notRolls list is used to disable/skip chain links in the dynamic bone chain.
+            /// Furthermore this fixes, that, when the chain is ended prematurely (by adding all children of a chain link to the m_Exclusions list), the EndOffset settings will be ignored. It also fixes that, in HS2, the chain would end as soon as m_notRolls was used and an EndOffset is configured.
+            /// The previous fix for the m_Excludes list is included here by using .Contains().
+            /// </summary>
             public static void AppendParticles(Transform bone, int parentIndex, float boneLength, DynamicBone dynamicBone)
             {
                 DynamicBone.Particle particle = new DynamicBone.Particle
