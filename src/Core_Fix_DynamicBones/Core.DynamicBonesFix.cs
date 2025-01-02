@@ -80,6 +80,7 @@ namespace IllusionFixes
 
                 int count = dynamicBone.m_Particles.Count;
                 dynamicBone.m_Particles.Add(particle);
+                if (!bone) return;
                 while (bone.childCount > 0)
                 {
                     var isNotRoll = false;
