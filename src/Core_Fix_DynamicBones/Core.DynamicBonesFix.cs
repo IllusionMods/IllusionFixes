@@ -15,10 +15,16 @@ namespace IllusionFixes
 
         internal void Main() => Harmony.CreateAndPatchAll(typeof(Hooks));
 
-        public static class Replacer
+        internal static class Hooks
         {
-            public static void AppendParticles(Transform bone, int parentIndex, float boneLength,
-                DynamicBone dynamicBone)
+            //Disable the SkipUpdateParticles method since it causes problems, namely causing jittering when the FPS is higher than 60
+            [HarmonyPrefix, HarmonyPatch(typeof(DynamicBone), nameof(DynamicBone.SkipUpdateParticles))]
+            internal static bool SkipUpdateParticles() => false;
+
+            [HarmonyPrefix, HarmonyPatch(typeof(DynamicBone_Ver02), nameof(DynamicBone_Ver02.SkipUpdateParticles))]
+            internal static bool SkipUpdateParticlesVer02() => false;
+
+            public static void AppendParticles(Transform bone, int parentIndex, float boneLength, DynamicBone dynamicBone)
             {
                 DynamicBone.Particle particle = new DynamicBone.Particle
                 {
@@ -92,38 +98,27 @@ namespace IllusionFixes
                         if (!notValid) AppendParticles(child, count, boneLength, dynamicBone);
                     }
 
-                    // we only end up here if all children were excluded or notRolls
-                    // if there is a notRoll, continue on that
+                    // we only end up here if all children were in m_Excludes or at least one child was in m_notRolls
                     if (isNotRoll) bone = bone.GetChild(index);
-                    // else break the chain here
                     else break;
                 }
-
-                if (bone.childCount == 0 && (dynamicBone.m_EndLength > 0f || dynamicBone.m_EndOffset != Vector3.zero))
+                
+                // we only end up here if we have broken out of the loop:
+                // A) because the bone doesn't have any children or B) m_Excludes contains all children
+                if (dynamicBone.m_EndLength > 0f || dynamicBone.m_EndOffset != Vector3.zero)
                 {
+                    // add the final "leaf" particle, based on the EndOffset
                     AppendParticles(null, count, boneLength, dynamicBone);
                 }
             }
-        }
-
-        internal static class Hooks
-        {
-            //Disable the SkipUpdateParticles method since it causes problems, namely causing jittering when the FPS is higher than 60
-            [HarmonyPrefix, HarmonyPatch(typeof(DynamicBone), nameof(DynamicBone.SkipUpdateParticles))]
-            internal static bool SkipUpdateParticles() => false;
-
-            [HarmonyPrefix, HarmonyPatch(typeof(DynamicBone_Ver02), nameof(DynamicBone_Ver02.SkipUpdateParticles))]
-            internal static bool SkipUpdateParticlesVer02() => false;
-
-#if KK || EC || KKS
+            
             // divert the call to AppendParticles with a call to the rewritten AppendParticles method above
             [HarmonyPrefix, HarmonyPatch(typeof(DynamicBone), nameof(DynamicBone.AppendParticles))]
             internal static bool DivertAppendParticles(DynamicBone __instance, Transform b, int parentIndex, float boneLength)
             {
-                Replacer.AppendParticles(b, parentIndex, boneLength, __instance);
+                AppendParticles(b, parentIndex, boneLength, __instance);
                 return false;
             }
-#endif
         }
     }
 }
