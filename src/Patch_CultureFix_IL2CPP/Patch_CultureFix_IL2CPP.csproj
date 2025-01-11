@@ -19,7 +19,7 @@
     <PackageReference Include="BepInEx.IL2CPP" Version="6.0.0-pre.1" />
     <PackageReference Include="BepInEx.Preloader.Core" Version="6.0.0-pre.1" />
     <PackageReference Include="BepInEx.Unity" Version="6.0.0-pre.1" />
-    <PackageReference Include="Microsoft.Unity.Analyzers" Version="1.18.0">
+    <PackageReference Include="Microsoft.Unity.Analyzers" Version="1.21.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

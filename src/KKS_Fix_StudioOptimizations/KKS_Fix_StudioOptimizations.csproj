@@ -64,6 +64,10 @@
       <HintPath>..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.2019.4.9\lib\net46\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.ClothModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.ClothModule.2019.4.9\lib\net46\UnityEngine.ClothModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.2019.4.9\lib\net46\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
@@ -81,7 +85,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\Microsoft.Unity.Analyzers.1.18.0\analyzers\dotnet\cs\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="..\..\packages\Microsoft.Unity.Analyzers.1.21.0\analyzers\dotnet\cs\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <Import Project="..\Common\Common.projitems" Label="Shared" />
   <Import Project="..\Core_Fix_StudioOptimizations\Core_Fix_StudioOptimizations.projitems" Label="Shared" />
@@ -94,6 +98,7 @@
     <Error Condition="!Exists('..\..\packages\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.2021.9.17\build\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.2021.9.17\build\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.targets'))" />
     <Error Condition="!Exists('..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.UI.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.UI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.UI.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.UI.targets'))" />
     <Error Condition="!Exists('..\..\packages\IllusionLibs.BepInEx.Harmony.2.9.0\build\IllusionLibs.BepInEx.Harmony.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\IllusionLibs.BepInEx.Harmony.2.9.0\build\IllusionLibs.BepInEx.Harmony.targets'))" />
+    <Error Condition="!Exists('..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.ClothModule.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.ClothModule.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.ClothModule.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.ClothModule.targets'))" />
   </Target>
   <Import Project="..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.targets" Condition="Exists('..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule.targets')" />
   <Import Project="..\..\packages\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.2021.9.17\build\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.targets" Condition="Exists('..\..\packages\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.2021.9.17\build\IllusionLibs.KoikatsuSunshine.Assembly-CSharp.targets')" />
@@ -102,4 +107,5 @@
   </PropertyGroup>
   <Import Project="..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.UI.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.UI.targets" Condition="Exists('..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.UI.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.UI.targets')" />
   <Import Project="..\..\packages\IllusionLibs.BepInEx.Harmony.2.9.0\build\IllusionLibs.BepInEx.Harmony.targets" Condition="Exists('..\..\packages\IllusionLibs.BepInEx.Harmony.2.9.0\build\IllusionLibs.BepInEx.Harmony.targets')" />
+  <Import Project="..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.ClothModule.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.ClothModule.targets" Condition="Exists('..\..\packages\IllusionLibs.KoikatsuSunshine.UnityEngine.ClothModule.2019.4.9\build\IllusionLibs.KoikatsuSunshine.UnityEngine.ClothModule.targets')" />
 </Project>

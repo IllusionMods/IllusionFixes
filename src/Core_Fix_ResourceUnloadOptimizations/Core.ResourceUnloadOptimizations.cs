@@ -1,10 +1,10 @@
 ﻿using BepInEx.Configuration;
 using Common;
 using HarmonyLib;
-using MonoMod.RuntimeDetour;
 using System;
 using System.Collections;
 using BepInEx;
+using MonoMod.RuntimeDetour;
 using UnityEngine;
 
 namespace IllusionFixes
