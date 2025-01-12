@@ -101,7 +101,11 @@ namespace IllusionFixes
                         }
 
                         // if child is valid particle, append it as new particle
-                        if (!notValid) AppendParticles(child, count, boneLength, dynamicBone);
+                        if (!notValid)
+                        {
+                            AppendParticles(child, count, boneLength, dynamicBone);
+                            return;
+                        }
                     }
 
                     // we only end up here if all children were in m_Excludes or at least one child was in m_notRolls
