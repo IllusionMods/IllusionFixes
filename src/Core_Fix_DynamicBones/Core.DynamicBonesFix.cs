@@ -81,9 +81,10 @@ namespace IllusionFixes
                 int count = dynamicBone.m_Particles.Count;
                 dynamicBone.m_Particles.Add(particle);
                 if (!bone) return;
-                
+
                 bool didAppendChildren = false;
                 while (bone.childCount > 0) // used to traverse down children of children
+
                 {
                     var isNotRoll = false;
                     var index = 0;
@@ -107,6 +108,7 @@ namespace IllusionFixes
                         {
                             AppendParticles(child, count, boneLength, dynamicBone);
                             didAppendChildren = true;
+
                         }
                     }
                     
