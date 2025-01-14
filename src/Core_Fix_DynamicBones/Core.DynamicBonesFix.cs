@@ -81,11 +81,14 @@ namespace IllusionFixes
                 int count = dynamicBone.m_Particles.Count;
                 dynamicBone.m_Particles.Add(particle);
                 if (!bone) return;
-                while (bone.childCount > 0)
+
+                bool didAppendChildren = false;
+                while (bone.childCount > 0) // used to traverse down children of children
+
                 {
                     var isNotRoll = false;
                     var index = 0;
-                    for (var i = 0; i < bone.childCount; i++)
+                    for (var i = 0; i < bone.childCount; i++) // used to loop siblings in children
                     {
                         Transform child = bone.GetChild(i);
                         var notValid = false;
@@ -104,18 +107,19 @@ namespace IllusionFixes
                         if (!notValid)
                         {
                             AppendParticles(child, count, boneLength, dynamicBone);
-                            return;
+                            didAppendChildren = true;
+
                         }
                     }
-
+                    
                     // we only end up here if all children were in m_Excludes or at least one child was in m_notRolls
                     if (isNotRoll) bone = bone.GetChild(index);
                     else break;
                 }
                 
-                // we only end up here if we have broken out of the loop:
-                // A) because the bone doesn't have any children or B) m_Excludes contains all children
-                if (dynamicBone.m_EndLength > 0f || dynamicBone.m_EndOffset != Vector3.zero)
+                // Only add a leaf particle if this particle did not append any of its children:
+                // A) It does not have children or B) all children are part of m_Exclusions
+                if (!didAppendChildren && (dynamicBone.m_EndLength > 0f || dynamicBone.m_EndOffset != Vector3.zero))
                 {
                     // add the final "leaf" particle, based on the EndOffset
                     AppendParticles(null, count, boneLength, dynamicBone);
