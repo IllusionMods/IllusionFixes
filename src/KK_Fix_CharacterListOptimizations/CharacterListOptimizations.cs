@@ -16,6 +16,7 @@ namespace IllusionFixes
 {
     [BepInProcess(Constants.GameProcessName)] // Need a completely separate version for KK Party
     [BepInProcess(Constants.VRProcessName)]
+    [BepInDependency(ExtendedSave.GUID, ExtendedSave.Version)]
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class CharacterListOptimizations : BaseUnityPlugin
     {
