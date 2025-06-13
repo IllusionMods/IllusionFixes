@@ -17,6 +17,7 @@ using UnityEngine.UI;
 namespace IllusionFixes
 {
     [BepInPlugin(PluginGUID, PluginName, Constants.PluginsVersion)]
+    [BepInDependency(KoikatuAPI.GUID, KoikatuAPI.VersionConst)]
     public class EyebrowFix : BaseUnityPlugin
     {
         public const string PluginGUID = "KK_Fix_Eyebrow";

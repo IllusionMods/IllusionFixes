@@ -9,6 +9,7 @@ namespace IllusionFixes
 {
     [BepInProcess(Constants.GameProcessNameSteam)]
     [BepInProcess(Constants.VRProcessNameSteam)]
+    [BepInDependency(ExtendedSave.GUID, ExtendedSave.Version)]
     [BepInPlugin(GUID, PluginName, Constants.PluginsVersion)]
     public class CharacterListOptimizations : BaseUnityPlugin
     {
