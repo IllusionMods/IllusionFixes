@@ -1,4 +1,5 @@
-﻿using BepInEx;
+﻿using System;
+using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using ChaCustom;
@@ -9,6 +10,7 @@ using KKAPI;
 using KKAPI.Maker;
 using KKAPI.Studio;
 using System.Linq;
+using Screencap;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -18,6 +20,7 @@ namespace IllusionFixes
 {
     [BepInPlugin(PluginGUID, PluginName, Constants.PluginsVersion)]
     [BepInDependency(KoikatuAPI.GUID, KoikatuAPI.VersionConst)]
+    [BepInDependency(ScreenshotManager.GUID, ScreenshotManager.Version)]
     public class EyebrowFix : BaseUnityPlugin
     {
         public const string PluginGUID = "KK_Fix_Eyebrow";
@@ -26,10 +29,10 @@ namespace IllusionFixes
 
         public static RenderTexture rt;
         public static Material mat;
-
+        private static bool captureActive;
         public static ConfigEntry<bool> ConfigEnabled { get; private set; }
 
-        internal void Awake()
+        private void Awake()
         {
             ConfigEnabled = Config.Bind("", "Enabled", false, "Whether the plugin is enabled. Restart the game after changing this setting.\n\nWarning: This plugin is still experiemental and not recommended for general use.");
             if (!ConfigEnabled.Value)
@@ -44,6 +47,9 @@ namespace IllusionFixes
             SceneManager.sceneLoaded += InitStudioUI;
 
             Camera.onPreCull += OnPreCull;
+
+            ScreenshotManager.OnPreCapture += () => captureActive = true;
+            ScreenshotManager.OnPostCapture += () => captureActive = false;
         }
 
         private void InitStudioUI(Scene scene, LoadSceneMode loadSceneMode)
@@ -72,19 +78,12 @@ namespace IllusionFixes
         //pre render
         private void Update()
         {
-            if (rt != null)
-            {
-                RenderTexture.ReleaseTemporary(rt);
-                rt = null;
-            }
-
             int rx;
             int ry;
-
-            if (Screencap.ScreenshotManager.KeyCaptureAlpha.Value.IsDown())
+            if (captureActive)
             {
-                rx = Screencap.ScreenshotManager.ResolutionX.Value * Screencap.ScreenshotManager.DownscalingRate.Value;
-                ry = Screencap.ScreenshotManager.ResolutionY.Value * Screencap.ScreenshotManager.DownscalingRate.Value;
+                rx = ScreenshotManager.ResolutionX.Value * ScreenshotManager.DownscalingRate.Value;
+                ry = ScreenshotManager.ResolutionY.Value * ScreenshotManager.DownscalingRate.Value;
             }
             else
             {
@@ -92,15 +91,22 @@ namespace IllusionFixes
                 ry = Screen.height;
             }
 
-            rt = RenderTexture.GetTemporary(rx, ry, 0, RenderTextureFormat.ARGBHalf);
+            if (rt == null || rt.width != rx || rt.height != ry)
+            {
+                if (rt != null) RenderTexture.ReleaseTemporary(rt);
+                rt = RenderTexture.GetTemporary(rx, ry, 0, RenderTextureFormat.ARGBHalf);
+            }
         }
 
         /// <summary>
         /// Clear RenderTexture before rendering
         /// </summary>
-        static internal void OnPreCull(Camera cam)
+        internal static void OnPreCull(Camera cam)
         {
-            if (rt == null || (LayerName.CharaMask & cam.cullingMask) == 0)
+            if ((LayerName.CharaMask & cam.cullingMask) == 0)
+                return;
+
+            if (rt == null)
                 return;
 
             var rta = RenderTexture.active;
@@ -176,10 +182,12 @@ namespace IllusionFixes
                 return;
 
             if (value == 0) //From config
+            {
                 if (Manager.Config.EtcData.ForegroundEyebrow)
                     EnableEyebrows(chaControl);
                 else
                     DisableEyebrows(chaControl);
+            }
             else if (value == 1) //Behind hair
                 DisableEyebrows(chaControl);
             else if (value == 2) //In front of hair
@@ -208,10 +216,12 @@ namespace IllusionFixes
                 return;
 
             if (value == 0) //From config
+            {
                 if (Manager.Config.EtcData.ForegroundEyes)
                     EnableEyeliners(chaControl);
                 else
                     DisableEyeliners(chaControl);
+            }
             else if (value == 1) //Behind hair
                 DisableEyeliners(chaControl);
             else if (value == 2) //In front of hair
