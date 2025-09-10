@@ -22,6 +22,7 @@ namespace IllusionFixes
         internal static class Hooks
         {
             #if KK || KKS
+            // The game was abusing a bug in some gimmicks that got fixed by this plugin, so this changes the gimmicks to use the correct way to end the chain
             [HarmonyPostfix,  HarmonyPatch(typeof(Studio.AddObjectItem), nameof(Studio.AddObjectItem.Load), typeof(OIItemInfo), typeof(ObjectCtrlInfo), typeof(TreeNodeObject), typeof(bool), typeof(int))]
             internal static void GimmickLoadPostfix(OCIItem __result, OIItemInfo _info)
             {
