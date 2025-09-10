@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection.Emit;
 using BepInEx;
 using Common;
 using HarmonyLib;
 using UnityEngine;
+#if KK || KKS
+using Studio;
+#endif
 
 namespace IllusionFixes
 {
@@ -17,6 +21,23 @@ namespace IllusionFixes
 
         internal static class Hooks
         {
+            #if KK || KKS
+            // The game was abusing a bug in some gimmicks that got fixed by this plugin, so this changes the gimmicks to use the correct way to end the chain
+            [HarmonyPostfix,  HarmonyPatch(typeof(Studio.AddObjectItem), nameof(Studio.AddObjectItem.Load), typeof(OIItemInfo), typeof(ObjectCtrlInfo), typeof(TreeNodeObject), typeof(bool), typeof(int))]
+            internal static void GimmickLoadPostfix(OCIItem __result, OIItemInfo _info)
+            {
+                // match flexible hanging gimmicks
+                if (_info.group != 10 || _info.category != 2) return;
+                var no = _info.no
+                if (no != 393 && no != 395 && no != 492 && no != 492) return;
+                if (__result.dynamicBones.Length <= 0) return;
+
+                // add N_setuzoku bone to Exclusions and clear notRolls (see https://github.com/IllusionMods/IllusionFixes/issues/76)
+                __result.dynamicBones[0].m_Exclusions.Add(__result.dynamicBones[0].m_notRolls.Find(t => t.name == "N_setuzoku"));
+                __result.dynamicBones[0].m_notRolls.Clear();
+            }
+            #endif
+            
             //Disable the SkipUpdateParticles method since it causes problems, namely causing jittering when the FPS is higher than 60
             [HarmonyPrefix, HarmonyPatch(typeof(DynamicBone), nameof(DynamicBone.SkipUpdateParticles))]
             internal static bool SkipUpdateParticles() => false;
