@@ -26,7 +26,9 @@ namespace IllusionFixes
             internal static void GimmickLoadPostfix(OCIItem __result, OIItemInfo _info)
             {
                 // match flexible hanging gimmicks
-                if (_info.group != 10 || _info.category != 2 || !new List<int> { 393, 395, 492, 492 }.Contains(_info.no)) return;
+                if (_info.group != 10 || _info.category != 2) return;
+                var no = _info.no
+                if (no != 393 && no != 395 && no != 492 && no != 492) return;
                 if (__result.dynamicBones.Length <= 0) return;
 
                 // add N_setuzoku bone to Exclusions and clear notRolls (see https://github.com/IllusionMods/IllusionFixes/issues/76)
