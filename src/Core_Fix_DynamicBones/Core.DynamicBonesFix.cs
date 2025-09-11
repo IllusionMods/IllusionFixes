@@ -4,9 +4,11 @@ using System.Reflection.Emit;
 using BepInEx;
 using Common;
 using HarmonyLib;
+using Illusion.Extensions;
 using UnityEngine;
 #if KK || KKS
 using Studio;
+using IllusionUtility.GetUtility;
 #endif
 
 namespace IllusionFixes
@@ -35,6 +37,32 @@ namespace IllusionFixes
                 // add N_setuzoku bone to Exclusions and clear notRolls (see https://github.com/IllusionMods/IllusionFixes/issues/76)
                 __result.dynamicBones[0].m_Exclusions.Add(__result.dynamicBones[0].m_notRolls.Find(t => t.name == "N_setuzoku"));
                 __result.dynamicBones[0].m_notRolls.Clear();
+            }
+            #endif
+            
+            #if KK || KKS
+            // The game has a very weird structure for the dynamic bone on nipple rings which breaks if there is a leaf-particle on the chain.
+            // Since this fix removed the issue that leaf particles will only be added for transforms without children,
+            // the EndLength and EndOffset parameters have to actually be 0 now.  
+            [HarmonyPostfix, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.ChangeShakeAccessory))]
+            internal static void NippleRingPostfix(int slotNo, ChaControl __instance)
+            {
+                ChaFileAccessory.PartsInfo accessoryPart = __instance.nowCoordinate.accessory.parts[slotNo];
+                if (accessoryPart.type != 125) return; // has to be a torso accessory
+                GameObject gameObject = __instance._objAccessory[slotNo];
+                DynamicBone dynamicBone = gameObject.GetComponentInChildren<DynamicBone>();
+                if (!dynamicBone || (dynamicBone.m_EndLength == 0 && dynamicBone.m_EndOffset == Vector3.zero)) return;
+                Transform yure1 = gameObject.transform.FindLoop("N_move").transform.Children().Find(t => t.name.Contains("yure"));
+                if (!yure1) return;
+                Transform yure2 = yure1.Children().Find(t => t.name.Contains("yure"));
+                if (!yure2) return;
+                bool structureFound = yure2.Children().Exists(t => t.name.Contains("o_acs_nip"));
+                if (!structureFound) return;
+                // in case the accessory matches that specific structure, set EndLeght and EndOffset to zero
+                // this will prevent a leaf particle from being created 
+                // reference: https://github.com/IllusionMods/IllusionFixes/issues/80
+                dynamicBone.m_EndLength = 0;
+                dynamicBone.m_EndOffset = Vector3.zero;
             }
             #endif
             
