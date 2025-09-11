@@ -52,7 +52,7 @@ namespace IllusionFixes
                 GameObject gameObject = __instance._objAccessory[slotNo];
                 DynamicBone dynamicBone = gameObject.GetComponentInChildren<DynamicBone>();
                 if (!dynamicBone || (dynamicBone.m_EndLength == 0 && dynamicBone.m_EndOffset == Vector3.zero)) return;
-                Transform yure1 = gameObject.transform.FindLoop("N_move").transform.Children().Find(t => t.name.Contains("yure"));
+                Transform yure1 = gameObject.transform.FindLoop("N_move")?.transform.Children().Find(t => t.name.Contains("yure"));
                 if (!yure1) return;
                 Transform yure2 = yure1.Children().Find(t => t.name.Contains("yure"));
                 if (!yure2) return;
