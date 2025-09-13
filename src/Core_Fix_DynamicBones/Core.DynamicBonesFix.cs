@@ -44,7 +44,6 @@ namespace IllusionFixes
             // The game has a very weird structure for the dynamic bone on nipple rings which breaks if there is a leaf-particle on the chain.
             // Since this fix removed the issue that leaf particles will only be added for transforms without children,
             // the EndLength and EndOffset parameters have to actually be 0 now.  
-
             [HarmonyPostfix, HarmonyWrapSafe, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.LoadCharaFbxData))]
             internal static void NippleRingPostfix(int category, string createName, GameObject __result)
             {
