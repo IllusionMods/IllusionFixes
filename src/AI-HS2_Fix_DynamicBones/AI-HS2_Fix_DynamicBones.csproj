@@ -1,22 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
-    <OutputType>Library</OutputType>
-    <RootNamespace>IllusionFixes</RootNamespace>
+    
+    
     <AssemblyName>AI_Fix_DynamicBones</AssemblyName>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>embedded</DebugType>
-    <OutputPath>..\..\bin\BepInEx\plugins\IllusionFixes\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;AI;HS2</DefineConstants>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>embedded</DebugType>
-    <OutputPath>..\..\bin\BepInEx\plugins\IllusionFixes\</OutputPath>
-    <DefineConstants>TRACE;AI HS2</DefineConstants>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="IllusionLibs.AIGirl.Assembly-CSharp" Version="2020.5.29.5" />

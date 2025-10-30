@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
-    <OutputType>Library</OutputType>
+    
     <RootNamespace>AI_Fixes</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>embedded</DebugType>
+    
     <OutputPath>..\..\bin\BepInEx\patchers\</OutputPath>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>embedded</DebugType>
+    
     <OutputPath>..\..\bin\BepInEx\patchers\</OutputPath>
-    <DebugSymbols>true</DebugSymbols>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    
+    
   </PropertyGroup>
   
   <ItemGroup>

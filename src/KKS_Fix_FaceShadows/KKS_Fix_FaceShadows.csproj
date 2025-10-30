@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
-    <OutputType>Library</OutputType>
-    <RootNamespace>IllusionFixes</RootNamespace>
+    
+    
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>TRACE;DEBUG;KKS</DefineConstants>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    
+    
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DefineConstants>TRACE;KKS</DefineConstants>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    
+    
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="IllusionLibs.BepInEx" Version="5.4.22" />
