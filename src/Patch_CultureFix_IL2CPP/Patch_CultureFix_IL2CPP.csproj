@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
+		<RootNamespace>IllusionFixes.Patchers</RootNamespace>
 		<AssemblyName>CultureFix_IL2CPP</AssemblyName>
 		<DefineConstants>$(DefineConstants);IL2CPP</DefineConstants>
 		<OutputPath>..\..\bin\IL2CPP\BepInEx\patchers\</OutputPath>

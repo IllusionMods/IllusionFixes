@@ -3,11 +3,6 @@
 		<TargetFramework>net46</TargetFramework>
 		<RootNamespace>IllusionFixes.Patchers</RootNamespace>
 		<AssemblyName>CultureFix</AssemblyName>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<OutputPath>..\..\bin\BepInEx\patchers\</OutputPath>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<OutputPath>..\..\bin\BepInEx\patchers\</OutputPath>
 	</PropertyGroup>
 	<ItemGroup>

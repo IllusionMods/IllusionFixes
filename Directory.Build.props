@@ -24,7 +24,7 @@
 		IF EXIST $(SolutionDir)PostBuild.bat CALL "$(SolutionDir)PostBuild.bat" "$(TargetDir)HS2_Fix_DynamicBones.dll" HS2</PostBuildEvent>
 	</PropertyGroup>-->
 
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
 		<Optimize>true</Optimize>
 	</PropertyGroup>
 
