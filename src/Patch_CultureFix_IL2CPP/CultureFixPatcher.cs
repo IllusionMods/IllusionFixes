@@ -2,7 +2,7 @@
 using BepInEx.Preloader.Core.Patching;
 using Common;
 
-namespace Patch_CultureFix_IL2CPP
+namespace IllusionFixes.Patchers
 {
     // Works under BepInEx 6 pre1
     [PatcherPluginInfo("CultureFix", "CultureFix", Constants.PluginsVersion)]

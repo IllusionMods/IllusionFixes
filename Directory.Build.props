@@ -1,0 +1,41 @@
+<Project>
+	<PropertyGroup>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<OutputPath>..\..\bin\BepInEx\plugins\IllusionFixes\</OutputPath>
+
+		<OutputType>Library</OutputType>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+
+		<RootNamespace>IllusionFixes</RootNamespace>
+
+		<Deterministic>true</Deterministic>
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>embedded</DebugType>
+		<FileAlignment>512</FileAlignment>
+
+		<!--Add constants based on the first part of the project name e.g. KK-KKS_Fix_DynamicBones -> KK;KKS-->
+		<DefineConstants>$(MSBuildProjectName.Substring(0, $(MSBuildProjectName.IndexOf('_'))).Replace('-',';'))</DefineConstants>
+	</PropertyGroup>
+
+	<!-- TODO implement dynamically using same method as DefineConstants above
+	<PostBuildEvent>copy "$(TargetPath)" "$(TargetDir)\HS2_Fix_DynamicBones.dll"
+		IF EXIST $(SolutionDir)PostBuild.bat CALL "$(SolutionDir)PostBuild.bat" $(TargetPath) AI
+		IF EXIST $(SolutionDir)PostBuild.bat CALL "$(SolutionDir)PostBuild.bat" "$(TargetDir)HS2_Fix_DynamicBones.dll" HS2</PostBuildEvent>
+	</PropertyGroup>-->
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<Optimize>true</Optimize>
+	</PropertyGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Delete Files="$(OutputPath)\$(MSBuildProjectName).deps.json" />
+		<Delete Files="$(OutputPath)\$(AssemblyName).deps.json" />
+	</Target>
+
+	<Target Name="SkipAllRefs" AfterTargets="ResolveReferences">
+		<ItemGroup>
+			<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+		</ItemGroup>
+	</Target>
+</Project>
