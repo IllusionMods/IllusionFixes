@@ -1,29 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <AssemblyName>CultureFix_IL2CPP</AssemblyName>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>$(DefineConstants)TRACE;IL2CPP</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>$(DefineConstants)TRACE;IL2CPP</DefineConstants>
-  </PropertyGroup>
-
-  <Import Project="..\Common\Common.projitems" Label="Shared" />
-
-  <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-	  <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SolutionDir)\bin\IL2CPP\BepInEx\patchers" />
-  </Target>
-
-  <ItemGroup>
-    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.738" />
-    <PackageReference Include="BepInEx.Unity.Mono.Preloader" Version="6.0.0-be.738" />
-    <PackageReference Include="IllusionLibs.Aicomi.Il2CppSystem" Version="2024.10.3" />
-    <PackageReference Include="IllusionLibs.Aicomi.UnityEngine" Version="2022.3.55.1" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<AssemblyName>CultureFix_IL2CPP</AssemblyName>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DefineConstants>$(DefineConstants)TRACE;IL2CPP</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DefineConstants>$(DefineConstants)TRACE;IL2CPP</DefineConstants>
+	</PropertyGroup>
+	<Import Project="..\Common\Common.projitems" Label="Shared" />
+	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SolutionDir)\bin\IL2CPP\BepInEx\patchers" />
+	</Target>
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.738" />
+		<PackageReference Include="BepInEx.Unity.Mono.Preloader" Version="6.0.0-be.738" />
+		<PackageReference Include="IllusionLibs.Aicomi.Il2CppSystem" Version="2024.10.3" />
+		<PackageReference Include="IllusionLibs.Aicomi.UnityEngine" Version="2022.3.55.1" />
+	</ItemGroup>
 </Project>

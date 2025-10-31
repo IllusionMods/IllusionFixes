@@ -1,27 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
-    
-    <RootNamespace>AI_Fixes</RootNamespace>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    
-    <OutputPath>..\..\bin\BepInEx\patchers\</OutputPath>
-    
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    
-    <OutputPath>..\..\bin\BepInEx\patchers\</OutputPath>
-    
-    
-  </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="IllusionLibs.AIGirl.UnityEngine.CoreModule" Version="2018.2.21.4" />
-    <PackageReference Include="IllusionLibs.BepInEx" Version="5.4.22" />
-    <PackageReference Include="IllusionLibs.BepInEx.Harmony" Version="2.9.0" />
-    <PackageReference Include="IllusionLibs.BepInEx.Mono.Cecil" Version="0.10.4.1" />
-    <PackageReference Include="Microsoft.Unity.Analyzers" Version="1.21.0" />
-  </ItemGroup>
-  <Import Project="..\Common\Common.projitems" Label="Shared" />
+	<PropertyGroup>
+		<TargetFramework>net46</TargetFramework>
+		<RootNamespace>AI_Fixes</RootNamespace>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<OutputPath>..\..\bin\BepInEx\patchers\</OutputPath>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<OutputPath>..\..\bin\BepInEx\patchers\</OutputPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="IllusionLibs.AIGirl.UnityEngine.CoreModule" Version="2018.2.21.4" />
+		<PackageReference Include="IllusionLibs.BepInEx" Version="5.4.22" />
+		<PackageReference Include="IllusionLibs.BepInEx.Harmony" Version="2.9.0" />
+		<PackageReference Include="IllusionLibs.BepInEx.Mono.Cecil" Version="0.10.4.1" />
+		<PackageReference Include="Microsoft.Unity.Analyzers" Version="1.21.0" />
+	</ItemGroup>
+	<Import Project="..\Common\Common.projitems" Label="Shared" />
 </Project>

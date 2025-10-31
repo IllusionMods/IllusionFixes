@@ -1,36 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
-    
-    
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    
-    
-    
-    
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    
-    
-    
-    
-    
-  </PropertyGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\setup.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="IllusionLibs.AIGirl.Assembly-CSharp" Version="2020.5.29.5" />
-    <PackageReference Include="IllusionLibs.AIGirl.UnityEngine.CoreModule" Version="2018.2.21.4" />
-    <PackageReference Include="IllusionLibs.BepInEx" Version="5.4.22" />
-    <PackageReference Include="IllusionLibs.BepInEx.Harmony" Version="2.9.0" />
-    <PackageReference Include="Microsoft.Unity.Analyzers" Version="1.21.0" />
-  </ItemGroup>
-  
-  <Import Project="..\Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems" Label="Shared" />
-  <Import Project="..\Common\Common.projitems" Label="Shared" />
+	<PropertyGroup>
+		<TargetFramework>net46</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\setup.xml">
+			<SubType>Designer</SubType>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="IllusionLibs.AIGirl.Assembly-CSharp" Version="2020.5.29.5" />
+		<PackageReference Include="IllusionLibs.AIGirl.UnityEngine.CoreModule" Version="2018.2.21.4" />
+		<PackageReference Include="IllusionLibs.BepInEx" Version="5.4.22" />
+		<PackageReference Include="IllusionLibs.BepInEx.Harmony" Version="2.9.0" />
+		<PackageReference Include="Microsoft.Unity.Analyzers" Version="1.21.0" />
+	</ItemGroup>
+	<Import Project="..\Core_Fix_SettingsVerifier\Core_Fix_SettingsVerifier.projitems" Label="Shared" />
+	<Import Project="..\Common\Common.projitems" Label="Shared" />
 </Project>

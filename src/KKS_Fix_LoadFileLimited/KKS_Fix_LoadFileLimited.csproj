@@ -1,28 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
-    
-    
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    
-    
-    
-    
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    
-    
-    
-    
-    
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="IllusionLibs.BepInEx" Version="5.4.22" />
-    <PackageReference Include="IllusionLibs.BepInEx.Harmony" Version="2.9.0" />
-    <PackageReference Include="IllusionLibs.KoikatsuSunshine.Assembly-CSharp" Version="2021.9.17" />
-    <PackageReference Include="IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule" Version="2019.4.9" />
-  </ItemGroup>
-  <Import Project="..\Core_Fix_LoadFileLimited\Core_Fix_LoadFileLimited.projitems" Label="Shared" />
-  <Import Project="..\Common\Common.projitems" Label="Shared" />
+	<PropertyGroup>
+		<TargetFramework>net46</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="IllusionLibs.BepInEx" Version="5.4.22" />
+		<PackageReference Include="IllusionLibs.BepInEx.Harmony" Version="2.9.0" />
+		<PackageReference Include="IllusionLibs.KoikatsuSunshine.Assembly-CSharp" Version="2021.9.17" />
+		<PackageReference Include="IllusionLibs.KoikatsuSunshine.UnityEngine.CoreModule" Version="2019.4.9" />
+	</ItemGroup>
+	<Import Project="..\Core_Fix_LoadFileLimited\Core_Fix_LoadFileLimited.projitems" Label="Shared" />
+	<Import Project="..\Common\Common.projitems" Label="Shared" />
 </Project>
