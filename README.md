@@ -11,6 +11,9 @@ A collection of fixes for common issues found in Koikatu, Koikatsu Party, Emotio
 
 *Note for AI-Shoujo Steam users: If you are installing this manually for the first time, follow instructions below in the AI_Patch_SteamReleaseCompatibility section or you will have a bad time.*
 
+## How to build
+Clone the repository and open it in Visual Studio 2022. It should be as simple as building the solution. You may need to install some missing SDKs, e.g. for .NET Framework 3.5 if you don't have them already. You can find them in Visual Studio Installer under "Individual components" tab.
+
 ## Plugin descriptions
 
 ### CameraMaskResize
