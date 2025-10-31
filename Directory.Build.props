@@ -30,6 +30,7 @@
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Delete Files="$(OutputPath)\$(MSBuildProjectName).deps.json" />
+		<Delete Files="$(OutputPath)\$(AssemblyName).deps.json" />
 	</Target>
 
 	<Target Name="SkipAllRefs" AfterTargets="ResolveReferences">
