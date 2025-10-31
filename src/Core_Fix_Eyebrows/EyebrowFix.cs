@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
@@ -9,7 +9,6 @@ using IllusionUtility.GetUtility;
 using KKAPI;
 using KKAPI.Maker;
 using KKAPI.Studio;
-using System.Linq;
 using Screencap;
 using UnityEngine;
 using UnityEngine.Rendering;

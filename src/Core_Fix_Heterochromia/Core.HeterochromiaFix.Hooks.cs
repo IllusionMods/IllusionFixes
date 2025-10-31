@@ -1,6 +1,5 @@
 ﻿using ChaCustom;
 using HarmonyLib;
-using UnityEngine.UI;
 
 namespace IllusionFixes
 {

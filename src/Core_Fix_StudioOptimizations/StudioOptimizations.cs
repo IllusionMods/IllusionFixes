@@ -1,13 +1,12 @@
-﻿using BepInEx;
-using BepInEx.Logging;
-using HarmonyLib;
-using Studio;
-using System;
-using System.Text;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using BepInEx;
+using BepInEx.Logging;
+using HarmonyLib;
+using Studio;
 using UnityEngine;
 using UnityEngine.UI;
 #if AI || HS2
@@ -221,7 +220,7 @@ namespace IllusionFixes
         private static IEnumerable<CodeInstruction> StudioListLagFixTranspiler(IEnumerable<CodeInstruction> instructions)
         {
             return new CodeMatcher(instructions)
-                .MatchForward(false, 
+                .MatchForward(false,
                               new CodeMatch(OpCodes.Ldfld), // <- this is the RawImage field, it changes between the two methods
                               new CodeMatch(OpCodes.Ldloc_0),
                               new CodeMatch(OpCodes.Ldfld),

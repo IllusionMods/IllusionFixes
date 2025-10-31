@@ -1,12 +1,12 @@
-﻿using BepInEx.Configuration;
-using ChaCustom;
-using HarmonyLib;
-using Illusion.Extensions;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using BepInEx.Configuration;
+using ChaCustom;
+using HarmonyLib;
+using Illusion.Extensions;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -157,7 +157,7 @@ namespace IllusionFixes
             public static void MakerUiHideLagFix(CustomControl __instance)
             {
                 var customControl = Traverse.Create(__instance);
-                
+
                 var oldHide = __instance._hideFrontUI;
                 oldHide.Dispose();
                 var newHide = new BoolReactiveProperty(false);

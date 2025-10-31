@@ -1,13 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
+using System.Linq;
 using AIChara;
 using BepInEx;
 using BepInEx.Logging;
 using Common;
 using HarmonyLib;
 using Manager;
-using System.Linq;
 
 namespace IllusionFixes
 {

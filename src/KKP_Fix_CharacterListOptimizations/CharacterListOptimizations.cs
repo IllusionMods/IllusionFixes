@@ -1,9 +1,9 @@
-﻿using BepInEx;
+﻿using System.Linq;
+using BepInEx;
 using Common;
 using ExtensibleSaveFormat;
 using HarmonyLib;
 using Localize.Translate;
-using System.Linq;
 
 namespace IllusionFixes
 {

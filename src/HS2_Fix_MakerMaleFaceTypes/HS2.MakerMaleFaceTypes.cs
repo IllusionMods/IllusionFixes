@@ -1,10 +1,8 @@
-﻿using AIChara;
+﻿using System;
 using BepInEx;
 using CharaCustom;
 using Common;
 using KKAPI.Maker;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace IllusionFixes

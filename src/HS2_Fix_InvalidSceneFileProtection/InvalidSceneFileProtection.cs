@@ -1,6 +1,6 @@
-﻿using BepInEx;
+﻿using System.Text;
+using BepInEx;
 using Common;
-using System.Text;
 
 namespace IllusionFixes
 {

@@ -1,4 +1,7 @@
-﻿using ActionGame;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ActionGame;
 using BepInEx;
 using ChaCustom;
 using Common;
@@ -6,11 +9,10 @@ using ExtensibleSaveFormat;
 using FreeH;
 using HarmonyLib;
 using Illusion.Game;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UniRx;
 using UnityEngine.UI;
+#pragma warning disable KKANAL03
+#pragma warning disable KKANAL04
 
 namespace IllusionFixes
 {

@@ -1,8 +1,8 @@
-﻿using BepInEx;
+﻿using System.IO;
+using BepInEx;
 using BepInEx.Configuration;
 using Common;
 using HarmonyLib;
-using System.IO;
 using UploaderSystem;
 
 namespace IllusionFixes

@@ -3,11 +3,8 @@ using System.Linq;
 using BepInEx;
 using Common;
 using Config;
-using HarmonyLib;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace IllusionFixes
 {

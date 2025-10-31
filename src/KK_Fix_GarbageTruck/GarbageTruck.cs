@@ -398,7 +398,8 @@ namespace IllusionFixes
                 int id = 0;
                 matcher
                     .MatchForward(true, new CodeMatch(OpCodes.Newarr))
-                    .Repeat(m => {
+                    .Repeat(m =>
+                    {
                         var elementType = m.Instruction.operand as Type;
                         m
                             .RemoveInstruction()
@@ -414,7 +415,8 @@ namespace IllusionFixes
                             inst.opcode == OpCodes.Newobj &&
                             inst.operand is ConstructorInfo constructor &&
                             array2DTypes.ContainsKey(constructor.DeclaringType)))
-                    .Repeat(m => {
+                    .Repeat(m =>
+                    {
                         var elementType = array2DTypes[(m.Instruction.operand as ConstructorInfo).DeclaringType];
                         m
                             .RemoveInstruction()

@@ -1,10 +1,10 @@
-﻿using BepInEx;
-using Common;
-using HarmonyLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection.Emit;
+using BepInEx;
+using Common;
+using HarmonyLib;
 
 namespace IllusionFixes
 {

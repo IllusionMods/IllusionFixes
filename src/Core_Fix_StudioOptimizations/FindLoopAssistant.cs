@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -14,7 +13,7 @@ namespace IllusionFixes
             public int nextChildIndex;
             public int childCount;
 
-            public Frame ( Transform transform )
+            public Frame(Transform transform)
             {
                 parent = transform;
                 nextChildIndex = 0;
@@ -47,14 +46,14 @@ namespace IllusionFixes
         private StringBuilder _pathBuilder = new StringBuilder();
         private List<string> _reversePaths = new List<string>();
 
-        public FindLoopAssistant( IEnumerable<string> skipNames) 
+        public FindLoopAssistant(IEnumerable<string> skipNames)
         {
             _skipNames = new HashSet<string>(skipNames);
         }
 
         static Dictionary<string, int> counter = new Dictionary<string, int>();
 
-        private void ResetFindStack( Transform root )
+        private void ResetFindStack(Transform root)
         {
             _root = root;
             _childMap.Clear();
@@ -63,7 +62,7 @@ namespace IllusionFixes
             _resetFrame = Time.frameCount;
         }
 
-        public Transform FindChild( Transform root, string findName )
+        public Transform FindChild(Transform root, string findName)
         {
             if (_nameToPathMap.TryGetValue(findName, out var pathList))
             {
@@ -75,11 +74,11 @@ namespace IllusionFixes
                 }
             }
 
-            if ( _root == root && Time.frameCount == _resetFrame )
+            if (_root == root && Time.frameCount == _resetFrame)
             {
                 if (_childMap.TryGetValue(findName, out var transform))
                 {
-                    if( transform != null )
+                    if (transform != null)
                     {
                         RegisterPath(root, transform, findName);
                         return transform;
@@ -95,7 +94,7 @@ namespace IllusionFixes
                 ResetFindStack(root);
             }
 
-            while ( _findStack.Count > 0 )
+            while (_findStack.Count > 0)
             {
                 var last = _findStack[_findStack.Count - 1];
 
@@ -128,7 +127,7 @@ namespace IllusionFixes
             return null;
         }
 
-        private void RegisterPath( string findName )
+        private void RegisterPath(string findName)
         {
             var stack = _findStack;
             var builder = _pathBuilder;
@@ -136,7 +135,7 @@ namespace IllusionFixes
 
             builder.Append(stack[0].childName);
 
-            for ( int i = 1, n = stack.Count - 1; i < n; ++i )
+            for (int i = 1, n = stack.Count - 1; i < n; ++i)
             {
                 builder.Append('/');
                 builder.Append(stack[i].childName);
@@ -149,12 +148,12 @@ namespace IllusionFixes
             pathList.Add(path);
         }
 
-        private void RegisterPath( Transform root, Transform target, string findName )
+        private void RegisterPath(Transform root, Transform target, string findName)
         {
             var paths = _reversePaths;
             paths.Clear();
 
-            while( root != target )
+            while (root != target)
             {
                 paths.Add(target.name);
                 target = target.parent;
@@ -164,7 +163,7 @@ namespace IllusionFixes
             builder.Length = 0;
             builder.Append(paths[paths.Count - 1]);
 
-            for ( int i = paths.Count - 2; i >= 0; --i )
+            for (int i = paths.Count - 2; i >= 0; --i)
             {
                 builder.Append('/');
                 builder.Append(paths[i]);

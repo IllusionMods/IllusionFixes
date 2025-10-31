@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using BepInEx;
 using Common;
-using HarmonyLib;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace IllusionFixes
 {

@@ -1,4 +1,7 @@
-﻿using ADV;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using ADV;
 using AIChara;
 using BepInEx;
 using BepInEx.Logging;
@@ -7,10 +10,6 @@ using Common;
 using HarmonyLib;
 using Manager;
 using Studio;
-using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using UnityEngine;
 
 namespace IllusionFixes

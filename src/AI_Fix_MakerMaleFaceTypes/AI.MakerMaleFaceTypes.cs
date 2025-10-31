@@ -1,8 +1,8 @@
-﻿using BepInEx;
+﻿using System;
+using BepInEx;
 using CharaCustom;
 using Common;
 using KKAPI.Maker;
-using System;
 using UnityEngine;
 
 namespace IllusionFixes

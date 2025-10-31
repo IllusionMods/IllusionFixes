@@ -93,7 +93,7 @@ namespace IllusionFixes
                     {
                         // Hide in H scenes and other places
                         var isVisible = Singleton<Game>.IsInstance() && !Singleton<Game>.Instance.IsRegulate(true);
-                        if (rendererIcon.enabled != isVisible) 
+                        if (rendererIcon.enabled != isVisible)
                             rendererIcon.enabled = isVisible;
 
                         // Check if player clicked this point

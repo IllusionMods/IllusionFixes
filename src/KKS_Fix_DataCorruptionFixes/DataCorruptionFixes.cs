@@ -1,12 +1,12 @@
-﻿using ADV;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using ADV;
 using BepInEx;
 using BepInEx.Logging;
 using ChaCustom;
 using Common;
 using HarmonyLib;
-using System;
-using System.IO;
-using System.Reflection;
 
 namespace IllusionFixes
 {

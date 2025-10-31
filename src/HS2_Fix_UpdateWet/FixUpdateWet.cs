@@ -1,9 +1,9 @@
-﻿using AIChara;
+﻿using System.Linq;
+using AIChara;
 using BepInEx;
+using BepInEx.Logging;
 using Common;
 using HarmonyLib;
-using System.Linq;
-using BepInEx.Logging;
 using UnityEngine;
 
 namespace IllusionFixes

@@ -1,7 +1,6 @@
-﻿using Common;
-using HarmonyLib;
-using System;
+﻿using System;
 using System.Linq;
+using HarmonyLib;
 using UnityEngine;
 
 namespace IllusionFixes
@@ -24,6 +23,8 @@ namespace IllusionFixes
         /// </summary>
         public static void GetTexture(ChaListDefine.CategoryNo type, int id, ChaListDefine.KeyType assetBundleKey, ChaListDefine.KeyType assetKey, string addStr, ChaControl __instance, ref Texture2D __result)
         {
+#pragma warning disable KKANAL01 // The addStr check in Awake ensures that the
+#pragma warning disable KKANAL03 // GetTexture overload with addStr exists
             if (__result == null && !addStr.IsNullOrEmpty())
                 __result = __instance.GetTexture(type, id, assetBundleKey, assetKey, "");
         }

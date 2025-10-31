@@ -1,8 +1,8 @@
-﻿using BepInEx;
-using HarmonyLib;
-using Common;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection.Emit;
+using BepInEx;
+using Common;
+using HarmonyLib;
 
 namespace IllusionFixes
 {
@@ -24,7 +24,7 @@ namespace IllusionFixes
             [HarmonyTranspiler]
             [HarmonyPatch(typeof(ChaFileControl), nameof(ChaFileControl.LoadFileLimited), typeof(string), typeof(byte), typeof(bool), typeof(bool), typeof(bool), typeof(bool), typeof(bool)
 #if KKS
-                    ,typeof(bool)
+                    , typeof(bool)
 #endif
                 )]
             private static IEnumerable<CodeInstruction> MakeLoadLimitedCopyCardFileNameTooWhenCopyingParameters(IEnumerable<CodeInstruction> instructions, ILGenerator generator)

@@ -1,7 +1,7 @@
-﻿using BepInEx;
-using Common;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using BepInEx;
+using Common;
 
 namespace IllusionFixes
 {

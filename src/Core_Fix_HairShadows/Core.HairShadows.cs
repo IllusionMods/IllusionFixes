@@ -1,9 +1,9 @@
-﻿using BepInEx;
+﻿using System;
+using System.Collections.Generic;
+using BepInEx;
 using BepInEx.Logging;
 using Common;
 using HarmonyLib;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace IllusionFixes

@@ -1,10 +1,10 @@
-﻿using BepInEx;
+﻿using System.Collections.Generic;
+using System.Reflection.Emit;
+using BepInEx;
+using BepInEx.Configuration;
+using BepInEx.Logging;
 using Common;
 using HarmonyLib;
-using System.Collections.Generic;
-using System.Reflection.Emit;
-using BepInEx.Logging;
-using BepInEx.Configuration;
 
 namespace IllusionFixes
 {
@@ -31,7 +31,7 @@ namespace IllusionFixes
         [HarmonyPostfix, HarmonyPatch(typeof(Studio.SceneInfo), nameof(Studio.SceneInfo.AddLight))]
         private static void UnlimitedLights(Studio.SceneInfo __instance)
         {
-            if(__instance.lightCount > 2 && showWarning.Value)
+            if (__instance.lightCount > 2 && showWarning.Value)
                 Logger.LogMessage("Warning: Lights above 2 might not affect characters and some items!");
         }
 

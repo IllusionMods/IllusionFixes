@@ -1,13 +1,12 @@
-﻿using BepInEx.Logging;
-using HarmonyLib;
-using Studio;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
-using System.Diagnostics;
 using System.Threading;
+using BepInEx.Logging;
+using HarmonyLib;
+using Studio;
 
 namespace IllusionFixes
 {
@@ -61,7 +60,7 @@ namespace IllusionFixes
             private volatile int _remaingNewCount;
             private int _maxPool;
 
-            public PoolAllocator( int maxPool )
+            public PoolAllocator(int maxPool)
             {
                 _maxPool = maxPool;
                 _remaingNewCount = maxPool;
@@ -83,7 +82,7 @@ namespace IllusionFixes
                 return new T();
             }
 
-            public void Release( T value )
+            public void Release(T value)
             {
                 lock (_queue)
                 {
@@ -94,7 +93,7 @@ namespace IllusionFixes
 
             public void WaitAllReleased()
             {
-                lock(_queue)
+                lock (_queue)
                 {
                     while (_queue.Count < _maxPool - _remaingNewCount)
                         Monitor.Wait(_queue, 2000);
@@ -114,11 +113,11 @@ namespace IllusionFixes
 
                     var searchers = ValidStudioTokens.Select(token => new BoyerMoore(token)).ToArray();
                     int maxTokenSize = ValidStudioTokens.Max(token => token.Length);
-                    
+
                     PoolAllocator<Chunk> allocator = new PoolAllocator<Chunk>(Math.Max(4, System.Environment.ProcessorCount));
                     SearchStatus status = new SearchStatus();
 
-                    void _Search( object _chunk )
+                    void _Search(object _chunk)
                     {
                         Chunk chunk = (Chunk)_chunk;
 
@@ -151,7 +150,7 @@ namespace IllusionFixes
                         fs.Position -= maxTokenSize - 1;
                     }
 
-                    if( !status.found )
+                    if (!status.found)
                     {
                         //Waiting for search to finish
                         allocator.WaitAllReleased();

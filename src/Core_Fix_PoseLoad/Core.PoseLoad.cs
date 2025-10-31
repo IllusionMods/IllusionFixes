@@ -1,10 +1,10 @@
-﻿using BepInEx;
+﻿using System.Collections.Generic;
+using System.Linq;
+using BepInEx;
 using Common;
 using ExtensibleSaveFormat;
 using HarmonyLib;
 using Studio;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace IllusionFixes

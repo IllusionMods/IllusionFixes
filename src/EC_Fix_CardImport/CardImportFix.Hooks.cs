@@ -1,6 +1,6 @@
-﻿using HarmonyLib;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection.Emit;
+using HarmonyLib;
 
 namespace IllusionFixes
 {

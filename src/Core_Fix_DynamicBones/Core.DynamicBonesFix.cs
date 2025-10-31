@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Emit;
-using BepInEx;
+﻿using BepInEx;
 using Common;
 using HarmonyLib;
 using Illusion.Extensions;
@@ -23,9 +20,9 @@ namespace IllusionFixes
 
         internal static class Hooks
         {
-            #if KK || KKS
+#if KK || KKS
             // The game was abusing a bug in some gimmicks that got fixed by this plugin, so this changes the gimmicks to use the correct way to end the chain
-            [HarmonyPostfix,  HarmonyPatch(typeof(Studio.AddObjectItem), nameof(Studio.AddObjectItem.Load), typeof(OIItemInfo), typeof(ObjectCtrlInfo), typeof(TreeNodeObject), typeof(bool), typeof(int))]
+            [HarmonyPostfix, HarmonyPatch(typeof(Studio.AddObjectItem), nameof(Studio.AddObjectItem.Load), typeof(OIItemInfo), typeof(ObjectCtrlInfo), typeof(TreeNodeObject), typeof(bool), typeof(int))]
             internal static void GimmickLoadPostfix(OCIItem __result, OIItemInfo _info)
             {
                 // match flexible hanging gimmicks
@@ -38,9 +35,9 @@ namespace IllusionFixes
                 __result.dynamicBones[0].m_Exclusions.Add(__result.dynamicBones[0].m_notRolls.Find(t => t.name == "N_setuzoku"));
                 __result.dynamicBones[0].m_notRolls.Clear();
             }
-            #endif
-            
-            #if KK || KKS
+#endif
+
+#if KK || KKS
             // The game has a very weird structure for the dynamic bone on nipple rings which breaks if there is a leaf-particle on the chain.
             // Since this fix removed the issue that leaf particles will only be added for transforms without children,
             // the EndLength and EndOffset parameters have to actually be 0 now.  
@@ -62,8 +59,8 @@ namespace IllusionFixes
                 dynamicBone.m_EndLength = 0;
                 dynamicBone.m_EndOffset = Vector3.zero;
             }
-            #endif
-            
+#endif
+
             //Disable the SkipUpdateParticles method since it causes problems, namely causing jittering when the FPS is higher than 60
             [HarmonyPrefix, HarmonyPatch(typeof(DynamicBone), nameof(DynamicBone.SkipUpdateParticles))]
             internal static bool SkipUpdateParticles() => false;
@@ -158,12 +155,12 @@ namespace IllusionFixes
 
                         }
                     }
-                    
+
                     // we only end up here if all children were in m_Excludes or at least one child was in m_notRolls
                     if (isNotRoll) bone = bone.GetChild(index);
                     else break;
                 }
-                
+
                 // Only add a leaf particle if this particle did not append any of its children:
                 // A) It does not have children or B) all children are part of m_Exclusions
                 if (!didAppendChildren && (dynamicBone.m_EndLength > 0f || dynamicBone.m_EndOffset != Vector3.zero))
@@ -172,7 +169,7 @@ namespace IllusionFixes
                     AppendParticles(null, count, boneLength, dynamicBone);
                 }
             }
-            
+
             // divert the call to AppendParticles with a call to the rewritten AppendParticles method above
             [HarmonyPrefix, HarmonyPatch(typeof(DynamicBone), nameof(DynamicBone.AppendParticles))]
             internal static bool DivertAppendParticles(DynamicBone __instance, Transform b, int parentIndex, float boneLength)

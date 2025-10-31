@@ -1,8 +1,7 @@
-﻿using System;
+﻿using System.Diagnostics;
 using BepInEx;
 using HarmonyLib;
 using Studio;
-using System.Diagnostics;
 
 namespace IllusionFixes
 {

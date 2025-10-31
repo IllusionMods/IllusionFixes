@@ -13,7 +13,9 @@
 		<DebugSymbols>true</DebugSymbols>
 		<DebugType>embedded</DebugType>
 		<FileAlignment>512</FileAlignment>
+	</PropertyGroup>
 
+	<PropertyGroup Condition=" '$(MSBuildProjectName)' != 'Common' ">
 		<!--Add constants based on the first part of the project name e.g. KK-KKS_Fix_DynamicBones -> KK;KKS-->
 		<DefineConstants>$(MSBuildProjectName.Substring(0, $(MSBuildProjectName.IndexOf('_'))).Replace('-',';'))</DefineConstants>
 	</PropertyGroup>

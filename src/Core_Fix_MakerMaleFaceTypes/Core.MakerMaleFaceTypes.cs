@@ -1,10 +1,4 @@
-﻿using BepInEx;
-using BepInEx.Logging;
-using CharaCustom;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+﻿using BepInEx.Logging;
 
 namespace IllusionFixes
 {

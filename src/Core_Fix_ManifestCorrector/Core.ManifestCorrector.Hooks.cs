@@ -1,7 +1,7 @@
-﻿using Common;
-using HarmonyLib;
-using System;
+﻿using System;
 using System.IO;
+using Common;
+using HarmonyLib;
 
 namespace IllusionFixes
 {

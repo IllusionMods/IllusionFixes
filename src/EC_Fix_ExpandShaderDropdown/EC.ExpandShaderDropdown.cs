@@ -3,8 +3,6 @@ using System.Linq;
 using BepInEx;
 using ChaCustom;
 using Common;
-using HarmonyLib;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
