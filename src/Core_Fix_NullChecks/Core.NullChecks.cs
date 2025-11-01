@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
 using Common;
@@ -38,6 +40,25 @@ namespace IllusionFixes
                     h.Patch(methodInfo, postfix: postfix, finalizer: finalizer);
                 else
                     h.Patch(methodInfo, finalizer: finalizer);
+            }
+
+            // Catch crashes when loading corrupted coordinate files
+            // Find the Stream overload of LoadFile, it's different across games
+            var target = typeof(ChaFileCoordinate).GetMethods(BindingFlags.Instance | BindingFlags.Public)
+                                                  .FirstOrDefault(x => x.Name == nameof(ChaFileCoordinate.LoadFile) && x.GetParameters().FirstOrDefault()?.ParameterType == typeof(Stream));
+            if (target == null)
+                throw new InvalidOperationException("Failed to find ChaFileCoordinate.LoadFile");
+            var coordFinalizer = new HarmonyMethod(typeof(NullChecks), nameof(ChaFileCoordinate_LoadFile_CrashEater));
+            h.Patch(target, finalizer: coordFinalizer);
+        }
+
+        private static void ChaFileCoordinate_LoadFile_CrashEater(Stream st, ref Exception __exception, ref bool __result)
+        {
+            if (__exception != null)
+            {
+                Logger.LogWarning($"Caught an unexpected crash while trying to read a coordinate from {(st is FileStream fs ? fs.Name : st?.GetType().Name)}\n{__exception}");
+                __exception = null;
+                __result = false;
             }
         }
 
