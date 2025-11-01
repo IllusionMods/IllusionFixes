@@ -48,7 +48,8 @@ namespace IllusionFixes
                                                   .FirstOrDefault(x => x.Name == nameof(ChaFileCoordinate.LoadFile) && x.GetParameters().FirstOrDefault()?.ParameterType == typeof(Stream));
             if (target == null)
                 throw new InvalidOperationException("Failed to find ChaFileCoordinate.LoadFile");
-            h.Patch(target, finalizer: finalizer);
+            var coordFinalizer = new HarmonyMethod(typeof(NullChecks), nameof(ChaFileCoordinate_LoadFile_CrashEater));
+            h.Patch(target, finalizer: coordFinalizer);
         }
 
         private static void ChaFileCoordinate_LoadFile_CrashEater(Stream st, ref Exception __exception, ref bool __result)
