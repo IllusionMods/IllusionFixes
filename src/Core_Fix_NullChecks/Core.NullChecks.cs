@@ -45,7 +45,7 @@ namespace IllusionFixes
             // Catch crashes when loading corrupted coordinate files
             // Find the Stream overload of LoadFile, it's different across games
             var target = typeof(ChaFileCoordinate).GetMethods(BindingFlags.Instance | BindingFlags.Public)
-                                                  .First(x => x.Name == nameof(ChaFileCoordinate.LoadFile) && x.GetParameters().FirstOrDefault()?.ParameterType == typeof(Stream));
+                                                  .FirstOrDefault(x => x.Name == nameof(ChaFileCoordinate.LoadFile) && x.GetParameters().FirstOrDefault()?.ParameterType == typeof(Stream));
             if (target == null)
                 throw new InvalidOperationException("Failed to find ChaFileCoordinate.LoadFile");
             h.Patch(target, finalizer: finalizer);
