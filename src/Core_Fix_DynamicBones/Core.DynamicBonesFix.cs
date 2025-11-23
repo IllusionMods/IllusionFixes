@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using Common;
 using HarmonyLib;
 using Illusion.Extensions;
@@ -31,7 +31,7 @@ namespace IllusionFixes
                 if (no != 393 && no != 395 && no != 492 && no != 494) return;
                 if (__result.dynamicBones.Length <= 0) return;
 
-                // add N_setuzoku bone to Exclusions and clear notRolls (see https://github.com/IllusionMods/IllusionFixes/issues/76)
+                // add N_setuzoku bone to Exclusions and clear notRolls (see https://gitgoon.dev/IllusionMods/IllusionFixes/issues/76)
                 __result.dynamicBones[0].m_Exclusions.Add(__result.dynamicBones[0].m_notRolls.Find(t => t.name == "N_setuzoku"));
                 __result.dynamicBones[0].m_notRolls.Clear();
             }
@@ -55,7 +55,7 @@ namespace IllusionFixes
                 if (!structureFound) return;
                 // in case the accessory matches that specific structure, set EndLeght and EndOffset to zero
                 // this will prevent a leaf particle from being created 
-                // reference: https://github.com/IllusionMods/IllusionFixes/issues/80
+                // reference: https://gitgoon.dev/IllusionMods/IllusionFixes/issues/80
                 dynamicBone.m_EndLength = 0;
                 dynamicBone.m_EndOffset = Vector3.zero;
             }

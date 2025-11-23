@@ -1,10 +1,10 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using Common;
 
 // Information in this file is shared across all projects
 
-[assembly: AssemblyCompany("https://github.com/IllusionMods/IllusionFixes")]
+[assembly: AssemblyCompany("https://gitgoon.dev/IllusionMods/IllusionFixes")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
