@@ -9,6 +9,8 @@ using Common;
 using HarmonyLib;
 using KKAPI;
 using KKAPI.Maker;
+using KKAPI.Utilities;
+using UnityEngine;
 
 #if AI || HS2
 using AIChara;
@@ -185,6 +187,76 @@ namespace IllusionFixes
                 hairComponent.rendAccessory = hairComponent.rendAccessory.RemoveNulls();
                 hairComponent.rendHair = hairComponent.rendHair.RemoveNulls();
                 hairComponent.trfLength = hairComponent.trfLength.RemoveNulls();
+            }
+
+            [HarmonyPostfix, HarmonyWrapSafe, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.InitBaseCustomTextureClothes), typeof(bool), typeof(int))]
+            internal static void InitBaseCustomTextureClothes(bool main, int parts, ChaControl __instance)
+            {
+                var clothCmps = main ? __instance.cusClothesCmp : __instance.cusClothesSubCmp;
+                var targetCmp = clothCmps.SafeGet(parts);
+                if (targetCmp)
+                {
+                    void RemoveNullsIfAny(ref Renderer[] rendArr, string arrName)
+                    {
+                        if (rendArr == null) return;
+                        var newArr = rendArr.Where(x => x).ToArray();
+                        if (newArr.Length != rendArr.Length)
+                        {
+                            Logger.LogWarning($"Removed {rendArr.Length - newArr.Length} null renderers from {(main ? "main" : "sub")} clothes part {parts} > {arrName} for {__instance.GetFullPath()}");
+                            rendArr = newArr;
+                        }
+                    }
+
+                    RemoveNullsIfAny(ref targetCmp.rendNormal01, nameof(targetCmp.rendNormal01));
+                    RemoveNullsIfAny(ref targetCmp.rendNormal02, nameof(targetCmp.rendNormal02));
+                    RemoveNullsIfAny(ref targetCmp.rendAlpha01, nameof(targetCmp.rendAlpha01));
+#if !EC
+                    RemoveNullsIfAny(ref targetCmp.rendAlpha02, nameof(targetCmp.rendAlpha02));
+#endif
+                    try
+                    {
+                        new Action(() =>
+                        {
+#pragma warning disable KKANAL01
+#pragma warning disable KKANAL03
+                            RemoveNullsIfAny(ref targetCmp.rendNormal03, nameof(targetCmp.rendNormal03));
+#if !EC
+                            RemoveNullsIfAny(ref targetCmp.exRendEmblem01, nameof(targetCmp.exRendEmblem01));
+                            RemoveNullsIfAny(ref targetCmp.exRendEmblem02, nameof(targetCmp.exRendEmblem02));
+#endif
+#pragma warning restore KKANAL01
+#pragma warning restore KKANAL03
+                        })();
+                    }
+                    catch
+                    {
+                        // These are not present in KK without Darkness. It's safe to ignore if they are missing.
+                        // TODO: Find a way to recover these and place them in rendNormal02, not sure if unity deserialization can be tricked into doing this though
+                    }
+                }
+            }
+
+            [HarmonyPrefix, HarmonyWrapSafe, HarmonyPatch(typeof(ChaControl), nameof(ChaControl.ChangeAccessoryColor), typeof(int))]
+            internal static void ChangeAccessoryColor(int slotNo, ChaControl __instance)
+            {
+                var targetCmp = __instance.cusAcsCmp[slotNo];
+                if (targetCmp)
+                {
+                    void RemoveNullsIfAny(ref Renderer[] rendArr, string arrName)
+                    {
+                        if (rendArr == null) return;
+                        var newArr = rendArr.Where(x => x).ToArray();
+                        if (newArr.Length != rendArr.Length)
+                        {
+                            Logger.LogWarning($"Removed {rendArr.Length - newArr.Length} null renderers from accessory slot {slotNo} > {arrName} for {__instance.GetFullPath()}");
+                            rendArr = newArr;
+                        }
+                    }
+
+                    RemoveNullsIfAny(ref targetCmp.rendNormal, nameof(targetCmp.rendNormal));
+                    RemoveNullsIfAny(ref targetCmp.rendAlpha, nameof(targetCmp.rendAlpha));
+                    RemoveNullsIfAny(ref targetCmp.rendHair, nameof(targetCmp.rendHair));
+                }
             }
 #endif
 
