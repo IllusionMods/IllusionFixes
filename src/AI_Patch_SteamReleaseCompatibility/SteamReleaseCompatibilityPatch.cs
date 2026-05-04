@@ -62,7 +62,7 @@ namespace AI_Fixes
                 }
                 else
                 {
-                    Logger.Log(LogLevel.Warning | LogLevel.Message, $"Could not find {mmBaseStu.Name} to fix Studio compatibility, expect bugs!");
+                    Logger.Log(BepInEx.Logging.LogLevel.Warning | BepInEx.Logging.LogLevel.Message, $"Could not find {mmBaseStu.Name} to fix Studio compatibility, expect bugs!");
                 }
 
                 var ooBaseStu = new FileInfo(Path.Combine(Paths.GameRootPath, @"abdata\chara\oo_base_studio.unity3d"));
@@ -73,7 +73,7 @@ namespace AI_Fixes
                 }
                 else
                 {
-                    Logger.Log(LogLevel.Warning | LogLevel.Message, $"Could not find {ooBaseStu.Name} to fix Studio compatibility, expect bugs!");
+                    Logger.Log(BepInEx.Logging.LogLevel.Warning | BepInEx.Logging.LogLevel.Message, $"Could not find {ooBaseStu.Name} to fix Studio compatibility, expect bugs!");
                 }
             }
             else
@@ -90,7 +90,7 @@ namespace AI_Fixes
 
             if (!File.Exists(studioAssPath))
             {
-                Logger.Log(LogLevel.Warning | LogLevel.Message, "Cannot apply compatibility patches because studio is not installed. Expect plugin crashes!");
+                Logger.Log(BepInEx.Logging.LogLevel.Warning | BepInEx.Logging.LogLevel.Message, "Cannot apply compatibility patches because studio is not installed. Expect plugin crashes!");
                 return;
             }
 
