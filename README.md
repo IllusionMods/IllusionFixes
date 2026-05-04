@@ -14,6 +14,8 @@ A collection of fixes for common issues found in Koikatu, Koikatsu Party, Emotio
 ## How to build
 Clone the repository and open it in Visual Studio 2022. It should be as simple as building the solution. You may need to install some missing SDKs, e.g. for .NET Framework 3.5 if you don't have them already. You can find them in Visual Studio Installer under "Individual components" tab.
 
+You can get the latest nightly builds of all plugins from the [CI workflow](https://github.com/IllusionMods/IllusionFixes/actions/workflows/ci.yaml). Open the latest successful run and download the build from the Artifacts section.
+
 ## Plugin descriptions
 
 ### CameraMaskResize
