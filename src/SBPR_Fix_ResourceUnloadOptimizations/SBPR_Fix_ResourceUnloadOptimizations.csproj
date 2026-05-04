@@ -2,14 +2,11 @@
 	<PropertyGroup>
 		<TargetFramework>net35</TargetFramework>
 	</PropertyGroup>
+
 	<ItemGroup>
-		<PackageReference Include="IllusionLibs.BepInEx" Version="5.4.22" />
-		<PackageReference Include="IllusionLibs.BepInEx.Harmony" Version="2.9.0" />
 		<PackageReference Include="IllusionLibs.BepInEx.MonoMod" Version="22.1.29.1" />
-		<PackageReference Include="IllusionLibs.SexyBeachPR.Assembly-CSharp" Version="2015.12.18" />
-		<PackageReference Include="IllusionLibs.SexyBeachPR.UnityEngine" Version="4.6.7" />
-		<PackageReference Include="Microsoft.Unity.Analyzers" Version="1.21.0" />
 	</ItemGroup>
+
 	<Import Project="..\Core_Fix_ResourceUnloadOptimizations\Core_Fix_ResourceUnloadOptimizations.projitems" Label="Shared" />
 	<Import Project="..\Common\Common.projitems" Label="Shared" />
 </Project>
