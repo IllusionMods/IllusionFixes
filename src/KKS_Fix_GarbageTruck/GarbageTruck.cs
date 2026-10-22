@@ -15,9 +15,12 @@ namespace IllusionFixes
 {
     [BepInPlugin(GUID, GUID, Constants.PluginsVersion)]
     [BepInDependency(Screencap.ScreenshotManager.GUID, BepInDependency.DependencyFlags.SoftDependency)]
+    [DefaultExecutionOrder(-1000)]
     public class GarbageTruck : BaseUnityPlugin
     {
         public const string GUID = "KKS_Fix_GarbageTruck";
+
+        private static bool _screencapCapturing;
 
         private void Start()
         {
@@ -31,11 +34,13 @@ namespace IllusionFixes
             if (type != null)
             {
                 var preEvent = type.GetEvent(nameof(Screencap.ScreenshotManager.OnPreCapture), BindingFlags.Static | BindingFlags.Public);
-                if (preEvent != null) preEvent.AddEventHandler(null, new Action(() => enabled = false));
+                if (preEvent != null) preEvent.AddEventHandler(null, new Action(() => _screencapCapturing = true));
                 var postEvent = type.GetEvent(nameof(Screencap.ScreenshotManager.OnPostCapture), BindingFlags.Static | BindingFlags.Public);
-                if (postEvent != null) postEvent.AddEventHandler(null, new Action(() => enabled = true));
+                if (postEvent != null) postEvent.AddEventHandler(null, new Action(() => _screencapCapturing = false));
             }
         }
+
+        private void Update() => AntiGarbageHooks.RunUpdateJobs();
 
         private static readonly WaitForEndOfFrame _cachedWaitForEndOfFrame = new WaitForEndOfFrame();
         private IEnumerator BaseProcessUpdateJobCo()
@@ -44,7 +49,7 @@ namespace IllusionFixes
             {
                 yield return _cachedWaitForEndOfFrame;
                 // Need to check enabled here because the coroutine will still be run regardless
-                if (!enabled) continue;
+                if (_screencapCapturing) continue;
                 AntiGarbageHooks.RunUpdateJobs();
             }
         }
