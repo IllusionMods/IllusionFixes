@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Reflection.Emit;
 using BepInEx;
 using Common;
@@ -14,7 +13,6 @@ using UnityEngine;
 namespace IllusionFixes
 {
     [BepInPlugin(GUID, GUID, Constants.PluginsVersion)]
-    [BepInDependency(Screencap.ScreenshotManager.GUID, BepInDependency.DependencyFlags.SoftDependency)]
     public class GarbageTruck : BaseUnityPlugin
     {
         public const string GUID = "KKS_Fix_GarbageTruck";
@@ -24,17 +22,6 @@ namespace IllusionFixes
             Harmony.CreateAndPatchAll(typeof(AntiGarbageHooks));
 
             StartCoroutine(BaseProcessUpdateJobCo());
-
-            // If screencap is installed, disable updates while a screenshot is being taken to fix issue where with FK enabled and hands posed in a way
-            // other than the default and pose, accessories attached to fingers such as rings appear in the position they would be in with FK disabled
-            var type = Type.GetType("Screencap.ScreenshotManager, KKS_Screencap");
-            if (type != null)
-            {
-                var preEvent = type.GetEvent(nameof(Screencap.ScreenshotManager.OnPreCapture), BindingFlags.Static | BindingFlags.Public);
-                if (preEvent != null) preEvent.AddEventHandler(null, new Action(() => enabled = false));
-                var postEvent = type.GetEvent(nameof(Screencap.ScreenshotManager.OnPostCapture), BindingFlags.Static | BindingFlags.Public);
-                if (postEvent != null) postEvent.AddEventHandler(null, new Action(() => enabled = true));
-            }
         }
 
         private static readonly WaitForEndOfFrame _cachedWaitForEndOfFrame = new WaitForEndOfFrame();
@@ -42,9 +29,11 @@ namespace IllusionFixes
         {
             while (true)
             {
+                // The null yield delays the _cachedWaitForEndOfFrame yield until after Update, causing the coroutine to be scheduled
+                // after Screencap's coroutines at EOF. This is required for Screencap to capture corrected bones before they are restored.
+                // This is based on observation. Coroutine order is undocumented behavior in the Unity version used by KKS.
+                yield return null;
                 yield return _cachedWaitForEndOfFrame;
-                // Need to check enabled here because the coroutine will still be run regardless
-                if (!enabled) continue;
                 AntiGarbageHooks.RunUpdateJobs();
             }
         }
