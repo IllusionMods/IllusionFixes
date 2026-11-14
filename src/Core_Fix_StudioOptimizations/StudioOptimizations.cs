@@ -245,6 +245,21 @@ namespace IllusionFixes
             Destroy(target.texture);
         }
 
+#if KK
+        /// <summary>
+        /// Fix spamming the save scene button breaking studio UI because of stacking notification scenes which end up unloading main studio scene.
+        /// Only a problem in KK, not in newer games.
+        /// </summary>
+        [HarmonyPrefix, HarmonyPatch(typeof(SystemButtonCtrl), nameof(SystemButtonCtrl.OnClickSave))]
+        private static bool FixSaveButtonSpam()
+        {
+            if (Manager.Scene.instance.IsFind("StudioNotification"))
+                return false;
+
+            return true;
+        }
+#endif
+
 #if KK || KKS
         /// <summary>
         /// A faster version of AssignedAnotherWeights.AssignedWeightsAndSetBoundsLoop.
